@@ -1,4 +1,4 @@
-**James** is a package that have common classes and interfaces for object-oriented projects.
+**James** is a package that has common classes and interfaces for object-oriented projects.
 
 ## Dependencies 
 
