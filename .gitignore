@@ -9,6 +9,7 @@
 *.bat
 *.compiled
 *.ini
+clean.bat
 bin/
 lib/
 
