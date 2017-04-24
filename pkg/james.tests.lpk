@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="james.tests"/>
+    <Type Value="RunTimeOnly"/>
+    <AddToProjectUsesSection Value="True"/>
+    <Author Value="mdbs99"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="..\test"/>
+        <UnitOutputDirectory Value="..\test\lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <License Value="James, Tests Package
+Copyright (C) 2017 by Marcos Douglas B. Santos
+
+See the file LICENSE.txt, included in this distribution,
+for details about the copyright.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
+    <Version Minor="1"/>
+    <Files Count="4">
+      <Item1>
+        <Filename Value="..\test\james.data.tests.pas"/>
+        <UnitName Value="James.Data.Tests"/>
+      </Item1>
+      <Item2>
+        <Filename Value="..\test\james.data.stream.tests.pas"/>
+        <UnitName Value="James.Data.Stream.Tests"/>
+      </Item2>
+      <Item3>
+        <Filename Value="..\test\james.data.xml.tests.pas"/>
+        <UnitName Value="James.Data.XML.Tests"/>
+      </Item3>
+      <Item4>
+        <Filename Value="..\test\james.files.tests.pas"/>
+        <UnitName Value="James.Files.Tests"/>
+      </Item4>
+    </Files>
+    <RequiredPkgs Count="4">
+      <Item1>
+        <PackageName Value="james"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="laz_synapse"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
