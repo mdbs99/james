@@ -101,6 +101,8 @@ begin
     Result := FStream;
     Exit;
   end;
+  if not FileExists(FFileName) then
+    raise EFileNotFoundException.CreateFmt('File "%s" not found', [FFileName]);
   Buf := TFileStream.Create(FFileName, fmOpenRead);
   try
     Result := TDataStream.New(Buf);
