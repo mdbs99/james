@@ -21,27 +21,26 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Files.Clss;
+unit James.Tests.Clss;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, LazUTF8,
+  Classes, SysUtils,
   James.Data,
-  James.Data.Clss,
-  James.Files;
+  James.Files,
+  James.Files.Clss;
 
 type
-  TFile = class sealed(TInterfacedObject, IFile)
+  TJamesTestsTemplateFile = class sealed(TInterfacedObject, IFile)
   private
-    FFileName: string;
-    FStream: IDataStream;
+    FFile: IFile;
   public
-    constructor Create(const FileName: string; Stream: IDataStream);
-    class function New(const FileName: string; Stream: IDataStream): IFile;
+    constructor Create(const FileName: string);
     class function New(const FileName: string): IFile;
+    class function New: IFile;
     function Path: string;
     function Name: string;
     function FileName: string;
@@ -50,65 +49,42 @@ type
 
 implementation
 
-{ TFile }
+{ TJamesTestsTemplateFile }
 
-constructor TFile.Create(const FileName: string; Stream: IDataStream);
+constructor TJamesTestsTemplateFile.Create(const FileName: string);
 begin
   inherited Create;
-  FFileName := FileName;
-  FStream := Stream;
+  FFile := TFile.New(FileName);
 end;
 
-class function TFile.New(const FileName: string; Stream: IDataStream): IFile;
+class function TJamesTestsTemplateFile.New(const FileName: string): IFile;
 begin
-  Result := Create(FileName, Stream);
+  Result := Create(FileName);
 end;
 
-class function TFile.New(const FileName: string): IFile;
+class function TJamesTestsTemplateFile.New: IFile;
 begin
-  Result := Create(FileName, TDataStream.New(''));
+  Result := Create('james.tests.template.xml');
 end;
 
-function TFile.Path: string;
+function TJamesTestsTemplateFile.Path: string;
 begin
-  Result := SysToUTF8(
-    SysUtils.ExtractFilePath(
-      UTF8ToSys(FFileName)
-    )
-  );
+  Result := FFile.Path;
 end;
 
-function TFile.Name: string;
+function TJamesTestsTemplateFile.Name: string;
 begin
-  Result := SysToUTF8(
-    SysUtils.ExtractFileName(
-      UTF8ToSys(FFileName)
-    )
-  );
+  Result := FFile.Name;
 end;
 
-function TFile.FileName: string;
+function TJamesTestsTemplateFile.FileName: string;
 begin
-  Result := FFileName;
+  Result := FFile.FileName;
 end;
 
-function TFile.Stream: IDataStream;
-var
-  Buf: TFileStream;
+function TJamesTestsTemplateFile.Stream: IDataStream;
 begin
-  if FStream.Size > 0 then
-  begin
-    Result := FStream;
-    Exit;
-  end;
-  if not FileExists(FFileName) then
-    raise EFileNotFoundException.CreateFmt('File "%s" not found', [FFileName]);
-  Buf := TFileStream.Create(FFileName, fmOpenRead);
-  try
-    Result := TDataStream.New(Buf);
-  finally
-    Buf.Free;
-  end;
+  Result := FFile.Stream;
 end;
 
 end.

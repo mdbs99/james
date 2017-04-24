@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Tests>
+  <TStreamDividedTest>
+    <files>
+      <file-1 filename="foo.txt"  part="3" />
+      <file-2 filename="bar.txt"  part="5" />
+    </files>
+  </TStreamDividedTest>
+  <TStreamPartialFromTextTest>
+      <file-1 filename="foo.txt"  text="blablabla" />
+  </TStreamPartialFromTextTest>
+</Tests>
