@@ -67,7 +67,7 @@ var
 begin
   M := TMemoryStream.Create;
   try
-    M.WriteBuffer(TXT[1], Length(TXT));
+    M.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     M.SaveToFile(FILE_NAME);
     AssertEquals(TXT, TFile.New(FILE_NAME).Stream.AsString);
   finally
