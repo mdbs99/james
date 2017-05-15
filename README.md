@@ -1,4 +1,16 @@
-**James** is a package that has common classes and interfaces for object-oriented projects.
+**James** has common classes and interfaces for truly object-oriented projects.
+
+James is fully interface-based. It means that every class implements at least one interface.
+
+It (will) contains the basics classes for another libraries. Sometimes James may be just a wrapper to the RTL.
+
+The code have some principles:
+
+1. all classes are sealed
+2. all methods return an interface instance or primitive type
+3. all public methods are implementations of interface methods
+4. memory is released automatically
+5. there are not setters in any class
 
 ## Dependencies 
 
