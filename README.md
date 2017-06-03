@@ -21,7 +21,7 @@ The code have some principles:
 If you have questions or general suggestions, don't hesitate to submit
 a new [Github issue](https://github.com/mdbs99/james/issues/new).
 
-## License
+## License (MIT)
 
 Copyright (c) 2017 Marcos Douglas B. Santos
 
