@@ -2,11 +2,11 @@
 <Tests>
   <TStreamDividedTest>
     <files>
-      <file-1 filename="foo.txt"  part="3" />
-      <file-2 filename="bar.txt"  part="5" />
+      <file filename="foo.txt"  part="3" />
+      <file filename="bar.txt"  part="5" />
     </files>
   </TStreamDividedTest>
   <TStreamPartialFromTextTest>
-      <file-1 filename="foo.txt"  text="blablabla" />
+      <file filename="foo.txt"  text="blablabla" />
   </TStreamPartialFromTextTest>
 </Tests>
