@@ -77,7 +77,7 @@ begin
   Buf := TMemoryStream.Create;
   Ss := TStringList.Create;
   try
-    Buf.WriteBuffer(TXT[1], Length(TXT));
+    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
     AssertEquals(
       'Test Stream',
@@ -148,7 +148,7 @@ begin
   M1 := TMemoryStream.Create;
   M2 := TMemoryStream.Create;
   try
-    M1.WriteBuffer(TXT[1], Length(TXT));
+    M1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     for I := 1 to PART do
     begin
       with TStreamDivided.New(TDataStream.New(M1), I, PART) do
@@ -228,10 +228,10 @@ begin
   M1 := TMemoryStream.Create;
   M2 := TMemoryStream.Create;
   try
-    M1.WriteBuffer(TXT[1], Length(TXT));
+    M1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     with TStreamPartialFromText.New(TDataStream.New(M1), STR_PART) do
       M2.WriteBuffer(AsString[1], Size);
-    AssertEquals('Compare Size: ', Length(STR_PART), M2.Size);
+    AssertEquals('Compare Size: ', Length(STR_PART) * SizeOf(Char), M2.Size);
     AssertEquals('Compare Content: ', TDataStream.New(STR_PART).AsString, TDataStream.New(M2).AsString);
   finally
     M1.Free;
@@ -270,7 +270,7 @@ begin
         begin
           AssertEquals(
             'Compare Content: ',
-            Copy(AsString, 1, Length(TextAttr)),
+            Copy(AsString, 1, Length(TextAttr) * SizeOf(Char)),
             TextAttr
           );
         end;

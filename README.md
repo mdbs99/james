@@ -2,7 +2,7 @@
 
 James is fully interface-based. It means that every class implements at least one interface.
 
-It (will) contains the basics classes for another libraries. Sometimes James may be just a wrapper to the RTL.
+Sometimes James may be just a wrapper for RTL, LCL, or VCL.
 
 The code have some principles:
 
@@ -21,7 +21,7 @@ The code have some principles:
 If you have questions or general suggestions, don't hesitate to submit
 a new [Github issue](https://github.com/mdbs99/james/issues/new).
 
-## License
+## License (MIT)
 
 Copyright (c) 2017 Marcos Douglas B. Santos
 

@@ -53,7 +53,7 @@ begin
   Buf := TMemoryStream.Create;
   Ss := TStringList.Create;
   try
-    Buf.WriteBuffer(TXT[1], Length(TXT));
+    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
     AssertEquals('Test Stream', TXT, TDataStream.New(Buf).AsString);
     AssertEquals('Test String', TXT, TDataStream.New(TXT).AsString);
@@ -74,7 +74,7 @@ begin
   Buf := TMemoryStream.Create;
   try
     TDataStream.New(TXT).Save(Buf);
-    SetLength(S, Buf.Size);
+    SetLength(S, Buf.Size * SizeOf(Char));
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
     AssertEquals(TXT, S);
