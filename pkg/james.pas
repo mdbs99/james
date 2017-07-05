@@ -8,9 +8,9 @@ unit james;
 interface
 
 uses
-  James.Data.Clss, James.Data, James.Data.Stream.Clss, James.Data.XML.Clss, 
-  James.Files.Clss, James.Files, James.Log.Clss, James.Log, 
-  James.Format.Base64.Clss, LazarusPackageIntf;
+  James.Data.Clss, James.Data, James.Data.Stream.Clss, James.Files.Clss, 
+  James.Files, James.Log.Clss, James.Log, James.Format.Base64.Clss, 
+  James.Format.XML.Clss, LazarusPackageIntf;
 
 implementation
 
