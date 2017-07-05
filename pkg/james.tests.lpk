@@ -24,7 +24,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="1"/>
-    <Files Count="4">
+    <Files Count="5">
       <Item1>
         <Filename Value="..\test\james.data.tests.pas"/>
         <UnitName Value="James.Data.Tests"/>
@@ -41,6 +41,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <Filename Value="..\test\james.files.tests.pas"/>
         <UnitName Value="James.Files.Tests"/>
       </Item4>
+      <Item5>
+        <Filename Value="..\test\james.format.base64.tests.pas"/>
+        <UnitName Value="James.Format.Base64.Tests"/>
+      </Item5>
     </Files>
     <RequiredPkgs Count="4">
       <Item1>

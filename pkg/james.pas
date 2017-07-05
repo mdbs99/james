@@ -9,7 +9,8 @@ interface
 
 uses
   James.Data.Clss, James.Data, James.Data.Stream.Clss, James.Data.XML.Clss, 
-  James.Files.Clss, James.Files, James.Log.Clss, James.Log, LazarusPackageIntf;
+  James.Files.Clss, James.Files, James.Log.Clss, James.Log, 
+  James.Format.Base64.Clss, LazarusPackageIntf;
 
 implementation
 

@@ -37,13 +37,6 @@ uses
   James.Tests.Clss;
 
 type
-  TStreamBase64Test = class(TTestCase)
-  published
-    procedure AsString;
-    procedure SaveStream;
-    procedure SaveStrings;
-  end;
-
   TStreamDividedTest = class(TTestCase)
   published
     procedure StreamFromMemory;
@@ -62,77 +55,6 @@ type
   end;
 
 implementation
-
-uses synacode;
-
-{ TStreamBase64Test }
-
-procedure TStreamBase64Test.AsString;
-const
-  TXT = 'AEIOU123456qwert';
-var
-  Buf: TMemoryStream;
-  Ss: TStrings;
-begin
-  Buf := TMemoryStream.Create;
-  Ss := TStringList.Create;
-  try
-    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
-    Ss.Text := TXT;
-    AssertEquals(
-      'Test Stream',
-      EncodeBase64(TXT),
-      TStreamBase64.New(TDataStream.New(Buf)).AsString
-    );
-    AssertEquals(
-      'Test String',
-      EncodeBase64(TXT),
-      TStreamBase64.New(TDataStream.New(TXT)).AsString
-    );
-    AssertEquals(
-      'Test Strings',
-      EncodeBase64(TXT+#13#10),
-      TStreamBase64.New(TDataStream.New(Ss)).AsString
-    );
-  finally
-    Buf.Free;
-    Ss.Free;
-  end;
-end;
-
-procedure TStreamBase64Test.SaveStream;
-const
-  TXT = 'ABCDEFG#13#10IJL';
-var
-  Buf: TMemoryStream;
-  S: string;
-begin
-  Buf := TMemoryStream.Create;
-  try
-    TStreamBase64.New(TDataStream.New(TXT)).Save(Buf);
-    SetLength(S, Buf.Size);
-    Buf.Position := 0;
-    Buf.ReadBuffer(S[1], Buf.Size);
-    AssertEquals(EncodeBase64(TXT), S);
-  finally
-    Buf.Free;
-  end;
-end;
-
-procedure TStreamBase64Test.SaveStrings;
-const
-  TXT = 'ABCDEFG#13#10IJLMNO-PQRS';
-var
-  Ss: TStrings;
-begin
-  Ss := TStringList.Create;
-  try
-    TStreamBase64.New(TDataStream.New(TXT)).Save(Ss);
-    AssertEquals(EncodeBase64(TXT), Trim(Ss.Text));
-  finally
-    Ss.Free;
-  end;
-end;
 
 { TStreamDividedTest }
 
@@ -294,7 +216,6 @@ begin
 end;
 
 initialization
-  RegisterTest('Data.Stream', TStreamBase64Test);
   RegisterTest('Data.Stream', TStreamDividedTest);
   RegisterTest('Data.Stream', TStreamPartialFromTextTest);
   RegisterTest('Data.Stream', TStreamMD5Test);
