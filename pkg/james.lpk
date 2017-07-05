@@ -36,28 +36,28 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Data.Stream.Clss"/>
       </Item3>
       <Item4>
-        <Filename Value="..\src\james.files.clss.pas"/>
-        <UnitName Value="James.Files.Clss"/>
-      </Item4>
-      <Item5>
-        <Filename Value="..\src\james.files.pas"/>
-        <UnitName Value="James.Files"/>
-      </Item5>
-      <Item6>
         <Filename Value="..\src\james.log.clss.pas"/>
         <UnitName Value="James.Log.Clss"/>
-      </Item6>
-      <Item7>
+      </Item4>
+      <Item5>
         <Filename Value="..\src\james.log.pas"/>
         <UnitName Value="James.Log"/>
-      </Item7>
-      <Item8>
+      </Item5>
+      <Item6>
         <Filename Value="..\src\james.format.base64.clss.pas"/>
         <UnitName Value="James.Format.Base64.Clss"/>
-      </Item8>
-      <Item9>
+      </Item6>
+      <Item7>
         <Filename Value="..\src\james.format.xml.clss.pas"/>
         <UnitName Value="James.Format.XML.Clss"/>
+      </Item7>
+      <Item8>
+        <Filename Value="..\src\james.io.clss.pas"/>
+        <UnitName Value="James.IO.Clss"/>
+      </Item8>
+      <Item9>
+        <Filename Value="..\src\james.io.pas"/>
+        <UnitName Value="James.IO"/>
       </Item9>
     </Files>
     <RequiredPkgs Count="3">
