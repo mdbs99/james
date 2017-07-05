@@ -8,8 +8,8 @@ unit james.tests;
 interface
 
 uses
-  James.Data.Tests, James.Data.Stream.Tests, 
-  James.Data.XML.Tests, James.Files.Tests;
+  James.Data.Tests, James.Data.Stream.Tests, James.Data.XML.Tests, 
+  James.Files.Tests, James.Format.Base64.Tests;
 
 implementation
 
