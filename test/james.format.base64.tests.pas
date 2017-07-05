@@ -34,7 +34,7 @@ uses
   James.Format.Base64.Clss;
 
 type
-  TStreamBase64Test = class(TTestCase)
+  TBase64StreamTest = class(TTestCase)
   published
     procedure AsString;
     procedure SaveStream;
@@ -45,9 +45,9 @@ implementation
 
 uses synacode;
 
-{ TStreamBase64Test }
+{ TBase64StreamTest }
 
-procedure TStreamBase64Test.AsString;
+procedure TBase64StreamTest.AsString;
 const
   TXT = 'AEIOU123456qwert';
 var
@@ -62,17 +62,17 @@ begin
     AssertEquals(
       'Test Stream',
       EncodeBase64(TXT),
-      TStreamBase64.New(TDataStream.New(Buf)).AsString
+      TBase64Stream.New(TDataStream.New(Buf)).AsString
     );
     AssertEquals(
       'Test String',
       EncodeBase64(TXT),
-      TStreamBase64.New(TDataStream.New(TXT)).AsString
+      TBase64Stream.New(TDataStream.New(TXT)).AsString
     );
     AssertEquals(
       'Test Strings',
       EncodeBase64(TXT+#13#10),
-      TStreamBase64.New(TDataStream.New(Ss)).AsString
+      TBase64Stream.New(TDataStream.New(Ss)).AsString
     );
   finally
     Buf.Free;
@@ -80,7 +80,7 @@ begin
   end;
 end;
 
-procedure TStreamBase64Test.SaveStream;
+procedure TBase64StreamTest.SaveStream;
 const
   TXT = 'ABCDEFG#13#10IJL';
 var
@@ -89,7 +89,7 @@ var
 begin
   Buf := TMemoryStream.Create;
   try
-    TStreamBase64.New(TDataStream.New(TXT)).Save(Buf);
+    TBase64Stream.New(TDataStream.New(TXT)).Save(Buf);
     SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
@@ -99,7 +99,7 @@ begin
   end;
 end;
 
-procedure TStreamBase64Test.SaveStrings;
+procedure TBase64StreamTest.SaveStrings;
 const
   TXT = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
@@ -107,7 +107,7 @@ var
 begin
   Ss := TStringList.Create;
   try
-    TStreamBase64.New(TDataStream.New(TXT)).Save(Ss);
+    TBase64Stream.New(TDataStream.New(TXT)).Save(Ss);
     AssertEquals(EncodeBase64(TXT), Trim(Ss.Text));
   finally
     Ss.Free;
@@ -115,6 +115,6 @@ begin
 end;
 
 initialization
-  RegisterTest('Data.Stream', TStreamBase64Test);
+  RegisterTest('Data.Stream', TBase64StreamTest);
 
 end.

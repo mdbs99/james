@@ -34,10 +34,10 @@ uses
   James.Data.Clss;
 
 type
-  TStreamBase64 = class sealed(TInterfacedObject, IDataStream)
+  TBase64Stream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
-    function Base64Stream: IDataStream;
+    function OriginAsBase64: IDataStream;
   public
     constructor Create(Origin: IDataStream); reintroduce;
     class function New(Origin: IDataStream): IDataStream;
@@ -50,9 +50,9 @@ type
 
 implementation
 
-{ TStreamBase64 }
+{ TBase64Stream }
 
-function TStreamBase64.Base64Stream: IDataStream;
+function TBase64Stream.OriginAsBase64: IDataStream;
 var
   Buf1, Buf2: TStringStream;
 begin
@@ -69,40 +69,40 @@ begin
   end;
 end;
 
-constructor TStreamBase64.Create(Origin: IDataStream);
+constructor TBase64Stream.Create(Origin: IDataStream);
 begin
   inherited Create;
   FOrigin := Origin;
 end;
 
-class function TStreamBase64.New(Origin: IDataStream): IDataStream;
+class function TBase64Stream.New(Origin: IDataStream): IDataStream;
 begin
   Result := Create(Origin);
 end;
 
-function TStreamBase64.Save(Stream: TStream): IDataStream;
+function TBase64Stream.Save(Stream: TStream): IDataStream;
 begin
-  Result := Base64Stream.Save(Stream);
+  Result := OriginAsBase64.Save(Stream);
 end;
 
-function TStreamBase64.Save(const FileName: string): IDataStream;
+function TBase64Stream.Save(const FileName: string): IDataStream;
 begin
-  Result := Base64Stream.Save(FileName);
+  Result := OriginAsBase64.Save(FileName);
 end;
 
-function TStreamBase64.Save(Strings: TStrings): IDataStream;
+function TBase64Stream.Save(Strings: TStrings): IDataStream;
 begin
-  Result := Base64Stream.Save(Strings);
+  Result := OriginAsBase64.Save(Strings);
 end;
 
-function TStreamBase64.AsString: string;
+function TBase64Stream.AsString: string;
 begin
-  Result := Trim(Base64Stream.AsString);
+  Result := Trim(OriginAsBase64.AsString);
 end;
 
-function TStreamBase64.Size: Int64;
+function TBase64Stream.Size: Int64;
 begin
-  Result := Base64Stream.Size;
+  Result := OriginAsBase64.Size;
 end;
 
 end.
