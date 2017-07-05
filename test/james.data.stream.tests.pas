@@ -33,7 +33,7 @@ uses
   James.Data.Clss,
   James.Format.XML.Clss,
   James.Data.Stream.Clss,
-  James.Files.Clss,
+  James.IO.Clss,
   James.Tests.Clss;
 
 type

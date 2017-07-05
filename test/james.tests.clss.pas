@@ -30,8 +30,8 @@ interface
 uses
   Classes, SysUtils,
   James.Data,
-  James.Files,
-  James.Files.Clss;
+  James.IO,
+  James.IO.Clss;
 
 type
   TJamesTestsTemplateFile = class sealed(TInterfacedObject, IFile)
