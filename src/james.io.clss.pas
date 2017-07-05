@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Files.Clss;
+unit James.IO.Clss;
 
 {$mode objfpc}{$H+}
 
@@ -31,7 +31,7 @@ uses
   Classes, SysUtils, LazUTF8,
   James.Data,
   James.Data.Clss,
-  James.Files;
+  James.IO;
 
 type
   TFile = class sealed(TInterfacedObject, IFile)
