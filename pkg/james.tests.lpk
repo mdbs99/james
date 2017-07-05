@@ -34,16 +34,16 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Data.Stream.Tests"/>
       </Item2>
       <Item3>
-        <Filename Value="..\test\james.data.xml.tests.pas"/>
-        <UnitName Value="James.Data.XML.Tests"/>
-      </Item3>
-      <Item4>
         <Filename Value="..\test\james.files.tests.pas"/>
         <UnitName Value="James.Files.Tests"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <Filename Value="..\test\james.format.base64.tests.pas"/>
         <UnitName Value="James.Format.Base64.Tests"/>
+      </Item4>
+      <Item5>
+        <Filename Value="..\test\james.format.xml.tests.pas"/>
+        <UnitName Value="James.Format.XML.Tests"/>
       </Item5>
     </Files>
     <RequiredPkgs Count="4">
