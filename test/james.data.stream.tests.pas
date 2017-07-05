@@ -31,7 +31,7 @@ uses
   Classes, SysUtils, Laz2_DOM, fpcunit, testregistry, md5,
   James.Data,
   James.Data.Clss,
-  James.Data.XML.Clss,
+  James.Format.XML.Clss,
   James.Data.Stream.Clss,
   James.Files.Clss,
   James.Tests.Clss;
