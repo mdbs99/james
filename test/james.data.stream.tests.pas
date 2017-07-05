@@ -69,7 +69,7 @@ uses synacode;
 
 procedure TStreamBase64Test.AsString;
 const
-  TXT = 'AÉIOÚ123456qwert';
+  TXT = 'AEIOU123456qwert';
 var
   Buf: TMemoryStream;
   Ss: TStrings;
@@ -102,7 +102,7 @@ end;
 
 procedure TStreamBase64Test.SaveStream;
 const
-  TXT = 'ÁBCDÉFG#13#10IJL';
+  TXT = 'ABCDEFG#13#10IJL';
 var
   Buf: TMemoryStream;
   S: string;
@@ -121,7 +121,7 @@ end;
 
 procedure TStreamBase64Test.SaveStrings;
 const
-  TXT = 'ÁBCDÉFG#13#10IJLMNO-PQRS';
+  TXT = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
   Ss: TStrings;
 begin
@@ -138,7 +138,7 @@ end;
 
 procedure TStreamDividedTest.StreamFromMemory;
 const
-  TXT = 'ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ#58';
+  TXT = 'ABCABEC~ABCABEC~ABCABEC~ABCABEC~ABCABEC';
   PART = 11;
 var
   I: Integer;
@@ -219,8 +219,8 @@ end;
 
 procedure TStreamPartialFromTextTest.StreamFromMemory;
 const
-  STR_PART = 'Ç~#ABCÁ#10#13BCÉÇÇ#58';
-  TXT = 'ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇ%%EOF' + STR_PART;
+  STR_PART = 'C~#ABCD#10#13ABCD#58';
+  TXT = 'ABCD~ABCD~#ABCD~#ABCD%%EOF' + STR_PART;
 var
   M1: TMemoryStream;
   M2: TMemoryStream;
@@ -288,7 +288,7 @@ end;
 
 procedure TStreamMD5Test.StreamFromMemory;
 const
-  TXT = 'ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#10#13xyz';
+  TXT = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin
   AssertEquals(MD5Print(MD5String(TXT)), TStreamMD5.New(TDataStream.New(TXT)).AsString);
 end;

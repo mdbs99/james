@@ -60,7 +60,7 @@ end;
 
 procedure TFileTest.Stream;
 const
-  TXT = 'ABCÁBCÉÇÇ~#';
+  TXT = 'ABCC~#';
   FILE_NAME = 'file.txt';
 var
   M: TMemoryStream;
