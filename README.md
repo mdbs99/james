@@ -29,7 +29,11 @@ In the future, one goal is to put all dependencies as optional, using different 
 
 ## How to contribute?
 
-Just fork the repo and send us a Pull Request using the `develop` branch.
+Just fork the repository and send us a Pull Request (PR) using the `develop` branch as a point of start for your contribution.
+
+Each PR need to work only in one issue or in a [single responsibility](https://en.wikipedia.org/wiki/Single_responsibility_principle).
+
+Please, name your PR using the same style than others already closed on this project.
 
 Make sure your branch builds without any warnings/issues.
 
