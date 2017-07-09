@@ -28,26 +28,12 @@ unit James.Data.Stream.Clss;
 interface
 
 uses
-  Classes, SysUtils, md5,
+  Classes, SysUtils,
   synacode,
   James.Data,
   James.Data.Clss;
 
 type
-  TStreamBase64 = class sealed(TInterfacedObject, IDataStream)
-  private
-    FOrigin: IDataStream;
-    function Base64Stream: IDataStream;
-  public
-    constructor Create(Origin: IDataStream); reintroduce;
-    class function New(Origin: IDataStream): IDataStream;
-    function Save(Stream: TStream): IDataStream; overload;
-    function Save(const FileName: string): IDataStream; overload;
-    function Save(Strings: TStrings): IDataStream; overload;
-    function AsString: string;
-    function Size: Int64;
-  end;
-
   TStreamDivided = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
@@ -79,76 +65,7 @@ type
     function Size: Int64;
   end;
 
-  TStreamMD5 = class sealed(TInterfacedObject, IDataStream)
-  private
-    FOrigin: IDataStream;
-    function GetStream: IDataStream;
-  public
-    constructor Create(Origin: IDataStream); reintroduce;
-    class function New(Origin: IDataStream): IDataStream;
-    function Save(Stream: TStream): IDataStream; overload;
-    function Save(const FileName: string): IDataStream; overload;
-    function Save(Strings: TStrings): IDataStream; overload;
-    function AsString: string;
-    function Size: Int64;
-  end;
-
 implementation
-
-{ TStreamBase64 }
-
-function TStreamBase64.Base64Stream: IDataStream;
-var
-  Buf1, Buf2: TStringStream;
-begin
-  Buf2 := nil;
-  Buf1 := TStringStream.Create('');
-  try
-    FOrigin.Save(Buf1);
-    Buf1.Position := soFromBeginning;
-    Buf2 := TStringStream.Create(EncodeBase64(Buf1.DataString));
-    Result := TDataStream.New(Buf2);
-  finally
-    Buf1.Free;
-    Buf2.Free;
-  end;
-end;
-
-constructor TStreamBase64.Create(Origin: IDataStream);
-begin
-  inherited Create;
-  FOrigin := Origin;
-end;
-
-class function TStreamBase64.New(Origin: IDataStream): IDataStream;
-begin
-  Result := Create(Origin);
-end;
-
-function TStreamBase64.Save(Stream: TStream): IDataStream;
-begin
-  Result := Base64Stream.Save(Stream);
-end;
-
-function TStreamBase64.Save(const FileName: string): IDataStream;
-begin
-  Result := Base64Stream.Save(FileName);
-end;
-
-function TStreamBase64.Save(Strings: TStrings): IDataStream;
-begin
-  Result := Base64Stream.Save(Strings);
-end;
-
-function TStreamBase64.AsString: string;
-begin
-  Result := Trim(Base64Stream.AsString);
-end;
-
-function TStreamBase64.Size: Int64;
-begin
-  Result := Base64Stream.Size;
-end;
 
 { TStreamDivided }
 
@@ -279,55 +196,6 @@ begin
 end;
 
 function TStreamPartialFromText.Size: Int64;
-begin
-  Result := GetStream.Size;
-end;
-
-{ TStreamMD5 }
-
-function TStreamMD5.GetStream: IDataStream;
-begin
-  Result := TDataStream.New(
-    MD5Print(
-      MD5String(
-        FOrigin.AsString
-      )
-    )
-  );
-end;
-
-constructor TStreamMD5.Create(Origin: IDataStream);
-begin
-  inherited Create;
-  FOrigin := Origin;
-end;
-
-class function TStreamMD5.New(Origin: IDataStream): IDataStream;
-begin
-  Result := Create(Origin);
-end;
-
-function TStreamMD5.Save(Stream: TStream): IDataStream;
-begin
-  Result := GetStream.Save(Stream);
-end;
-
-function TStreamMD5.Save(const FileName: string): IDataStream;
-begin
-  Result := GetStream.Save(FileName);
-end;
-
-function TStreamMD5.Save(Strings: TStrings): IDataStream;
-begin
-  Result := GetStream.Save(Strings);
-end;
-
-function TStreamMD5.AsString: string;
-begin
-  Result := GetStream.AsString;
-end;
-
-function TStreamMD5.Size: Int64;
 begin
   Result := GetStream.Size;
 end;

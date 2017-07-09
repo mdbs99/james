@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Tests.Clss;
+unit James.IO;
 
 {$mode objfpc}{$H+}
 
@@ -29,18 +29,10 @@ interface
 
 uses
   Classes, SysUtils,
-  James.Data,
-  James.IO,
-  James.IO.Clss;
+  James.Data;
 
 type
-  TJamesTestsTemplateFile = class sealed(TInterfacedObject, IFile)
-  private
-    FFile: IFile;
-  public
-    constructor Create(const FileName: string);
-    class function New(const FileName: string): IFile;
-    class function New: IFile;
+  IFile = interface
     function Path: string;
     function Name: string;
     function FileName: string;
@@ -48,44 +40,6 @@ type
   end;
 
 implementation
-
-{ TJamesTestsTemplateFile }
-
-constructor TJamesTestsTemplateFile.Create(const FileName: string);
-begin
-  inherited Create;
-  FFile := TFile.New(FileName);
-end;
-
-class function TJamesTestsTemplateFile.New(const FileName: string): IFile;
-begin
-  Result := Create(FileName);
-end;
-
-class function TJamesTestsTemplateFile.New: IFile;
-begin
-  Result := Create('james.tests.template.xml');
-end;
-
-function TJamesTestsTemplateFile.Path: string;
-begin
-  Result := FFile.Path;
-end;
-
-function TJamesTestsTemplateFile.Name: string;
-begin
-  Result := FFile.Name;
-end;
-
-function TJamesTestsTemplateFile.FileName: string;
-begin
-  Result := FFile.FileName;
-end;
-
-function TJamesTestsTemplateFile.Stream: IDataStream;
-begin
-  Result := FFile.Stream;
-end;
 
 end.
 

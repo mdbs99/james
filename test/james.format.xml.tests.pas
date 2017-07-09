@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Data.XML.Tests;
+unit James.Format.XML.Tests;
 
 {$mode objfpc}{$H+}
 
@@ -29,7 +29,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testregistry,
-  James.Data.XML.Clss;
+  James.Format.XML.Clss;
 
 type
   TXMLComponentTest = class(TTestCase)

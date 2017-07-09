@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Files.Tests;
+unit James.IO.Tests;
 
 {$mode objfpc}{$H+}
 
@@ -29,7 +29,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testregistry,
-  James.Files.Clss;
+  James.IO.Clss;
 
 type
   TFileTest = class(TTestCase)
@@ -60,7 +60,7 @@ end;
 
 procedure TFileTest.Stream;
 const
-  TXT = 'ABCÁBCÉÇÇ~#';
+  TXT = 'ABCC~#';
   FILE_NAME = 'file.txt';
 var
   M: TMemoryStream;

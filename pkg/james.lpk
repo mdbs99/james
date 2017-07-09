@@ -22,7 +22,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="1"/>
-    <Files Count="8">
+    <Files Count="10">
       <Item1>
         <Filename Value="..\src\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -36,25 +36,33 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Data.Stream.Clss"/>
       </Item3>
       <Item4>
-        <Filename Value="..\src\james.data.xml.clss.pas"/>
-        <UnitName Value="James.Data.XML.Clss"/>
-      </Item4>
-      <Item5>
-        <Filename Value="..\src\james.files.clss.pas"/>
-        <UnitName Value="James.Files.Clss"/>
-      </Item5>
-      <Item6>
-        <Filename Value="..\src\james.files.pas"/>
-        <UnitName Value="James.Files"/>
-      </Item6>
-      <Item7>
         <Filename Value="..\src\james.log.clss.pas"/>
         <UnitName Value="James.Log.Clss"/>
-      </Item7>
-      <Item8>
+      </Item4>
+      <Item5>
         <Filename Value="..\src\james.log.pas"/>
         <UnitName Value="James.Log"/>
+      </Item5>
+      <Item6>
+        <Filename Value="..\src\james.format.base64.clss.pas"/>
+        <UnitName Value="James.Format.Base64.Clss"/>
+      </Item6>
+      <Item7>
+        <Filename Value="..\src\james.format.xml.clss.pas"/>
+        <UnitName Value="James.Format.XML.Clss"/>
+      </Item7>
+      <Item8>
+        <Filename Value="..\src\james.io.clss.pas"/>
+        <UnitName Value="James.IO.Clss"/>
       </Item8>
+      <Item9>
+        <Filename Value="..\src\james.io.pas"/>
+        <UnitName Value="James.IO"/>
+      </Item9>
+      <Item10>
+        <Filename Value="..\src\james.crypto.md5.clss.pas"/>
+        <UnitName Value="James.Crypto.MD5.Clss"/>
+      </Item10>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>

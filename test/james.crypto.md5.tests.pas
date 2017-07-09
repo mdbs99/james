@@ -20,26 +20,37 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-}
-unit James.Files;
+} 
+unit James.Crypto.MD5.Tests;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils,
-  James.Data;
+  Classes, SysUtils, fpcunit, testregistry, md5,
+  James.Data,
+  James.Data.Clss,
+  James.Crypto.MD5.Clss;
 
 type
-  IFile = interface
-    function Path: string;
-    function Name: string;
-    function FileName: string;
-    function Stream: IDataStream;
+  TMD5StreamTest = class(TTestCase)
+  published
+    procedure StreamFromMemory;
   end;
 
 implementation
 
-end.
+{ TMD5StreamTest }
 
+procedure TMD5StreamTest.StreamFromMemory;
+const
+  TXT = 'ABCABEC~#ABCABEC~#10#13xyz';
+begin
+  AssertEquals(MD5Print(MD5String(TXT)), TMD5Stream.New(TDataStream.New(TXT)).AsString);
+end;
+
+initialization
+  RegisterTest('Data.Stream', TMD5StreamTest);
+
+end.

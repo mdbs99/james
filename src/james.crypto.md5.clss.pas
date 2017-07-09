@@ -21,71 +21,81 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Tests.Clss;
+unit James.Crypto.MD5.Clss;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, md5,
   James.Data,
-  James.IO,
-  James.IO.Clss;
+  James.Data.Clss;
 
 type
-  TJamesTestsTemplateFile = class sealed(TInterfacedObject, IFile)
+  TMD5Stream = class sealed(TInterfacedObject, IDataStream)
   private
-    FFile: IFile;
+    FOrigin: IDataStream;
+    function GetStream: IDataStream;
   public
-    constructor Create(const FileName: string);
-    class function New(const FileName: string): IFile;
-    class function New: IFile;
-    function Path: string;
-    function Name: string;
-    function FileName: string;
-    function Stream: IDataStream;
+    constructor Create(Origin: IDataStream); reintroduce;
+    class function New(Origin: IDataStream): IDataStream;
+    function Save(Stream: TStream): IDataStream; overload;
+    function Save(const FileName: string): IDataStream; overload;
+    function Save(Strings: TStrings): IDataStream; overload;
+    function AsString: string;
+    function Size: Int64;
   end;
 
 implementation
 
-{ TJamesTestsTemplateFile }
+{ TMD5Stream }
 
-constructor TJamesTestsTemplateFile.Create(const FileName: string);
+function TMD5Stream.GetStream: IDataStream;
+begin
+  Result := TDataStream.New(
+    MD5Print(
+      MD5String(
+        FOrigin.AsString
+      )
+    )
+  );
+end;
+
+constructor TMD5Stream.Create(Origin: IDataStream);
 begin
   inherited Create;
-  FFile := TFile.New(FileName);
+  FOrigin := Origin;
 end;
 
-class function TJamesTestsTemplateFile.New(const FileName: string): IFile;
+class function TMD5Stream.New(Origin: IDataStream): IDataStream;
 begin
-  Result := Create(FileName);
+  Result := Create(Origin);
 end;
 
-class function TJamesTestsTemplateFile.New: IFile;
+function TMD5Stream.Save(Stream: TStream): IDataStream;
 begin
-  Result := Create('james.tests.template.xml');
+  Result := GetStream.Save(Stream);
 end;
 
-function TJamesTestsTemplateFile.Path: string;
+function TMD5Stream.Save(const FileName: string): IDataStream;
 begin
-  Result := FFile.Path;
+  Result := GetStream.Save(FileName);
 end;
 
-function TJamesTestsTemplateFile.Name: string;
+function TMD5Stream.Save(Strings: TStrings): IDataStream;
 begin
-  Result := FFile.Name;
+  Result := GetStream.Save(Strings);
 end;
 
-function TJamesTestsTemplateFile.FileName: string;
+function TMD5Stream.AsString: string;
 begin
-  Result := FFile.FileName;
+  Result := GetStream.AsString;
 end;
 
-function TJamesTestsTemplateFile.Stream: IDataStream;
+function TMD5Stream.Size: Int64;
 begin
-  Result := FFile.Stream;
+  Result := GetStream.Size;
 end;
 
 end.
-

@@ -28,22 +28,15 @@ unit James.Data.Stream.Tests;
 interface
 
 uses
-  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry, md5,
+  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry,
   James.Data,
   James.Data.Clss,
-  James.Data.XML.Clss,
+  James.Format.XML.Clss,
   James.Data.Stream.Clss,
-  James.Files.Clss,
+  James.IO.Clss,
   James.Tests.Clss;
 
 type
-  TStreamBase64Test = class(TTestCase)
-  published
-    procedure AsString;
-    procedure SaveStream;
-    procedure SaveStrings;
-  end;
-
   TStreamDividedTest = class(TTestCase)
   published
     procedure StreamFromMemory;
@@ -56,89 +49,13 @@ type
     procedure StreamFromFile;
   end;
 
-  TStreamMD5Test = class(TTestCase)
-  published
-    procedure StreamFromMemory;
-  end;
-
 implementation
-
-uses synacode;
-
-{ TStreamBase64Test }
-
-procedure TStreamBase64Test.AsString;
-const
-  TXT = 'AÉIOÚ123456qwert';
-var
-  Buf: TMemoryStream;
-  Ss: TStrings;
-begin
-  Buf := TMemoryStream.Create;
-  Ss := TStringList.Create;
-  try
-    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
-    Ss.Text := TXT;
-    AssertEquals(
-      'Test Stream',
-      EncodeBase64(TXT),
-      TStreamBase64.New(TDataStream.New(Buf)).AsString
-    );
-    AssertEquals(
-      'Test String',
-      EncodeBase64(TXT),
-      TStreamBase64.New(TDataStream.New(TXT)).AsString
-    );
-    AssertEquals(
-      'Test Strings',
-      EncodeBase64(TXT+#13#10),
-      TStreamBase64.New(TDataStream.New(Ss)).AsString
-    );
-  finally
-    Buf.Free;
-    Ss.Free;
-  end;
-end;
-
-procedure TStreamBase64Test.SaveStream;
-const
-  TXT = 'ÁBCDÉFG#13#10IJL';
-var
-  Buf: TMemoryStream;
-  S: string;
-begin
-  Buf := TMemoryStream.Create;
-  try
-    TStreamBase64.New(TDataStream.New(TXT)).Save(Buf);
-    SetLength(S, Buf.Size);
-    Buf.Position := 0;
-    Buf.ReadBuffer(S[1], Buf.Size);
-    AssertEquals(EncodeBase64(TXT), S);
-  finally
-    Buf.Free;
-  end;
-end;
-
-procedure TStreamBase64Test.SaveStrings;
-const
-  TXT = 'ÁBCDÉFG#13#10IJLMNO-PQRS';
-var
-  Ss: TStrings;
-begin
-  Ss := TStringList.Create;
-  try
-    TStreamBase64.New(TDataStream.New(TXT)).Save(Ss);
-    AssertEquals(EncodeBase64(TXT), Trim(Ss.Text));
-  finally
-    Ss.Free;
-  end;
-end;
 
 { TStreamDividedTest }
 
 procedure TStreamDividedTest.StreamFromMemory;
 const
-  TXT = 'ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ#58';
+  TXT = 'ABCABEC~ABCABEC~ABCABEC~ABCABEC~ABCABEC';
   PART = 11;
 var
   I: Integer;
@@ -219,8 +136,8 @@ end;
 
 procedure TStreamPartialFromTextTest.StreamFromMemory;
 const
-  STR_PART = 'Ç~#ABCÁ#10#13BCÉÇÇ#58';
-  TXT = 'ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#ABCÁBCÉÇ%%EOF' + STR_PART;
+  STR_PART = 'C~#ABCD#10#13ABCD#58';
+  TXT = 'ABCD~ABCD~#ABCD~#ABCD%%EOF' + STR_PART;
 var
   M1: TMemoryStream;
   M2: TMemoryStream;
@@ -284,19 +201,8 @@ begin
   end;
 end;
 
-{ TStreamMD5Test }
-
-procedure TStreamMD5Test.StreamFromMemory;
-const
-  TXT = 'ABCÁBCÉÇÇ~#ABCÁBCÉÇÇ~#10#13xyz';
-begin
-  AssertEquals(MD5Print(MD5String(TXT)), TStreamMD5.New(TDataStream.New(TXT)).AsString);
-end;
-
 initialization
-  RegisterTest('Data.Stream', TStreamBase64Test);
   RegisterTest('Data.Stream', TStreamDividedTest);
   RegisterTest('Data.Stream', TStreamPartialFromTextTest);
-  RegisterTest('Data.Stream', TStreamMD5Test);
 
 end.

@@ -20,19 +20,21 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-}
-unit James.Data.Tests;
+} 
+unit James.Format.Base64.Tests;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
-  James.Data.Clss;
+  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry,
+  James.Data,
+  James.Data.Clss,
+  James.Format.Base64.Clss;
 
 type
-  TDataStreamTest = class(TTestCase)
+  TBase64StreamTest = class(TTestCase)
   published
     procedure AsString;
     procedure SaveStream;
@@ -41,11 +43,13 @@ type
 
 implementation
 
-{ TDataStreamTest }
+uses synacode;
 
-procedure TDataStreamTest.AsString;
+{ TBase64StreamTest }
+
+procedure TBase64StreamTest.AsString;
 const
-  TXT = 'Line1-'#13#10'Line2-'#13#10'Line3';
+  TXT = 'AEIOU123456qwert';
 var
   Buf: TMemoryStream;
   Ss: TStrings;
@@ -55,16 +59,28 @@ begin
   try
     Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
-    AssertEquals('Test Stream', TXT, TDataStream.New(Buf).AsString);
-    AssertEquals('Test String', TXT, TDataStream.New(TXT).AsString);
-    AssertEquals('Test Strings', TXT+#13#10, TDataStream.New(Ss).AsString);
+    AssertEquals(
+      'Test Stream',
+      EncodeBase64(TXT),
+      TBase64Stream.New(TDataStream.New(Buf)).AsString
+    );
+    AssertEquals(
+      'Test String',
+      EncodeBase64(TXT),
+      TBase64Stream.New(TDataStream.New(TXT)).AsString
+    );
+    AssertEquals(
+      'Test Strings',
+      EncodeBase64(TXT+#13#10),
+      TBase64Stream.New(TDataStream.New(Ss)).AsString
+    );
   finally
     Buf.Free;
     Ss.Free;
   end;
 end;
 
-procedure TDataStreamTest.SaveStream;
+procedure TBase64StreamTest.SaveStream;
 const
   TXT = 'ABCDEFG#13#10IJL';
 var
@@ -73,17 +89,17 @@ var
 begin
   Buf := TMemoryStream.Create;
   try
-    TDataStream.New(TXT).Save(Buf);
-    SetLength(S, Buf.Size * SizeOf(Char));
+    TBase64Stream.New(TDataStream.New(TXT)).Save(Buf);
+    SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
-    AssertEquals(TXT, S);
+    AssertEquals(EncodeBase64(TXT), S);
   finally
     Buf.Free;
   end;
 end;
 
-procedure TDataStreamTest.SaveStrings;
+procedure TBase64StreamTest.SaveStrings;
 const
   TXT = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
@@ -91,14 +107,14 @@ var
 begin
   Ss := TStringList.Create;
   try
-    TDataStream.New(TXT).Save(Ss);
-    AssertEquals(TXT+#13#10, Ss.Text);
+    TBase64Stream.New(TDataStream.New(TXT)).Save(Ss);
+    AssertEquals(EncodeBase64(TXT), Trim(Ss.Text));
   finally
     Ss.Free;
   end;
 end;
 
 initialization
-  RegisterTest('Data', TDataStreamTest);
+  RegisterTest('Data.Stream', TBase64StreamTest);
 
 end.
