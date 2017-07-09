@@ -33,7 +33,7 @@ uses
   James.Data.Clss;
 
 type
-  TStreamMD5 = class sealed(TInterfacedObject, IDataStream)
+  TMD5Stream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
     function GetStream: IDataStream;
@@ -49,9 +49,9 @@ type
 
 implementation
 
-{ TStreamMD5 }
+{ TMD5Stream }
 
-function TStreamMD5.GetStream: IDataStream;
+function TMD5Stream.GetStream: IDataStream;
 begin
   Result := TDataStream.New(
     MD5Print(
@@ -62,38 +62,38 @@ begin
   );
 end;
 
-constructor TStreamMD5.Create(Origin: IDataStream);
+constructor TMD5Stream.Create(Origin: IDataStream);
 begin
   inherited Create;
   FOrigin := Origin;
 end;
 
-class function TStreamMD5.New(Origin: IDataStream): IDataStream;
+class function TMD5Stream.New(Origin: IDataStream): IDataStream;
 begin
   Result := Create(Origin);
 end;
 
-function TStreamMD5.Save(Stream: TStream): IDataStream;
+function TMD5Stream.Save(Stream: TStream): IDataStream;
 begin
   Result := GetStream.Save(Stream);
 end;
 
-function TStreamMD5.Save(const FileName: string): IDataStream;
+function TMD5Stream.Save(const FileName: string): IDataStream;
 begin
   Result := GetStream.Save(FileName);
 end;
 
-function TStreamMD5.Save(Strings: TStrings): IDataStream;
+function TMD5Stream.Save(Strings: TStrings): IDataStream;
 begin
   Result := GetStream.Save(Strings);
 end;
 
-function TStreamMD5.AsString: string;
+function TMD5Stream.AsString: string;
 begin
   Result := GetStream.AsString;
 end;
 
-function TStreamMD5.Size: Int64;
+function TMD5Stream.Size: Int64;
 begin
   Result := GetStream.Size;
 end;

@@ -34,23 +34,23 @@ uses
   James.Crypto.MD5.Clss;
 
 type
-  TStreamMD5Test = class(TTestCase)
+  TMD5StreamTest = class(TTestCase)
   published
     procedure StreamFromMemory;
   end;
 
 implementation
 
-{ TStreamMD5Test }
+{ TMD5StreamTest }
 
-procedure TStreamMD5Test.StreamFromMemory;
+procedure TMD5StreamTest.StreamFromMemory;
 const
   TXT = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin
-  AssertEquals(MD5Print(MD5String(TXT)), TStreamMD5.New(TDataStream.New(TXT)).AsString);
+  AssertEquals(MD5Print(MD5String(TXT)), TMD5Stream.New(TDataStream.New(TXT)).AsString);
 end;
 
 initialization
-  RegisterTest('Data.Stream', TStreamMD5Test);
+  RegisterTest('Data.Stream', TMD5StreamTest);
 
 end.
