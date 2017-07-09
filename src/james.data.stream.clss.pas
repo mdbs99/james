@@ -28,7 +28,7 @@ unit James.Data.Stream.Clss;
 interface
 
 uses
-  Classes, SysUtils, md5,
+  Classes, SysUtils,
   synacode,
   James.Data,
   James.Data.Clss;
@@ -58,20 +58,6 @@ type
   public
     constructor Create(Origin: IDataStream; const FromText: string); reintroduce;
     class function New(Origin: IDataStream; const FromText: string): IDataStream;
-    function Save(Stream: TStream): IDataStream; overload;
-    function Save(const FileName: string): IDataStream; overload;
-    function Save(Strings: TStrings): IDataStream; overload;
-    function AsString: string;
-    function Size: Int64;
-  end;
-
-  TStreamMD5 = class sealed(TInterfacedObject, IDataStream)
-  private
-    FOrigin: IDataStream;
-    function GetStream: IDataStream;
-  public
-    constructor Create(Origin: IDataStream); reintroduce;
-    class function New(Origin: IDataStream): IDataStream;
     function Save(Stream: TStream): IDataStream; overload;
     function Save(const FileName: string): IDataStream; overload;
     function Save(Strings: TStrings): IDataStream; overload;
@@ -210,55 +196,6 @@ begin
 end;
 
 function TStreamPartialFromText.Size: Int64;
-begin
-  Result := GetStream.Size;
-end;
-
-{ TStreamMD5 }
-
-function TStreamMD5.GetStream: IDataStream;
-begin
-  Result := TDataStream.New(
-    MD5Print(
-      MD5String(
-        FOrigin.AsString
-      )
-    )
-  );
-end;
-
-constructor TStreamMD5.Create(Origin: IDataStream);
-begin
-  inherited Create;
-  FOrigin := Origin;
-end;
-
-class function TStreamMD5.New(Origin: IDataStream): IDataStream;
-begin
-  Result := Create(Origin);
-end;
-
-function TStreamMD5.Save(Stream: TStream): IDataStream;
-begin
-  Result := GetStream.Save(Stream);
-end;
-
-function TStreamMD5.Save(const FileName: string): IDataStream;
-begin
-  Result := GetStream.Save(FileName);
-end;
-
-function TStreamMD5.Save(Strings: TStrings): IDataStream;
-begin
-  Result := GetStream.Save(Strings);
-end;
-
-function TStreamMD5.AsString: string;
-begin
-  Result := GetStream.AsString;
-end;
-
-function TStreamMD5.Size: Int64;
 begin
   Result := GetStream.Size;
 end;

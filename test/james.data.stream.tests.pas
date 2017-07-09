@@ -28,7 +28,7 @@ unit James.Data.Stream.Tests;
 interface
 
 uses
-  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry, md5,
+  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry,
   James.Data,
   James.Data.Clss,
   James.Format.XML.Clss,
@@ -47,11 +47,6 @@ type
   published
     procedure StreamFromMemory;
     procedure StreamFromFile;
-  end;
-
-  TStreamMD5Test = class(TTestCase)
-  published
-    procedure StreamFromMemory;
   end;
 
 implementation
@@ -206,18 +201,8 @@ begin
   end;
 end;
 
-{ TStreamMD5Test }
-
-procedure TStreamMD5Test.StreamFromMemory;
-const
-  TXT = 'ABCABEC~#ABCABEC~#10#13xyz';
-begin
-  AssertEquals(MD5Print(MD5String(TXT)), TStreamMD5.New(TDataStream.New(TXT)).AsString);
-end;
-
 initialization
   RegisterTest('Data.Stream', TStreamDividedTest);
   RegisterTest('Data.Stream', TStreamPartialFromTextTest);
-  RegisterTest('Data.Stream', TStreamMD5Test);
 
 end.

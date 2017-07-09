@@ -10,7 +10,7 @@ interface
 uses
   James.Data.Clss, James.Data, James.Data.Stream.Clss, James.Log.Clss, 
   James.Log, James.Format.Base64.Clss, James.Format.XML.Clss, James.IO.Clss, 
-  James.IO, LazarusPackageIntf;
+  James.IO, James.Crypto.MD5.Clss, LazarusPackageIntf;
 
 implementation
 
