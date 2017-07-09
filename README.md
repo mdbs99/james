@@ -9,7 +9,7 @@ This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus
 
 **Why**. We don't want to write procedural code anymore. We want write elegant, clean, and maintainable code using OOP. 
 
-**Principles.** The code have some design principles:
+**Principles.** The code has some design principles:
 
 * Fully interface-based
 * Memory is released automatically
