@@ -62,35 +62,122 @@ type
     function Size: Int64;
   end;
 
-  TDataResult = class sealed(TInterfacedObject, IDataResult)
+  { TODO -omdbs99 : This class is just a data bag and should be refactored, in the future }
+  TDataInformation = class(TInterfacedObject, IDataInformation)
   private
-    FValue: Variant;
-    FMessage: string;
+    FId: string;
+    FText: string;
+    FMetadata: string;
   public
-    constructor Create(Value: Variant; const Message: string);
-    class function New(Value: Variant; const Message: string): IDataResult;
-    function Value: Variant;
-    function AsBoolean: Boolean;
-    function Message: string;
+    constructor Create(const Id, Text, Metadata: string); reintroduce;
+    class function New(const Id, Text, Metadata: string): IDataInformation; overload;
+    class function New(const Id, Text: string): IDataInformation; overload;
+    class function New(const Id: string): IDataInformation; overload;
+    function Id: string;
+    function Text: string;
+    function Metadata: string;
   end;
+
+  TDataInformations = class(TInterfacedObject, IDataInformations)
+  private
+    FList: IInterfaceList;
+  public
+    constructor Create; reintroduce;
+    class function New: IDataInformations;
+    function Add(Info: IDataInformation): IDataInformations; overload;
+    function Add(Infos: IDataInformations): IDataInformations; overload;
+    function Get(Index: Integer): IDataInformation;
+    function Count: Integer;
+    function Text: string;
+  end;
+
+  TDataParam = class(TInterfacedObject, IDataParam)
+  private
+    FParam: TParam;
+  public
+    constructor Create(const Name: string; DataType: TFieldType; Value: Variant); reintroduce;
+    class function New(const Name: string; DataType: TFieldType; Value: Variant): IDataParam;
+    destructor Destroy; override;
+    function Name: string;
+    function Value: Variant;
+    function IsNull: Boolean;
+    function AsParam: TParam;
+    function AsBCD: Currency;
+    function AsBlob: TBlobData;
+    function AsBoolean: Boolean;
+    function AsCurrency: Currency;
+    function AsDate: TDateTime;
+    function AsDateTime: TDateTime;
+    function AsFloat: Double;
+    function AsInteger: LongInt;
+    function AsSmallInt: LongInt;
+    function AsMemo: string;
+    function AsString: string;
+    function AsTime: TDateTime;
+    function AsWord: LongInt;
+  end;
+
+  EDataParams = class(Exception);
 
   TDataParams = class(TInterfacedObject, IDataParams)
   private
-    FParams: TParams;
+    FList: TInterfaceList;
   public
     constructor Create;
     class function New: IDataParams; overload;
     class function New(Origin: TFields): IDataParams; overload;
     destructor Destroy; override;
-    function Add(Param: TParam): IDataParams; overload;
+    function Add(Param: IDataParam): IDataParams; overload;
     function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
-    function Param(Index: Integer): TParam; overload;
-    function Param(const ParamName: string): TParam; overload;
+    function Param(Index: Integer): IDataParam; overload;
+    function Param(const ParamName: string): IDataParam; overload;
     function Count: Integer;
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
   end;
 
+  TDataParamsAsAggregate = class(TAggregatedObject, IDataParams)
+  private
+    FOrigin: IDataParams;
+  public
+    constructor Create(const AController: IInterface; Origin: IDataParams); reintroduce;
+    function Add(Param: IDataParam): IDataParams; overload;
+    function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
+    function Param(Index: Integer): IDataParam; overload;
+    function Param(const ParamName: string): IDataParam; overload;
+    function Count: Integer;
+    function AsString(const SeparatorChar: string): string; overload;
+    function AsString: string; overload;
+  end;
+
+  TDataResult = class sealed(TInterfacedObject, IDataResult)
+  private
+    FOK: Boolean;
+    FData: IDataParams;
+    FInfos: IDataInformations;
+  public
+    constructor Create(OK: Boolean; Infos: IDataInformations; Data: IDataParams); reintroduce; overload;
+    class function New(OK: Boolean; Infos: IDataInformations; Data: IDataParams): IDataResult; overload;
+    class function New(OK: Boolean; Infos: IDataInformations): IDataResult; overload;
+    class function New(OK: Boolean; Info: IDataInformation): IDataResult; overload;
+    class function New(OK: Boolean): IDataResult; overload;
+    function OK: Boolean;
+    function Data: IDataParams;
+    function Informations: IDataInformations;
+  end;
+
+  TDataConstraints = class(TInterfacedObject, IDataConstraint, IDataConstraints)
+  private
+    FList: IInterfaceList;
+  public
+    constructor Create;
+    class function New: IDataConstraints;
+    function Add(C: IDataConstraint): IDataConstraints;
+    function Get(Index: Integer): IDataConstraint;
+    function Count: Integer;
+    function Checked: IDataResult;
+  end;
+  
 implementation
 
 { TDataStream }
@@ -225,37 +312,203 @@ begin
   Result := FOrigin.Size;
 end;
 
-{ TDataResult }
+{ TDataInformation }
 
-constructor TDataResult.Create(Value: Variant; const Message: string);
+constructor TDataInformation.Create(const Id, Text, Metadata: string);
 begin
   inherited Create;
-  FValue := Value;
-  FMessage := Message;
+  FId := Id;
+  FText := Text;
+  FMetadata := Metadata;
 end;
 
-class function TDataResult.New(Value: Variant; const Message: string
-  ): IDataResult;
+class function TDataInformation.New(const Id, Text, Metadata: string): IDataInformation;
 begin
-  Result := Create(Value, Message);
+  Result := Create(Id, Text, Metadata);
 end;
 
-function TDataResult.Value: Variant;
+class function TDataInformation.New(const Id, Text: string): IDataInformation;
 begin
-  Result := FValue;
+  Result := Create(Id, Text, Text);
 end;
 
-function TDataResult.AsBoolean: Boolean;
+class function TDataInformation.New(const Id: string): IDataInformation;
 begin
-  if VarIsNull(FValue) then
-    Result := False
-  else
-    Result := FValue;
+  Result := New(Id, '');
 end;
 
-function TDataResult.Message: string;
+function TDataInformation.Id: string;
 begin
-  Result := FMessage;
+  Result := FId;
+end;
+
+function TDataInformation.Text: string;
+begin
+  Result := FText;
+end;
+
+function TDataInformation.Metadata: string;
+begin
+  Result := FMetadata;
+end;
+
+{ TDataInformations }
+
+constructor TDataInformations.Create;
+begin
+  inherited Create;
+  FList := TInterfaceList.Create;
+end;
+
+class function TDataInformations.New: IDataInformations;
+begin
+  Result := Create;
+end;
+
+function TDataInformations.Add(Info: IDataInformation): IDataInformations;
+begin
+  Result := Self;
+  FList.Add(Info);
+end;
+
+function TDataInformations.Add(Infos: IDataInformations): IDataInformations;
+var
+  I: Integer;
+begin
+  Result := Self;
+  for I := 0 to Infos.Count -1 do
+    Add(Infos.Get(I));
+end;
+
+function TDataInformations.Get(Index: Integer): IDataInformation;
+begin
+  Result := FList.Items[Index] as IDataInformation;
+end;
+
+function TDataInformations.Count: Integer;
+begin
+  Result := FList.Count;
+end;
+
+function TDataInformations.Text: string;
+var
+  I: Integer;
+  Info: IDataInformation;
+begin
+  Result := '';
+  for I := 0 to Count -1 do
+  begin
+    Info := Get(I);
+    Result := Result + Info.Id + ': ' + Info.Text + #13;
+  end;
+  Result := Trim(Result);
+end;
+
+{ TDataParam }
+
+constructor TDataParam.Create(const Name: string; DataType: TFieldType; Value: Variant);
+begin
+  inherited Create;
+  FParam := TParam.Create(nil);
+  FParam.Name := Name;
+  FParam.DataType := DataType;
+  FParam.Value := Value;
+end;
+
+class function TDataParam.New(const Name: string; DataType: TFieldType; Value: Variant): IDataParam;
+begin
+  Result := Create(Name, DataType, Value);
+end;
+
+destructor TDataParam.Destroy;
+begin
+  FParam.Free;
+  inherited;
+end;
+
+function TDataParam.Name: string;
+begin
+  Result := FParam.Name;
+end;
+
+function TDataParam.Value: Variant;
+begin
+  Result := FParam.Value;
+end;
+
+function TDataParam.IsNull: Boolean;
+begin
+  Result := FParam.IsNull;
+end;
+
+function TDataParam.AsParam: TParam;
+begin
+  Result := FParam;
+end;
+
+function TDataParam.AsBCD: Currency;
+begin
+  Result := FParam.AsBCD;
+end;
+
+function TDataParam.AsBlob: TBlobData;
+begin
+  Result := FParam.AsBlob;
+end;
+
+function TDataParam.AsBoolean: Boolean;
+begin
+  Result := FParam.AsBoolean;
+end;
+
+function TDataParam.AsCurrency: Currency;
+begin
+  Result := FParam.AsCurrency;
+end;
+
+function TDataParam.AsDate: TDateTime;
+begin
+  Result := FParam.AsDate;
+end;
+
+function TDataParam.AsDateTime: TDateTime;
+begin
+  Result := FParam.AsDateTime;
+end;
+
+function TDataParam.AsFloat: Double;
+begin
+  Result := FParam.AsFloat;
+end;
+
+function TDataParam.AsInteger: LongInt;
+begin
+  Result := FParam.AsInteger;
+end;
+
+function TDataParam.AsSmallInt: LongInt;
+begin
+  Result := FParam.AsSmallInt;
+end;
+
+function TDataParam.AsMemo: string;
+begin
+  Result := FParam.AsMemo;
+end;
+
+function TDataParam.AsString: string;
+begin
+  Result := FParam.AsString;
+end;
+
+function TDataParam.AsTime: TDateTime;
+begin
+  Result := FParam.AsTime;
+end;
+
+function TDataParam.AsWord: LongInt;
+begin
+  Result := FParam.AsWord;
 end;
 
 { TDataParams }
@@ -263,7 +516,7 @@ end;
 constructor TDataParams.Create;
 begin
   inherited Create;
-  FParams := TParams.Create;
+  FList := TInterfaceList.Create;
 end;
 
 class function TDataParams.New: IDataParams;
@@ -275,7 +528,7 @@ class function TDataParams.New(Origin: TFields): IDataParams;
 var
   I: Integer;
 begin
-  Result := Create;
+  Result := Self.New;
   for I := 0 to Origin.Count -1 do
     with Origin[I] do
       Result.Add(FieldName, DataType, Value);
@@ -283,44 +536,50 @@ end;
 
 destructor TDataParams.Destroy;
 begin
-  FParams.Free;
-  inherited Destroy;
+  FList.Free;
+  inherited;
 end;
 
-function TDataParams.Add(Param: TParam): IDataParams;
+function TDataParams.Add(Param: IDataParam): IDataParams;
 begin
   Result := Self;
-  FParams.AddParam(Param);
+  FList.Add(Param);
 end;
 
 function TDataParams.Add(const ParamName: string; DataType: TFieldType;
   Value: Variant): IDataParams;
-var
-  P: TParam;
 begin
   Result := Self;
-  P := TParam.Create(nil);
-  P.Name := ParamName;
-  P.DataType := DataType;
-  P.Value := Value;
-  Add(P);
+  FList.Add(TDataParam.New(ParamName, DataType, Value));
 end;
 
-function TDataParams.Param(Index: Integer): TParam;
+function TDataParams.Param(Index: Integer): IDataParam;
 begin
-  Result := FParams.Items[Index];
+  Result := FList.Items[Index] as IDataParam;
 end;
 
-function TDataParams.Param(const ParamName: string): TParam;
+function TDataParams.Param(const ParamName: string): IDataParam;
+var
+  I: Integer;
+  P: IDataParam;
 begin
-  Result := FParams.FindParam(ParamName);
-  if not Assigned(Result) then
-    raise Exception.CreateFmt('Param "%s" not found.', [ParamName]);
+  P := nil;
+  for I := 0 to FList.Count -1 do
+  begin
+    P := Param(I);
+    if CompareText(P.Name, ParamName) = 0 then
+    begin
+      Result := P;
+      Exit;
+    end;
+  end;
+  if not Assigned(P) then
+    raise EDataParams.CreateFmt('Param "%s" not found.', [ParamName]);
 end;
 
 function TDataParams.Count: Integer;
 begin
-  Result := FParams.Count;
+  Result := FList.Count;
 end;
 
 function TDataParams.AsString(const SeparatorChar: string): string;
@@ -339,6 +598,145 @@ end;
 function TDataParams.AsString: string;
 begin
   Result := AsString(',');
+end;
+
+{ TDataParamsAsAggregate }
+
+constructor TDataParamsAsAggregate.Create(const AController: IInterface;
+  Origin: IDataParams);
+begin
+  inherited Create(AController);
+  FOrigin := Origin;
+end;
+
+function TDataParamsAsAggregate.Add(Param: IDataParam): IDataParams;
+begin
+  Result := FOrigin.Add(Param);
+end;
+
+function TDataParamsAsAggregate.Add(const ParamName: string; DataType: TFieldType;
+  Value: Variant): IDataParams;
+begin
+  Result := FOrigin.Add(ParamName, DataType, Value);
+end;
+
+function TDataParamsAsAggregate.Param(Index: Integer): IDataParam;
+begin
+  Result := FOrigin.Param(Index);
+end;
+
+function TDataParamsAsAggregate.Param(const ParamName: string): IDataParam;
+begin
+  Result := FOrigin.Param(ParamName);
+end;
+
+function TDataParamsAsAggregate.Count: Integer;
+begin
+  Result := FOrigin.Count;
+end;
+
+function TDataParamsAsAggregate.AsString(const SeparatorChar: string): string;
+begin
+  Result := FOrigin.AsString(SeparatorChar);
+end;
+
+function TDataParamsAsAggregate.AsString: string;
+begin
+  Result := FOrigin.AsString;
+end;
+
+{ TDataResult }
+
+constructor TDataResult.Create(OK: Boolean; Infos: IDataInformations; Data: IDataParams);
+begin
+  inherited Create;
+  FOK := OK;
+  FData := Data;
+  FInfos := Infos;
+end;
+
+class function TDataResult.New(OK: Boolean; Infos: IDataInformations;
+  Data: IDataParams): IDataResult;
+begin
+  Result := Create(OK, Infos, Data);
+end;
+
+class function TDataResult.New(OK: Boolean; Infos: IDataInformations): IDataResult;
+begin
+  Result := Create(OK, Infos, TDataParams.New);
+end;
+
+class function TDataResult.New(OK: Boolean; Info: IDataInformation): IDataResult;
+begin
+  Result := New(OK, TDataInformations.New.Add(Info));
+end;
+
+class function TDataResult.New(OK: Boolean): IDataResult;
+begin
+  Result := New(OK, TDataInformation.New('RESULT'));
+end;
+
+function TDataResult.OK: Boolean;
+begin
+  Result := FOK;
+end;
+
+function TDataResult.Data: IDataParams;
+begin
+  Result := FData;
+end;
+
+function TDataResult.Informations: IDataInformations;
+begin
+  Result := FInfos;
+end;
+
+{ TDataConstraints }
+
+constructor TDataConstraints.Create;
+begin
+  inherited Create;
+  FList := TInterfaceList.Create
+end;
+
+class function TDataConstraints.New: IDataConstraints;
+begin
+  Result := Create;
+end;
+
+function TDataConstraints.Add(C: IDataConstraint): IDataConstraints;
+begin
+  Result := Self;
+  FList.Add(C);
+end;
+
+function TDataConstraints.Get(Index: Integer): IDataConstraint;
+begin
+  Result := FList.Items[Index] as IDataConstraint;
+end;
+
+function TDataConstraints.Count: Integer;
+begin
+  Result := FList.Count;
+end;
+
+function TDataConstraints.Checked: IDataResult;
+var
+  I: Integer;
+  OK: Boolean;
+  R: IDataResult;
+  Infos: IDataInformations;
+begin
+  OK := True;
+  Infos := TDataInformations.New;
+  for I := 0 to Count-1 do
+  begin
+    R := Get(I).Checked;
+    if not R.OK then
+      OK := False;
+    Infos.Add(R.Informations);
+  end;
+  Result := TDataResult.New(OK, Infos);
 end;
 
 end.
