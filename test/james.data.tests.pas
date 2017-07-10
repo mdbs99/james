@@ -39,6 +39,13 @@ type
     procedure SaveStrings;
   end;
 
+  TDataInformationsTest = class(TTestCase)
+  published
+    procedure ReceiveInformation;
+    procedure ReceiveInformations;
+    procedure Counter;
+  end;
+
 implementation
 
 { TDataStreamTest }
@@ -98,7 +105,44 @@ begin
   end;
 end;
 
+{ TDataInformationsTest }
+
+procedure TDataInformationsTest.ReceiveInformation;
+begin
+  AssertEquals(
+    'foo: data',
+    TDataInformations.New
+      .Add(TDataInformation.New('foo', 'data'))
+      .Text
+  );
+end;
+
+procedure TDataInformationsTest.ReceiveInformations;
+begin
+  AssertEquals(
+    'foo: data 1'#13'foo: data 2'#13'foo: data 3',
+    TDataInformations.New
+      .Add(TDataInformation.New('foo', 'data 1'))
+      .Add(TDataInformation.New('foo', 'data 2'))
+      .Add(TDataInformation.New('foo', 'data 3'))
+      .Text
+  );
+end;
+
+procedure TDataInformationsTest.Counter;
+begin
+  AssertEquals(
+    3,
+    TDataInformations.New
+      .Add(TDataInformation.New('foo'))
+      .Add(TDataInformation.New('foo'))
+      .Add(TDataInformation.New('foo'))
+      .Count
+  );
+end;
+
 initialization
   RegisterTest('Data', TDataStreamTest);
+  RegisterTest('Data', TDataInformationsTest);
 
 end.

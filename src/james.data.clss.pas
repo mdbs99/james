@@ -62,6 +62,7 @@ type
     function Size: Int64;
   end;
 
+  { TODO -omdbs99 : This class is just a data bag and should be refactored, in the future }
   TDataInformation = class(TInterfacedObject, IDataInformation)
   private
     FId: string;
@@ -400,6 +401,7 @@ begin
     Info := Get(I);
     Result := Result + Info.Id + ': ' + Info.Text + #13;
   end;
+  Result := Trim(Result);
 end;
 
 { TDataParam }
