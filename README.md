@@ -1,22 +1,41 @@
-**James** has common classes and interfaces for truly object-oriented projects.
+# James
 
-James is fully interface-based. It means that every class implements at least one interface.
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/mdbs99/james/blob/master/README.md)
 
-Sometimes James may be just a wrapper for RTL, LCL, or VCL.
+**ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
 
-The code have some principles:
+**What is**. James is a collection of classes and interfaces for truly object-oriented projects written in Object Pascal.
+This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, make it compatible with Delphi could be possible or even might be a goal (we are depending of more contributors to make it possible).
 
-1. all classes are sealed
-2. all methods return an interface instance or primitive type
-3. all public methods are implementations of interface methods
-4. memory is released automatically
-5. there are not setters in any class
+**Why**. We don't want to write procedural code anymore. We want write elegant, clean, and maintainable code using OOP. 
 
-## Dependencies 
+**Principles.** The code has some design principles:
+
+* Fully interface-based
+* Memory is released automatically
+* All public methods are implementations of interface methods
+* All public methods return an interface instance or primitive type
+* No usage of NULL in arguments or returns
+* No algorithms in constructors
+* No getters and setters
+* No type casting or reflection
+* No procedures and functions, only Objects
+
+**Dependencies**. For now, we have some dependencies:
 
 * [Synapse](http://synapse.ararat.cz/doku.php/download)
 
-## Got questions?
+In the future, one goal is to put all dependencies as optional, using different packages.
+
+## How to contribute?
+
+Just fork the repository and send us a Pull Request (PR) using the `develop` branch as a point of start for your contribution.
+
+Each PR need to work only in one issue or in a [single responsibility](https://en.wikipedia.org/wiki/Single_responsibility_principle).
+
+Please, name your PR using the same style than others already closed on this project.
+
+Make sure your branch builds without any warnings/issues.
 
 If you have questions or general suggestions, don't hesitate to submit
 a new [Github issue](https://github.com/mdbs99/james/issues/new).
