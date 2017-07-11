@@ -10,8 +10,9 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
+        <IncludeFiles Value="..\inc"/>
         <OtherUnitFiles Value="..\test"/>
-        <UnitOutputDirectory Value="..\test\lib\$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <License Value="James, Tests Package
