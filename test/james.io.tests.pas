@@ -23,7 +23,7 @@
 }
 unit James.IO.Tests;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 

@@ -23,7 +23,7 @@
 }
 unit James.Crypto.MD5.Clss;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 

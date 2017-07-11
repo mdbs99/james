@@ -23,7 +23,7 @@
 } 
 unit James.Data.Stream.Tests;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 

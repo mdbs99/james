@@ -23,7 +23,7 @@
 } 
 unit James.Format.XML.Clss;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 

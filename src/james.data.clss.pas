@@ -23,7 +23,7 @@
 }
 unit James.Data.Clss;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 
@@ -564,6 +564,7 @@ var
   P: IDataParam;
 begin
   P := nil;
+  Result := nil;
   for I := 0 to FList.Count -1 do
   begin
     P := Param(I);

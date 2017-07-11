@@ -23,7 +23,7 @@
 }
 unit James.Data;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 

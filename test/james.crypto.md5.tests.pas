@@ -23,7 +23,7 @@
 } 
 unit James.Crypto.MD5.Tests;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 

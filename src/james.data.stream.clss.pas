@@ -23,13 +23,12 @@
 }
 unit James.Data.Stream.Clss;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 
 uses
   Classes, SysUtils,
-  synacode,
   James.Data,
   James.Data.Clss;
 

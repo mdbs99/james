@@ -23,7 +23,7 @@
 }
 program james.tests.gui;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 uses
   Interfaces, Forms, james.tests, GuiTestRunner, fpcunittestrunner;

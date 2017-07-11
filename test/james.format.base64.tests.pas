@@ -23,7 +23,7 @@
 } 
 unit James.Format.Base64.Tests;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 

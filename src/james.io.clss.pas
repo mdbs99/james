@@ -23,7 +23,7 @@
 }
 unit James.IO.Clss;
 
-{$mode objfpc}{$H+}
+{$include james.inc}
 
 interface
 
