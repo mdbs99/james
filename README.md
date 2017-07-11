@@ -4,7 +4,7 @@
 
 **ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
 
-**What is**. James is a collection of classes and interfaces for truly object-oriented projects written in Object Pascal.
+James is a collection of classes and interfaces for truly object-oriented projects written in Object Pascal.
 This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, make it compatible with Delphi could be possible or even might be a goal (we are depending of more contributors to make it possible).
 
 **Why**. We don't want to write procedural code anymore. We want write elegant, clean, and maintainable code using OOP. 
