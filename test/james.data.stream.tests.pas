@@ -37,13 +37,13 @@ uses
   James.Tests.Clss;
 
 type
-  TStreamDividedTest = class(TTestCase)
+  TDataDividedStreamTest = class(TTestCase)
   published
     procedure StreamFromMemory;
     procedure StreamFromFile;
   end;
 
-  TStreamPartialFromTextTest = class(TTestCase)
+  TDataPartialFromTextStreamTest = class(TTestCase)
   published
     procedure StreamFromMemory;
     procedure StreamFromFile;
@@ -51,9 +51,9 @@ type
 
 implementation
 
-{ TStreamDividedTest }
+{ TDataDividedStreamTest }
 
-procedure TStreamDividedTest.StreamFromMemory;
+procedure TDataDividedStreamTest.StreamFromMemory;
 const
   TXT = 'ABCABEC~ABCABEC~ABCABEC~ABCABEC~ABCABEC';
   PART = 11;
@@ -68,7 +68,7 @@ begin
     M1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     for I := 1 to PART do
     begin
-      with TStreamDivided.New(TDataStream.New(M1), I, PART) do
+      with TDataDividedStream.New(TDataStream.New(M1), I, PART) do
         M2.WriteBuffer(AsString[1], Size);
     end;
     AssertEquals('Compare Size: ', M1.Size, M2.Size);
@@ -79,7 +79,7 @@ begin
   end;
 end;
 
-procedure TStreamDividedTest.StreamFromFile;
+procedure TDataDividedStreamTest.StreamFromFile;
 var
   I: Integer;
   Part: Integer;
@@ -111,7 +111,7 @@ begin
         Part := StrToInt(Node.Attributes.GetNamedItem('part').TextContent);
         for I := 1 to Part do
         begin
-          with TStreamDivided.New(TDataStream.New(M1), I, Part) do
+          with TDataDividedStream.New(TDataStream.New(M1), I, Part) do
             M2.WriteBuffer(AsString[1], Size);
         end;
         AssertEquals(
@@ -132,9 +132,9 @@ begin
   end;
 end;
 
-{ TStreamPartialFromTextTest }
+{ TDataPartialFromTextStreamTest }
 
-procedure TStreamPartialFromTextTest.StreamFromMemory;
+procedure TDataPartialFromTextStreamTest.StreamFromMemory;
 const
   STR_PART = 'C~#ABCD#10#13ABCD#58';
   TXT = 'ABCD~ABCD~#ABCD~#ABCD%%EOF' + STR_PART;
@@ -146,7 +146,7 @@ begin
   M2 := TMemoryStream.Create;
   try
     M1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
-    with TStreamPartialFromText.New(TDataStream.New(M1), STR_PART) do
+    with TDataPartialFromTextStream.New(TDataStream.New(M1), STR_PART) do
       M2.WriteBuffer(AsString[1], Size);
     AssertEquals('Compare Size: ', Length(STR_PART) * SizeOf(Char), M2.Size);
     AssertEquals('Compare Content: ', TDataStream.New(STR_PART).AsString, TDataStream.New(M2).AsString);
@@ -156,7 +156,7 @@ begin
   end;
 end;
 
-procedure TStreamPartialFromTextTest.StreamFromFile;
+procedure TDataPartialFromTextStreamTest.StreamFromFile;
 var
   M1: TMemoryStream;
   Template: TXMLComponent;
@@ -183,7 +183,7 @@ begin
         )
         .Stream
         .Save(M1);
-        with TStreamPartialFromText.New(TDataStream.New(M1), TextAttr) do
+        with TDataPartialFromTextStream.New(TDataStream.New(M1), TextAttr) do
         begin
           AssertEquals(
             'Compare Content: ',
@@ -202,7 +202,7 @@ begin
 end;
 
 initialization
-  RegisterTest('Data.Stream', TStreamDividedTest);
-  RegisterTest('Data.Stream', TStreamPartialFromTextTest);
+  RegisterTest('Data.Stream', TDataDividedStreamTest);
+  RegisterTest('Data.Stream', TDataPartialFromTextStreamTest);
 
 end.

@@ -34,7 +34,7 @@ uses
   James.Data.Clss;
 
 type
-  TStreamDivided = class sealed(TInterfacedObject, IDataStream)
+  TDataDividedStream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
     FFromPos: Integer;
@@ -50,7 +50,7 @@ type
     function Size: Int64;
   end;
 
-  TStreamPartialFromText = class sealed(TInterfacedObject, IDataStream)
+  TDataPartialFromTextStream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
     FFromText: string;
@@ -67,9 +67,9 @@ type
 
 implementation
 
-{ TStreamDivided }
+{ TDataDividedStream }
 
-function TStreamDivided.GetStream: IDataStream;
+function TDataDividedStream.GetStream: IDataStream;
 var
   M: TMemoryStream;
   B: TBytes;
@@ -97,7 +97,7 @@ begin
   end;
 end;
 
-constructor TStreamDivided.Create(Origin: IDataStream;
+constructor TDataDividedStream.Create(Origin: IDataStream;
   FromPos, TotalPos: Integer);
 begin
   inherited Create;
@@ -106,40 +106,40 @@ begin
   FTotalPos := TotalPos;
 end;
 
-class function TStreamDivided.New(Origin: IDataStream;
+class function TDataDividedStream.New(Origin: IDataStream;
   FromPos, TotalPos: Integer): IDataStream;
 begin
   Result := Create(Origin, FromPos, TotalPos);
 end;
 
-function TStreamDivided.Save(Stream: TStream): IDataStream;
+function TDataDividedStream.Save(Stream: TStream): IDataStream;
 begin
   Result := GetStream.Save(Stream);
 end;
 
-function TStreamDivided.Save(const FileName: string): IDataStream;
+function TDataDividedStream.Save(const FileName: string): IDataStream;
 begin
   Result := GetStream.Save(FileName);
 end;
 
-function TStreamDivided.Save(Strings: TStrings): IDataStream;
+function TDataDividedStream.Save(Strings: TStrings): IDataStream;
 begin
   Result := GetStream.Save(Strings);
 end;
 
-function TStreamDivided.AsString: string;
+function TDataDividedStream.AsString: string;
 begin
   Result := GetStream.AsString;
 end;
 
-function TStreamDivided.Size: Int64;
+function TDataDividedStream.Size: Int64;
 begin
   Result := GetStream.Size;
 end;
 
-{ TStreamPartialFromText }
+{ TDataPartialFromTextStream }
 
-function TStreamPartialFromText.GetStream: IDataStream;
+function TDataPartialFromTextStream.GetStream: IDataStream;
 var
   M: TMemoryStream;
   S: AnsiString;
@@ -161,7 +161,7 @@ begin
   end;
 end;
 
-constructor TStreamPartialFromText.Create(Origin: IDataStream;
+constructor TDataPartialFromTextStream.Create(Origin: IDataStream;
   const FromText: string);
 begin
   inherited Create;
@@ -169,33 +169,33 @@ begin
   FFromText := FromText;
 end;
 
-class function TStreamPartialFromText.New(Origin: IDataStream;
+class function TDataPartialFromTextStream.New(Origin: IDataStream;
   const FromText: string): IDataStream;
 begin
   Result := Create(Origin, FromText);
 end;
 
-function TStreamPartialFromText.Save(Stream: TStream): IDataStream;
+function TDataPartialFromTextStream.Save(Stream: TStream): IDataStream;
 begin
   Result := GetStream.Save(Stream);
 end;
 
-function TStreamPartialFromText.Save(const FileName: string): IDataStream;
+function TDataPartialFromTextStream.Save(const FileName: string): IDataStream;
 begin
   Result := GetStream.Save(FileName);
 end;
 
-function TStreamPartialFromText.Save(Strings: TStrings): IDataStream;
+function TDataPartialFromTextStream.Save(Strings: TStrings): IDataStream;
 begin
   Result := GetStream.Save(Strings);
 end;
 
-function TStreamPartialFromText.AsString: string;
+function TDataPartialFromTextStream.AsString: string;
 begin
   Result := GetStream.AsString;
 end;
 
-function TStreamPartialFromText.Size: Int64;
+function TDataPartialFromTextStream.Size: Int64;
 begin
   Result := GetStream.Size;
 end;
