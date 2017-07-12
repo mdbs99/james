@@ -21,4 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-{$mode objfpc}{$H+}
+
+{$IFDEF FPC}
+  {$mode objfpc}{$H+}
+{$ENDIF}

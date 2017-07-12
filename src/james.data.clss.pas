@@ -36,16 +36,16 @@ type
   private
     FStream: TMemoryStream;
   public
-    constructor Create(Stream: TStream);
-    constructor Create(const S: string);
-    class function New(Stream: TStream): IDataStream;
-    class function New(const S: string): IDataStream;
-    class function New(Strings: TStrings): IDataStream;
+    constructor Create(Stream: TStream); Overload;
+    constructor Create(const S: string); Overload;
+    class function New(Stream: TStream): IDataStream; Overload;
+    class function New(const S: string): IDataStream; Overload;
+    class function New(Strings: TStrings): IDataStream; Overload;
     class function New: IDataStream; overload;
     destructor Destroy; override;
-    function Save(Stream: TStream): IDataStream;
-    function Save(Strings: TStrings): IDataStream;
-    function Save(const FileName: string): IDataStream;
+    function Save(Stream: TStream): IDataStream; Overload;
+    function Save(Strings: TStrings): IDataStream; Overload;
+    function Save(const FileName: string): IDataStream; Overload;
     function AsString: string;
     function Size: Int64;
   end;
@@ -55,9 +55,9 @@ type
     FOrigin: IDataStream;
   public
     constructor Create(const aController: IUnknown; Origin: IDataStream);
-    function Save(Stream: TStream): IDataStream;
-    function Save(Strings: TStrings): IDataStream;
-    function Save(const FileName: string): IDataStream;
+    function Save(Stream: TStream): IDataStream; Overload;
+    function Save(Strings: TStrings): IDataStream; Overload;
+    function Save(const FileName: string): IDataStream; Overload;
     function AsString: string;
     function Size: Int64;
   end;

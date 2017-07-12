@@ -73,8 +73,9 @@ var
   M: TMemoryStream;
   B: TBytes;
   ParcelaBytes: Int64;
-  Offset: Int64 = 0;
+  Offset: Int64;
 begin
+  Offset := 0;
   M := TMemoryStream.Create;
   try
     FOrigin.Save(M);
@@ -142,7 +143,7 @@ function TDataPartialFromTextStream.GetStream: IDataStream;
 var
   M: TMemoryStream;
   S: AnsiString;
-  P: SizeInt;
+  P: {$IFDEF FPC}SizeInt{$ELSE}NativeInt{$ENDIF};
 begin
   S := '';
   M := TMemoryStream.Create;

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2017-07-12 00:08:25.855,=rtl.dcp</Transaction>
+    <Transaction>2017-07-12 00:09:19.531,E:\Users\nunopicado\Dropbox\Delphi\james\delphi\D10Seattle.dproj=E:\Users\nunopicado\Documents\Embarcadero\Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>2017-07-12 00:10:31.973,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.crypto.md5.clss.pas</Transaction>
+    <Transaction>2017-07-12 00:10:31.988,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.data.clss.pas</Transaction>
+    <Transaction>2017-07-12 00:10:32.002,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.data.pas</Transaction>
+    <Transaction>2017-07-12 00:10:32.015,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.data.stream.clss.pas</Transaction>
+    <Transaction>2017-07-12 00:10:32.029,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.format.base64.clss.pas</Transaction>
+    <Transaction>2017-07-12 00:10:32.042,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.format.xml.clss.pas</Transaction>
+    <Transaction>2017-07-12 00:10:32.055,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.io.clss.pas</Transaction>
+    <Transaction>2017-07-12 00:10:32.069,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.io.pas</Transaction>
+    <Transaction>2017-07-12 00:10:32.081,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.log.clss.pas</Transaction>
+    <Transaction>2017-07-12 00:10:32.094,=E:\Users\nunopicado\Dropbox\Delphi\james\src\james.log.pas</Transaction>
+    <Transaction>2017-07-12 00:10:51.546,=E:\Users\nunopicado\Dropbox\Delphi\james\inc\james.inc</Transaction>
+    <Transaction>2017-07-12 00:47:49.072,=xmlrtl.dcp</Transaction>
+    <Transaction>2017-07-12 00:47:49.075,=dbrtl.dcp</Transaction>
+    <Transaction>2017-07-12 00:47:49.078,=IndySystem.dcp</Transaction>
+    <Transaction>2017-07-12 00:47:49.082,=IndyProtocols.dcp</Transaction>
+    <Transaction>2017-07-12 00:47:49.085,=IndyCore.dcp</Transaction>
+  </Transactions>
+</BorlandProject>
