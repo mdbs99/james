@@ -84,7 +84,7 @@
       <Filename Value="..\bin\james.tests.gui"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)"/>
+      <IncludeFiles Value="$(ProjOutDir);..\inc"/>
       <UnitOutputDirectory Value="..\bin\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
