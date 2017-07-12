@@ -47,15 +47,15 @@ type
   private
     FDocument: TXMLDocument;
   public
-    constructor Create(Stream: TStream); Overload;
-    constructor Create(Stream: IDataStream); Overload;
-    constructor Create(Strings: TStrings); Overload;
-    constructor Create(const S: string); Overload;
+    constructor Create(Stream: TStream); overload;
+    constructor Create(Stream: IDataStream); overload;
+    constructor Create(Strings: TStrings); overload;
+    constructor Create(const S: string); overload;
     destructor Destroy; override;
     function Document: TXMLDocument;
-    function SaveTo(Stream: TStream): TXMLComponent; Overload;
-    function SaveTo(Strings: TStrings): TXMLComponent; Overload;
-    function SaveTo(const FileName: string): TXMLComponent; Overload;
+    function SaveTo(Stream: TStream): TXMLComponent; overload;
+    function SaveTo(Strings: TStrings): TXMLComponent; overload;
+    function SaveTo(const FileName: string): TXMLComponent; overload;
     function AsString: string;
   end;
 

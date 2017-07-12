@@ -41,8 +41,8 @@ type
     constructor Create(const FileName: string);
     class function New(const FileName: string): ILog;
     destructor Destroy; override;
-    function Log(const S: string): ILog; Overload;
-    function Log(E: Exception): ILog; Overload;
+    function Log(const S: string): ILog; overload;
+    function Log(E: Exception): ILog; overload;
   end;
 
 implementation

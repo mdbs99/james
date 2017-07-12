@@ -46,9 +46,9 @@ type
     function SysToUTF8(const s: String): String;
     function UTF8ToSys(const s: String): String;
   public
-    constructor Create(const FileName: string; Stream: IDataStream); Overload;
-    class function New(const FileName: string; Stream: IDataStream): IFile; Overload;
-    class function New(const FileName: string): IFile; Overload;
+    constructor Create(const FileName: string; Stream: IDataStream); overload;
+    class function New(const FileName: string; Stream: IDataStream): IFile; overload;
+    class function New(const FileName: string): IFile; overload;
     function Path: string;
     function Name: string;
     function FileName: string;
