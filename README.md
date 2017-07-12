@@ -7,7 +7,7 @@
 James is a collection of classes and interfaces for truly object-oriented projects written in Object Pascal.
 This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, make it compatible with Delphi could be possible or even might be a goal (we are depending of more contributors to make it possible).
 
-**Why**. We don't want to write procedural code anymore. We want write elegant, clean, and maintainable code using OOP. 
+**Why**. We don't want to write procedural code anymore. We want write elegant, clean, and maintainable code using OOP.
 
 **Principles.** The code has some design principles:
 
@@ -29,13 +29,21 @@ In the future, one goal is to put all dependencies as optional, using different 
 
 ## How to contribute?
 
-Just fork the repository and send us a Pull Request (PR) using the `develop` branch as a point of start for your contribution.
+To contribute we suggest following these steps:
 
-Each PR need to work only in one issue or in a [single responsibility](https://en.wikipedia.org/wiki/Single_responsibility_principle).
+1. Fork this project (Click on **Fork** bottom)
+2. Clone your forked project to your local machine (`git clone
+https://github.com/USERNAME/james.git`)
+3. Open an issue, describing what is the problem / or the enhancement you will
+make. After that, anotate the issue ID (the # next to issue title)
+4. Create a new branch following this pattern: `issue#ISSUE-ID` (`git checkout -b issue#ISSUE-ID`)
+5. Make the changes and all necessary commits
+6. Push the new branch to your GitHub repository (`git push origin issue#ISSUE-ID`)
+7. Go to James' GitHub project and click on **Compare & Pull Request**
 
-Please, name your PR using the same style than others already closed on this project.
-
-Make sure your branch builds without any warnings/issues.
+**Important:**
+- Each PR need to work only in one issue or in a [single responsibility](https://en.wikipedia.org/wiki/Single_responsibility_principle).
+- Make sure your branch builds without any warnings/issues.
 
 If you have questions or general suggestions, don't hesitate to submit
 a new [Github issue](https://github.com/mdbs99/james/issues/new).
