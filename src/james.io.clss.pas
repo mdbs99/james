@@ -28,7 +28,12 @@ unit James.IO.Clss;
 interface
 
 uses
-  Classes, SysUtils, LazUTF8,
+  Classes, SysUtils,
+  {$IFDEF FPC}
+    LazUTF8,
+  {$ELSE}
+
+  {$ENDIF}
   James.Data,
   James.Data.Clss,
   James.IO;
@@ -38,10 +43,12 @@ type
   private
     FFileName: string;
     FStream: IDataStream;
+    function SysToUTF8(const s: String): String;
+    function UTF8ToSys(const s: String): String;
   public
-    constructor Create(const FileName: string; Stream: IDataStream);
-    class function New(const FileName: string; Stream: IDataStream): IFile;
-    class function New(const FileName: string): IFile;
+    constructor Create(const FileName: string; Stream: IDataStream); Overload;
+    class function New(const FileName: string; Stream: IDataStream): IFile; Overload;
+    class function New(const FileName: string): IFile; Overload;
     function Path: string;
     function Name: string;
     function FileName: string;
@@ -109,6 +116,24 @@ begin
   finally
     Buf.Free;
   end;
+end;
+
+function TFile.SysToUTF8(const s: String): String;
+begin
+  {$IFDEF FPC}
+    Result := LazUTF8.SysToUTF8(s)
+  {$ELSE}
+    Result := s;
+  {$ENDIF}
+end;
+
+function TFile.UTF8ToSys(const s: String): String;
+begin
+  {$IFDEF FPC}
+    Result := LazUTF8.UTF8ToSys(s)
+  {$ELSE}
+    Result := s;
+  {$ENDIF}
 end;
 
 end.

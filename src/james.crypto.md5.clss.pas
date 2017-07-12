@@ -28,7 +28,12 @@ unit James.Crypto.MD5.Clss;
 interface
 
 uses
-  Classes, SysUtils, md5,
+  Classes, SysUtils,
+  {$IFDEF FPC}
+    md5,
+  {$ELSE}
+    IdGlobal, IdHash, IdHashMessageDigest,
+  {$ENDIF}
   James.Data,
   James.Data.Clss;
 
@@ -52,13 +57,37 @@ implementation
 { TMD5Stream }
 
 function TMD5Stream.GetStream: IDataStream;
+{$IFNDEF FPC}
+  function getMd5HashString(Value: string): string;
+  var
+    hashMessageDigest5: TIdHashMessageDigest5;
+  begin
+    hashMessageDigest5 := nil;
+    try
+      hashMessageDigest5 := TIdHashMessageDigest5.Create;
+      Result := IdGlobal.IndyLowerCase(
+        hashMessageDigest5.HashStringAsHex(
+          value
+        )
+      );
+    finally
+      hashMessageDigest5.Free;
+    end;
+  end;
+{$ENDIF}
 begin
   Result := TDataStream.New(
-    MD5Print(
-      MD5String(
+    {$IFDEF FPC}
+      MD5Print(
+        MD5String(
+          FOrigin.AsString
+        )
+      )
+    {$ELSE}
+      getMd5HashString(
         FOrigin.AsString
       )
-    )
+    {$ENDIF}
   );
 end;
 
