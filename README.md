@@ -29,23 +29,22 @@ In the future, one goal is to put all dependencies as optional, using different 
 
 ## How to contribute?
 
-Follow these steps:
+To contribute we suggest following these steps:
 
 1. Fork this project (Click on **Fork** bottom)
 2. Clone your forked project to your local machine (`git clone
 https://github.com/USERNAME/james.git`)
 3. Open an issue, describing what is the problem / or the enhancement you will
 make. After that, anotate the issue ID (the # next to issue title)
-4. Create a new branch following this pattern: pr#ISSUE-ID` (`git checkout -b
-pr#ISSUE-ID`)
+4. Create a new branch which name is the ISSUE-ID (`git checkout ISSUE-ID`)
 5. Make the changes and all necessary commits
-6. Push the new branch to your GitHub repository (`git push origin pr#ISSUE-ID`)
+6. Push the new branch to your GitHub repository (`git push origin ISSUE-ID`)
 7. Go to James' GitHub project and click on **Compare & Pull Request**
 
 **Important:**
 - Each PR need to work only in one issue or in a [single responsibility](https://en.wikipedia.org/wiki/Single_responsibility_principle).
 - Please, remember to name your branch using the same style than others already
-- closed on this project (pr-#ISSUE-ID)
+closed on this project (ISSUE-ID)
 - Make sure your branch builds without any warnings/issues.
 
 If you have questions or general suggestions, don't hesitate to submit
