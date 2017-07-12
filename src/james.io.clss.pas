@@ -43,8 +43,6 @@ type
   private
     FFileName: string;
     FStream: IDataStream;
-    function SysToUTF8(const s: String): String;
-    function UTF8ToSys(const s: String): String;
   public
     constructor Create(const FileName: string; Stream: IDataStream); overload;
     class function New(const FileName: string; Stream: IDataStream): IFile; overload;
@@ -78,20 +76,12 @@ end;
 
 function TFile.Path: string;
 begin
-  Result := SysToUTF8(
-    SysUtils.ExtractFilePath(
-      UTF8ToSys(FFileName)
-    )
-  );
+  Result := SysUtils.ExtractFilePath(FFileName);
 end;
 
 function TFile.Name: string;
 begin
-  Result := SysToUTF8(
-    SysUtils.ExtractFileName(
-      UTF8ToSys(FFileName)
-    )
-  );
+  Result := SysUtils.ExtractFileName(FFileName);
 end;
 
 function TFile.FileName: string;
@@ -116,24 +106,6 @@ begin
   finally
     Buf.Free;
   end;
-end;
-
-function TFile.SysToUTF8(const s: String): String;
-begin
-  {$IFDEF FPC}
-    Result := LazUTF8.SysToUTF8(s)
-  {$ELSE}
-    Result := s;
-  {$ENDIF}
-end;
-
-function TFile.UTF8ToSys(const s: String): String;
-begin
-  {$IFDEF FPC}
-    Result := LazUTF8.UTF8ToSys(s)
-  {$ELSE}
-    Result := s;
-  {$ENDIF}
 end;
 
 end.
