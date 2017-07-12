@@ -9,9 +9,9 @@
 *.bat
 *.compiled
 *.ini
+*.dcu
+__history/
+__recovery/
+Win32/
 bin/
 lib/
-
-
-
-
