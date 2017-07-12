@@ -33,14 +33,16 @@ To contribute we suggest following these steps:
 
 1. Fork this project (Click on **Fork** bottom)
 2. Clone your forked project to your local machine
-3. Create a new issue describing about the problem or enhancement that you are going to make.
-4. Create a new branch related to this issue. We suggest to use a name like `issue-10` — 10 is the issue's ID.
+3. Create a new issue describing about the problem or enhancement that you are going to make
+4. Create a new branch related to this issue. We suggest to use a name like `issue-10` — 10 is the issue's ID
 5. Make the all changes necessary and commit
 6. Push the new branch to your Github repository
 7. Go to James' Github project and click on **Compare & Pull Request**
 
 **Important:**
-- Each PR need to work only in one issue, respecting the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
+
+- It is important for you create a new branch for each PR. If we might request you some changes in your work, having the original PR's code to make these changes is better than working with the whole code.
+- Each PR needs to work only in one issue, respecting the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
 - Make sure your branch builds without any warnings/issues.
 
 If you have questions or general suggestions, don't hesitate to submit
