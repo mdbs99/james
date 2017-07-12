@@ -31,16 +31,16 @@ In the future, one goal is to put all dependencies as optional, using different 
 
 Follow these steps:
 
-1. Fork this project (Click on `Fork` bottom)
+1. Fork this project (Click on **Fork** bottom)
 2. Clone your forked project to your local machine (`git clone
 https://github.com/USERNAME/james.git`)
 3. Open an issue, describing what is the problem / or the enhancement you will
 make. After that, anotate the issue ID (the # next to issue title)
-4. Create a new branch following this pattern: `pr#ISSUE-ID` (`git checkout -b
+4. Create a new branch following this pattern: pr#ISSUE-ID` (`git checkout -b
 pr#ISSUE-ID`)
 5. Make the changes and all necessary commits
 6. Push the new branch to your GitHub repository (`git push origin pr#ISSUE-ID`)
-7. Go to James' GitHub project and click on `Submit a Pull Request`
+7. Go to James' GitHub project and click on **Compare & Pull Request**
 
 **Important:**
 - Each PR need to work only in one issue or in a [single responsibility](https://en.wikipedia.org/wiki/Single_responsibility_principle).
