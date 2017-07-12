@@ -5,9 +5,9 @@
 **ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
 
 James is a collection of classes and interfaces for truly object-oriented projects written in Object Pascal.
-This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, make it compatible with Delphi could be possible or even might be a goal (we are depending of more contributors to make it possible).
+This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, making it compatible with Delphi could be possible or even a goal (we are depending on more contributors to make it possible).
 
-**Why**. We don't want to write procedural code anymore. We want write elegant, clean, and maintainable code using OOP.
+**Why**. We don't want to write procedural code anymore. We want to write elegant, clean, and maintainable code using OOP.
 
 **Principles.** The code has some design principles:
 
@@ -31,22 +31,21 @@ In the future, one goal is to put all dependencies as optional, using different 
 
 To contribute we suggest following these steps:
 
-1. Fork this project (Click on **Fork** bottom)
+1. Fork this project (Click on **Fork** button)
 2. Clone your forked project to your local machine
 3. Create a new issue describing about the problem or enhancement that you are going to make
 4. Create a new branch related to this issue. We suggest to use a name like `issue-10` — 10 is the issue's ID
-5. Make the all changes necessary and commit
+5. Make all the changes necessary and commit
 6. Push the new branch to your Github repository
 7. Go to James' Github project and click on **Compare & Pull Request**
 
 **Important:**
 
-- It is important for you create a new branch for each PR. If we might request you some changes in your work, having the original PR's code to make these changes is better than working with the whole code.
+- It is important for you create a new branch for each PR. We might need to request some further changes in your work, and having the original PR's code to make these changes is better than working with the whole code.
 - Each PR needs to work only in one issue, respecting the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
 - Make sure your branch builds without any warnings/issues.
 
-If you have questions or general suggestions, don't hesitate to submit
-a new [Github issue](https://github.com/mdbs99/james/issues/new).
+If you have questions or general suggestions, don't hesitate to submit a new [Github issue](https://github.com/mdbs99/james/issues/new).
 
 ## License (MIT)
 
