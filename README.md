@@ -32,13 +32,11 @@ In the future, one goal is to put all dependencies as optional, using different 
 To contribute we suggest following these steps:
 
 1. Fork this project (Click on **Fork** bottom)
-2. Clone your forked project to your local machine (`git clone
-https://github.com/USERNAME/james.git`)
-3. Open an issue describing about the problem or enhancement that you are going to make.
-After that, take note the issue ID (the "#" next to issue title)
-4. Create a new branch following this pattern: `issue#ISSUE-ID` (`git checkout -b issue#ISSUE-ID`)
-5. Make the changes and all necessary commits
-6. Push the new branch to your Github repository (`git push origin issue#ISSUE-ID`)
+2. Clone your forked project to your local machine
+3. Create a new issue describing about the problem or enhancement that you are going to make.
+4. Create a new branch related to this issue. We suggest to use a name like `issue-10` — 10 is the issue's ID.
+5. Make the all changes necessary and commit
+6. Push the new branch to your Github repository
 7. Go to James' Github project and click on **Compare & Pull Request**
 
 **Important:**
