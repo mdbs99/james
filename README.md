@@ -34,15 +34,15 @@ To contribute we suggest following these steps:
 1. Fork this project (Click on **Fork** bottom)
 2. Clone your forked project to your local machine (`git clone
 https://github.com/USERNAME/james.git`)
-3. Open an issue, describing what is the problem / or the enhancement you will
-make. After that, anotate the issue ID (the # next to issue title)
+3. Open an issue describing about the problem or enhancement that you are going to make.
+After that, take note the issue ID (the "#" next to issue title).
 4. Create a new branch following this pattern: `issue#ISSUE-ID` (`git checkout -b issue#ISSUE-ID`)
 5. Make the changes and all necessary commits
-6. Push the new branch to your GitHub repository (`git push origin issue#ISSUE-ID`)
-7. Go to James' GitHub project and click on **Compare & Pull Request**
+6. Push the new branch to your Github repository (`git push origin issue#ISSUE-ID`)
+7. Go to James' Github project and click on **Compare & Pull Request**
 
 **Important:**
-- Each PR need to work only in one issue or in a [single responsibility](https://en.wikipedia.org/wiki/Single_responsibility_principle).
+- Each PR need to work only in one issue respecting, the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
 - Make sure your branch builds without any warnings/issues.
 
 If you have questions or general suggestions, don't hesitate to submit
