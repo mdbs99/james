@@ -36,9 +36,9 @@ To contribute we suggest following these steps:
 https://github.com/USERNAME/james.git`)
 3. Open an issue, describing what is the problem / or the enhancement you will
 make. After that, anotate the issue ID (the # next to issue title)
-4. Create a new branch which name is the ISSUE-ID (`git checkout ISSUE-ID`)
+4. Create a new branch following this pattern: `issue#ISSUE-ID` (`git checkout -b issue#ISSUE-ID`)
 5. Make the changes and all necessary commits
-6. Push the new branch to your GitHub repository (`git push origin ISSUE-ID`)
+6. Push the new branch to your GitHub repository (`git push origin issue#ISSUE-ID`)
 7. Go to James' GitHub project and click on **Compare & Pull Request**
 
 **Important:**
