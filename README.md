@@ -43,8 +43,6 @@ make. After that, anotate the issue ID (the # next to issue title)
 
 **Important:**
 - Each PR need to work only in one issue or in a [single responsibility](https://en.wikipedia.org/wiki/Single_responsibility_principle).
-- Please, remember to name your branch using the same style than others already
-closed on this project (ISSUE-ID)
 - Make sure your branch builds without any warnings/issues.
 
 If you have questions or general suggestions, don't hesitate to submit
