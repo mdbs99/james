@@ -58,6 +58,7 @@ implementation
 
 function TMD5Stream.GetStream: IDataStream;
 {$IFNDEF FPC}
+  { TODO : It should be refactor, creating a new class }
   function getMd5HashString(Value: string): string;
   var
     hashMessageDigest5: TIdHashMessageDigest5;
