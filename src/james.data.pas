@@ -32,6 +32,7 @@ uses
 
 type
   IDataStream = interface
+  ['{698868A5-9C57-4F1F-9E84-4AA7580CB01A}']
     function Save(Stream: TStream): IDataStream; overload;
     function Save(Strings: TStrings): IDataStream; overload;
     function Save(const FileName: string): IDataStream; overload;
@@ -77,6 +78,7 @@ type
   end;
 
   IDataParams = interface
+  ['{650DE166-6452-4F22-80F8-F364B9BF4C50}']
     function Add(Param: IDataParam): IDataParams; overload;
     function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
     function Param(Index: Integer): IDataParam; overload;
