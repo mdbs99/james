@@ -32,8 +32,8 @@ uses
 
 type
   ILog = interface
-    function Log(const S: string): ILog;
-    function Log(E: Exception): ILog;
+    function Log(const S: string): ILog; overload;
+    function Log(E: Exception): ILog; overload;
   end;
 
 implementation

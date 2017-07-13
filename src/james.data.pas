@@ -32,9 +32,9 @@ uses
 
 type
   IDataStream = interface
-    function Save(Stream: TStream): IDataStream;
-    function Save(Strings: TStrings): IDataStream;
-    function Save(const FileName: string): IDataStream;
+    function Save(Stream: TStream): IDataStream; overload;
+    function Save(Strings: TStrings): IDataStream; overload;
+    function Save(const FileName: string): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
   end;

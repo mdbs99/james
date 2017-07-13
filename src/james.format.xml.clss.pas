@@ -30,25 +30,32 @@ interface
 uses
   Classes, SysUtils,
   James.Data,
-  Laz2_DOM, laz2_XMLRead, laz2_XMLWrite;
+  {$IFDEF FPC}
+    Laz2_DOM, laz2_XMLRead, laz2_XMLWrite
+  {$ELSE}
+    xmlDoc, xmlIntf
+  {$ENDIF}
+  ;
 
 type
+  {$IFDEF FPC}
   TXMLDocument = Laz2_DOM.TXMLDocument;
   TDOMNode = Laz2_DOM.TDOMNode;
+  {$ENDIF}
 
   TXMLComponent = class
   private
     FDocument: TXMLDocument;
   public
-    constructor Create(Stream: TStream);
-    constructor Create(Stream: IDataStream);
-    constructor Create(Strings: TStrings);
-    constructor Create(const S: string);
+    constructor Create(Stream: TStream); overload;
+    constructor Create(Stream: IDataStream); overload;
+    constructor Create(Strings: TStrings); overload;
+    constructor Create(const S: string); overload;
     destructor Destroy; override;
     function Document: TXMLDocument;
-    function SaveTo(Stream: TStream): TXMLComponent;
-    function SaveTo(Strings: TStrings): TXMLComponent;
-    function SaveTo(const FileName: string): TXMLComponent;
+    function SaveTo(Stream: TStream): TXMLComponent; overload;
+    function SaveTo(Strings: TStrings): TXMLComponent; overload;
+    function SaveTo(const FileName: string): TXMLComponent; overload;
     function AsString: string;
   end;
 
@@ -60,7 +67,11 @@ constructor TXMLComponent.Create(Stream: TStream);
 begin
   inherited Create;
   Stream.Position := 0;
-  ReadXMLFile(FDocument, Stream);
+  {$IFDEF FPC}
+    ReadXMLFile(FDocument, Stream);
+  {$ELSE}
+    FDocument.LoadFromStream(Stream);
+  {$ENDIF}
 end;
 
 constructor TXMLComponent.Create(Stream: IDataStream);
@@ -115,7 +126,11 @@ end;
 function TXMLComponent.SaveTo(Stream: TStream): TXMLComponent;
 begin
   Result := Self;
-  WriteXMLFile(FDocument, Stream);
+  {$IFDEF FPC}
+    WriteXMLFile(FDocument, Stream);
+  {$ELSE}
+    FDocument.SaveToStream(Stream);
+  {$ENDIF}
   Stream.Position := 0;
 end;
 

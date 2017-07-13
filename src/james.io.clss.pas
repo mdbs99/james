@@ -28,7 +28,12 @@ unit James.IO.Clss;
 interface
 
 uses
-  Classes, SysUtils, LazUTF8,
+  Classes, SysUtils,
+  {$IFDEF FPC}
+    LazUTF8,
+  {$ELSE}
+
+  {$ENDIF}
   James.Data,
   James.Data.Clss,
   James.IO;
@@ -39,9 +44,9 @@ type
     FFileName: string;
     FStream: IDataStream;
   public
-    constructor Create(const FileName: string; Stream: IDataStream);
-    class function New(const FileName: string; Stream: IDataStream): IFile;
-    class function New(const FileName: string): IFile;
+    constructor Create(const FileName: string; Stream: IDataStream); overload;
+    class function New(const FileName: string; Stream: IDataStream): IFile; overload;
+    class function New(const FileName: string): IFile; overload;
     function Path: string;
     function Name: string;
     function FileName: string;
@@ -71,20 +76,12 @@ end;
 
 function TFile.Path: string;
 begin
-  Result := SysToUTF8(
-    SysUtils.ExtractFilePath(
-      UTF8ToSys(FFileName)
-    )
-  );
+  Result := SysUtils.ExtractFilePath(FFileName);
 end;
 
 function TFile.Name: string;
 begin
-  Result := SysToUTF8(
-    SysUtils.ExtractFileName(
-      UTF8ToSys(FFileName)
-    )
-  );
+  Result := SysUtils.ExtractFileName(FFileName);
 end;
 
 function TFile.FileName: string;
