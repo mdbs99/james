@@ -23,5 +23,5 @@
 }
 
 {$IFDEF FPC}
-  {$mode objfpc}{$H+}
+  {$mode delphi}
 {$ENDIF}
