@@ -39,8 +39,8 @@ type
     FFile: IFile;
   public
     constructor Create(const FileName: string);
-    class function New(const FileName: string): IFile;
-    class function New: IFile;
+    class function New(const FileName: string): IFile; overload;
+    class function New: IFile; overload;
     function Path: string;
     function Name: string;
     function FileName: string;
