@@ -29,11 +29,6 @@ interface
 
 uses
   Classes, SysUtils,
-  {$IFDEF FPC}
-    LazUTF8,
-  {$ELSE}
-
-  {$ENDIF}
   James.Data,
   James.Data.Clss,
   James.IO;
