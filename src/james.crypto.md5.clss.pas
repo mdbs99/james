@@ -32,7 +32,7 @@ uses
   {$IFDEF FPC}
     md5,
   {$ELSE}
-    IdGlobal, IdHash, IdHashMessageDigest,
+    hash,
   {$ENDIF}
   James.Data,
   James.Data.Clss;
@@ -57,25 +57,6 @@ implementation
 { TMD5Stream }
 
 function TMD5Stream.GetStream: IDataStream;
-{$IFNDEF FPC}
-  { TODO : It should be refactor, creating a new class }
-  function getMd5HashString(Value: string): string;
-  var
-    hashMessageDigest5: TIdHashMessageDigest5;
-  begin
-    hashMessageDigest5 := nil;
-    try
-      hashMessageDigest5 := TIdHashMessageDigest5.Create;
-      Result := IdGlobal.IndyLowerCase(
-        hashMessageDigest5.HashStringAsHex(
-          value
-        )
-      );
-    finally
-      hashMessageDigest5.Free;
-    end;
-  end;
-{$ENDIF}
 begin
   Result := TDataStream.New(
     {$IFDEF FPC}
@@ -85,7 +66,7 @@ begin
         )
       )
     {$ELSE}
-      getMd5HashString(
+      THashMD5.GetHashString(
         FOrigin.AsString
       )
     {$ENDIF}
