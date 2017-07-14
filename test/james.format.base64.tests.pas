@@ -115,6 +115,6 @@ begin
 end;
 
 initialization
-  RegisterTest('Data.Stream', TBase64StreamTest);
+  RegisterTest('Format', TBase64StreamTest);
 
 end.

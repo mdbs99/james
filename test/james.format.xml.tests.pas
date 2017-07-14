@@ -68,7 +68,7 @@ begin
 end;
 
 initialization
-  RegisterTest('Data.XML', TXMLComponentTest);
+  RegisterTest('Format', TXMLComponentTest);
 
 end.
 

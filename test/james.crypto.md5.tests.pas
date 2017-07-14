@@ -51,6 +51,6 @@ begin
 end;
 
 initialization
-  RegisterTest('Data.Stream', TMD5StreamTest);
+  RegisterTest('Crypto', TMD5StreamTest);
 
 end.

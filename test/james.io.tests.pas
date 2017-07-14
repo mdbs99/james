@@ -77,7 +77,7 @@ begin
 end;
 
 initialization
-  RegisterTest('Files', TFileTest);
+  RegisterTest('IO', TFileTest);
 
 end.
 

@@ -202,7 +202,11 @@ begin
 end;
 
 initialization
-  RegisterTest('Data.Stream', TDataDividedStreamTest);
-  RegisterTest('Data.Stream', TDataPartialFromTextStreamTest);
+  RegisterTests(
+    'Data', [
+      TDataDividedStreamTest,
+      TDataPartialFromTextStreamTest
+    ]
+  );
 
 end.

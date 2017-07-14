@@ -242,8 +242,12 @@ begin
 end;
 
 initialization
-  RegisterTest('Data', TDataStreamTest);
-  RegisterTest('Data', TDataInformationsTest);
-  RegisterTest('Data', TDataConstraintsTest);
+  RegisterTests(
+    'Data', [
+      TDataStreamTest,
+      TDataInformationsTest,
+      TDataConstraintsTest
+    ]
+  );
 
 end.
