@@ -21,50 +21,38 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit james.system.clss;
+unit James.Functions.Tests;
 
 {$include james.inc}
 
 interface
 
 uses
-  james.system;
+  fpcunit, testregistry, James.Functions.Clss;
 
 type
-  TIf<T> = class(TInterfacedObject, IIf<T>)
-  private
-    FCondition: Boolean;
-    FValueIfTrue: T;
-    FValueIfFalse: T;
-  public
-    constructor Create(const Condition: Boolean; const ValueIfTrue, ValueIfFalse: T);
-    class function New(const Condition: Boolean; const ValueIfTrue, ValueIfFalse: T): IIf<T>;
-    function Value: T;
-  End;
+  TIfTest = class(TTestCase)
+  published
+    procedure ValueIfTrue;
+    procedure ValueIfFalse;
+  end;
 
 implementation
 
-{ TIf<T> }
+{ TIfTest }
 
-constructor TIf<T>.Create(const Condition: Boolean; const ValueIfTrue,
-  ValueIfFalse: T);
+procedure TIfTest.ValueIfTrue;
 begin
-  FCondition    := Condition;
-  FValueIfTrue  := ValueIfTrue;
-  FValueIfFalse := ValueIfFalse;
+  AssertEquals(1, TIf<Integer>.New(True, 1, 0).Value);
 end;
 
-class function TIf<T>.New(const Condition: Boolean; const ValueIfTrue,
-  ValueIfFalse: T): IIf<T>;
+procedure TIfTest.ValueIfFalse;
 begin
-  Result := Create(Condition, ValueIfTrue, ValueIfFalse);
+  AssertEquals(0, TIf<Integer>.New(False, 1, 0).Value);
 end;
 
-function TIf<T>.Value: T;
-begin
-  if FCondition
-    then Result := FValueIfTrue
-    else Result := FValueIfFalse;
-end;
+initialization
+  RegisterTest('Functions', TIfTest);
 
 end.
+
