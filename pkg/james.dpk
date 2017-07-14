@@ -46,7 +46,7 @@ contains
   james.io in '..\src\james.io.pas',
   james.log.clss in '..\src\james.log.clss.pas',
   james.log in '..\src\james.log.pas',
-  james.system in '..\src\james.system.pas',
-  james.system.clss in '..\src\james.system.clss.pas';
+  james.functions in '..\src\james.functions.pas',
+  james.functions.clss in '..\src\james.functions.clss.pas';
 
 end.
