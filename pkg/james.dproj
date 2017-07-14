@@ -124,6 +124,8 @@
         <DCCReference Include="..\src\james.io.pas"/>
         <DCCReference Include="..\src\james.log.clss.pas"/>
         <DCCReference Include="..\src\james.log.pas"/>
+        <DCCReference Include="..\src\james.system.pas"/>
+        <DCCReference Include="..\src\james.system.clss.pas"/>
         <None Include="..\inc\james.inc"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
