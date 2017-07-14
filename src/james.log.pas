@@ -32,6 +32,7 @@ uses
 
 type
   ILog = interface
+  ['{BE7AF0F3-B1EE-4853-8E18-EB6711655D07}']
     function Log(const S: string): ILog; overload;
     function Log(E: Exception): ILog; overload;
   end;
