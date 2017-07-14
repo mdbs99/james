@@ -23,7 +23,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="1"/>
-    <Files Count="10">
+    <Files Count="12">
       <Item1>
         <Filename Value="..\src\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -64,6 +64,14 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <Filename Value="..\src\james.crypto.md5.clss.pas"/>
         <UnitName Value="James.Crypto.MD5.Clss"/>
       </Item10>
+      <Item11>
+        <Filename Value="..\src\james.system.clss.pas"/>
+        <UnitName Value="james.system.clss"/>
+      </Item11>
+      <Item12>
+        <Filename Value="..\src\james.system.pas"/>
+        <UnitName Value="james.system"/>
+      </Item12>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>
