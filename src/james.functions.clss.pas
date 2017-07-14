@@ -34,37 +34,38 @@ type
   TIf<T> = class(TInterfacedObject, IIf<T>)
   private
     FCondition: Boolean;
-    FValueIfTrue: T;
-    FValueIfFalse: T;
+    FConsequence: T;
+    FAlternative: T;
   public
-    constructor Create(const Condition: Boolean; const ValueIfTrue, ValueIfFalse: T);
-    class function New(const Condition: Boolean; const ValueIfTrue, ValueIfFalse: T): IIf<T>;
+    constructor Create(const Condition: Boolean; const Consequence, Alternative: T);
+    class function New(const Condition: Boolean; const Consequence, Alternative: T): IIf<T>;
     function Value: T;
-  End;
+  end;
 
 implementation
 
 { TIf<T> }
 
-constructor TIf<T>.Create(const Condition: Boolean; const ValueIfTrue,
-  ValueIfFalse: T);
+constructor TIf<T>.Create(const Condition: Boolean; const Consequence,
+  Alternative: T);
 begin
-  FCondition    := Condition;
-  FValueIfTrue  := ValueIfTrue;
-  FValueIfFalse := ValueIfFalse;
+  FCondition := Condition;
+  FConsequence := Consequence;
+  FAlternative := Alternative;
 end;
 
-class function TIf<T>.New(const Condition: Boolean; const ValueIfTrue,
-  ValueIfFalse: T): IIf<T>;
+class function TIf<T>.New(const Condition: Boolean; const Consequence,
+  Alternative: T): IIf<T>;
 begin
-  Result := Create(Condition, ValueIfTrue, ValueIfFalse);
+  Result := Create(Condition, Consequence, Alternative);
 end;
 
 function TIf<T>.Value: T;
 begin
-  if FCondition
-    then Result := FValueIfTrue
-    else Result := FValueIfFalse;
+  if FCondition then
+    Result := FConsequence
+  else
+    Result := FAlternative;
 end;
 
 end.

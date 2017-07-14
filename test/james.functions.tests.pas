@@ -33,20 +33,20 @@ uses
 type
   TIfTest = class(TTestCase)
   published
-    procedure ValueIfTrue;
-    procedure ValueIfFalse;
+    procedure TestTrue;
+    procedure TestFalse;
   end;
 
 implementation
 
 { TIfTest }
 
-procedure TIfTest.ValueIfTrue;
+procedure TIfTest.TestTrue;
 begin
   AssertEquals(1, TIf<Integer>.New(True, 1, 0).Value);
 end;
 
-procedure TIfTest.ValueIfFalse;
+procedure TIfTest.TestFalse;
 begin
   AssertEquals(0, TIf<Integer>.New(False, 1, 0).Value);
 end;
