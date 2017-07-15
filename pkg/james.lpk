@@ -23,7 +23,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="1"/>
-    <Files Count="12">
+    <Files Count="14">
       <Item1>
         <Filename Value="..\src\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -72,6 +72,14 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <Filename Value="..\src\james.functions.pas"/>
         <UnitName Value="James.Functions"/>
       </Item12>
+      <Item13>
+        <Filename Value="..\src\james.data.constraints.clss.pas"/>
+        <UnitName Value="James.Data.Constraints.Clss"/>
+      </Item13>
+      <Item14>
+        <Filename Value="..\src\james.data.constraints.pas"/>
+        <UnitName Value="James.Data.Constraints"/>
+      </Item14>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>
