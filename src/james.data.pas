@@ -40,22 +40,6 @@ type
     function Size: Int64;
   end;
 
-  IDataInformation = interface
-  ['{4E1B718C-D76E-4D3B-9781-866E767CD5EA}']
-    function Id: string;
-    function Text: string;
-    function Metadata: string;
-  end;
-
-  IDataInformations = interface
-  ['{4402481A-49D9-4722-B0CB-952C728932B6}']
-    function Add(Info: IDataInformation): IDataInformations; overload;
-    function Add(Infos: IDataInformations): IDataInformations; overload;
-    function Get(Index: Integer): IDataInformation;
-    function Count: Integer;
-    function Text: string;
-  end;
-
   IDataParam = interface
   ['{2C6B41D7-CB75-488A-85D4-59CE4D5388E5}']
     function Name: string;
@@ -86,26 +70,6 @@ type
     function Count: Integer;
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
-  end;
-
-  IDataResult = interface
-  ['{9E1AB274-707A-4770-94B9-659945547A19}']
-    function OK: Boolean;
-    function Data: IDataParams;
-    function Informations: IDataInformations;
-  end;
-
-  IDataConstraint = interface
-  ['{C580D0F6-B724-468F-9B74-40F7D49DA5DA}']
-    function Checked: IDataResult;
-  end;
-
-  IDataConstraints = interface
-  ['{31FA938E-93C9-4450-B34F-DDC4B2935899}']
-    function Add(C: IDataConstraint): IDataConstraints;
-    function Get(Index: Integer): IDataConstraint;
-    function Count: Integer;
-    function Checked: IDataResult;
   end;
 
 implementation

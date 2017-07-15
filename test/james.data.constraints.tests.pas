@@ -245,7 +245,7 @@ end;
 
 initialization
   RegisterTests(
-    'Constraints', [
+    'Data', [
       TDataStreamTest,
       TDataInformationsTest,
       TDataConstraintsTest
