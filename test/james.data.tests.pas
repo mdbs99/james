@@ -40,55 +40,7 @@ type
     procedure SaveStrings;
   end;
 
-  TDataInformationsTest = class(TTestCase)
-  published
-    procedure ReceiveInformation;
-    procedure ReceiveInformations;
-    procedure Counter;
-  end;
-
-  TFakeConstraint = class(TInterfacedObject, IDataConstraint)
-  private
-    FValue: Boolean;
-    FId: string;
-    FText: string;
-  public
-    constructor Create(Value: Boolean; const Id, Text: string);
-    class function New(Value: Boolean; const Id, Text: string): IDataConstraint;
-    function Checked: IDataResult;
-  end;
-
-  TDataConstraintsTest = class(TTestCase)
-  published
-    procedure ReceiveConstraint;
-    procedure GetConstraint;
-    procedure CheckedTrue;
-    procedure CheckedFalse;
-    procedure CheckedTrueAndFalse;
-  end;
-
 implementation
-
-{ TFakeConstraint }
-
-constructor TFakeConstraint.Create(Value: Boolean; const Id, Text: string);
-begin
-  inherited Create;
-  FValue := Value;
-  FId := Id;
-  FText := Text;
-end;
-
-class function TFakeConstraint.New(Value: Boolean; const Id, Text: string
-  ): IDataConstraint;
-begin
-  Result := Create(Value, Id, Text);
-end;
-
-function TFakeConstraint.Checked: IDataResult;
-begin
-  Result := TDataResult.New(FValue, TDataInformation.New(FId, FText));
-end;
 
 { TDataStreamTest }
 
@@ -147,106 +99,10 @@ begin
   end;
 end;
 
-{ TDataInformationsTest }
-
-procedure TDataInformationsTest.ReceiveInformation;
-begin
-  AssertEquals(
-    'foo: data',
-    TDataInformations.New
-      .Add(TDataInformation.New('foo', 'data'))
-      .Text
-  );
-end;
-
-procedure TDataInformationsTest.ReceiveInformations;
-begin
-  AssertEquals(
-    'foo: data 1'#13'foo: data 2'#13'foo: data 3',
-    TDataInformations.New
-      .Add(TDataInformation.New('foo', 'data 1'))
-      .Add(TDataInformation.New('foo', 'data 2'))
-      .Add(TDataInformation.New('foo', 'data 3'))
-      .Text
-  );
-end;
-
-procedure TDataInformationsTest.Counter;
-begin
-  AssertEquals(
-    3,
-    TDataInformations.New
-      .Add(TDataInformation.New('foo'))
-      .Add(TDataInformation.New('foo'))
-      .Add(TDataInformation.New('foo'))
-      .Count
-  );
-end;
-
-{ TDataConstraintsTest }
-
-procedure TDataConstraintsTest.ReceiveConstraint;
-begin
-  AssertTrue(
-    TDataConstraints.New
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Checked
-      .OK
-  );
-end;
-
-procedure TDataConstraintsTest.GetConstraint;
-begin
-  AssertEquals(
-    'id: foo',
-    TDataConstraints.New
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Get(0)
-      .Checked
-      .Informations
-      .Text
-  );
-end;
-
-procedure TDataConstraintsTest.CheckedTrue;
-begin
-  AssertTrue(
-    TDataConstraints.New
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Checked
-      .OK
-  );
-end;
-
-procedure TDataConstraintsTest.CheckedFalse;
-begin
-  AssertFalse(
-    TDataConstraints.New
-      .Add(TFakeConstraint.New(False, 'id', 'foo'))
-      .Add(TFakeConstraint.New(False, 'id', 'foo'))
-      .Checked
-      .OK
-  );
-end;
-
-procedure TDataConstraintsTest.CheckedTrueAndFalse;
-begin
-  AssertFalse(
-    TDataConstraints.New
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Add(TFakeConstraint.New(False, 'id', 'foo'))
-      .Checked
-      .OK
-  );
-end;
-
 initialization
   RegisterTests(
     'Data', [
-      TDataStreamTest,
-      TDataInformationsTest,
-      TDataConstraintsTest
+      TDataStreamTest
     ]
   );
 
