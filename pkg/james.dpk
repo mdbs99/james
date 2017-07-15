@@ -47,6 +47,8 @@ contains
   james.log.clss in '..\src\james.log.clss.pas',
   james.log in '..\src\james.log.pas',
   james.functions in '..\src\james.functions.pas',
-  james.functions.clss in '..\src\james.functions.clss.pas';
+  james.functions.clss in '..\src\james.functions.clss.pas',
+  james.data.constraints in '..\src\james.data.constraints.pas',
+  james.data.constraints.clss in '..\src\james.data.constraints.clss.pas';
 
 end.

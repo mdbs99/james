@@ -126,6 +126,8 @@
         <DCCReference Include="..\src\james.log.pas"/>
         <DCCReference Include="..\src\james.functions.pas"/>
         <DCCReference Include="..\src\james.functions.clss.pas"/>
+        <DCCReference Include="..\src\james.data.constraints.pas"/>
+        <DCCReference Include="..\src\james.data.constraints.clss.pas"/>
         <None Include="..\inc\james.inc"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
