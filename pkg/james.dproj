@@ -115,6 +115,7 @@
         <DCCReference Include="IndyProtocols.dcp"/>
         <DCCReference Include="IndyCore.dcp"/>
         <DCCReference Include="..\src\james.crypto.md5.clss.pas"/>
+        <DCCReference Include="..\src\james.crypto.md5.delphi.pas"/>
         <DCCReference Include="..\src\james.data.clss.pas"/>
         <DCCReference Include="..\src\james.data.pas"/>
         <DCCReference Include="..\src\james.data.stream.clss.pas"/>
