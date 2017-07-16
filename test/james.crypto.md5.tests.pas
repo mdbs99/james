@@ -28,12 +28,17 @@ unit James.Crypto.MD5.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry, md5,
+  Classes, SysUtils, fpcunit, testregistry,
   James.Data,
   James.Data.Clss,
   James.Crypto.MD5.Clss;
 
 type
+  TMD5HashTest = class(TTestCase)
+  published
+    procedure HashComparison;
+  end;
+
   TMD5StreamTest = class(TTestCase)
   published
     procedure StreamFromMemory;
@@ -41,16 +46,39 @@ type
 
 implementation
 
+{ TMD5HashTest }
+
+procedure TMD5HashTest.HashComparison;
+const
+  VALUE = 'http://www.md5hashgenerator.com/';
+  VALUE_HASH = '93d1d8f5025cefe0fb747a6809a8405a';
+begin
+  AssertEquals(
+    VALUE_HASH,
+    TMD5Hash.New(VALUE).AsString
+  );
+end;
+
 { TMD5StreamTest }
 
 procedure TMD5StreamTest.StreamFromMemory;
 const
   TXT = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin
-  AssertEquals(MD5Print(MD5String(TXT)), TMD5Stream.New(TDataStream.New(TXT)).AsString);
+  AssertEquals(
+    TMD5Hash.New(TXT).AsString,
+    TMD5Stream.New(
+      TDataStream.New(TXT)
+    ).AsString
+  );
 end;
 
 initialization
-  RegisterTest('Crypto', TMD5StreamTest);
+  RegisterTestS(
+    'Crypto', [
+      TMD5HashTest,
+      TMD5StreamTest
+    ]
+  );
 
 end.
