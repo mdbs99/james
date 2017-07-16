@@ -72,6 +72,11 @@ type
     function AsString: string; overload;
   end;
 
+  IDataHash = interface
+  ['{69A5ED2A-7E06-4942-A6EA-48B36670F360}']
+    function AsString: string;
+  end;
+
 implementation
 
 end.
