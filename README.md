@@ -4,10 +4,13 @@
 
 **ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
 
-James is a collection of classes and interfaces for truly object-oriented projects written in Object Pascal.
-This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, making it compatible with Delphi could be possible or even a goal (we are depending on more contributors to make it possible).
+James is a collection of object-oriented primitives (only interfaces and classes) for truly object-oriented projects written in Object Pascal.
 
-**Why**. We don't want to write procedural code anymore. We want to write elegant, clean, and maintainable code using OOP.
+This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, making it compatible with Delphi is possible  (we are depending on more contributors to make it possible).
+
+**Why**. We don't want to write procedural code anymore.
+The goal is to replace common procedural code in our projects, which has so many conditionals and "controllers", to a declarative and object-oriented code.
+We want to write elegant, clean, and maintainable code using OOP.
 
 **Principles.** The code has some design principles:
 
