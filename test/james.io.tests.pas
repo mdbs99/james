@@ -50,12 +50,12 @@ implementation
 
 procedure TFileTest.Path;
 begin
-  AssertEquals('c:\path\', TFile.New('c:\path\filename.txt').Path);
+  CheckEquals('c:\path\', TFile.New('c:\path\filename.txt').Path);
 end;
 
 procedure TFileTest.Name;
 begin
-  AssertEquals('filename.txt', TFile.New('c:\path\filename.txt').Name);
+  CheckEquals('filename.txt', TFile.New('c:\path\filename.txt').Name);
 end;
 
 procedure TFileTest.Stream;
@@ -69,7 +69,7 @@ begin
   try
     M.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     M.SaveToFile(FILE_NAME);
-    AssertEquals(TXT, TFile.New(FILE_NAME).Stream.AsString);
+    CheckEquals(TXT, TFile.New(FILE_NAME).Stream.AsString);
   finally
     DeleteFile(FILE_NAME);
     M.Free;

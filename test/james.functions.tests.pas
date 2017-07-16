@@ -43,12 +43,12 @@ implementation
 
 procedure TIfTest.TestTrue;
 begin
-  AssertEquals(1, TIf<Integer>.New(True, 1, 0).Value);
+  CheckEquals(1, TIf<Integer>.New(True, 1, 0).Value);
 end;
 
 procedure TIfTest.TestFalse;
 begin
-  AssertEquals(0, TIf<Integer>.New(False, 1, 0).Value);
+  CheckEquals(0, TIf<Integer>.New(False, 1, 0).Value);
 end;
 
 initialization

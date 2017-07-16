@@ -53,7 +53,7 @@ const
   VALUE = 'http://www.md5hashgenerator.com/';
   VALUE_HASH = '93d1d8f5025cefe0fb747a6809a8405a';
 begin
-  AssertEquals(
+  CheckEquals(
     VALUE_HASH,
     TMD5Hash.New(VALUE).AsString
   );
@@ -65,7 +65,7 @@ procedure TMD5StreamTest.StreamFromMemory;
 const
   TXT = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin
-  AssertEquals(
+  CheckEquals(
     TMD5Hash.New(TXT).AsString,
     TMD5Stream.New(
       TDataStream.New(TXT)

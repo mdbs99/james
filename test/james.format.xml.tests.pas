@@ -55,12 +55,12 @@ begin
   try
     with Document.FindNode('Foo') do
     begin
-      AssertNotNull('Find X', FindNode('X'));
-      AssertEquals('Value X', 1, StrToInt(FindNode('X').TextContent));
-      AssertNotNull('Find Y', FindNode('Y'));
-      AssertEquals('Value Y', 'ABC', FindNode('Y').TextContent);
-      AssertNotNull('Find Z', FindNode('Z'));
-      AssertEquals('Value Z', 10.00, StrToFloat(FindNode('Z').TextContent, Fmt));
+      CheckNotNull(FindNode('X'), 'Find X');
+      CheckEquals(1, FindNode('X').TextContent.ToInteger, 'Value X');
+      CheckNotNull(FindNode('Y'), 'Find Y');
+      CheckEquals('ABC', FindNode('Y').TextContent, 'Value Y');
+      CheckNotNull(FindNode('Z'), 'Find Z');
+      CheckEquals(10.00, StrToFloat(FindNode('Z').TextContent, Fmt), 'Value Z');
     end;
   finally
     Free;

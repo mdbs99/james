@@ -71,8 +71,8 @@ begin
       with TDataDividedStream.New(TDataStream.New(M1), I, PART) do
         M2.WriteBuffer(AsString[1], Size);
     end;
-    AssertEquals('Compare Size: ', M1.Size, M2.Size);
-    AssertEquals('Compare Content: ', TDataStream.New(M1).AsString, TDataStream.New(M2).AsString);
+    CheckEquals(M1.Size, M2.Size, 'Compare Size');
+    CheckEquals(TDataStream.New(M1).AsString, TDataStream.New(M2).AsString, 'Compare Content');
   finally
     M1.Free;
     M2.Free;
@@ -114,12 +114,12 @@ begin
           with TDataDividedStream.New(TDataStream.New(M1), I, Part) do
             M2.WriteBuffer(AsString[1], Size);
         end;
-        AssertEquals(
-          'Compare Size: ', M1.Size, M2.Size);
-        AssertEquals(
-          'Compare Content: ',
+        CheckEquals(
+          M1.Size, M2.Size, 'Compare Size');
+        CheckEquals(
           TDataStream.New(M1).AsString,
-          TDataStream.New(M2).AsString
+          TDataStream.New(M2).AsString,
+          'Compare Content'
         );
         Node := Node.NextSibling;
       finally
@@ -148,8 +148,8 @@ begin
     M1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     with TDataPartialFromTextStream.New(TDataStream.New(M1), STR_PART) do
       M2.WriteBuffer(AsString[1], Size);
-    AssertEquals('Compare Size: ', Length(STR_PART) * SizeOf(Char), M2.Size);
-    AssertEquals('Compare Content: ', TDataStream.New(STR_PART).AsString, TDataStream.New(M2).AsString);
+    CheckEquals(Length(STR_PART) * SizeOf(Char), M2.Size, 'Compare Size');
+    CheckEquals(TDataStream.New(STR_PART).AsString, TDataStream.New(M2).AsString, 'Compare Content');
   finally
     M1.Free;
     M2.Free;
@@ -185,10 +185,10 @@ begin
         .Save(M1);
         with TDataPartialFromTextStream.New(TDataStream.New(M1), TextAttr) do
         begin
-          AssertEquals(
-            'Compare Content: ',
+          CheckEquals(
             Copy(AsString, 1, Length(TextAttr) * SizeOf(Char)),
-            TextAttr
+            TextAttr,
+            'Compare Content'
           );
         end;
         Node := Node.NextSibling;

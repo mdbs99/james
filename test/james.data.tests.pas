@@ -56,9 +56,9 @@ begin
   try
     Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
-    AssertEquals('Test Stream', TXT, TDataStream.New(Buf).AsString);
-    AssertEquals('Test String', TXT, TDataStream.New(TXT).AsString);
-    AssertEquals('Test Strings', TXT+#13#10, TDataStream.New(Ss).AsString);
+    CheckEquals(TXT, TDataStream.New(Buf).AsString, 'Test Stream');
+    CheckEquals(TXT, TDataStream.New(TXT).AsString, 'Test String');
+    CheckEquals(TXT+#13#10, TDataStream.New(Ss).AsString, 'Test Strings');
   finally
     Buf.Free;
     Ss.Free;
@@ -78,7 +78,7 @@ begin
     SetLength(S, Buf.Size * SizeOf(Char));
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
-    AssertEquals(TXT, S);
+    CheckEquals(TXT, S);
   finally
     Buf.Free;
   end;
@@ -93,7 +93,7 @@ begin
   Ss := TStringList.Create;
   try
     TDataStream.New(TXT).Save(Ss);
-    AssertEquals(TXT+#13#10, Ss.Text);
+    CheckEquals(TXT+#13#10, Ss.Text);
   finally
     Ss.Free;
   end;

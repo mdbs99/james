@@ -106,9 +106,9 @@ begin
   try
     Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
-    AssertEquals('Test Stream', TXT, TDataStream.New(Buf).AsString);
-    AssertEquals('Test String', TXT, TDataStream.New(TXT).AsString);
-    AssertEquals('Test Strings', TXT+#13#10, TDataStream.New(Ss).AsString);
+    CheckEquals(TXT, TDataStream.New(Buf).AsString, 'Test Stream');
+    CheckEquals(TXT, TDataStream.New(TXT).AsString, 'Test String');
+    CheckEquals( TXT+#13#10, TDataStream.New(Ss).AsString, 'Test Strings');
   finally
     Buf.Free;
     Ss.Free;
@@ -128,7 +128,7 @@ begin
     SetLength(S, Buf.Size * SizeOf(Char));
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
-    AssertEquals(TXT, S);
+    CheckEquals(TXT, S);
   finally
     Buf.Free;
   end;
@@ -143,7 +143,7 @@ begin
   Ss := TStringList.Create;
   try
     TDataStream.New(TXT).Save(Ss);
-    AssertEquals(TXT+#13#10, Ss.Text);
+    CheckEquals(TXT+#13#10, Ss.Text);
   finally
     Ss.Free;
   end;
@@ -153,7 +153,7 @@ end;
 
 procedure TDataInformationsTest.ReceiveInformation;
 begin
-  AssertEquals(
+  CheckEquals(
     'foo: data',
     TDataInformations.New
       .Add(TDataInformation.New('foo', 'data'))
@@ -163,7 +163,7 @@ end;
 
 procedure TDataInformationsTest.ReceiveInformations;
 begin
-  AssertEquals(
+  CheckEquals(
     'foo: data 1'#13'foo: data 2'#13'foo: data 3',
     TDataInformations.New
       .Add(TDataInformation.New('foo', 'data 1'))
@@ -175,7 +175,7 @@ end;
 
 procedure TDataInformationsTest.Counter;
 begin
-  AssertEquals(
+  CheckEquals(
     3,
     TDataInformations.New
       .Add(TDataInformation.New('foo'))
@@ -189,7 +189,7 @@ end;
 
 procedure TDataConstraintsTest.ReceiveConstraint;
 begin
-  AssertTrue(
+  CheckTrue(
     TDataConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Checked
@@ -199,7 +199,7 @@ end;
 
 procedure TDataConstraintsTest.GetConstraint;
 begin
-  AssertEquals(
+  CheckEquals(
     'id: foo',
     TDataConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
@@ -212,7 +212,7 @@ end;
 
 procedure TDataConstraintsTest.CheckedTrue;
 begin
-  AssertTrue(
+  CheckTrue(
     TDataConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
@@ -223,7 +223,7 @@ end;
 
 procedure TDataConstraintsTest.CheckedFalse;
 begin
-  AssertFalse(
+  CheckFalse(
     TDataConstraints.New
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
@@ -234,7 +234,7 @@ end;
 
 procedure TDataConstraintsTest.CheckedTrueAndFalse;
 begin
-  AssertFalse(
+  CheckFalse(
     TDataConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Add(TFakeConstraint.New(False, 'id', 'foo'))

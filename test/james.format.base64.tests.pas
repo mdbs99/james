@@ -59,20 +59,20 @@ begin
   try
     Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
-    AssertEquals(
-      'Test Stream',
+    CheckEquals(
       EncodeBase64(TXT),
-      TBase64Stream.New(TDataStream.New(Buf)).AsString
+      TBase64Stream.New(TDataStream.New(Buf)).AsString,
+      'Test Stream'
     );
-    AssertEquals(
-      'Test String',
+    CheckEquals(
       EncodeBase64(TXT),
-      TBase64Stream.New(TDataStream.New(TXT)).AsString
+      TBase64Stream.New(TDataStream.New(TXT)).AsString,
+      'Test String'
     );
-    AssertEquals(
-      'Test Strings',
+    CheckEquals(
       EncodeBase64(TXT+#13#10),
-      TBase64Stream.New(TDataStream.New(Ss)).AsString
+      TBase64Stream.New(TDataStream.New(Ss)).AsString,
+      'Test Strings'
     );
   finally
     Buf.Free;
@@ -93,7 +93,7 @@ begin
     SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
-    AssertEquals(EncodeBase64(TXT), S);
+    CheckEquals(EncodeBase64(TXT), S);
   finally
     Buf.Free;
   end;
@@ -108,7 +108,7 @@ begin
   Ss := TStringList.Create;
   try
     TBase64Stream.New(TDataStream.New(TXT)).Save(Ss);
-    AssertEquals(EncodeBase64(TXT), Trim(Ss.Text));
+    CheckEquals(EncodeBase64(TXT), Trim(Ss.Text));
   finally
     Ss.Free;
   end;
