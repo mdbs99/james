@@ -50,6 +50,12 @@ To contribute we suggest following these steps:
 
 If you have questions or general suggestions, don't hesitate to submit a new [Github issue](https://github.com/mdbs99/james/issues/new).
 
+## Contributors
+
+  - [@mdbs99](https://github.com/mdbs99) as Marcos Douglas B. Santos ([Blog](http://objectpascalprogramming.com/))
+  - [@fabriciofx](https://github.com/fabriciofx) as Fabrício Cabral
+  - [@nunopicado](https://github.com/nunopicado) as Nuno Picado
+  
 ## License (MIT)
 
 Copyright (c) 2017 Marcos Douglas B. Santos
