@@ -29,15 +29,23 @@ interface
 
 uses
   Classes, SysUtils,
-  {$IFDEF FPC}
-    md5,
-  {$ELSE}
-    hash,
-  {$ENDIF}
   James.Data,
-  James.Data.Clss;
+  James.Data.Clss,
+  {$IFDEF fpc}
+    James.Crypto.MD5.FPC
+  {$ELSE}
+    James.Crypto.MD5.Delphi
+  {$ENDIF}
+  ;
 
 type
+  TMD5Hash =
+    {$IFDEF fpc}
+      James.Crypto.MD5.FPC.TMD5Hash;
+    {$ELSE}
+      James.Crypto.MD5.Delphi.TMD5Hash;
+    {$ENDIF}
+
   TMD5Stream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
@@ -59,17 +67,7 @@ implementation
 function TMD5Stream.GetStream: IDataStream;
 begin
   Result := TDataStream.New(
-    {$IFDEF FPC}
-      MD5Print(
-        MD5String(
-          FOrigin.AsString
-        )
-      )
-    {$ELSE}
-      THashMD5.GetHashString(
-        FOrigin.AsString
-      )
-    {$ENDIF}
+    TMD5Hash.New(FOrigin.AsString).AsString
   );
 end;
 
