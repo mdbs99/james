@@ -207,13 +207,16 @@ begin
 end;
 
 function TDataStream.AsString: string;
+var
+  Buf: AnsiString;
 begin
   with FStream do
   begin
-    SetLength(Result, Size);
+    SetLength(Buf, Size);
     Position := 0;
-    ReadBuffer(Pointer(Result)^, Size);
+    ReadBuffer(Pointer(Buf)^, Size);
   end;
+  Result := Buf;
 end;
 
 function TDataStream.Size: Int64;

@@ -28,8 +28,13 @@ unit James.Format.XML.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
-  James.Format.XML.Clss;
+  Classes, SysUtils,
+  James.Format.XML.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry
+  {$ELSE}
+    TestFramework, XmlDoc, XmlIntf
+  {$ENDIF};
 
 type
   TXMLComponentTest = class(TTestCase)
@@ -48,19 +53,45 @@ const
       + '  <Z>10.00</Z> '#13
       + '</Foo> ';
 var
-  Fmt: TFormatSettings absolute DefaultFormatSettings;
+  Fmt: TFormatSettings absolute
+    {$IFDEF FPC}
+      DefaultFormatSettings
+    {$ELSE}
+      FormatSettings
+    {$ENDIF};
 begin
   Fmt.DecimalSeparator := '.';
   with TXMLComponent.Create(XML) do
   try
-    with Document.FindNode('Foo') do
+    with Document.{$IFNDEF FPC}ChildNodes.{$ENDIF}FindNode('Foo') do
     begin
-      CheckNotNull(FindNode('X'), 'Find X');
-      CheckEquals(1, FindNode('X').TextContent.ToInteger, 'Value X');
-      CheckNotNull(FindNode('Y'), 'Find Y');
-      CheckEquals('ABC', FindNode('Y').TextContent, 'Value Y');
-      CheckNotNull(FindNode('Z'), 'Find Z');
-      CheckEquals(10.00, StrToFloat(FindNode('Z').TextContent, Fmt), 'Value Z');
+      CheckNotNull(
+        {$IFNDEF FPC}ChildNodes.{$ENDIF}FindNode('X'),
+        'Find X'
+      );
+      CheckEquals(
+        1,
+        {$IFNDEF FPC}ChildNodes.{$ENDIF}FindNode('X').{$IFDEF FPC}TextContent.{$ELSE}Text.{$ENDIF}ToInteger,
+        'Value X'
+      );
+      CheckNotNull(
+        {$IFNDEF FPC}ChildNodes.{$ENDIF}FindNode('Y'),
+        'Find Y'
+      );
+      CheckEquals(
+        'ABC',
+        {$IFNDEF FPC}ChildNodes.{$ENDIF}FindNode('Y').{$IFDEF FPC}TextContent{$ELSE}Text{$ENDIF},
+        'Value Y'
+      );
+      CheckNotNull(
+        {$IFNDEF FPC}ChildNodes.{$ENDIF}FindNode('Z'),
+        'Find Z'
+      );
+      CheckEquals(
+        10.00,
+        StrToFloat({$IFNDEF FPC}ChildNodes.{$ENDIF}FindNode('Z').{$IFDEF FPC}TextContent{$ELSE}Text{$ENDIF}, Fmt),
+        'Value Z'
+      );
     end;
   finally
     Free;
@@ -68,7 +99,7 @@ begin
 end;
 
 initialization
-  RegisterTest('Format', TXMLComponentTest);
+  RegisterTest('Format', TXMLComponentTest{$IFNDEF FPC}.Suite{$ENDIF});
 
 end.
 

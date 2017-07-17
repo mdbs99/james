@@ -39,20 +39,24 @@ uses
 
 type
   {$IFDEF FPC}
-  TXMLDocument = Laz2_DOM.TXMLDocument;
-  TDOMNode = Laz2_DOM.TDOMNode;
+    TXMLDocument = Laz2_DOM.TXMLDocument;
+    TDOMNode = Laz2_DOM.TDOMNode;
   {$ENDIF}
 
   TXMLComponent = class
   private
-    FDocument: TXMLDocument;
+    {$IFDEF FPC}
+      FDocument: TXMLDocument;
+    {$ELSE}
+      FDocument: IXMLDocument;
+    {$ENDIF}
   public
     constructor Create(Stream: TStream); overload;
     constructor Create(Stream: IDataStream); overload;
     constructor Create(Strings: TStrings); overload;
     constructor Create(const S: string); overload;
     destructor Destroy; override;
-    function Document: TXMLDocument;
+    function Document: {$IFDEF FPC}TXMLDocument{$ELSE}IXMLDocument{$ENDIF};
     function SaveTo(Stream: TStream): TXMLComponent; overload;
     function SaveTo(Strings: TStrings): TXMLComponent; overload;
     function SaveTo(const FileName: string): TXMLComponent; overload;
@@ -70,6 +74,7 @@ begin
   {$IFDEF FPC}
     ReadXMLFile(FDocument, Stream);
   {$ELSE}
+    FDocument := TXMLDocument.Create(nil);
     FDocument.LoadFromStream(Stream);
   {$ENDIF}
 end;
@@ -114,11 +119,13 @@ end;
 
 destructor TXMLComponent.Destroy;
 begin
-  FDocument.Free;
+  {$IFDEF FPC}
+    FDocument.Free;
+  {$ENDIF}
   inherited Destroy;
 end;
 
-function TXMLComponent.Document: TXMLDocument;
+function TXMLComponent.Document: {$IFDEF FPC}TXMLDocument{$ELSE}IXMLDocument{$ENDIF};
 begin
   Result := FDocument;
 end;

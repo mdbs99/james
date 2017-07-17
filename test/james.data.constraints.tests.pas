@@ -28,11 +28,16 @@ unit James.Data.Constraints.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
+  Classes, SysUtils,
   James.Data,
   James.Data.Clss,
   James.Data.Constraints,
-  James.Data.Constraints.Clss;
+  James.Data.Constraints.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry
+  {$ELSE}
+    TestFramework
+  {$ENDIF};
 
 type
   TDataStreamTest = class(TTestCase)
@@ -104,11 +109,11 @@ begin
   Buf := TMemoryStream.Create;
   Ss := TStringList.Create;
   try
-    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    Buf.WriteBuffer(AnsiString(TXT)[1], Length(TXT));
     Ss.Text := TXT;
     CheckEquals(TXT, TDataStream.New(Buf).AsString, 'Test Stream');
     CheckEquals(TXT, TDataStream.New(TXT).AsString, 'Test String');
-    CheckEquals( TXT+#13#10, TDataStream.New(Ss).AsString, 'Test Strings');
+    CheckEquals(TXT+#13#10, TDataStream.New(Ss).AsString, 'Test Strings');
   finally
     Buf.Free;
     Ss.Free;
@@ -120,12 +125,12 @@ const
   TXT = 'ABCDEFG#13#10IJL';
 var
   Buf: TMemoryStream;
-  S: string;
+  S: AnsiString;
 begin
   Buf := TMemoryStream.Create;
   try
     TDataStream.New(TXT).Save(Buf);
-    SetLength(S, Buf.Size * SizeOf(Char));
+    SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
     CheckEquals(TXT, S);
@@ -246,9 +251,9 @@ end;
 initialization
   RegisterTests(
     'Data', [
-      TDataStreamTest,
-      TDataInformationsTest,
-      TDataConstraintsTest
+      TDataStreamTest{$IFNDEF FPC}.Suite{$ENDIF},
+      TDataInformationsTest{$IFNDEF FPC}.Suite{$ENDIF},
+      TDataConstraintsTest{$IFNDEF FPC}.Suite{$ENDIF}
     ]
   );
 

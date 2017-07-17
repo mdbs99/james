@@ -28,8 +28,13 @@ unit James.IO.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
-  James.IO.Clss;
+  Classes, SysUtils,
+  James.IO.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry
+  {$ELSE}
+    TestFramework
+  {$ENDIF};
 
 type
   TFileTest = class(TTestCase)
@@ -67,7 +72,7 @@ var
 begin
   M := TMemoryStream.Create;
   try
-    M.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    M.WriteBuffer(AnsiString(TXT)[1], Length(TXT));
     M.SaveToFile(FILE_NAME);
     CheckEquals(TXT, TFile.New(FILE_NAME).Stream.AsString);
   finally
@@ -77,7 +82,7 @@ begin
 end;
 
 initialization
-  RegisterTest('IO', TFileTest);
+  RegisterTest('IO', TFileTest{$IFNDEF FPC}.Suite{$ENDIF});
 
 end.
 

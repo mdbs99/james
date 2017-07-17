@@ -28,13 +28,18 @@ unit James.Data.Stream.Tests;
 interface
 
 uses
-  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry,
+  Classes, SysUtils,
   James.Data,
   James.Data.Clss,
   James.Format.XML.Clss,
   James.Data.Stream.Clss,
   James.IO.Clss,
-  James.Tests.Clss;
+  James.Tests.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry, Laz2_DOM
+  {$ELSE}
+    TestFramework, XmlDoc, XmlIntf
+  {$ENDIF};
 
 type
   TDataDividedStreamTest = class(TTestCase)
@@ -65,11 +70,11 @@ begin
   M1 := TMemoryStream.Create;
   M2 := TMemoryStream.Create;
   try
-    M1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    M1.WriteBuffer(AnsiString(TXT)[1], Length(TXT));
     for I := 1 to PART do
     begin
       with TDataDividedStream.New(TDataStream.New(M1), I, PART) do
-        M2.WriteBuffer(AsString[1], Size);
+        M2.WriteBuffer(AnsiString(AsString)[1], Size);
     end;
     CheckEquals(M1.Size, M2.Size, 'Compare Size');
     CheckEquals(TDataStream.New(M1).AsString, TDataStream.New(M2).AsString, 'Compare Content');
@@ -83,39 +88,52 @@ procedure TDataDividedStreamTest.StreamFromFile;
 var
   I: Integer;
   Part: Integer;
-  Template: TXMLComponent;
   M1: TMemoryStream;
   M2: TMemoryStream;
-  Node: TDOMNode;
+  Template: TXMLComponent;
+  {$IFDEF FPC}
+    Node: TDOMNode;
+  {$ELSE}
+    Node: IXMLNode;
+  {$ENDIF}
 begin
   Template := TXMLComponent.Create(TJamesTestsTemplateFile.New.Stream);
   try
     Node :=
-      Template
-        .Document
-        .DocumentElement
-        .FindNode(Self.ClassName)
-        .FindNode('files')
-        .ChildNodes
-        .Item[0];
+      Template.
+        Document.DocumentElement{$IFNDEF FPC}.ChildNodes{$ENDIF}.
+        FindNode(Self.ClassName){$IFNDEF FPC}.ChildNodes{$ENDIF}.
+        FindNode('files').ChildNodes{$IFDEF FPC}.Item{$ENDIF}[0];
     while Assigned(Node) do
     begin
       M1 := TMemoryStream.Create;
       M2 := TMemoryStream.Create;
       try
         TFile.New(
-          Node.Attributes.GetNamedItem('filename').TextContent
+          {$IFDEF FPC}
+            Node.Attributes.GetNamedItem('filename').TextContent
+          {$ELSE}
+            Node.Attributes['filename']
+          {$ENDIF}
         )
         .Stream
         .Save(M1);
-        Part := StrToInt(Node.Attributes.GetNamedItem('part').TextContent);
+        {$IFDEF FPC}
+          Part := StrToInt(Node.Attributes.GetNamedItem('part').TextContent);
+        {$ELSE}
+          Part := StrToInt(Node.Attributes['part']);
+        {$ENDIF}
+
         for I := 1 to Part do
         begin
           with TDataDividedStream.New(TDataStream.New(M1), I, Part) do
-            M2.WriteBuffer(AsString[1], Size);
+            M2.WriteBuffer(AnsiString(AsString)[1], Size);
         end;
         CheckEquals(
-          M1.Size, M2.Size, 'Compare Size');
+          M1.Size,
+          M2.Size,
+          'Compare Size'
+        );
         CheckEquals(
           TDataStream.New(M1).AsString,
           TDataStream.New(M2).AsString,
@@ -145,10 +163,10 @@ begin
   M1 := TMemoryStream.Create;
   M2 := TMemoryStream.Create;
   try
-    M1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    M1.WriteBuffer(AnsiString(TXT)[1], Length(TXT));
     with TDataPartialFromTextStream.New(TDataStream.New(M1), STR_PART) do
-      M2.WriteBuffer(AsString[1], Size);
-    CheckEquals(Length(STR_PART) * SizeOf(Char), M2.Size, 'Compare Size');
+      M2.WriteBuffer(AnsiString(AsString)[1], Size);
+    CheckEquals(Length(STR_PART), M2.Size, 'Compare Size');
     CheckEquals(TDataStream.New(STR_PART).AsString, TDataStream.New(M2).AsString, 'Compare Content');
   finally
     M1.Free;
@@ -160,7 +178,11 @@ procedure TDataPartialFromTextStreamTest.StreamFromFile;
 var
   M1: TMemoryStream;
   Template: TXMLComponent;
-  Node: TDOMNode;
+  {$IFDEF FPC}
+    Node: TDOMNode;
+  {$ELSE}
+    Node: IXMLNode;
+  {$ENDIF}
   TextAttr: string;
 begin
   Template := TXMLComponent.Create(TJamesTestsTemplateFile.New.Stream);
@@ -169,24 +191,31 @@ begin
       Template
         .Document
         .DocumentElement
+        {$IFNDEF FPC}.ChildNodes{$ENDIF}
         .FindNode(Self.ClassName)
-        .FindNode('files')
-        .ChildNodes
-        .Item[0];
+        .ChildNodes{$IFDEF FPC}.Item{$ENDIF}[0];
     while Assigned(Node) do
     begin
       M1 := TMemoryStream.Create;
-      TextAttr := Node.Attributes.GetNamedItem('text').TextContent;
+      {$IFDEF FPC}
+        TextAttr := Node.Attributes.GetNamedItem('text').TextContent;
+      {$ELSE}
+        TextAttr := Node.Attributes['text'];
+      {$ENDIF}
       try
         TFile.New(
-          Node.Attributes.GetNamedItem('filename').TextContent
+          {$IFDEF FPC}
+            Node.Attributes.GetNamedItem('filename').TextContent
+          {$ELSE}
+            Node.Attributes['filename']
+          {$ENDIF}
         )
         .Stream
         .Save(M1);
         with TDataPartialFromTextStream.New(TDataStream.New(M1), TextAttr) do
         begin
           CheckEquals(
-            Copy(AsString, 1, Length(TextAttr) * SizeOf(Char)),
+            Copy(AnsiString(AsString), 1, Length(TextAttr)),
             TextAttr,
             'Compare Content'
           );
@@ -204,8 +233,8 @@ end;
 initialization
   RegisterTests(
     'Data', [
-      TDataDividedStreamTest,
-      TDataPartialFromTextStreamTest
+      TDataDividedStreamTest{$IFNDEF FPC}.Suite{$ENDIF},
+      TDataPartialFromTextStreamTest{$IFNDEF FPC}.Suite{$ENDIF}
     ]
   );
 
