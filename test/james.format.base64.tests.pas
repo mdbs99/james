@@ -28,10 +28,15 @@ unit James.Format.Base64.Tests;
 interface
 
 uses
-  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry,
+  Classes, SysUtils,
   James.Data,
   James.Data.Clss,
-  James.Format.Base64.Clss;
+  James.Format.Base64.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry, Laz2_DOM
+  {$ELSE}
+    TestFramework, XmlDoc, XmlIntf
+  {$ENDIF};
 
 type
   TBase64StreamTest = class(TTestCase)
@@ -115,6 +120,6 @@ begin
 end;
 
 initialization
-  RegisterTest('Format', TBase64StreamTest);
+  RegisterTest('Format', TBase64StreamTest{$IFNDEF FPC}.Suite{$ENDIF});
 
 end.

@@ -28,10 +28,16 @@ unit James.Crypto.MD5.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
+  Classes, SysUtils,
   James.Data,
   James.Data.Clss,
-  James.Crypto.MD5.Clss;
+  James.Crypto.MD5.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry
+  {$ELSE}
+    TestFramework
+  {$ENDIF}
+  ;
 
 type
   TMD5HashTest = class(TTestCase)
@@ -76,8 +82,8 @@ end;
 initialization
   RegisterTestS(
     'Crypto', [
-      TMD5HashTest,
-      TMD5StreamTest
+      TMD5HashTest{$IFNDEF FPC}.Suite{$ENDIF},
+      TMD5StreamTest{$IFNDEF FPC}.Suite{$ENDIF}
     ]
   );
 

@@ -28,8 +28,13 @@ unit James.IO.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
-  James.IO.Clss;
+  Classes, SysUtils,
+  James.IO.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry
+  {$ELSE}
+    TestFramework
+  {$ENDIF};
 
 type
   TFileTest = class(TTestCase)
@@ -77,7 +82,7 @@ begin
 end;
 
 initialization
-  RegisterTest('IO', TFileTest);
+  RegisterTest('IO', TFileTest{$IFNDEF FPC}.Suite{$ENDIF});
 
 end.
 

@@ -28,13 +28,18 @@ unit James.Data.Stream.Tests;
 interface
 
 uses
-  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry,
+  Classes, SysUtils,
   James.Data,
   James.Data.Clss,
   James.Format.XML.Clss,
   James.Data.Stream.Clss,
   James.IO.Clss,
-  James.Tests.Clss;
+  James.Tests.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry, Laz2_DOM
+  {$ELSE}
+    TestFramework, XmlDoc, XmlIntf
+  {$ENDIF};
 
 type
   TDataDividedStreamTest = class(TTestCase)
@@ -204,8 +209,8 @@ end;
 initialization
   RegisterTests(
     'Data', [
-      TDataDividedStreamTest,
-      TDataPartialFromTextStreamTest
+      TDataDividedStreamTest{$IFNDEF FPC}.Suite{$ENDIF},
+      TDataPartialFromTextStreamTest{$IFNDEF FPC}.Suite{$ENDIF}
     ]
   );
 

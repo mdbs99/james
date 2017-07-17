@@ -28,11 +28,16 @@ unit James.Data.Constraints.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
+  Classes, SysUtils,
   James.Data,
   James.Data.Clss,
   James.Data.Constraints,
-  James.Data.Constraints.Clss;
+  James.Data.Constraints.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry
+  {$ELSE}
+    TestFramework
+  {$ENDIF};
 
 type
   TDataStreamTest = class(TTestCase)
@@ -246,9 +251,9 @@ end;
 initialization
   RegisterTests(
     'Data', [
-      TDataStreamTest,
-      TDataInformationsTest,
-      TDataConstraintsTest
+      TDataStreamTest{$IFNDEF FPC}.Suite{$ENDIF},
+      TDataInformationsTest{$IFNDEF FPC}.Suite{$ENDIF},
+      TDataConstraintsTest{$IFNDEF FPC}.Suite{$ENDIF}
     ]
   );
 
