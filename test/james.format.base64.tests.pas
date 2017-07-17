@@ -62,7 +62,7 @@ begin
   Buf := TMemoryStream.Create;
   Ss := TStringList.Create;
   try
-    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    Buf.WriteBuffer(AnsiString(TXT)[1], Length(TXT));
     Ss.Text := TXT;
     CheckEquals(
       EncodeBase64(TXT),
@@ -90,7 +90,7 @@ const
   TXT = 'ABCDEFG#13#10IJL';
 var
   Buf: TMemoryStream;
-  S: string;
+  S: AnsiString;
 begin
   Buf := TMemoryStream.Create;
   try
