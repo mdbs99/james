@@ -72,7 +72,7 @@
     </RequiredPackages>
     <Units Count="1">
       <Unit0>
-        <Filename Value="james.tests.gui.lpr"/>
+        <Filename Value="james.tests.gui.lazarus.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
     </Units>
