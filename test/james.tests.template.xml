@@ -7,6 +7,8 @@
     </files>
   </TDataDividedStreamTest>
   <TDataPartialFromTextStreamTest>
+    <files>
       <file filename="foo.txt"  text="blablabla" />
+    </files>
   </TDataPartialFromTextStreamTest>
 </Tests>
