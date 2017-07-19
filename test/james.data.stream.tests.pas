@@ -188,12 +188,10 @@ begin
   Template := TXMLComponent.Create(TJamesTestsTemplateFile.New.Stream);
   try
     Node :=
-      Template
-        .Document
-        .DocumentElement
-        {$IFNDEF FPC}.ChildNodes{$ENDIF}
-        .FindNode(Self.ClassName)
-        .ChildNodes{$IFDEF FPC}.Item{$ENDIF}[0];
+      Template.
+        Document.DocumentElement{$IFNDEF FPC}.ChildNodes{$ENDIF}.
+        FindNode(Self.ClassName){$IFNDEF FPC}.ChildNodes{$ENDIF}.
+        FindNode('files').ChildNodes{$IFDEF FPC}.Item{$ENDIF}[0];
     while Assigned(Node) do
     begin
       M1 := TMemoryStream.Create;
