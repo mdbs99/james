@@ -28,9 +28,15 @@ unit James.Data.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
+  Classes, SysUtils,
   James.Data,
-  James.Data.Clss;
+  James.Data.Clss,
+  james.testing.clss,
+  {$IFDEF FPC}
+    james.testing.clss.fpc
+  {$ELSE}
+    james.testing.clss.delphi
+  {$ENDIF};
 
 type
   TDataStreamTest = class(TTestCase)
@@ -100,10 +106,7 @@ begin
 end;
 
 initialization
-  RegisterTests(
-    'Data', [
-      TDataStreamTest
-    ]
-  );
+  TTestSuite.New('Data')
+    .Add(TTest<TDataStreamTest>.New);
 
 end.

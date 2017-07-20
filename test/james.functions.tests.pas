@@ -28,7 +28,13 @@ unit James.Functions.Tests;
 interface
 
 uses
-  fpcunit, testregistry, James.Functions.Clss;
+  James.Functions.Clss,
+  james.testing.clss,
+  {$IFDEF FPC}
+    james.testing.clss.fpc
+  {$ELSE}
+    james.testing.clss.delphi
+  {$ENDIF};
 
 type
   TIfTest = class(TTestCase)
@@ -52,7 +58,8 @@ begin
 end;
 
 initialization
-  RegisterTest('Functions', TIfTest);
+  TTestSuite.New('Functions')
+    .Add(TTest<TIfTest>.New);
 
 end.
 

@@ -28,8 +28,14 @@ unit James.Format.XML.Tests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testregistry,
-  James.Format.XML.Clss;
+  Classes, SysUtils,
+  James.Format.XML.Clss,
+  james.testing.clss,
+  {$IFDEF FPC}
+    james.testing.clss.fpc, Laz2_DOM
+  {$ELSE}
+    james.testing.clss.delphi, XmlIntf
+  {$ENDIF};
 
 type
   TXMLComponentTest = class(TTestCase)
@@ -68,7 +74,8 @@ begin
 end;
 
 initialization
-  RegisterTest('Format', TXMLComponentTest);
+  TTestSuite.New('Format')
+    .Add(TTest<TXMLComponentTest>.New);
 
 end.
 
