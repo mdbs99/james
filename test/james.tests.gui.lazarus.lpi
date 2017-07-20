@@ -81,7 +81,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\bin\james.tests.gui"/>
+      <Filename Value="..\bin\james.tests.gui.lazarus"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);..\inc"/>

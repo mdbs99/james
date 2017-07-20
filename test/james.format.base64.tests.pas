@@ -28,10 +28,15 @@ unit James.Format.Base64.Tests;
 interface
 
 uses
-  Classes, SysUtils, Laz2_DOM, fpcunit, testregistry,
+  Classes, SysUtils,
   James.Data,
   James.Data.Clss,
-  James.Format.Base64.Clss;
+  James.Format.Base64.Clss,
+  {$IFDEF FPC}
+    fpcunit, testregistry, Laz2_DOM
+  {$ELSE}
+    TestFramework, XmlDoc, XmlIntf
+  {$ENDIF};
 
 type
   TBase64StreamTest = class(TTestCase)
@@ -57,7 +62,7 @@ begin
   Buf := TMemoryStream.Create;
   Ss := TStringList.Create;
   try
-    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    Buf.WriteBuffer(AnsiString(TXT)[1], Length(TXT));
     Ss.Text := TXT;
     CheckEquals(
       EncodeBase64(TXT),
@@ -85,7 +90,7 @@ const
   TXT = 'ABCDEFG#13#10IJL';
 var
   Buf: TMemoryStream;
-  S: string;
+  S: AnsiString;
 begin
   Buf := TMemoryStream.Create;
   try
@@ -115,6 +120,6 @@ begin
 end;
 
 initialization
-  RegisterTest('Format', TBase64StreamTest);
+  RegisterTest('Format', TBase64StreamTest{$IFNDEF FPC}.Suite{$ENDIF});
 
 end.

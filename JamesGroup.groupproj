@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{CD0CCF85-6D1A-4615-A14A-FFDDAA53A883}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="pkg\james.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="test\james.tests.gui.delphi.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="james">
+        <MSBuild Projects="pkg\james.dproj"/>
+    </Target>
+    <Target Name="james:Clean">
+        <MSBuild Projects="pkg\james.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="james:Make">
+        <MSBuild Projects="pkg\james.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="james_tests_gui_delphi">
+        <MSBuild Projects="test\james.tests.gui.delphi.dproj"/>
+    </Target>
+    <Target Name="james_tests_gui_delphi:Clean">
+        <MSBuild Projects="test\james.tests.gui.delphi.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="james_tests_gui_delphi:Make">
+        <MSBuild Projects="test\james.tests.gui.delphi.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="james;james_tests_gui_delphi"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="james:Clean;james_tests_gui_delphi:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="james:Make;james_tests_gui_delphi:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
