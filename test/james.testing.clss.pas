@@ -7,7 +7,7 @@ interface
 uses
     james.testing,
   {$IFDEF FPC}
-    fpcunit, james.testing.clss.lazarus
+    fpcunit, james.testing.clss.fpc
   {$ELSE}
     TestFramework, james.testing.clss.delphi
   {$ENDIF}
