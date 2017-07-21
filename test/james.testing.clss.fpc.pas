@@ -1,13 +1,13 @@
-unit james.testing.clss.fpc;
+unit James.Testing.Clss.FPC;
 
 {$include james.inc}
 
 interface
 
 uses
-    fpcunit,
-    testregistry,
-    james.testing;
+  fpcunit,
+  testregistry,
+  James.Testing;
 
 type
   TTest<T: TTestCase> = class sealed(TInterfacedObject, ITest)
@@ -18,7 +18,7 @@ type
 
 implementation
 
-{ TTesting }
+{ TTest }
 
 class function TTest<T>.New: ITest;
 begin

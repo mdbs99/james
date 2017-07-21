@@ -1,15 +1,17 @@
-unit james.testing.clss;
+unit James.Testing.Clss;
 
 {$include james.inc}
 
 interface
 
 uses
-    james.testing,
+  James.Testing,
   {$IFDEF FPC}
-    fpcunit, james.testing.clss.fpc
+    fpcunit,
+    James.Testing.Clss.FPC
   {$ELSE}
-    TestFramework, james.testing.clss.delphi
+    TestFramework,
+    James.Testing.Clss.Delphi
   {$ENDIF}
   ;
 
@@ -20,20 +22,20 @@ type
     TTestCase = TestFramework.TTestCase;
   {$ENDIF}
 
-  TTestSuite = class sealed(TInterfacedObject, james.testing.ITestSuite)
+  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
   private
     FPath: string;
   public
     constructor Create(const Path: string);
-    class function New(const Path: string): james.testing.ITestSuite;
-    function Add(const Test: james.testing.ITest): james.testing.ITestSuite;
+    class function New(const Path: string): ITestSuite;
+    function Add(const Test: ITest): ITestSuite;
   end;
 
 implementation
 
-{ TTestingSuite }
+{ TTestSuite }
 
-function TTestSuite.Add(const Test: james.testing.ITest): james.testing.ITestSuite;
+function TTestSuite.Add(const Test: ITest): ITestSuite;
 begin
   Result := Self;
   Test.RegisterOn(FPath);
@@ -44,7 +46,7 @@ begin
   FPath := Path;
 end;
 
-class function TTestSuite.New(const Path: string): james.testing.ITestSuite;
+class function TTestSuite.New(const Path: string): ITestSuite;
 begin
   Result := Create(Path);
 end;

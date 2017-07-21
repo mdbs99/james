@@ -1,4 +1,4 @@
-unit james.testing;
+unit James.Testing;
 
 {$include james.inc}
 

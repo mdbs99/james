@@ -31,7 +31,7 @@ uses
   Classes, SysUtils,
   James.Data,
   James.Data.Clss,
-  james.testing.clss,
+  James.Testing.Clss,
   {$IFDEF FPC}
     james.testing.clss.fpc
   {$ELSE}

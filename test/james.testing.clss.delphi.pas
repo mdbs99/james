@@ -1,32 +1,32 @@
-unit james.testing.clss.delphi;
+unit James.Testing.Clss.Delphi;
 
 {$include james.inc}
 
 interface
 
 uses
-    TestFramework
-  , james.testing
-  ;
+  TestFramework,
+  James.Testing;
 
 type
   TTest<T: TTestCase> = class sealed(TInterfacedObject, ITest)
   public
-    function RegisterTest(const SuitePath: string): ITest;
+    function RegisterOn(const SuitePath: string): ITest;
     class function New: ITest;
   end;
 
 implementation
 
-{ TTesting }
+{ TTest }
 
 class function TTest<T>.New: ITest;
 begin
   Result := Create;
 end;
 
-function TTest<T>.RegisterTest(const SuitePath: string): ITest;
+function TTest<T>.RegisterOn(const SuitePath: string): ITest;
 begin
+  Result := Self;
   TestFramework.RegisterTest(SuitePath, T.Suite);
 end;
 
