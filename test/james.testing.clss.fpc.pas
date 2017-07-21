@@ -27,6 +27,7 @@ end;
 
 function TTest<T>.RegisterOn(const SuitePath: string): ITest;
 begin
+  Result := Self;
   TestRegistry.RegisterTest(SuitePath, T);
 end;
 
