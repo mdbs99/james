@@ -44,6 +44,8 @@ type
   {$ELSE}
     TTestCase = TestFramework.TTestCase;
   {$ENDIF}
+  ITest = James.Testing.ITest;
+  ITestSuite = James.Testing.ITestSuite;
 
   TTestSuite = class sealed(TInterfacedObject, ITestSuite)
   private
