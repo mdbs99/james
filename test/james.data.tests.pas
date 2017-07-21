@@ -33,9 +33,9 @@ uses
   James.Data.Clss,
   James.Testing.Clss,
   {$IFDEF FPC}
-    james.testing.clss.fpc
+    James.Testing.FPC
   {$ELSE}
-    james.testing.clss.delphi
+    James.Testing.Delphi
   {$ENDIF};
 
 type

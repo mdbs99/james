@@ -64,15 +64,15 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
       </Item9>
       <Item10>
         <Filename Value="..\test\james.testing.clss.pas"/>
-        <UnitName Value="james.testing.clss"/>
+        <UnitName Value="James.Testing.Clss"/>
       </Item10>
       <Item11>
         <Filename Value="..\test\james.testing.pas"/>
-        <UnitName Value="james.testing"/>
+        <UnitName Value="James.Testing"/>
       </Item11>
       <Item12>
-        <Filename Value="..\test\james.testing.clss.fpc.pas"/>
-        <UnitName Value="james.testing.clss.fpc"/>
+        <Filename Value="..\test\james.testing.fpc.pas"/>
+        <UnitName Value="james.testing.fpc"/>
       </Item12>
     </Files>
     <RequiredPkgs Count="4">

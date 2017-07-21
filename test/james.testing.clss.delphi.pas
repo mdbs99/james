@@ -1,4 +1,4 @@
-unit James.Testing.Clss.Delphi;
+unit James.Testing.Delphi;
 
 {$include james.inc}
 

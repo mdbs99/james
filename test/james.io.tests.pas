@@ -32,9 +32,9 @@ uses
   James.IO.Clss,
   james.Testing.Clss,
   {$IFDEF FPC}
-    james.testing.clss.fpc
+    James.Testing.FPC
   {$ELSE}
-    james.testing.clss.delphi
+    James.Testing.Delphi
   {$ENDIF};
 
 type

@@ -34,9 +34,9 @@ uses
   James.Crypto.MD5.Clss,
   james.testing.clss,
   {$IFDEF FPC}
-    james.testing.clss.fpc
+    James.Testing.FPC
   {$ELSE}
-    james.testing.clss.delphi
+    James.Testing.Delphi
   {$ENDIF};
 
 type

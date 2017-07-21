@@ -1,4 +1,4 @@
-unit James.Testing.Clss.FPC;
+unit James.Testing.FPC;
 
 {$include james.inc}
 

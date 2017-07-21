@@ -37,9 +37,9 @@ uses
   James.Tests.Clss,
   james.testing.clss,
   {$IFDEF FPC}
-    james.testing.clss.fpc, Laz2_DOM
+    James.Testing.FPC, Laz2_DOM
   {$ELSE}
-    james.testing.clss.delphi, XmlIntf
+    James.Testing.Delphi, XmlIntf
   {$ENDIF};
 
 type

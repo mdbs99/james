@@ -8,10 +8,10 @@ uses
   James.Testing,
   {$IFDEF FPC}
     fpcunit,
-    James.Testing.Clss.FPC
+    James.Testing.FPC
   {$ELSE}
     TestFramework,
-    James.Testing.Clss.Delphi
+    James.Testing.Delphi
   {$ENDIF}
   ;
 
