@@ -36,7 +36,7 @@ implementation
 function TTestSuite.Add(const Test: james.testing.ITest): james.testing.ITestSuite;
 begin
   Result := Self;
-  Test.RegisterTest(FPath);
+  Test.RegisterOn(FPath);
 end;
 
 constructor TTestSuite.Create(const Path: string);

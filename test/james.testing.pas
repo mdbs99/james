@@ -7,7 +7,7 @@ interface
 type
   ITest = interface
   ['{CF6EE529-CC09-461F-B6FB-526982D37C3B}']
-    function RegisterTest(const SuitePath: string): ITest;
+    function RegisterOn(const SuitePath: string): ITest;
   end;
 
   ITestSuite = interface

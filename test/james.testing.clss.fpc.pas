@@ -13,7 +13,7 @@ type
   TTest<T: TTestCase> = class sealed(TInterfacedObject, ITest)
   public
     class function New: ITest;
-    function RegisterTest(const SuitePath: string): ITest;
+    function RegisterOn(const SuitePath: string): ITest;
   end;
 
 implementation
@@ -25,7 +25,7 @@ begin
   Result := Create;
 end;
 
-function TTest<T>.RegisterTest(const SuitePath: string): ITest;
+function TTest<T>.RegisterOn(const SuitePath: string): ITest;
 begin
   TestRegistry.RegisterTest(SuitePath, T);
 end;
