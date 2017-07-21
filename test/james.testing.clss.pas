@@ -28,15 +28,14 @@ unit James.Testing.Clss;
 interface
 
 uses
-  James.Testing,
   {$IFDEF FPC}
     fpcunit,
-    James.Testing.FPC
+    James.Testing.FPC,
   {$ELSE}
     TestFramework,
-    James.Testing.Delphi
+    James.Testing.Delphi,
   {$ENDIF}
-  ;
+  James.Testing;
 
 type
   {$IFDEF FPC}
@@ -44,8 +43,6 @@ type
   {$ELSE}
     TTestCase = TestFramework.TTestCase;
   {$ENDIF}
-  ITest = James.Testing.ITest;
-  ITestSuite = James.Testing.ITestSuite;
 
   TTestSuite = class sealed(TInterfacedObject, ITestSuite)
   private
