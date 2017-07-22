@@ -39,8 +39,10 @@ uses
 
 type
   {$IFDEF FPC}
+    TTest = James.Testing.FPC.TTest;
     TTestCase = FPCUnit.TTestCase;
   {$ELSE}
+    TTest = James.Testing.Delphi.TTest;
     TTestCase = TestFramework.TTestCase;
   {$ENDIF}
 
