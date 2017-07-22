@@ -33,9 +33,12 @@ uses
   James.Testing;
 
 type
-  TTest<T: TTestCase> = class sealed(TInterfacedObject, ITest)
+  TTest = class sealed(TInterfacedObject, ITest)
+  private
+    FClss: TTestCaseClass;
   public
-    class function New: ITest;
+    constructor Create(Clss: TTestCaseClass);
+    class function New(Clss: TTestCaseClass): ITest;
     function RegisterOn(const SuitePath: string): ITest;
   end;
 
@@ -43,15 +46,21 @@ implementation
 
 { TTest }
 
-class function TTest<T>.New: ITest;
+constructor TTest.Create(Clss: TTestCaseClass);
 begin
-  Result := Create;
+  inherited Create;
+  FClss := Clss;
 end;
 
-function TTest<T>.RegisterOn(const SuitePath: string): ITest;
+class function TTest.New(Clss: TTestCaseClass): ITest;
+begin
+  Result := Create(Clss);
+end;
+
+function TTest.RegisterOn(const SuitePath: string): ITest;
 begin
   Result := Self;
-  TestRegistry.RegisterTest(SuitePath, T);
+  TestRegistry.RegisterTest(SuitePath, FClss);
 end;
 
 end.
