@@ -34,6 +34,15 @@ uses
   James.Data.Clss;
 
 type
+  TBase64Hash = class sealed(TInterfacedObject, IDataHash)
+  private
+    FValue: string;
+  public
+    constructor Create(const Value: string);
+    class function New(const Value: string): IDataHash;
+    function AsString: string;
+  end;
+
   TBase64Stream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
@@ -49,6 +58,24 @@ type
   end;
 
 implementation
+
+{ TBase64Hash }
+
+constructor TBase64Hash.Create(const Value: string);
+begin
+  inherited Create;
+  FValue := Value;
+end;
+
+class function TBase64Hash.New(const Value: string): IDataHash;
+begin
+  Result := Create(Value);
+end;
+
+function TBase64Hash.AsString: string;
+begin
+  Result := EncodeBase64(FValue);
+end;
 
 { TBase64Stream }
 
