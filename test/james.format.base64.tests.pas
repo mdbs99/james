@@ -40,6 +40,11 @@ uses
   {$ENDIF};
 
 type
+  TBase64HashTest = class(TTestCase)
+  published
+    procedure HashByBase64encodePage;
+  end;
+
   TBase64StreamTest = class(TTestCase)
   published
     procedure AsString;
@@ -50,6 +55,19 @@ type
 implementation
 
 uses synacode;
+
+{ TBase64HashTest }
+
+procedure TBase64HashTest.HashByBase64encodePage;
+const
+  VALUE = 'https://www.base64encode.org/';
+  VALUE_HASH = 'aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=';
+begin
+  CheckEquals(
+    VALUE_HASH,
+    TBase64Hash.New(VALUE).AsString
+  );
+end;
 
 { TBase64StreamTest }
 
@@ -122,6 +140,8 @@ end;
 
 initialization
   TTestSuite.New('Data')
-    .Add(TTest<TBase64StreamTest>.New);
+    .Add(TTest<TBase64HashTest>.New)
+    .Add(TTest<TBase64StreamTest>.New)
+    ;
 
 end.
