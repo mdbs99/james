@@ -138,8 +138,8 @@ end;
 
 initialization
   TTestSuite.New('Data')
-    .Add(TTest<TBase64HashTest>.New)
-    .Add(TTest<TBase64StreamTest>.New)
+    .Add(TTest.New(TBase64HashTest))
+    .Add(TTest.New(TBase64StreamTest))
     ;
 
 end.

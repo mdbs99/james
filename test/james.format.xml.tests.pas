@@ -75,7 +75,7 @@ end;
 
 initialization
   TTestSuite.New('Format')
-    .Add(TTest<TXMLComponentTest>.New);
+    .Add(TTest.New(TXMLComponentTest));
 
 end.
 

@@ -251,8 +251,8 @@ end;
 
 initialization
   TTestSuite.New('Data')
-    .Add(TTest<TDataStreamTest>.New)
-    .Add(TTest<TDataInformationsTest>.New)
-    .Add(TTest<TDataConstraintsTest>.New);
+    .Add(TTest.New(TDataStreamTest))
+    .Add(TTest.New(TDataInformationsTest))
+    .Add(TTest.New(TDataConstraintsTest));
 
 end.

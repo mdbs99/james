@@ -107,6 +107,6 @@ end;
 
 initialization
   TTestSuite.New('Data')
-    .Add(TTest<TDataStreamTest>.New);
+    .Add(TTest.New(TDataStreamTest));
 
 end.

@@ -209,7 +209,7 @@ end;
 
 initialization
   TTestSuite.New('Data')
-    .Add(TTest<TDataDividedStreamTest>.New)
-    .Add(TTest<TDataPartialFromTextStreamTest>.New);
+    .Add(TTest.New(TDataDividedStreamTest))
+    .Add(TTest.New(TDataPartialFromTextStreamTest));
 
 end.

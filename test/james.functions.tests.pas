@@ -59,7 +59,7 @@ end;
 
 initialization
   TTestSuite.New('Functions')
-    .Add(TTest<TIfTest>.New);
+    .Add(TTest.New(TIfTest));
 
 end.
 
