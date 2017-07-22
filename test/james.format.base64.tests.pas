@@ -54,8 +54,6 @@ type
 
 implementation
 
-uses synacode;
-
 { TBase64HashTest }
 
 procedure TBase64HashTest.HashByBase64encodePage;
@@ -84,17 +82,17 @@ begin
     Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
     CheckEquals(
-      EncodeBase64(TXT),
+      TBase64Hash.New(TXT).AsString,
       TBase64Stream.New(TDataStream.New(Buf)).AsString,
       'Test Stream'
     );
     CheckEquals(
-      EncodeBase64(TXT),
+      TBase64Hash.New(TXT).AsString,
       TBase64Stream.New(TDataStream.New(TXT)).AsString,
       'Test String'
     );
     CheckEquals(
-      EncodeBase64(TXT+#13#10),
+      TBase64Hash.New(TXT+#13#10).AsString,
       TBase64Stream.New(TDataStream.New(Ss)).AsString,
       'Test Strings'
     );
@@ -117,7 +115,7 @@ begin
     SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
-    CheckEquals(EncodeBase64(TXT), S);
+    CheckEquals(TBase64Hash.New(TXT).AsString, S);
   finally
     Buf.Free;
   end;
@@ -132,7 +130,7 @@ begin
   Ss := TStringList.Create;
   try
     TBase64Stream.New(TDataStream.New(TXT)).Save(Ss);
-    CheckEquals(EncodeBase64(TXT), Trim(Ss.Text));
+    CheckEquals(TBase64Hash.New(TXT).AsString, Trim(Ss.Text));
   finally
     Ss.Free;
   end;
