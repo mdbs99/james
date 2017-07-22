@@ -39,8 +39,8 @@ uses
   James.Format.XML.Clss,
   James.Data.Stream.Clss,
   James.IO.Clss,
-  James.Tests.Clss,
-  James.Testing.Clss;
+  James.Testing.Clss,
+  James.Testing.IO.Clss;
 
 type
   TDataDividedStreamTest = class(TTestCase)

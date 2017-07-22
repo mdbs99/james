@@ -71,8 +71,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Testing.FPC"/>
       </Item11>
       <Item12>
-        <Filename Value="..\test\james.tests.clss.pas"/>
-        <UnitName Value="James.Tests.Clss"/>
+        <Filename Value="..\test\james.testing.io.clss.pas"/>
+        <UnitName Value="James.Testing.IO.Clss"/>
       </Item12>
     </Files>
     <RequiredPkgs Count="4">

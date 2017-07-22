@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Tests.Clss;
+unit James.Testing.IO.Clss;
 
 {$include james.inc}
 
