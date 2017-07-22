@@ -42,7 +42,7 @@ uses
 type
   TMD5HashTest = class(TTestCase)
   published
-    procedure HashComparison;
+    procedure HashByMd5HashGeneratorPage;
   end;
 
   TMD5StreamTest = class(TTestCase)
@@ -54,7 +54,7 @@ implementation
 
 { TMD5HashTest }
 
-procedure TMD5HashTest.HashComparison;
+procedure TMD5HashTest.HashByMd5HashGeneratorPage;
 const
   VALUE = 'http://www.md5hashgenerator.com/';
   VALUE_HASH = '93d1d8f5025cefe0fb747a6809a8405a';
