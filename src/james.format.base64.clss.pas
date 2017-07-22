@@ -88,7 +88,9 @@ begin
   try
     FOrigin.Save(Buf1);
     Buf1.Position := soFromBeginning;
-    Buf2 := TStringStream.Create(EncodeBase64(Buf1.DataString));
+    Buf2 := TStringStream.Create(
+      TBase64Hash.New(Buf1.DataString).AsString
+    );
     Result := TDataStream.New(Buf2);
   finally
     Buf1.Free;
