@@ -29,13 +29,13 @@ interface
 
 uses
   Classes, SysUtils,
-  James.Format.XML.Clss,
-  james.testing.clss,
   {$IFDEF FPC}
-    James.Testing.FPC, Laz2_DOM
+    Laz2_DOM,
   {$ELSE}
-    James.Testing.Delphi, XmlIntf
-  {$ENDIF};
+    XmlIntf,
+  {$ENDIF}
+  James.Format.XML.Clss,
+  James.Testing.Clss;
 
 type
   TXMLComponentTest = class(TTestCase)

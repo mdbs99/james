@@ -33,12 +33,7 @@ uses
   James.Data.Clss,
   James.Data.Constraints,
   James.Data.Constraints.Clss,
-  james.testing.clss,
-  {$IFDEF FPC}
-    James.Testing.FPC
-  {$ELSE}
-    James.Testing.Delphi
-  {$ENDIF};
+  James.Testing.Clss;
 
 type
   TDataStreamTest = class(TTestCase)

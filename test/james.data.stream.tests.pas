@@ -29,18 +29,18 @@ interface
 
 uses
   Classes, SysUtils,
+  {$IFDEF FPC}
+    Laz2_DOM,
+  {$ELSE}
+    XmlIntf,
+  {$ENDIF}
   James.Data,
   James.Data.Clss,
   James.Format.XML.Clss,
   James.Data.Stream.Clss,
   James.IO.Clss,
   James.Tests.Clss,
-  james.testing.clss,
-  {$IFDEF FPC}
-    James.Testing.FPC, Laz2_DOM
-  {$ELSE}
-    James.Testing.Delphi, XmlIntf
-  {$ENDIF};
+  James.Testing.Clss;
 
 type
   TDataDividedStreamTest = class(TTestCase)

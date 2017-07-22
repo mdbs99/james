@@ -30,12 +30,7 @@ interface
 uses
   Classes, SysUtils,
   James.IO.Clss,
-  james.Testing.Clss,
-  {$IFDEF FPC}
-    James.Testing.FPC
-  {$ELSE}
-    James.Testing.Delphi
-  {$ENDIF};
+  james.Testing.Clss;
 
 type
   TFileTest = class(TTestCase)

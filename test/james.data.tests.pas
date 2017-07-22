@@ -31,12 +31,7 @@ uses
   Classes, SysUtils,
   James.Data,
   James.Data.Clss,
-  James.Testing.Clss,
-  {$IFDEF FPC}
-    James.Testing.FPC
-  {$ELSE}
-    James.Testing.Delphi
-  {$ENDIF};
+  James.Testing.Clss;
 
 type
   TDataStreamTest = class(TTestCase)

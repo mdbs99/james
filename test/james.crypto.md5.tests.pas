@@ -32,12 +32,7 @@ uses
   James.Data,
   James.Data.Clss,
   James.Crypto.MD5.Clss,
-  james.testing.clss,
-  {$IFDEF FPC}
-    James.Testing.FPC
-  {$ELSE}
-    James.Testing.Delphi
-  {$ENDIF};
+  James.Testing.Clss;
 
 type
   TMD5HashTest = class(TTestCase)

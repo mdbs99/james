@@ -29,12 +29,7 @@ interface
 
 uses
   James.Functions.Clss,
-  james.testing.clss,
-  {$IFDEF FPC}
-    James.Testing.FPC
-  {$ELSE}
-    James.Testing.Delphi
-  {$ENDIF};
+  James.Testing.Clss;
 
 type
   TIfTest = class(TTestCase)

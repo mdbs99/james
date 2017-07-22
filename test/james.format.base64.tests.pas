@@ -32,12 +32,7 @@ uses
   James.Data,
   James.Data.Clss,
   James.Format.Base64.Clss,
-  james.testing.clss,
-  {$IFDEF FPC}
-    James.Testing.FPC, Laz2_DOM
-  {$ELSE}
-    James.Testing.Delphi, XmlIntf
-  {$ENDIF};
+  James.Testing.Clss;
 
 type
   TBase64HashTest = class(TTestCase)
