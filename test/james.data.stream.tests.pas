@@ -192,8 +192,8 @@ begin
         with TDataPartialFromTextStream.New(TDataStream.New(M1), TextAttr) do
         begin
           CheckEquals(
-            Copy(AsString, 1, Length(TextAttr) * SizeOf(Char)),
             TextAttr,
+            Copy(AsString, 1, Length(TextAttr) * SizeOf(Char)),
             'Compare Content'
           );
         end;
