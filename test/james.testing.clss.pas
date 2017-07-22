@@ -28,23 +28,23 @@ unit James.Testing.Clss;
 interface
 
 uses
-  {$IFDEF FPC}
+  {$ifdef FPC}
     fpcunit,
     James.Testing.FPC,
-  {$ELSE}
+  {$else}
     TestFramework,
     James.Testing.Delphi,
-  {$ENDIF}
+  {$endif}
   James.Testing;
 
 type
-  {$IFDEF FPC}
+  {$ifdef FPC}
     TTest = James.Testing.FPC.TTest;
     TTestCase = FPCUnit.TTestCase;
-  {$ELSE}
+  {$else}
     TTest = James.Testing.Delphi.TTest;
     TTestCase = TestFramework.TTestCase;
-  {$ENDIF}
+  {$endif}
 
   TTestSuite = class sealed(TInterfacedObject, ITestSuite)
   private

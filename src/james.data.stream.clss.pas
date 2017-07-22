@@ -143,7 +143,7 @@ function TDataPartialFromTextStream.GetStream: IDataStream;
 var
   M: TMemoryStream;
   S: AnsiString;
-  P: {$IFDEF FPC}SizeInt{$ELSE}NativeInt{$ENDIF};
+  P: {$ifdef FPC}SizeInt{$else}NativeInt{$endif};
 begin
   S := '';
   M := TMemoryStream.Create;

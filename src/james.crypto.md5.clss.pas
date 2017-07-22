@@ -31,20 +31,20 @@ uses
   Classes, SysUtils,
   James.Data,
   James.Data.Clss,
-  {$IFDEF fpc}
+  {$ifdef FPC}
     James.Crypto.MD5.FPC
-  {$ELSE}
+  {$else}
     James.Crypto.MD5.Delphi
-  {$ENDIF}
+  {$endif}
   ;
 
 type
   TMD5Hash =
-    {$IFDEF fpc}
+    {$ifdef FPC}
       James.Crypto.MD5.FPC.TMD5Hash;
-    {$ELSE}
+    {$else}
       James.Crypto.MD5.Delphi.TMD5Hash;
-    {$ENDIF}
+    {$endif}
 
   TMD5Stream = class sealed(TInterfacedObject, IDataStream)
   private

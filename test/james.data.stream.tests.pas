@@ -29,11 +29,11 @@ interface
 
 uses
   Classes, SysUtils,
-  {$IFDEF FPC}
+  {$ifdef FPC}
     Laz2_DOM,
-  {$ELSE}
+  {$else}
     XmlIntf,
-  {$ENDIF}
+  {$endif}
   James.Data,
   James.Data.Clss,
   James.Format.XML.Clss,

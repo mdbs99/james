@@ -30,18 +30,18 @@ interface
 uses
   Classes, SysUtils,
   James.Data,
-  {$IFDEF FPC}
+  {$ifdef FPC}
     Laz2_DOM, laz2_XMLRead, laz2_XMLWrite
-  {$ELSE}
+  {$else}
     xmlDoc, xmlIntf
-  {$ENDIF}
+  {$endif}
   ;
 
 type
-  {$IFDEF FPC}
+  {$ifdef FPC}
   TXMLDocument = Laz2_DOM.TXMLDocument;
   TDOMNode = Laz2_DOM.TDOMNode;
-  {$ENDIF}
+  {$endif}
 
   TXMLComponent = class
   private
@@ -67,11 +67,11 @@ constructor TXMLComponent.Create(Stream: TStream);
 begin
   inherited Create;
   Stream.Position := 0;
-  {$IFDEF FPC}
+  {$ifdef FPC}
     ReadXMLFile(FDocument, Stream);
-  {$ELSE}
+  {$else}
     FDocument.LoadFromStream(Stream);
-  {$ENDIF}
+  {$endif}
 end;
 
 constructor TXMLComponent.Create(Stream: IDataStream);
@@ -126,11 +126,11 @@ end;
 function TXMLComponent.SaveTo(Stream: TStream): TXMLComponent;
 begin
   Result := Self;
-  {$IFDEF FPC}
+  {$ifdef FPC}
     WriteXMLFile(FDocument, Stream);
-  {$ELSE}
+  {$else}
     FDocument.SaveToStream(Stream);
-  {$ENDIF}
+  {$endif}
   Stream.Position := 0;
 end;
 
