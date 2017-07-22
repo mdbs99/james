@@ -94,7 +94,7 @@ var
   M2: TMemoryStream;
   Node: TDOMNode;
 begin
-  Template := TXMLComponent.Create(TJamesTestsTemplateFile.New.Stream);
+  Template := TXMLComponent.Create(TTestTemplateFile.New.Stream);
   try
     Node :=
       Template
@@ -169,7 +169,7 @@ var
   Node: TDOMNode;
   TextAttr: string;
 begin
-  Template := TXMLComponent.Create(TJamesTestsTemplateFile.New.Stream);
+  Template := TXMLComponent.Create(TTestTemplateFile.New.Stream);
   try
     Node :=
       Template

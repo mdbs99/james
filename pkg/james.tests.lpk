@@ -51,28 +51,28 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Crypto.MD5.Tests"/>
       </Item6>
       <Item7>
-        <Filename Value="..\test\james.tests.clss.pas"/>
-        <UnitName Value="James.Tests.Clss"/>
-      </Item7>
-      <Item8>
         <Filename Value="..\test\james.functions.tests.pas"/>
         <UnitName Value="James.Functions.Tests"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="..\test\james.data.constraints.tests.pas"/>
         <UnitName Value="James.Data.Constraints.Tests"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <Filename Value="..\test\james.testing.clss.pas"/>
         <UnitName Value="James.Testing.Clss"/>
-      </Item10>
-      <Item11>
+      </Item9>
+      <Item10>
         <Filename Value="..\test\james.testing.pas"/>
         <UnitName Value="James.Testing"/>
+      </Item10>
+      <Item11>
+        <Filename Value="..\test\james.testing.fpc.pas"/>
+        <UnitName Value="James.Testing.FPC"/>
       </Item11>
       <Item12>
-        <Filename Value="..\test\james.testing.fpc.pas"/>
-        <UnitName Value="james.testing.fpc"/>
+        <Filename Value="..\test\james.tests.clss.pas"/>
+        <UnitName Value="James.Tests.Clss"/>
       </Item12>
     </Files>
     <RequiredPkgs Count="4">
