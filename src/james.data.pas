@@ -72,6 +72,13 @@ type
     function AsString: string; overload;
   end;
 
+  IDataGuid = interface
+  ['{F7269A91-B5E7-4067-BB8E-8712BC99EE08}']
+    function Value: TGuid;
+    function AsString: string;
+    function AsSmallString: string;
+  end;
+
   IDataHash = interface
   ['{69A5ED2A-7E06-4942-A6EA-48B36670F360}']
     function AsString: string;
