@@ -30,8 +30,7 @@ interface
 uses
   Classes, SysUtils,
   synacode,
-  James.Data,
-  James.Data.Clss;
+  James.Data;
 
 type
   TBase64Hash = class sealed(TInterfacedObject, IDataHash)
