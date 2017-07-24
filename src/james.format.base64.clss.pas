@@ -29,19 +29,21 @@ interface
 
 uses
   Classes, SysUtils,
-  synacode,
+  {$ifdef FPC}
+    James.Format.Base64.FPC,
+  {$else}
+    James.Format.Base64.Delphi,
+  {$endif}
   James.Data,
   James.Data.Clss;
 
 type
-  TBase64Hash = class sealed(TInterfacedObject, IDataHash)
-  private
-    FValue: string;
-  public
-    constructor Create(const Value: string);
-    class function New(const Value: string): IDataHash;
-    function AsString: string;
-  end;
+  TBase64Hash =
+    {$ifdef FPC}
+      James.Format.Base64.FPC.TBase64Hash;
+    {$else}
+      James.Format.Base64.Delphi.TBase64Hash;
+    {$endif}
 
   TBase64Stream = class sealed(TInterfacedObject, IDataStream)
   private
@@ -58,24 +60,6 @@ type
   end;
 
 implementation
-
-{ TBase64Hash }
-
-constructor TBase64Hash.Create(const Value: string);
-begin
-  inherited Create;
-  FValue := Value;
-end;
-
-class function TBase64Hash.New(const Value: string): IDataHash;
-begin
-  Result := Create(Value);
-end;
-
-function TBase64Hash.AsString: string;
-begin
-  Result := EncodeBase64(FValue);
-end;
 
 { TBase64Stream }
 
