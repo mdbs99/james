@@ -24,12 +24,6 @@ We want to write elegant, clean, and maintainable code using OOP.
 * No type casting or reflection
 * No procedures and functions, only Objects
 
-**Dependencies**. For now, we have some dependencies:
-
-* [Synapse](http://synapse.ararat.cz/doku.php/download)
-
-In the future, one goal is to put all dependencies as optional, using different packages.
-
 ## How to contribute?
 
 To contribute we suggest following these steps:
