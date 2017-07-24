@@ -28,7 +28,7 @@ unit James.Data.Tests;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, Variants,
   James.Data,
   James.Data.Clss,
   James.Testing.Clss;
@@ -39,6 +39,15 @@ type
     procedure AsString;
     procedure SaveStream;
     procedure SaveStrings;
+  end;
+
+  TDataGuidTest = class(TTestCase)
+  published
+    procedure NewGuid;
+    procedure NullGuid;
+    procedure ValueAsVariant;
+    procedure ValueWithoutBrackets;
+    procedure SmallString;
   end;
 
 implementation
@@ -100,8 +109,53 @@ begin
   end;
 end;
 
+{ TDataGuidTest }
+
+procedure TDataGuidTest.NewGuid;
+begin
+  StringToGUID(TDataGuid.New.AsString);
+end;
+
+procedure TDataGuidTest.NullGuid;
+begin
+  CheckEquals(
+    TNullGuid.New.AsString,
+    TDataGuid.New('foo').AsString
+  );
+end;
+
+procedure TDataGuidTest.ValueAsVariant;
+begin
+  CheckEquals(
+    TNullGuid.New.AsString,
+    TDataGuid.New(NULL).AsString
+  );
+end;
+
+procedure TDataGuidTest.ValueWithoutBrackets;
+const
+  G = 'FCCE420A-8C4F-4E54-84D1-39001AE344BA';
+begin
+  CheckEquals(
+    '{' + G + '}',
+    TDataGuid.New(G).AsString
+  );
+end;
+
+procedure TDataGuidTest.SmallString;
+const
+  V = '89000BC9';
+  G = '{'+V+'-5700-43A3-B340-E34A1656F683}';
+begin
+  CheckEquals(
+    V, TDataGuid.New(G).AsSmallString
+  );
+end;
+
 initialization
   TTestSuite.New('Data')
-    .Add(TTest.New(TDataStreamTest));
+    .Add(TTest.New(TDataStreamTest))
+    .Add(TTest.New(TDataGuidTest))
+    ;
 
 end.
