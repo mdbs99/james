@@ -2,9 +2,9 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/mdbs99/james/blob/master/README.md)
 
-**ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
-
 James is a collection of object-oriented primitives (only interfaces and classes) for truly object-oriented projects written in Object Pascal.
+
+**ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
 
 This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, making it compatible with [Delphi](https://www.embarcadero.com/products/delphi) is possible  (we are depending on more contributors to make it possible).
 
