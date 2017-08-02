@@ -40,7 +40,7 @@ uses
   James.Data.Stream.Clss,
   James.IO.Clss,
   James.Testing.Clss,
-  James.Testing.IO.Clss;
+  James.Tests.Template.Clss;
 
 type
   TDataDividedStreamTest = class(TTestCase)
@@ -94,7 +94,7 @@ var
   M2: TMemoryStream;
   Node: TDOMNode;
 begin
-  Template := TXMLComponent.Create(TTestTemplateFile.New.Stream);
+  Template := TXMLComponent.Create(TTemplateFile.New.Stream);
   try
     Node :=
       Template
@@ -169,7 +169,7 @@ var
   Node: TDOMNode;
   TextAttr: string;
 begin
-  Template := TXMLComponent.Create(TTestTemplateFile.New.Stream);
+  Template := TXMLComponent.Create(TTemplateFile.New.Stream);
   try
     Node :=
       Template
