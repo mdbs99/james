@@ -28,63 +28,20 @@ unit James.Tests.Template.Clss;
 interface
 
 uses
-  Classes, SysUtils,
-  James.Data,
   James.IO,
   James.IO.Clss;
 
 type
-  TTemplateFile = class sealed(TInterfacedObject, IFile)
-  private
-    FFile: IFile;
+  TTemplateFile = class sealed(TFile)
   public
-    constructor Create(const FileName: string);
-    class function New(const FileName: string): IFile; overload;
-    class function New: IFile; overload;
-    function Path: string;
-    function Name: string;
-    function FileName: string;
-    function Stream: IDataStream;
+    class function New: IFile; reintroduce;
   end;
 
 implementation
 
-{ TTemplateFile }
-
-constructor TTemplateFile.Create(const FileName: string);
-begin
-  inherited Create;
-  FFile := TFile.New(FileName);
-end;
-
-class function TTemplateFile.New(const FileName: string): IFile;
-begin
-  Result := Create(FileName);
-end;
-
 class function TTemplateFile.New: IFile;
 begin
-  Result := Create('james.tests.template.xml');
-end;
-
-function TTemplateFile.Path: string;
-begin
-  Result := FFile.Path;
-end;
-
-function TTemplateFile.Name: string;
-begin
-  Result := FFile.Name;
-end;
-
-function TTemplateFile.FileName: string;
-begin
-  Result := FFile.FileName;
-end;
-
-function TTemplateFile.Stream: IDataStream;
-begin
-  Result := FFile.Stream;
+  Result := inherited New('james.tests.template.xml');
 end;
 
 end.
