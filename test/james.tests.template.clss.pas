@@ -39,6 +39,8 @@ type
 
 implementation
 
+{ TTemplateFile }
+
 class function TTemplateFile.New: IFile;
 begin
   Result := inherited New('james.tests.template.xml');
