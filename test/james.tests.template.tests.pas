@@ -30,6 +30,7 @@ interface
 uses
   James.Testing.Clss,
   James.Format.XML.Clss,
+  James.Data.Stream.Tests,
   James.Tests.Template.Clss;
 
 type
@@ -53,18 +54,18 @@ begin
     Root := Template.Document.DocumentElement;
     CheckNotNull(
       Root
-        .FindNode('TDataDividedStreamTest'),
-      'TDataDividedStreamTest node not exists'
+        .FindNode(TDataDividedStreamTest.ClassName),
+      TDataDividedStreamTest.ClassName + ' node not exists'
     );
     CheckNotNull(
       Root
-        .FindNode('TDataDividedStreamTest')
+        .FindNode(TDataDividedStreamTest.ClassName)
         .FindNode('files'),
       'Files node not exists'
     );
     CheckNotNull(
       Root
-        .FindNode('TDataDividedStreamTest')
+        .FindNode(TDataDividedStreamTest.ClassName)
         .FindNode('files')
         .FindNode('file'),
       'File node not exists'
@@ -84,18 +85,18 @@ begin
     Root := Template.Document.DocumentElement;
     CheckNotNull(
       Root
-        .FindNode('TDataPartialFromTextStreamTest'),
-      'TDataPartialFromTextStreamTest node not exists'
+        .FindNode(TDataPartialFromTextStreamTest.ClassName),
+      TDataPartialFromTextStreamTest.ClassName +' node not exists'
     );
     CheckNotNull(
       Root
-        .FindNode('TDataPartialFromTextStreamTest')
+        .FindNode(TDataPartialFromTextStreamTest.ClassName)
         .FindNode('files'),
       'Files node not exists'
     );
     CheckNotNull(
       Root
-        .FindNode('TDataPartialFromTextStreamTest')
+        .FindNode(TDataPartialFromTextStreamTest.ClassName)
         .FindNode('files')
         .FindNode('file'),
       'File node not exists'
