@@ -34,7 +34,7 @@ uses
   James.IO;
 
 type
-  TFile = class sealed(TInterfacedObject, IFile)
+  TFile = class(TInterfacedObject, IFile)
   private
     FFileName: string;
     FStream: IDataStream;
