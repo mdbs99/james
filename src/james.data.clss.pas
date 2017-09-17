@@ -32,7 +32,7 @@ uses
   James.Data;
 
 type
-  TDataStream = class sealed(TInterfacedObject, IDataStream)
+  TDataStream = class(TInterfacedObject, IDataStream)
   private
     FStream: TMemoryStream;
   public
