@@ -106,7 +106,6 @@ begin
       Part := StrToInt(Node.Attrs.Item('part').Value);
       for X := 1 to Part do
       begin
-        TDataStream.New(M1);
         with TDataDividedStream.New(TDataStream.New(M1), I, Part) do
           M2.WriteBuffer(AsString[1], Size);
       end;
