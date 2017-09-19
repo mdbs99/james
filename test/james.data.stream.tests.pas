@@ -29,14 +29,10 @@ interface
 
 uses
   Classes, SysUtils,
-  {$ifdef FPC}
-    Laz2_DOM,
-  {$else}
-    XmlIntf,
-  {$endif}
+  Xavier.Core,
+  Xavier.Core.Clss,
   James.Data,
   James.Data.Clss,
-  James.Format.XML.Clss,
   James.Data.Stream.Clss,
   James.IO.Clss,
   James.Testing.Clss,
@@ -87,54 +83,44 @@ end;
 
 procedure TDataDividedStreamTest.StreamFromFile;
 var
-  I: Integer;
+  I,X : Integer;
   Part: Integer;
-  Template: TXMLComponent;
+  Node: IXMLNode;
+  Nodes: IXMLNodes;
   M1: TMemoryStream;
   M2: TMemoryStream;
-  Node: TDOMNode;
 begin
-  Template := TXMLComponent.Create(TTemplateFile.New.Stream);
-  try
-    Node :=
-      Template
-        .Document
-        .DocumentElement
-        .FindNode(Self.ClassName)
-        .FindNode('files')
-        .ChildNodes
-        .Item[0];
-    while Assigned(Node) do
-    begin
-      M1 := TMemoryStream.Create;
-      M2 := TMemoryStream.Create;
-      try
-        TFile.New(
-          Node.Attributes.GetNamedItem('filename').TextContent
-        )
+  Nodes :=
+    TXMLPack.New(TTemplateFile.New.Stream)
+      .Node(UnicodeString('/Tests/' + Self.ClassName + '/files'))
+      .Childs;
+  for I := 0 to Nodes.Count -1 do
+  begin
+    Node := Nodes.Item(I);
+    M1 := TMemoryStream.Create;
+    M2 := TMemoryStream.Create;
+    try
+      TFile.New(Node.Attrs.Item('filename').Value)
         .Stream
         .Save(M1);
-        Part := StrToInt(Node.Attributes.GetNamedItem('part').TextContent);
-        for I := 1 to Part do
-        begin
-          with TDataDividedStream.New(TDataStream.New(M1), I, Part) do
-            M2.WriteBuffer(AsString[1], Size);
-        end;
-        CheckEquals(
-          M1.Size, M2.Size, 'Compare Size');
-        CheckEquals(
-          TDataStream.New(M1).AsString,
-          TDataStream.New(M2).AsString,
-          'Compare Content'
-        );
-        Node := Node.NextSibling;
-      finally
-        M1.Free;
-        M2.Free;
+      Part := StrToInt(Node.Attrs.Item('part').Value);
+      for X := 1 to Part do
+      begin
+        TDataStream.New(M1);
+        with TDataDividedStream.New(TDataStream.New(M1), I, Part) do
+          M2.WriteBuffer(AsString[1], Size);
       end;
+      CheckEquals(
+        M1.Size, M2.Size, 'Compare Size');
+      CheckEquals(
+        TDataStream.New(M1).AsString,
+        TDataStream.New(M2).AsString,
+        'Compare Content'
+      );
+    finally
+      M1.Free;
+      M2.Free;
     end;
-  finally
-    Template.Free;
   end;
 end;
 
@@ -164,46 +150,36 @@ end;
 
 procedure TDataPartialFromTextStreamTest.StreamFromFile;
 var
+  I: Integer;
   M1: TMemoryStream;
-  Template: TXMLComponent;
-  Node: TDOMNode;
   TextAttr: string;
+  Node: IXMLNode;
+  Nodes: IXMLNodes;
 begin
-  Template := TXMLComponent.Create(TTemplateFile.New.Stream);
-  try
-    Node :=
-      Template
-        .Document
-        .DocumentElement
-        .FindNode(Self.ClassName)
-        .FindNode('files')
-        .ChildNodes
-        .Item[0];
-    while Assigned(Node) do
-    begin
-      M1 := TMemoryStream.Create;
-      TextAttr := Node.Attributes.GetNamedItem('text').TextContent;
-      try
-        TFile.New(
-          Node.Attributes.GetNamedItem('filename').TextContent
-        )
+  Nodes :=
+    TXMLPack.New(TTemplateFile.New.Stream)
+      .Node(UnicodeString('/Tests/' + Self.ClassName + '/files'))
+      .Childs;
+  for I := 0 to Nodes.Count -1 do
+  begin
+    Node := Nodes.Item(I);
+    M1 := TMemoryStream.Create;
+    TextAttr := Node.Attrs.Item('text').Value;
+    try
+      TFile.New(Node.Attrs.Item('filename').Value)
         .Stream
         .Save(M1);
-        with TDataPartialFromTextStream.New(TDataStream.New(M1), TextAttr) do
-        begin
-          CheckEquals(
-            TextAttr,
-            Copy(AsString, 1, Length(TextAttr) * SizeOf(Char)),
-            'Compare Content'
-          );
-        end;
-        Node := Node.NextSibling;
-      finally
-        M1.Free;
+      with TDataPartialFromTextStream.New(TDataStream.New(M1), TextAttr) do
+      begin
+        CheckEquals(
+          TextAttr,
+          Copy(AsString, 1, Length(TextAttr) * SizeOf(Char)),
+          'Compare Content'
+        );
       end;
+    finally
+      M1.Free;
     end;
-  finally
-    Template.Free;
   end;
 end;
 

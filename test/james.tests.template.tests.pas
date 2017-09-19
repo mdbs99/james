@@ -28,8 +28,9 @@ unit James.Tests.Template.Tests;
 interface
 
 uses
+  Xavier.Core,
+  Xavier.Core.Clss,
   James.Testing.Clss,
-  James.Format.XML.Clss,
   James.Data.Stream.Tests,
   James.Tests.Template.Clss;
 
@@ -46,64 +47,44 @@ implementation
 
 procedure TTemplateFileTest.DataDividedStreamTest;
 var
-  Root: TDOMNode;
-  Template: TXMLComponent;
+  ClssName: string;
+  XML: IXMLPack;
 begin
-  Template := TXMLComponent.Create(TTemplateFile.New.Stream);
-  try
-    Root := Template.Document.DocumentElement;
-    CheckNotNull(
-      Root
-        .FindNode(TDataDividedStreamTest.ClassName),
-      TDataDividedStreamTest.ClassName + ' node not exists'
-    );
-    CheckNotNull(
-      Root
-        .FindNode(TDataDividedStreamTest.ClassName)
-        .FindNode('files'),
-      'Files node not exists'
-    );
-    CheckNotNull(
-      Root
-        .FindNode(TDataDividedStreamTest.ClassName)
-        .FindNode('files')
-        .FindNode('file'),
-      'File node not exists'
-    );
-  finally
-    Template.Free;
-  end;
+  ClssName := TDataDividedStreamTest.ClassName;
+  XML := TXMLPack.New(TTemplateFile.New.Stream);
+  CheckNotNull(
+    XML.Node(UnicodeString('/Tests/' + ClssName)),
+    ClssName + ' node not exists'
+  );
+  CheckNotNull(
+    XML.Node(UnicodeString('/Tests/' + ClssName + '/files')),
+    'Files node not exists'
+  );
+  CheckNotNull(
+    XML.Node(UnicodeString('/Tests/' + ClssName + '/files/file')),
+    'File node not exists'
+  );
 end;
 
 procedure TTemplateFileTest.DataPartialFromTextStreamTest;
 var
-  Root: TDOMNode;
-  Template: TXMLComponent;
+  ClssName: string;
+  XML: IXMLPack;
 begin
-  Template := TXMLComponent.Create(TTemplateFile.New.Stream);
-  try
-    Root := Template.Document.DocumentElement;
-    CheckNotNull(
-      Root
-        .FindNode(TDataPartialFromTextStreamTest.ClassName),
-      TDataPartialFromTextStreamTest.ClassName +' node not exists'
-    );
-    CheckNotNull(
-      Root
-        .FindNode(TDataPartialFromTextStreamTest.ClassName)
-        .FindNode('files'),
-      'Files node not exists'
-    );
-    CheckNotNull(
-      Root
-        .FindNode(TDataPartialFromTextStreamTest.ClassName)
-        .FindNode('files')
-        .FindNode('file'),
-      'File node not exists'
-    );
-  finally
-    Template.Free;
-  end;
+  ClssName := TDataPartialFromTextStreamTest.ClassName;
+  XML := TXMLPack.New(TTemplateFile.New.Stream);
+  CheckNotNull(
+    XML.Node(UnicodeString('/Tests/' + ClssName)),
+    ClssName + ' node not exists'
+  );
+  CheckNotNull(
+    XML.Node(UnicodeString('/Tests/' + ClssName + '/files')),
+    'Files node not exists'
+  );
+  CheckNotNull(
+    XML.Node(UnicodeString('/Tests/' + ClssName + '/files/file')),
+    'File node not exists'
+  );
 end;
 
 initialization
