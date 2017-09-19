@@ -14,6 +14,11 @@
         <OtherUnitFiles Value="..\test"/>
         <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Linking>
+        <Debugging>
+          <DebugInfoType Value="dsDwarf2Set"/>
+        </Debugging>
+      </Linking>
     </CompilerOptions>
     <License Value="James, Tests Package
 Copyright (C) 2017 by Marcos Douglas B. Santos
@@ -25,7 +30,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="1"/>
-    <Files Count="10">
+    <Files Count="9">
       <Item1>
         <Filename Value="..\test\james.data.tests.pas"/>
         <UnitName Value="James.Data.Tests"/>
@@ -39,47 +44,46 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Format.Base64.Tests"/>
       </Item3>
       <Item4>
-        <Filename Value="..\test\james.format.xml.tests.pas"/>
-        <UnitName Value="James.Format.XML.Tests"/>
-      </Item4>
-      <Item5>
         <Filename Value="..\test\james.io.tests.pas"/>
         <UnitName Value="James.IO.Tests"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <Filename Value="..\test\james.crypto.md5.tests.pas"/>
         <UnitName Value="James.Crypto.MD5.Tests"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <Filename Value="..\test\james.functions.tests.pas"/>
         <UnitName Value="James.Functions.Tests"/>
-      </Item7>
-      <Item8>
+      </Item6>
+      <Item7>
         <Filename Value="..\test\james.data.constraints.tests.pas"/>
         <UnitName Value="James.Data.Constraints.Tests"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="..\test\james.tests.template.clss.pas"/>
         <UnitName Value="James.Tests.Template.Clss"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <Filename Value="..\test\james.tests.template.tests.pas"/>
         <UnitName Value="James.Tests.Template.Tests"/>
-      </Item10>
+      </Item9>
     </Files>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="james"/>
+        <PackageName Value="xavier"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="james"/>
       </Item2>
       <Item3>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="LCL"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
+        <PackageName Value="laz_synapse"/>
       </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

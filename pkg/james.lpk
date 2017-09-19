@@ -12,6 +12,11 @@
         <OtherUnitFiles Value="..\src"/>
         <UnitOutputDirectory Value="..\lib\james\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Linking>
+        <Debugging>
+          <DebugInfoType Value="dsDwarf2Set"/>
+        </Debugging>
+      </Linking>
     </CompilerOptions>
     <License Value="James Runtime Package
 Copyright (C) 2017 by Marcos Douglas B. Santos
@@ -23,7 +28,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="1"/>
-    <Files Count="19">
+    <Files Count="18">
       <Item1>
         <Filename Value="..\src\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -49,57 +54,53 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Format.Base64.Clss"/>
       </Item6>
       <Item7>
-        <Filename Value="..\src\james.format.xml.clss.pas"/>
-        <UnitName Value="James.Format.XML.Clss"/>
-      </Item7>
-      <Item8>
         <Filename Value="..\src\james.io.clss.pas"/>
         <UnitName Value="James.IO.Clss"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="..\src\james.io.pas"/>
         <UnitName Value="James.IO"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <Filename Value="..\src\james.crypto.md5.clss.pas"/>
         <UnitName Value="James.Crypto.MD5.Clss"/>
-      </Item10>
-      <Item11>
+      </Item9>
+      <Item10>
         <Filename Value="..\src\james.functions.clss.pas"/>
         <UnitName Value="James.Functions.clss"/>
-      </Item11>
-      <Item12>
+      </Item10>
+      <Item11>
         <Filename Value="..\src\james.functions.pas"/>
         <UnitName Value="James.Functions"/>
-      </Item12>
-      <Item13>
+      </Item11>
+      <Item12>
         <Filename Value="..\src\james.data.constraints.clss.pas"/>
         <UnitName Value="James.Data.Constraints.Clss"/>
-      </Item13>
-      <Item14>
+      </Item12>
+      <Item13>
         <Filename Value="..\src\james.data.constraints.pas"/>
         <UnitName Value="James.Data.Constraints"/>
-      </Item14>
-      <Item15>
+      </Item13>
+      <Item14>
         <Filename Value="..\src\james.crypto.md5.fpc.pas"/>
         <UnitName Value="James.Crypto.MD5.FPC"/>
-      </Item15>
-      <Item16>
+      </Item14>
+      <Item15>
         <Filename Value="..\src\james.format.base64.fpc.pas"/>
         <UnitName Value="James.Format.Base64.FPC"/>
-      </Item16>
-      <Item17>
+      </Item15>
+      <Item16>
         <Filename Value="..\src\james.testing.clss.pas"/>
         <UnitName Value="James.Testing.Clss"/>
-      </Item17>
-      <Item18>
+      </Item16>
+      <Item17>
         <Filename Value="..\src\james.testing.fpc.pas"/>
         <UnitName Value="James.Testing.FPC"/>
-      </Item18>
-      <Item19>
+      </Item17>
+      <Item18>
         <Filename Value="..\src\james.testing.pas"/>
         <UnitName Value="James.Testing"/>
-      </Item19>
+      </Item18>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>
