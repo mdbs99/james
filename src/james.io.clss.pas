@@ -48,6 +48,19 @@ type
     function Stream: IDataStream;
   end;
 
+  TFileAsStream = class(TInterfacedObject, IDataStream)
+  private
+    FFile: IFile;
+    FStream: TDataStreamAsAggregated;
+    function GetStream: TDataStreamAsAggregated;
+  public
+    constructor Create(AFile: IFile);
+    class function New(AFile: IFile): IDataStream;
+    destructor Destroy; override;
+    property Stream: TDataStreamAsAggregated
+        read GetStream implements IDataStream;
+  end;
+
 implementation
 
 { TFile }
@@ -101,6 +114,32 @@ begin
   finally
     Buf.Free;
   end;
+end;
+
+{ TFileAsStream }
+
+function TFileAsStream.GetStream: TDataStreamAsAggregated;
+begin
+  if not Assigned(FStream) then
+    FStream := TDataStreamAsAggregated.Create(Self, FFile.Stream);
+  Result := FStream;
+end;
+
+constructor TFileAsStream.Create(AFile: IFile);
+begin
+  inherited Create;
+  FFile := AFile;
+end;
+
+class function TFileAsStream.New(AFile: IFile): IDataStream;
+begin
+  Result := Create(AFile);
+end;
+
+destructor TFileAsStream.Destroy;
+begin
+  FStream.Free;
+  inherited Destroy;
 end;
 
 end.
