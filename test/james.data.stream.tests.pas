@@ -100,13 +100,11 @@ begin
     M1 := TMemoryStream.Create;
     M2 := TMemoryStream.Create;
     try
-      TFile.New(Node.Attrs.Item('filename').Value)
-        .Stream
-        .Save(M1);
+      TFile.New(Node.Attrs.Item('filename').Value).Stream.Save(M1);
       Part := StrToInt(Node.Attrs.Item('part').Value);
       for X := 1 to Part do
       begin
-        with TDataDividedStream.New(TDataStream.New(M1), I, Part) do
+        with TDataDividedStream.New(TDataStream.New(M1), X, Part) do
           M2.WriteBuffer(AsString[1], Size);
       end;
       CheckEquals(
