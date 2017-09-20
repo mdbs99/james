@@ -5,7 +5,7 @@
     <Name Value="james.tests"/>
     <Type Value="RunTimeOnly"/>
     <AddToProjectUsesSection Value="True"/>
-    <Author Value="mdbs99"/>
+    <Author Value="Marcos Douglas B. Santos"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
@@ -20,6 +20,7 @@
         </Debugging>
       </Linking>
     </CompilerOptions>
+    <Description Value="James is a collection of object-oriented primitives (only interfaces and classes) for truly object-oriented projects written in Object Pascal."/>
     <License Value="James, Tests Package
 Copyright (C) 2017 by Marcos Douglas B. Santos
 
@@ -29,7 +30,7 @@ for details about the copyright.
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
-    <Version Minor="1"/>
+    <Version Minor="5"/>
     <Files Count="9">
       <Item1>
         <Filename Value="..\test\james.data.tests.pas"/>
