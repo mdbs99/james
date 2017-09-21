@@ -18,11 +18,11 @@ We want to write elegant, clean, and maintainable code using OOP.
 * Memory is released automatically
 * All public methods are implementations of interface methods
 * All public methods return an interface instance or primitive type
-* No usage of NULL in arguments or returns
+* No usage of nil/NULL in arguments or returns
 * No algorithms in constructors
 * No getters and setters
 * No type casting or reflection
-* No procedures and functions, only Objects
+* No procedures or functions, only Interfaces and Objects
 
 ## How to contribute?
 
