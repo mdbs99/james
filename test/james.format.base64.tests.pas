@@ -53,8 +53,8 @@ implementation
 
 procedure TBase64HashTest.HashByBase64encodePage;
 const
-  VALUE = 'https://www.base64encode.org/';
-  VALUE_HASH = 'aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=';
+  VALUE: string = 'https://www.base64encode.org/';
+  VALUE_HASH: string = 'aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=';
 begin
   CheckEquals(
     VALUE_HASH,
@@ -66,7 +66,7 @@ end;
 
 procedure TBase64StreamTest.AsString;
 const
-  TXT = 'AEIOU123456qwert';
+  TXT: string = 'AEIOU123456qwert';
 var
   Buf: TMemoryStream;
   Ss: TStrings;
@@ -99,7 +99,7 @@ end;
 
 procedure TBase64StreamTest.SaveStream;
 const
-  TXT = 'ABCDEFG#13#10IJL';
+  TXT: string = 'ABCDEFG#13#10IJL';
 var
   Buf: TMemoryStream;
   S: string;
@@ -118,7 +118,7 @@ end;
 
 procedure TBase64StreamTest.SaveStrings;
 const
-  TXT = 'ABCDEFG#13#10IJLMNO-PQRS';
+  TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
   Ss: TStrings;
 begin

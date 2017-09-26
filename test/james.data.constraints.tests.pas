@@ -97,7 +97,7 @@ end;
 
 procedure TDataStreamTest.AsString;
 const
-  TXT = 'Line1-'#13#10'Line2-'#13#10'Line3';
+  TXT: string = 'Line1-'#13#10'Line2-'#13#10'Line3';
 var
   Buf: TMemoryStream;
   Ss: TStrings;
@@ -118,7 +118,7 @@ end;
 
 procedure TDataStreamTest.SaveStream;
 const
-  TXT = 'ABCDEFG#13#10IJL';
+  TXT: string = 'ABCDEFG#13#10IJL';
 var
   Buf: TMemoryStream;
   S: string;
@@ -137,7 +137,7 @@ end;
 
 procedure TDataStreamTest.SaveStrings;
 const
-  TXT = 'ABCDEFG#13#10IJLMNO-PQRS';
+  TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
   Ss: TStrings;
 begin

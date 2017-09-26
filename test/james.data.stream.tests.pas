@@ -57,7 +57,7 @@ implementation
 
 procedure TDataDividedStreamTest.StreamFromMemory;
 const
-  TXT = 'ABCABEC~ABCABEC~ABCABEC~ABCABEC~ABCABEC';
+  TXT: string = 'ABCABEC~ABCABEC~ABCABEC~ABCABEC~ABCABEC';
   PART = 11;
 var
   I: Integer;
@@ -125,16 +125,17 @@ end;
 
 procedure TDataPartialFromTextStreamTest.StreamFromMemory;
 const
-  STR_PART = 'C~#ABCD#10#13ABCD#58';
-  TXT = 'ABCD~ABCD~#ABCD~#ABCD%%EOF' + STR_PART;
+  STR_PART: string = 'C~#ABCD#10#13ABCD#58';
 var
+  S: string;
   M1: TMemoryStream;
   M2: TMemoryStream;
 begin
+  S := 'ABCD~ABCD~#ABCD~#ABCD%%EOF' + STR_PART;
   M1 := TMemoryStream.Create;
   M2 := TMemoryStream.Create;
   try
-    M1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    M1.WriteBuffer(S[1], Length(S) * SizeOf(Char));
     with TDataPartialFromTextStream.New(TDataStream.New(M1), STR_PART) do
       M2.WriteBuffer(AsString[1], Size);
     CheckEquals(Length(STR_PART) * SizeOf(Char), M2.Size, 'Compare Size');

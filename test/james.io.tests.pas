@@ -61,8 +61,8 @@ end;
 
 procedure TFileTest.Stream;
 const
-  TXT = 'ABCC~#';
-  FILE_NAME = 'file.txt';
+  TXT: string = 'ABCC~#';
+  FILE_NAME: string = 'file.txt';
 var
   M: TMemoryStream;
 begin

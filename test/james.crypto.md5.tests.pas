@@ -51,8 +51,8 @@ implementation
 
 procedure TMD5HashTest.HashByMd5HashGeneratorPage;
 const
-  VALUE = 'http://www.md5hashgenerator.com/';
-  VALUE_HASH = '93d1d8f5025cefe0fb747a6809a8405a';
+  VALUE: string = 'http://www.md5hashgenerator.com/';
+  VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
 begin
   CheckEquals(
     VALUE_HASH,
@@ -64,7 +64,7 @@ end;
 
 procedure TMD5StreamTest.StreamFromMemory;
 const
-  TXT = 'ABCABEC~#ABCABEC~#10#13xyz';
+  TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin
   CheckEquals(
     TMD5Hash.New(TXT).AsString,
