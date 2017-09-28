@@ -85,13 +85,13 @@ procedure TDataDividedStreamTest.StreamFromFile;
 var
   I,X : Integer;
   Part: Integer;
-  Node: IXMLNode;
-  Nodes: IXMLNodes;
+  Node: IXavierNode;
+  Nodes: IXavierNodes;
   M1: TMemoryStream;
   M2: TMemoryStream;
 begin
   Nodes :=
-    TXMLPack.New(TTemplateFile.New.Stream)
+    TXavierPack.New(TTemplateFile.New.Stream)
       .Node(UnicodeString('/Tests/' + Self.ClassName + '/files'))
       .Childs;
   for I := 0 to Nodes.Count -1 do
@@ -151,11 +151,11 @@ var
   I: Integer;
   M1: TMemoryStream;
   TextAttr: string;
-  Node: IXMLNode;
-  Nodes: IXMLNodes;
+  Node: IXavierNode;
+  Nodes: IXavierNodes;
 begin
   Nodes :=
-    TXMLPack.New(TTemplateFile.New.Stream)
+    TXavierPack.New(TTemplateFile.New.Stream)
       .Node(UnicodeString('/Tests/' + Self.ClassName + '/files'))
       .Childs;
   for I := 0 to Nodes.Count -1 do

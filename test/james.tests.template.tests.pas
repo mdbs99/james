@@ -48,10 +48,10 @@ implementation
 procedure TTemplateFileTest.DataDividedStreamTest;
 var
   ClssName: string;
-  XML: IXMLPack;
+  XML: IXavierPack;
 begin
   ClssName := TDataDividedStreamTest.ClassName;
-  XML := TXMLPack.New(TTemplateFile.New.Stream);
+  XML := TXavierPack.New(TTemplateFile.New.Stream);
   CheckNotNull(
     XML.Node(UnicodeString('/Tests/' + ClssName)),
     ClssName + ' node not exists'
@@ -69,10 +69,10 @@ end;
 procedure TTemplateFileTest.DataPartialFromTextStreamTest;
 var
   ClssName: string;
-  XML: IXMLPack;
+  XML: IXavierPack;
 begin
   ClssName := TDataPartialFromTextStreamTest.ClassName;
-  XML := TXMLPack.New(TTemplateFile.New.Stream);
+  XML := TXavierPack.New(TTemplateFile.New.Stream);
   CheckNotNull(
     XML.Node(UnicodeString('/Tests/' + ClssName)),
     ClssName + ' node not exists'
