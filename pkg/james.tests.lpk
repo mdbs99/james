@@ -72,6 +72,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="xavier"/>
+        <MinVersion Major="3" Valid="True"/>
       </Item1>
       <Item2>
         <PackageName Value="james"/>
