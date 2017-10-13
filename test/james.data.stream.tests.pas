@@ -100,8 +100,8 @@ begin
     M1 := TMemoryStream.Create;
     M2 := TMemoryStream.Create;
     try
-      TFile.New(Node.Attrs.Item('filename').Value).Stream.Save(M1);
-      Part := StrToInt(Node.Attrs.Item('part').Value);
+      TFile.New(Node.Attrs.Item('filename').Text).Stream.Save(M1);
+      Part := StrToInt(Node.Attrs.Item('part').Text);
       for X := 1 to Part do
       begin
         with TDataDividedStream.New(TDataStream.New(M1), X, Part) do
@@ -162,9 +162,9 @@ begin
   begin
     Node := Nodes.Item(I);
     M1 := TMemoryStream.Create;
-    TextAttr := Node.Attrs.Item('text').Value;
+    TextAttr := Node.Attrs.Item('text').Text;
     try
-      TFile.New(Node.Attrs.Item('filename').Value)
+      TFile.New(Node.Attrs.Item('filename').Text)
         .Stream
         .Save(M1);
       with TDataPartialFromTextStream.New(TDataStream.New(M1), TextAttr) do
