@@ -28,8 +28,7 @@ unit James.Tests.Template.Tests;
 interface
 
 uses
-  Xavier.Core,
-  Xavier.Core.Clss,
+  Xavier.API,
   James.Testing.Clss,
   James.Data.Stream.Tests,
   James.Tests.Template.Clss;
@@ -48,10 +47,10 @@ implementation
 procedure TTemplateFileTest.DataDividedStreamTest;
 var
   ClssName: string;
-  XML: IXavierPack;
+  XML: IXMLPack;
 begin
   ClssName := TDataDividedStreamTest.ClassName;
-  XML := TXavierPack.New(TTemplateFile.New.Stream);
+  XML := TXMLPack.New(TTemplateFile.New.Stream);
   CheckNotNull(
     XML.Node(UnicodeString('/Tests/' + ClssName)),
     ClssName + ' node not exists'
@@ -69,10 +68,10 @@ end;
 procedure TTemplateFileTest.DataPartialFromTextStreamTest;
 var
   ClssName: string;
-  XML: IXavierPack;
+  XML: IXMLPack;
 begin
   ClssName := TDataPartialFromTextStreamTest.ClassName;
-  XML := TXavierPack.New(TTemplateFile.New.Stream);
+  XML := TXMLPack.New(TTemplateFile.New.Stream);
   CheckNotNull(
     XML.Node(UnicodeString('/Tests/' + ClssName)),
     ClssName + ' node not exists'

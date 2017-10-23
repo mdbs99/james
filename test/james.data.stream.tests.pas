@@ -29,8 +29,7 @@ interface
 
 uses
   Classes, SysUtils,
-  Xavier.Core,
-  Xavier.Core.Clss,
+  Xavier.API,
   James.Data,
   James.Data.Clss,
   James.Data.Stream.Clss,
@@ -85,13 +84,13 @@ procedure TDataDividedStreamTest.StreamFromFile;
 var
   I,X : Integer;
   Part: Integer;
-  Node: IXavierNode;
-  Nodes: IXavierNodes;
+  Node: IXMLNode;
+  Nodes: IXMLNodes;
   M1: TMemoryStream;
   M2: TMemoryStream;
 begin
   Nodes :=
-    TXavierPack.New(TTemplateFile.New.Stream)
+    TXMLPack.New(TTemplateFile.New.Stream)
       .Node(UnicodeString('/Tests/' + Self.ClassName + '/files'))
       .Childs;
   for I := 0 to Nodes.Count -1 do
@@ -151,11 +150,11 @@ var
   I: Integer;
   M1: TMemoryStream;
   TextAttr: string;
-  Node: IXavierNode;
-  Nodes: IXavierNodes;
+  Node: IXMLNode;
+  Nodes: IXMLNodes;
 begin
   Nodes :=
-    TXavierPack.New(TTemplateFile.New.Stream)
+    TXMLPack.New(TTemplateFile.New.Stream)
       .Node(UnicodeString('/Tests/' + Self.ClassName + '/files'))
       .Childs;
   for I := 0 to Nodes.Count -1 do
