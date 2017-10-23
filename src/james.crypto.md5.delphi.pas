@@ -33,7 +33,7 @@ uses
   James.Data;
 
 type
-  TMD5Hash = class sealed(TInterfacedObject, IDataHash)
+  TCMD5Hash = class sealed(TInterfacedObject, IDataHash)
   private
     FValue: string;
   public
@@ -44,20 +44,20 @@ type
 
 implementation
 
-{ TMD5Hash }
+{ TCMD5Hash }
 
-constructor TMD5Hash.Create(const Value: string);
+constructor TCMD5Hash.Create(const Value: string);
 begin
   inherited Create;
   FValue := Value;
 end;
 
-class function TMD5Hash.New(const Value: string): IDataHash;
+class function TCMD5Hash.New(const Value: string): IDataHash;
 begin
   Result := Create(Value);
 end;
 
-function TMD5Hash.AsString: string;
+function TCMD5Hash.AsString: string;
 begin
   Result := THashMD5.GetHashString(FValue);
 end;

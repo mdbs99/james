@@ -33,7 +33,7 @@ uses
   James.Data;
 
 type
-  TBase64Hash = class sealed(TInterfacedObject, IDataHash)
+  TCBase64Hash = class sealed(TInterfacedObject, IDataHash)
   private
     FValue: string;
   public
@@ -44,20 +44,20 @@ type
 
 implementation
 
-{ TBase64Hash }
+{ TCBase64Hash }
 
-constructor TBase64Hash.Create(const Value: string);
+constructor TCBase64Hash.Create(const Value: string);
 begin
   inherited Create;
   FValue := Value;
 end;
 
-class function TBase64Hash.New(const Value: string): IDataHash;
+class function TCBase64Hash.New(const Value: string): IDataHash;
 begin
   Result := Create(Value);
 end;
 
-function TBase64Hash.AsString: string;
+function TCBase64Hash.AsString: string;
 begin
   Result := EncodeBase64(FValue);
 end;

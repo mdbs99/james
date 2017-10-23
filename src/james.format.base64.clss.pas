@@ -38,12 +38,7 @@ uses
   James.Data.Clss;
 
 type
-  TBase64Hash =
-    {$ifdef FPC}
-      James.Format.Base64.FPC.TBase64Hash;
-    {$else}
-      James.Format.Base64.Delphi.TBase64Hash;
-    {$endif}
+  TBase64Hash = TCBase64Hash;
 
   TBase64Stream = class sealed(TInterfacedObject, IDataStream)
   private

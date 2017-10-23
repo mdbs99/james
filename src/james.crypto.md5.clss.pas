@@ -39,12 +39,7 @@ uses
   ;
 
 type
-  TMD5Hash =
-    {$ifdef FPC}
-      James.Crypto.MD5.FPC.TMD5Hash;
-    {$else}
-      James.Crypto.MD5.Delphi.TMD5Hash;
-    {$endif}
+  TMD5Hash = TCMD5Hash;
 
   TMD5Stream = class sealed(TInterfacedObject, IDataStream)
   private
