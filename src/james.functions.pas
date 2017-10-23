@@ -31,7 +31,7 @@ type
   IIf<T> = interface
   ['{5CA4AEC4-3875-4639-9975-AC2C201E0A98}']
     function Value: T;
-  End;
+  end;
 
 implementation
 
