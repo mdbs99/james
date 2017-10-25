@@ -30,7 +30,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="5" Release="1"/>
-    <Files Count="18">
+    <Files Count="19">
       <Item1>
         <Filename Value="..\src\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -103,6 +103,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <Filename Value="..\src\james.testing.pas"/>
         <UnitName Value="James.Testing"/>
       </Item18>
+      <Item19>
+        <Filename Value="..\src\james.api.pas"/>
+        <UnitName Value="James.API"/>
+      </Item19>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>
