@@ -49,6 +49,7 @@ type
     function Text: string;
     function Metadata: string;
   end;
+  TDataInformationAlias = TDataInformation;
 
   TDataInformations = class(TInterfacedObject, IDataInformations)
   private
@@ -62,6 +63,7 @@ type
     function Count: Integer;
     function Text: string;
   end;
+  TDataInformationsAlias = TDataInformations;
 
   TDataResult = class sealed(TInterfacedObject, IDataResult)
   private
@@ -78,6 +80,7 @@ type
     function Data: IDataParams;
     function Informations: IDataInformations;
   end;
+  TDataResultAlias = TDataResult;
 
   TDataConstraints = class(TInterfacedObject, IDataConstraint, IDataConstraints)
   private
@@ -90,6 +93,7 @@ type
     function Count: Integer;
     function Checked: IDataResult;
   end;
+  TDataConstraintsAlias = TDataConstraints;
   
 implementation
 

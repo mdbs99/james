@@ -49,6 +49,7 @@ type
     function AsString: string;
     function Size: Int64;
   end;
+  TDataStreamAlias = TDataStream;
 
   TDataStreamAsAggregated = class sealed(TAggregatedObject, IDataStream)
   private
@@ -61,6 +62,7 @@ type
     function AsString: string;
     function Size: Int64;
   end;
+  TDataStreamAsAggregatedAlias = TDataStreamAsAggregated;
 
   TDataParam = class(TInterfacedObject, IDataParam)
   private
@@ -87,8 +89,10 @@ type
     function AsTime: TDateTime;
     function AsWord: LongInt;
   end;
+  TDataParamAlias = TDataParam;
 
   EDataParams = class(Exception);
+  EDataParamsAlias = EDataParams;
 
   TDataParams = class(TInterfacedObject, IDataParams)
   private
@@ -106,6 +110,7 @@ type
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
   end;
+  TDataParamsAlias = TDataParams;
 
   TDataParamsAsAggregate = class(TAggregatedObject, IDataParams)
   private
@@ -120,6 +125,7 @@ type
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
   end;
+  TDataParamsAsAggregateAlias = TDataParamsAsAggregate;
 
   TDataGuid = class(TInterfacedObject, IDataGuid)
   private
@@ -134,6 +140,7 @@ type
     function AsString: string;
     function AsSmallString: string;
   end;
+  TDataGuidAlias = TDataGuid;
 
   TNullGuid = class(TInterfacedObject, IDataGuid)
   private
@@ -145,6 +152,7 @@ type
     function AsString: string;
     function AsSmallString: string;
   end;
+  TNullGuidAlias = TNullGuid;
 
 implementation
 

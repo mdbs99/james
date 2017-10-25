@@ -40,6 +40,7 @@ uses
 
 type
   TMD5Hash = TCMD5Hash;
+  TMD5HashAlias = TMD5Hash;
 
   TMD5Stream = class sealed(TInterfacedObject, IDataStream)
   private
@@ -54,6 +55,7 @@ type
     function AsString: string;
     function Size: Int64;
   end;
+  TMD5StreamAlias = TMD5Stream;
 
 implementation
 

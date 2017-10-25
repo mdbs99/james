@@ -48,6 +48,7 @@ type
     function AsString: string;
     function Size: Int64;
   end;
+  TDataDividedStreamAlias = TDataDividedStream;
 
   TDataPartialFromTextStream = class sealed(TInterfacedObject, IDataStream)
   private
@@ -63,6 +64,7 @@ type
     function AsString: string;
     function Size: Int64;
   end;
+  TDataPartialFromTextStreamAlias = TDataPartialFromTextStream;
 
 implementation
 

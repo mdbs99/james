@@ -38,6 +38,7 @@ type
     function Text: string;
     function Metadata: string;
   end;
+  IDataInformationAlias = IDataInformation;
 
   IDataInformations = interface
   ['{4402481A-49D9-4722-B0CB-952C728932B6}']
@@ -47,6 +48,7 @@ type
     function Count: Integer;
     function Text: string;
   end;
+  IDataInformationsAlias = IDataInformations;
 
   IDataResult = interface
   ['{9E1AB274-707A-4770-94B9-659945547A19}']
@@ -54,11 +56,13 @@ type
     function Data: IDataParams;
     function Informations: IDataInformations;
   end;
+  IDataResultAlias = IDataResult;
 
   IDataConstraint = interface
   ['{C580D0F6-B724-468F-9B74-40F7D49DA5DA}']
     function Checked: IDataResult;
   end;
+  IDataConstraintAlias = IDataConstraint;
 
   IDataConstraints = interface
   ['{31FA938E-93C9-4450-B34F-DDC4B2935899}']
@@ -67,6 +71,7 @@ type
     function Count: Integer;
     function Checked: IDataResult;
   end;
+  IDataConstraintsAlias = IDataConstraints;
 
 implementation
 

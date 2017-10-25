@@ -39,6 +39,7 @@ uses
 
 type
   TBase64Hash = TCBase64Hash;
+  TBase64HashAlias = TBase64Hash;
 
   TBase64Stream = class sealed(TInterfacedObject, IDataStream)
   private
@@ -53,6 +54,7 @@ type
     function AsString: string;
     function Size: Int64;
   end;
+  TBase64StreamAlias = TBase64Stream;
 
 implementation
 

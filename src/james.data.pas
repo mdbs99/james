@@ -39,6 +39,7 @@ type
     function AsString: string;
     function Size: Int64;
   end;
+  IDataStreamAlias = IDataStream;
 
   IDataParam = interface
   ['{2C6B41D7-CB75-488A-85D4-59CE4D5388E5}']
@@ -60,6 +61,7 @@ type
     function AsTime: TDateTime;
     function AsWord: LongInt;
   end;
+  IDataParamAlias = IDataParam;
 
   IDataParams = interface
   ['{650DE166-6452-4F22-80F8-F364B9BF4C50}']
@@ -71,6 +73,7 @@ type
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
   end;
+  IDataParamsAlias = IDataParams;
 
   IDataGuid = interface
   ['{F7269A91-B5E7-4067-BB8E-8712BC99EE08}']
@@ -78,11 +81,13 @@ type
     function AsString: string;
     function AsSmallString: string;
   end;
+  IDataGuidAlias = IDataGuid;
 
   IDataHash = interface
   ['{69A5ED2A-7E06-4942-A6EA-48B36670F360}']
     function AsString: string;
   end;
+  IDataHashAlias = IDataHash;
 
 implementation
 
