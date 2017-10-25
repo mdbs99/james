@@ -30,10 +30,7 @@ interface
 uses
   Classes, SysUtils,
   Xavier.API,
-  James.Data,
-  James.Data.Clss,
-  James.Data.Stream.Clss,
-  James.IO.Clss,
+  James.API,
   James.Testing.Clss,
   James.Tests.Template.Clss;
 

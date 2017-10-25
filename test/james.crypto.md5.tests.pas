@@ -29,9 +29,7 @@ interface
 
 uses
   Classes, SysUtils,
-  James.Data,
-  James.Data.Clss,
-  James.Crypto.MD5.Clss,
+  James.API,
   James.Testing.Clss;
 
 type

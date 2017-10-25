@@ -28,8 +28,7 @@ unit James.Tests.Template.Clss;
 interface
 
 uses
-  James.IO,
-  James.IO.Clss;
+  James.API;
 
 type
   TTemplateFile = class sealed(TFile)

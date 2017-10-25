@@ -29,9 +29,7 @@ interface
 
 uses
   Classes, SysUtils,
-  James.Data,
-  James.Data.Clss,
-  James.Format.Base64.Clss,
+  James.API,
   James.Testing.Clss;
 
 type
