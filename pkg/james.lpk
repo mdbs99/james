@@ -29,8 +29,8 @@ for details about the copyright.
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
-    <Version Minor="5" Release="1"/>
-    <Files Count="19">
+    <Version Minor="6"/>
+    <Files Count="17">
       <Item1>
         <Filename Value="..\src\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -68,45 +68,37 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Crypto.MD5.Clss"/>
       </Item9>
       <Item10>
-        <Filename Value="..\src\james.functions.clss.pas"/>
-        <UnitName Value="James.Functions.clss"/>
-      </Item10>
-      <Item11>
-        <Filename Value="..\src\james.functions.pas"/>
-        <UnitName Value="James.Functions"/>
-      </Item11>
-      <Item12>
         <Filename Value="..\src\james.data.constraints.clss.pas"/>
         <UnitName Value="James.Data.Constraints.Clss"/>
-      </Item12>
-      <Item13>
+      </Item10>
+      <Item11>
         <Filename Value="..\src\james.data.constraints.pas"/>
         <UnitName Value="James.Data.Constraints"/>
-      </Item13>
-      <Item14>
+      </Item11>
+      <Item12>
         <Filename Value="..\src\james.crypto.md5.fpc.pas"/>
         <UnitName Value="James.Crypto.MD5.FPC"/>
-      </Item14>
-      <Item15>
+      </Item12>
+      <Item13>
         <Filename Value="..\src\james.format.base64.fpc.pas"/>
         <UnitName Value="James.Format.Base64.FPC"/>
-      </Item15>
-      <Item16>
+      </Item13>
+      <Item14>
         <Filename Value="..\src\james.testing.clss.pas"/>
         <UnitName Value="James.Testing.Clss"/>
-      </Item16>
-      <Item17>
+      </Item14>
+      <Item15>
         <Filename Value="..\src\james.testing.fpc.pas"/>
         <UnitName Value="James.Testing.FPC"/>
-      </Item17>
-      <Item18>
+      </Item15>
+      <Item16>
         <Filename Value="..\src\james.testing.pas"/>
         <UnitName Value="James.Testing"/>
-      </Item18>
-      <Item19>
+      </Item16>
+      <Item17>
         <Filename Value="..\src\james.api.pas"/>
         <UnitName Value="James.API"/>
-      </Item19>
+      </Item17>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>

@@ -31,7 +31,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="5"/>
-    <Files Count="9">
+    <Files Count="8">
       <Item1>
         <Filename Value="..\test\james.data.tests.pas"/>
         <UnitName Value="James.Data.Tests"/>
@@ -53,21 +53,17 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Crypto.MD5.Tests"/>
       </Item5>
       <Item6>
-        <Filename Value="..\test\james.functions.tests.pas"/>
-        <UnitName Value="James.Functions.Tests"/>
-      </Item6>
-      <Item7>
         <Filename Value="..\test\james.data.constraints.tests.pas"/>
         <UnitName Value="James.Data.Constraints.Tests"/>
-      </Item7>
-      <Item8>
+      </Item6>
+      <Item7>
         <Filename Value="..\test\james.tests.template.clss.pas"/>
         <UnitName Value="James.Tests.Template.Clss"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="..\test\james.tests.template.tests.pas"/>
         <UnitName Value="James.Tests.Template.Tests"/>
-      </Item9>
+      </Item8>
     </Files>
     <RequiredPkgs Count="5">
       <Item1>
@@ -77,6 +73,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
       </Item1>
       <Item2>
         <PackageName Value="james"/>
+        <MinVersion Minor="6" Valid="True"/>
       </Item2>
       <Item3>
         <PackageName Value="LCL"/>
