@@ -30,7 +30,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="6"/>
-    <Files Count="17">
+    <Files Count="16">
       <Item1>
         <Filename Value="..\src\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -40,65 +40,61 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Data"/>
       </Item2>
       <Item3>
-        <Filename Value="..\src\james.data.stream.clss.pas"/>
-        <UnitName Value="James.Data.Stream.Clss"/>
-      </Item3>
-      <Item4>
         <Filename Value="..\src\james.log.clss.pas"/>
         <UnitName Value="James.Log.Clss"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <Filename Value="..\src\james.log.pas"/>
         <UnitName Value="James.Log"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <Filename Value="..\src\james.format.base64.clss.pas"/>
         <UnitName Value="James.Format.Base64.Clss"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <Filename Value="..\src\james.io.clss.pas"/>
         <UnitName Value="James.IO.Clss"/>
-      </Item7>
-      <Item8>
+      </Item6>
+      <Item7>
         <Filename Value="..\src\james.io.pas"/>
         <UnitName Value="James.IO"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="..\src\james.crypto.md5.clss.pas"/>
         <UnitName Value="James.Crypto.MD5.Clss"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <Filename Value="..\src\james.data.constraints.clss.pas"/>
         <UnitName Value="James.Data.Constraints.Clss"/>
-      </Item10>
-      <Item11>
+      </Item9>
+      <Item10>
         <Filename Value="..\src\james.data.constraints.pas"/>
         <UnitName Value="James.Data.Constraints"/>
-      </Item11>
-      <Item12>
+      </Item10>
+      <Item11>
         <Filename Value="..\src\james.crypto.md5.fpc.pas"/>
         <UnitName Value="James.Crypto.MD5.FPC"/>
-      </Item12>
-      <Item13>
+      </Item11>
+      <Item12>
         <Filename Value="..\src\james.format.base64.fpc.pas"/>
         <UnitName Value="James.Format.Base64.FPC"/>
-      </Item13>
-      <Item14>
+      </Item12>
+      <Item13>
         <Filename Value="..\src\james.testing.clss.pas"/>
         <UnitName Value="James.Testing.Clss"/>
-      </Item14>
-      <Item15>
+      </Item13>
+      <Item14>
         <Filename Value="..\src\james.testing.fpc.pas"/>
         <UnitName Value="James.Testing.FPC"/>
-      </Item15>
-      <Item16>
+      </Item14>
+      <Item15>
         <Filename Value="..\src\james.testing.pas"/>
         <UnitName Value="James.Testing"/>
-      </Item16>
-      <Item17>
+      </Item15>
+      <Item16>
         <Filename Value="..\src\james.api.pas"/>
         <UnitName Value="James.API"/>
-      </Item17>
+      </Item16>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>

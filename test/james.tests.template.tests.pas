@@ -30,7 +30,6 @@ interface
 uses
   Xavier.API,
   James.Testing.Clss,
-  James.Data.Stream.Tests,
   James.Tests.Template.Clss;
 
 type

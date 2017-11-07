@@ -32,7 +32,6 @@ uses
   James.Data.Clss,
   James.Data.Constraints,
   James.Data.Constraints.Clss,
-  James.Data.Stream.Clss,
   James.IO,
   James.IO.Clss,
   James.Format.Base64.Clss,
@@ -70,11 +69,6 @@ type
   TDataInformations = TDataInformationsAlias;
   TDataResult       = TDataResultAlias;
   TDataConstraints  = TDataConstraintsAlias;
-
-  { Streams }
-
-  TDataDividedStream         = TDataDividedStreamAlias;
-  TDataPartialFromTextStream = TDataPartialFromTextStreamAlias;
 
   { IO }
 
