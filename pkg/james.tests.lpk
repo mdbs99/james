@@ -30,7 +30,7 @@ for details about the copyright.
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
-    <Version Minor="5"/>
+    <Version Minor="7"/>
     <Files Count="5">
       <Item1>
         <Filename Value="..\test\james.data.tests.pas"/>
