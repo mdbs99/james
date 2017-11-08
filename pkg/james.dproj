@@ -118,15 +118,12 @@
         <DCCReference Include="..\src\james.crypto.md5.delphi.pas"/>
         <DCCReference Include="..\src\james.data.clss.pas"/>
         <DCCReference Include="..\src\james.data.pas"/>
-        <DCCReference Include="..\src\james.data.stream.clss.pas"/>
         <DCCReference Include="..\src\james.format.base64.clss.pas"/>
         <DCCReference Include="..\src\james.format.xml.clss.pas"/>
         <DCCReference Include="..\src\james.io.clss.pas"/>
         <DCCReference Include="..\src\james.io.pas"/>
         <DCCReference Include="..\src\james.log.clss.pas"/>
         <DCCReference Include="..\src\james.log.pas"/>
-        <DCCReference Include="..\src\james.functions.pas"/>
-        <DCCReference Include="..\src\james.functions.clss.pas"/>
         <DCCReference Include="..\src\james.data.constraints.pas"/>
         <DCCReference Include="..\src\james.data.constraints.clss.pas"/>
         <None Include="..\inc\james.inc"/>
