@@ -49,13 +49,11 @@ type
 
   EDataParams = EDataParamsAlias;
 
-  TDataStream             = TDataStreamAlias;
-  TDataStreamAsAggregated = TDataStreamAsAggregatedAlias;
-  TDataParam              = TDataParamAlias;
-  TDataParams             = TDataParamsAlias;
-  TDataParamsAsAggregate  = TDataParamsAsAggregateAlias;
-  TDataGuid               = TDataGuidAlias;
-  TNullGuid               = TNullGuidAlias;
+  TDataStream = TDataStreamAlias;
+  TDataParam  = TDataParamAlias;
+  TDataParams = TDataParamsAlias;
+  TDataGuid   = TDataGuidAlias;
+  TNullGuid   = TNullGuidAlias;
 
   { Constraints }
 

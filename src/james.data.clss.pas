@@ -48,21 +48,20 @@ type
     function Save(const FileName: string): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
+  public type
+    TAggregated = class sealed(TAggregatedObject, IDataStream)
+    private
+      FOrigin: IDataStream;
+    public
+      constructor Create(const aController: IUnknown; Origin: IDataStream);
+      function Save(Stream: TStream): IDataStream; overload;
+      function Save(Strings: TStrings): IDataStream; overload;
+      function Save(const FileName: string): IDataStream; overload;
+      function AsString: string;
+      function Size: Int64;
+    end;
   end;
   TDataStreamAlias = TDataStream;
-
-  TDataStreamAsAggregated = class sealed(TAggregatedObject, IDataStream)
-  private
-    FOrigin: IDataStream;
-  public
-    constructor Create(const aController: IUnknown; Origin: IDataStream);
-    function Save(Stream: TStream): IDataStream; overload;
-    function Save(Strings: TStrings): IDataStream; overload;
-    function Save(const FileName: string): IDataStream; overload;
-    function AsString: string;
-    function Size: Int64;
-  end;
-  TDataStreamAsAggregatedAlias = TDataStreamAsAggregated;
 
   TDataParam = class(TInterfacedObject, IDataParam)
   private
@@ -109,23 +108,22 @@ type
     function Count: Integer;
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
+  public type
+    TAggregate = class(TAggregatedObject, IDataParams)
+    private
+      FOrigin: IDataParams;
+    public
+      constructor Create(const AController: IInterface; Origin: IDataParams); reintroduce;
+      function Add(Param: IDataParam): IDataParams; overload;
+      function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
+      function Param(Index: Integer): IDataParam; overload;
+      function Param(const ParamName: string): IDataParam; overload;
+      function Count: Integer;
+      function AsString(const SeparatorChar: string): string; overload;
+      function AsString: string; overload;
+    end;
   end;
   TDataParamsAlias = TDataParams;
-
-  TDataParamsAsAggregate = class(TAggregatedObject, IDataParams)
-  private
-    FOrigin: IDataParams;
-  public
-    constructor Create(const AController: IInterface; Origin: IDataParams); reintroduce;
-    function Add(Param: IDataParam): IDataParams; overload;
-    function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
-    function Param(Index: Integer): IDataParam; overload;
-    function Param(const ParamName: string): IDataParam; overload;
-    function Count: Integer;
-    function AsString(const SeparatorChar: string): string; overload;
-    function AsString: string; overload;
-  end;
-  TDataParamsAsAggregateAlias = TDataParamsAsAggregate;
 
   TDataGuid = class(TInterfacedObject, IDataGuid)
   private
@@ -254,36 +252,36 @@ begin
   Result := FStream.Size;
 end;
 
-{ TDataStreamAsAggregated }
+{ TDataStream.TAggregated }
 
-constructor TDataStreamAsAggregated.Create(const aController: IUnknown;
+constructor TDataStream.TAggregated.Create(const aController: IUnknown;
   Origin: IDataStream);
 begin
   inherited Create(aController);
   FOrigin := Origin;
 end;
 
-function TDataStreamAsAggregated.Save(Stream: TStream): IDataStream;
+function TDataStream.TAggregated.Save(Stream: TStream): IDataStream;
 begin
   Result := FOrigin.Save(Stream);
 end;
 
-function TDataStreamAsAggregated.Save(Strings: TStrings): IDataStream;
+function TDataStream.TAggregated.Save(Strings: TStrings): IDataStream;
 begin
   Result := FOrigin.Save(Strings);
 end;
 
-function TDataStreamAsAggregated.Save(const FileName: string): IDataStream;
+function TDataStream.TAggregated.Save(const FileName: string): IDataStream;
 begin
   Result := FOrigin.Save(FileName);
 end;
 
-function TDataStreamAsAggregated.AsString: string;
+function TDataStream.TAggregated.AsString: string;
 begin
   Result := FOrigin.AsString;
 end;
 
-function TDataStreamAsAggregated.Size: Int64;
+function TDataStream.TAggregated.Size: Int64;
 begin
   Result := FOrigin.Size;
 end;
@@ -485,47 +483,47 @@ begin
   Result := AsString(',');
 end;
 
-{ TDataParamsAsAggregate }
+{ TDataParams.TAggregate }
 
-constructor TDataParamsAsAggregate.Create(const AController: IInterface;
+constructor TDataParams.TAggregate.Create(const AController: IInterface;
   Origin: IDataParams);
 begin
   inherited Create(AController);
   FOrigin := Origin;
 end;
 
-function TDataParamsAsAggregate.Add(Param: IDataParam): IDataParams;
+function TDataParams.TAggregate.Add(Param: IDataParam): IDataParams;
 begin
   Result := FOrigin.Add(Param);
 end;
 
-function TDataParamsAsAggregate.Add(const ParamName: string; DataType: TFieldType;
+function TDataParams.TAggregate.Add(const ParamName: string; DataType: TFieldType;
   Value: Variant): IDataParams;
 begin
   Result := FOrigin.Add(ParamName, DataType, Value);
 end;
 
-function TDataParamsAsAggregate.Param(Index: Integer): IDataParam;
+function TDataParams.TAggregate.Param(Index: Integer): IDataParam;
 begin
   Result := FOrigin.Param(Index);
 end;
 
-function TDataParamsAsAggregate.Param(const ParamName: string): IDataParam;
+function TDataParams.TAggregate.Param(const ParamName: string): IDataParam;
 begin
   Result := FOrigin.Param(ParamName);
 end;
 
-function TDataParamsAsAggregate.Count: Integer;
+function TDataParams.TAggregate.Count: Integer;
 begin
   Result := FOrigin.Count;
 end;
 
-function TDataParamsAsAggregate.AsString(const SeparatorChar: string): string;
+function TDataParams.TAggregate.AsString(const SeparatorChar: string): string;
 begin
   Result := FOrigin.AsString(SeparatorChar);
 end;
 
-function TDataParamsAsAggregate.AsString: string;
+function TDataParams.TAggregate.AsString: string;
 begin
   Result := FOrigin.AsString;
 end;

@@ -52,13 +52,13 @@ type
   TFileAsStream = class(TInterfacedObject, IDataStream)
   private
     FFile: IFile;
-    FStream: TDataStreamAsAggregated;
-    function GetStream: TDataStreamAsAggregated;
+    FStream: TDataStream.TAggregated;
+    function GetStream: TDataStream.TAggregated;
   public
     constructor Create(AFile: IFile);
     class function New(AFile: IFile): IDataStream;
     destructor Destroy; override;
-    property Stream: TDataStreamAsAggregated
+    property Stream: TDataStream.TAggregated
         read GetStream implements IDataStream;
   end;
   TFileAsStreamAlias = TFileAsStream;
@@ -120,10 +120,10 @@ end;
 
 { TFileAsStream }
 
-function TFileAsStream.GetStream: TDataStreamAsAggregated;
+function TFileAsStream.GetStream: TDataStream.TAggregated;
 begin
   if not Assigned(FStream) then
-    FStream := TDataStreamAsAggregated.Create(Self, FFile.Stream);
+    FStream := TDataStream.TAggregated.Create(Self, FFile.Stream);
   Result := FStream;
 end;
 
