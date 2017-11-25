@@ -35,7 +35,9 @@ uses
   James.IO,
   James.IO.Clss,
   James.Format.Base64.Clss,
-  James.Crypto.MD5.Clss;
+  James.Crypto.MD5.Clss,
+  James.Log,
+  James.Log.Clss;
 
 type
 
@@ -84,6 +86,12 @@ type
 
   TMD5Hash = TMD5HashAlias;
   TMD5Stream = TMD5StreamAlias;
+
+{ Log }
+
+  ILog = ILogAlias;
+
+  TLogInFile = TLogInFileAlias;
 
 implementation
 
