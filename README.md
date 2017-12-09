@@ -28,7 +28,6 @@ We want to write elegant, clean, and maintainable code using OOP.
 
 We are using other packages:
 
-* [Xavier](https://github.com/mdbs99/xavier) — is an object-oriented library for working with XML. This project is used only on Test project to handle the XML template.
 * [Synapse](http://synapse.ararat.cz/doku.php/download) (it will be removed soon) — this project deals with network communication.
 
 ## How to contribute?
