@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
-    <Name Value="james.tests"/>
+    <Name Value="James.Tests"/>
     <Type Value="RunTimeOnly"/>
     <AddToProjectUsesSection Value="True"/>
     <Author Value="Marcos Douglas B. Santos"/>
@@ -11,8 +11,8 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\inc"/>
-        <OtherUnitFiles Value="..\test\core"/>
-        <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
+        <OtherUnitFiles Value="..\test\core;..\test\xml"/>
+        <UnitOutputDirectory Value="..\lib\test\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Linking>
         <Debugging>
@@ -31,7 +31,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="7"/>
-    <Files Count="5">
+    <Files Count="6">
       <Item1>
         <Filename Value="..\test\core\james.data.tests.pas"/>
         <UnitName Value="James.Data.Tests"/>
@@ -52,17 +52,17 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <Filename Value="..\test\core\james.data.constraints.tests.pas"/>
         <UnitName Value="James.Data.Constraints.Tests"/>
       </Item5>
+      <Item6>
+        <Filename Value="..\test\xml\james.xml.core.tests.pas"/>
+        <UnitName Value="James.XML.Core.Tests"/>
+      </Item6>
     </Files>
     <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="xavier"/>
-        <MaxVersion Minor="3"/>
-        <MinVersion Minor="3" Valid="True"/>
+        <PackageName Value="James.XML"/>
       </Item1>
       <Item2>
-        <PackageName Value="james"/>
-        <MaxVersion Minor="6"/>
-        <MinVersion Minor="6"/>
+        <PackageName Value="James"/>
       </Item2>
       <Item3>
         <PackageName Value="LCL"/>

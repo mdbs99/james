@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
-    <Name Value="james"/>
+    <Name Value="James"/>
     <Type Value="RunAndDesignTime"/>
     <Author Value="Marcos Douglas B. Santos"/>
     <CompilerOptions>
@@ -11,7 +11,7 @@
       <SearchPaths>
         <IncludeFiles Value="..\inc"/>
         <OtherUnitFiles Value="..\src\core"/>
-        <UnitOutputDirectory Value="..\lib\james\$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="..\lib\core\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Linking>
         <Debugging>
