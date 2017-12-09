@@ -73,7 +73,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Crypto')
+  TTestSuite.New('Core.Crypto')
     .Add(TTest.New(TMD5HashTest))
     .Add(TTest.New(TMD5StreamTest));
 

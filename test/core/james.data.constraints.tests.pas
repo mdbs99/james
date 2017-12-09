@@ -242,7 +242,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Data')
+  TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamTest))
     .Add(TTest.New(TDataInformationsTest))
     .Add(TTest.New(TDataConstraintsTest));
