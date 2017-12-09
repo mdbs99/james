@@ -10,7 +10,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\inc"/>
-        <OtherUnitFiles Value="..\src"/>
+        <OtherUnitFiles Value="..\src\core"/>
         <UnitOutputDirectory Value="..\lib\james\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Linking>
@@ -32,67 +32,67 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="7"/>
     <Files Count="16">
       <Item1>
-        <Filename Value="..\src\james.data.clss.pas"/>
+        <Filename Value="..\src\core\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
       </Item1>
       <Item2>
-        <Filename Value="..\src\james.data.pas"/>
+        <Filename Value="..\src\core\james.data.pas"/>
         <UnitName Value="James.Data"/>
       </Item2>
       <Item3>
-        <Filename Value="..\src\james.log.clss.pas"/>
+        <Filename Value="..\src\core\james.log.clss.pas"/>
         <UnitName Value="James.Log.Clss"/>
       </Item3>
       <Item4>
-        <Filename Value="..\src\james.log.pas"/>
+        <Filename Value="..\src\core\james.log.pas"/>
         <UnitName Value="James.Log"/>
       </Item4>
       <Item5>
-        <Filename Value="..\src\james.format.base64.clss.pas"/>
+        <Filename Value="..\src\core\james.format.base64.clss.pas"/>
         <UnitName Value="James.Format.Base64.Clss"/>
       </Item5>
       <Item6>
-        <Filename Value="..\src\james.io.clss.pas"/>
+        <Filename Value="..\src\core\james.io.clss.pas"/>
         <UnitName Value="James.IO.Clss"/>
       </Item6>
       <Item7>
-        <Filename Value="..\src\james.io.pas"/>
+        <Filename Value="..\src\core\james.io.pas"/>
         <UnitName Value="James.IO"/>
       </Item7>
       <Item8>
-        <Filename Value="..\src\james.crypto.md5.clss.pas"/>
+        <Filename Value="..\src\core\james.crypto.md5.clss.pas"/>
         <UnitName Value="James.Crypto.MD5.Clss"/>
       </Item8>
       <Item9>
-        <Filename Value="..\src\james.data.constraints.clss.pas"/>
+        <Filename Value="..\src\core\james.data.constraints.clss.pas"/>
         <UnitName Value="James.Data.Constraints.Clss"/>
       </Item9>
       <Item10>
-        <Filename Value="..\src\james.data.constraints.pas"/>
+        <Filename Value="..\src\core\james.data.constraints.pas"/>
         <UnitName Value="James.Data.Constraints"/>
       </Item10>
       <Item11>
-        <Filename Value="..\src\james.crypto.md5.fpc.pas"/>
+        <Filename Value="..\src\core\james.crypto.md5.fpc.pas"/>
         <UnitName Value="James.Crypto.MD5.FPC"/>
       </Item11>
       <Item12>
-        <Filename Value="..\src\james.format.base64.fpc.pas"/>
+        <Filename Value="..\src\core\james.format.base64.fpc.pas"/>
         <UnitName Value="James.Format.Base64.FPC"/>
       </Item12>
       <Item13>
-        <Filename Value="..\src\james.testing.clss.pas"/>
+        <Filename Value="..\src\core\james.testing.clss.pas"/>
         <UnitName Value="James.Testing.Clss"/>
       </Item13>
       <Item14>
-        <Filename Value="..\src\james.testing.fpc.pas"/>
+        <Filename Value="..\src\core\james.testing.fpc.pas"/>
         <UnitName Value="James.Testing.FPC"/>
       </Item14>
       <Item15>
-        <Filename Value="..\src\james.testing.pas"/>
+        <Filename Value="..\src\core\james.testing.pas"/>
         <UnitName Value="James.Testing"/>
       </Item15>
       <Item16>
-        <Filename Value="..\src\james.api.pas"/>
+        <Filename Value="..\src\core\james.api.pas"/>
         <UnitName Value="James.API"/>
       </Item16>
     </Files>
