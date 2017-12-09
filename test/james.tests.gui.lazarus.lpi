@@ -58,7 +58,7 @@
     </RunParams>
     <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="james.tests"/>
+        <PackageName Value="James.Tests"/>
       </Item1>
       <Item2>
         <PackageName Value="fpcunittestrunner"/>
@@ -74,6 +74,7 @@
       <Unit0>
         <Filename Value="james.tests.gui.lazarus.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="james.tests.gui"/>
       </Unit0>
     </Units>
   </ProjectOptions>
