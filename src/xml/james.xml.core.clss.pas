@@ -57,7 +57,7 @@ type
 
   TXMLPack = class(TCPack)
   public
-    class function New(AStream: IDataStream): IXMLPack; overload;
+    class function New(const AStream: IDataStream): IXMLPack; overload;
     class function New(const ARootName: TXMLString): IXMLPack; overload;
   end;
   TXMLPackAlias = TXMLPack;
@@ -66,7 +66,7 @@ implementation
 
 { TXMLPack }
 
-class function TXMLPack.New(AStream: IDataStream): IXMLPack;
+class function TXMLPack.New(const AStream: IDataStream): IXMLPack;
 var
   Buf: TMemoryStream;
 begin

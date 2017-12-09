@@ -46,8 +46,8 @@ type
     FOrigin: IDataStream;
     function OriginAsBase64: IDataStream;
   public
-    constructor Create(Origin: IDataStream); reintroduce;
-    class function New(Origin: IDataStream): IDataStream;
+    constructor Create(const Origin: IDataStream); reintroduce;
+    class function New(const Origin: IDataStream): IDataStream;
     function Save(Stream: TStream): IDataStream; overload;
     function Save(const FileName: string): IDataStream; overload;
     function Save(Strings: TStrings): IDataStream; overload;
@@ -79,13 +79,13 @@ begin
   end;
 end;
 
-constructor TBase64Stream.Create(Origin: IDataStream);
+constructor TBase64Stream.Create(const Origin: IDataStream);
 begin
   inherited Create;
   FOrigin := Origin;
 end;
 
-class function TBase64Stream.New(Origin: IDataStream): IDataStream;
+class function TBase64Stream.New(const Origin: IDataStream): IDataStream;
 begin
   Result := Create(Origin);
 end;

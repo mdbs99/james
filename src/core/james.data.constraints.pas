@@ -42,8 +42,8 @@ type
 
   IDataInformations = interface
   ['{4402481A-49D9-4722-B0CB-952C728932B6}']
-    function Add(Info: IDataInformation): IDataInformations; overload;
-    function Add(Infos: IDataInformations): IDataInformations; overload;
+    function Add(const Info: IDataInformation): IDataInformations; overload;
+    function Add(const Infos: IDataInformations): IDataInformations; overload;
     function Get(Index: Integer): IDataInformation;
     function Count: Integer;
     function Text: string;
@@ -66,7 +66,7 @@ type
 
   IDataConstraints = interface
   ['{31FA938E-93C9-4450-B34F-DDC4B2935899}']
-    function Add(C: IDataConstraint): IDataConstraints;
+    function Add(const C: IDataConstraint): IDataConstraints;
     function Get(Index: Integer): IDataConstraint;
     function Count: Integer;
     function Checked: IDataResult;

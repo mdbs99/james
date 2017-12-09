@@ -57,8 +57,8 @@ type
   public
     constructor Create; reintroduce;
     class function New: IDataInformations;
-    function Add(Info: IDataInformation): IDataInformations; overload;
-    function Add(Infos: IDataInformations): IDataInformations; overload;
+    function Add(const Info: IDataInformation): IDataInformations; overload;
+    function Add(const Infos: IDataInformations): IDataInformations; overload;
     function Get(Index: Integer): IDataInformation;
     function Count: Integer;
     function Text: string;
@@ -71,10 +71,10 @@ type
     FData: IDataParams;
     FInfos: IDataInformations;
   public
-    constructor Create(OK: Boolean; Infos: IDataInformations; Data: IDataParams); reintroduce; overload;
-    class function New(OK: Boolean; Infos: IDataInformations; Data: IDataParams): IDataResult; overload;
-    class function New(OK: Boolean; Infos: IDataInformations): IDataResult; overload;
-    class function New(OK: Boolean; Info: IDataInformation): IDataResult; overload;
+    constructor Create(OK: Boolean; const Infos: IDataInformations; const Data: IDataParams); reintroduce; overload;
+    class function New(OK: Boolean; const Infos: IDataInformations; const Data: IDataParams): IDataResult; overload;
+    class function New(OK: Boolean; const Infos: IDataInformations): IDataResult; overload;
+    class function New(OK: Boolean; const Info: IDataInformation): IDataResult; overload;
     class function New(OK: Boolean): IDataResult; overload;
     function OK: Boolean;
     function Data: IDataParams;
@@ -88,7 +88,7 @@ type
   public
     constructor Create;
     class function New: IDataConstraints;
-    function Add(C: IDataConstraint): IDataConstraints;
+    function Add(const C: IDataConstraint): IDataConstraints;
     function Get(Index: Integer): IDataConstraint;
     function Count: Integer;
     function Checked: IDataResult;
@@ -150,13 +150,14 @@ begin
   Result := Create;
 end;
 
-function TDataInformations.Add(Info: IDataInformation): IDataInformations;
+function TDataInformations.Add(const Info: IDataInformation): IDataInformations;
 begin
   Result := Self;
   FList.Add(Info);
 end;
 
-function TDataInformations.Add(Infos: IDataInformations): IDataInformations;
+function TDataInformations.Add(const Infos: IDataInformations
+  ): IDataInformations;
 var
   I: Integer;
 begin
@@ -191,7 +192,8 @@ end;
 
 { TDataResult }
 
-constructor TDataResult.Create(OK: Boolean; Infos: IDataInformations; Data: IDataParams);
+constructor TDataResult.Create(OK: Boolean; const Infos: IDataInformations;
+  const Data: IDataParams);
 begin
   inherited Create;
   FOK := OK;
@@ -199,18 +201,20 @@ begin
   FInfos := Infos;
 end;
 
-class function TDataResult.New(OK: Boolean; Infos: IDataInformations;
-  Data: IDataParams): IDataResult;
+class function TDataResult.New(OK: Boolean; const Infos: IDataInformations;
+  const Data: IDataParams): IDataResult;
 begin
   Result := Create(OK, Infos, Data);
 end;
 
-class function TDataResult.New(OK: Boolean; Infos: IDataInformations): IDataResult;
+class function TDataResult.New(OK: Boolean; const Infos: IDataInformations
+  ): IDataResult;
 begin
   Result := Create(OK, Infos, TDataParams.New);
 end;
 
-class function TDataResult.New(OK: Boolean; Info: IDataInformation): IDataResult;
+class function TDataResult.New(OK: Boolean; const Info: IDataInformation
+  ): IDataResult;
 begin
   Result := New(OK, TDataInformations.New.Add(Info));
 end;
@@ -248,7 +252,7 @@ begin
   Result := Create;
 end;
 
-function TDataConstraints.Add(C: IDataConstraint): IDataConstraints;
+function TDataConstraints.Add(const C: IDataConstraint): IDataConstraints;
 begin
   Result := Self;
   FList.Add(C);

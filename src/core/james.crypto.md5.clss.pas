@@ -47,8 +47,8 @@ type
     FOrigin: IDataStream;
     function GetStream: IDataStream;
   public
-    constructor Create(Origin: IDataStream); reintroduce;
-    class function New(Origin: IDataStream): IDataStream;
+    constructor Create(const Origin: IDataStream); reintroduce;
+    class function New(const Origin: IDataStream): IDataStream;
     function Save(Stream: TStream): IDataStream; overload;
     function Save(const FileName: string): IDataStream; overload;
     function Save(Strings: TStrings): IDataStream; overload;
@@ -68,13 +68,13 @@ begin
   );
 end;
 
-constructor TMD5Stream.Create(Origin: IDataStream);
+constructor TMD5Stream.Create(const Origin: IDataStream);
 begin
   inherited Create;
   FOrigin := Origin;
 end;
 
-class function TMD5Stream.New(Origin: IDataStream): IDataStream;
+class function TMD5Stream.New(const Origin: IDataStream): IDataStream;
 begin
   Result := Create(Origin);
 end;

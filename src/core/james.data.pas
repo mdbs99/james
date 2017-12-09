@@ -65,7 +65,7 @@ type
 
   IDataParams = interface
   ['{650DE166-6452-4F22-80F8-F364B9BF4C50}']
-    function Add(Param: IDataParam): IDataParams; overload;
+    function Add(const Param: IDataParam): IDataParams; overload;
     function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
     function Param(Index: Integer): IDataParam; overload;
     function Param(const ParamName: string): IDataParam; overload;

@@ -101,7 +101,7 @@ type
     class function New: IDataParams; overload;
     class function New(Origin: TFields): IDataParams; overload;
     destructor Destroy; override;
-    function Add(Param: IDataParam): IDataParams; overload;
+    function Add(const Param: IDataParam): IDataParams; overload;
     function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
     function Param(Index: Integer): IDataParam; overload;
     function Param(const ParamName: string): IDataParam; overload;
@@ -114,7 +114,7 @@ type
       FOrigin: IDataParams;
     public
       constructor Create(const AController: IInterface; Origin: IDataParams); reintroduce;
-      function Add(Param: IDataParam): IDataParams; overload;
+      function Add(const Param: IDataParam): IDataParams; overload;
       function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
       function Param(Index: Integer): IDataParam; overload;
       function Param(const ParamName: string): IDataParam; overload;
@@ -422,7 +422,7 @@ begin
   inherited;
 end;
 
-function TDataParams.Add(Param: IDataParam): IDataParams;
+function TDataParams.Add(const Param: IDataParam): IDataParams;
 begin
   Result := Self;
   FList.Add(Param);
@@ -492,7 +492,7 @@ begin
   FOrigin := Origin;
 end;
 
-function TDataParams.TAggregate.Add(Param: IDataParam): IDataParams;
+function TDataParams.TAggregate.Add(const Param: IDataParam): IDataParams;
 begin
   Result := FOrigin.Add(Param);
 end;

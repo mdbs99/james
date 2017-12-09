@@ -79,8 +79,8 @@ type
   private
     FList: IInterfaceList;
   public
-    constructor Create(AList: IInterfaceList);
-    class function New(AList: IInterfaceList): IXMLNodes;
+    constructor Create(const AList: IInterfaceList);
+    class function New(const AList: IInterfaceList): IXMLNodes;
     function Item(AIndex: Integer): IXMLNode; overload;
     function Item(const AName: TXMLString): IXMLNode; overload;
     function Count: Integer;
@@ -252,13 +252,13 @@ end;
 
 { TCNodes }
 
-constructor TCNodes.Create(AList: IInterfaceList);
+constructor TCNodes.Create(const AList: IInterfaceList);
 begin
   inherited Create;
   FList := AList;
 end;
 
-class function TCNodes.New(AList: IInterfaceList): IXMLNodes;
+class function TCNodes.New(const AList: IInterfaceList): IXMLNodes;
 begin
   Result := Create(AList);
 end;

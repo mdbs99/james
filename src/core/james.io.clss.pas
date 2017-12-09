@@ -40,7 +40,7 @@ type
     FStream: IDataStream;
   public
     constructor Create(const FileName: string; Stream: IDataStream); overload;
-    class function New(const FileName: string; Stream: IDataStream): IFile; overload;
+    class function New(const FileName: string; const Stream: IDataStream): IFile; overload;
     class function New(const FileName: string): IFile; overload;
     function Path: string;
     function Name: string;
@@ -55,8 +55,8 @@ type
     FStream: TDataStream.TAggregated;
     function GetStream: TDataStream.TAggregated;
   public
-    constructor Create(AFile: IFile);
-    class function New(AFile: IFile): IDataStream;
+    constructor Create(const AFile: IFile);
+    class function New(const AFile: IFile): IDataStream;
     destructor Destroy; override;
     property Stream: TDataStream.TAggregated
         read GetStream implements IDataStream;
@@ -74,7 +74,8 @@ begin
   FStream := Stream;
 end;
 
-class function TFile.New(const FileName: string; Stream: IDataStream): IFile;
+class function TFile.New(const FileName: string; const Stream: IDataStream
+  ): IFile;
 begin
   Result := Create(FileName, Stream);
 end;
@@ -127,13 +128,13 @@ begin
   Result := FStream;
 end;
 
-constructor TFileAsStream.Create(AFile: IFile);
+constructor TFileAsStream.Create(const AFile: IFile);
 begin
   inherited Create;
   FFile := AFile;
 end;
 
-class function TFileAsStream.New(AFile: IFile): IDataStream;
+class function TFileAsStream.New(const AFile: IFile): IDataStream;
 begin
   Result := Create(AFile);
 end;
