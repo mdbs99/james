@@ -24,7 +24,7 @@ for details about the copyright.
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
-    <Version Minor="4"/>
+    <Version Minor="5"/>
     <Files Count="4">
       <Item1>
         <Filename Value="..\src\xml\james.xml.core.clss.pas"/>
