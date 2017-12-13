@@ -64,36 +64,36 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Crypto.MD5.Clss"/>
       </Item8>
       <Item9>
-        <Filename Value="..\src\core\james.data.constraints.clss.pas"/>
-        <UnitName Value="James.Data.Constraints.Clss"/>
-      </Item9>
-      <Item10>
-        <Filename Value="..\src\core\james.data.constraints.pas"/>
-        <UnitName Value="James.Data.Constraints"/>
-      </Item10>
-      <Item11>
         <Filename Value="..\src\core\james.crypto.md5.fpc.pas"/>
         <UnitName Value="James.Crypto.MD5.FPC"/>
-      </Item11>
-      <Item12>
+      </Item9>
+      <Item10>
         <Filename Value="..\src\core\james.format.base64.fpc.pas"/>
         <UnitName Value="James.Format.Base64.FPC"/>
-      </Item12>
-      <Item13>
+      </Item10>
+      <Item11>
         <Filename Value="..\src\core\james.testing.clss.pas"/>
         <UnitName Value="James.Testing.Clss"/>
-      </Item13>
-      <Item14>
+      </Item11>
+      <Item12>
         <Filename Value="..\src\core\james.testing.fpc.pas"/>
         <UnitName Value="James.Testing.FPC"/>
-      </Item14>
-      <Item15>
+      </Item12>
+      <Item13>
         <Filename Value="..\src\core\james.testing.pas"/>
         <UnitName Value="James.Testing"/>
-      </Item15>
-      <Item16>
+      </Item13>
+      <Item14>
         <Filename Value="..\src\core\james.api.pas"/>
         <UnitName Value="James.API"/>
+      </Item14>
+      <Item15>
+        <Filename Value="..\src\core\james.constraints.clss.pas"/>
+        <UnitName Value="James.Constraints.Clss"/>
+      </Item15>
+      <Item16>
+        <Filename Value="..\src\core\james.constraints.pas"/>
+        <UnitName Value="James.Constraints"/>
       </Item16>
     </Files>
     <RequiredPkgs Count="3">

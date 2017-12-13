@@ -30,8 +30,8 @@ interface
 uses
   James.Data,
   James.Data.Clss,
-  James.Data.Constraints,
-  James.Data.Constraints.Clss,
+  James.Constraints,
+  James.Constraints.Clss,
   James.IO,
   James.IO.Clss,
   James.Format.Base64.Clss,

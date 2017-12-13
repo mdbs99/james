@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Data.Constraints.Clss;
+unit James.Constraints.Clss;
 
 {$include james.inc}
 
@@ -31,7 +31,7 @@ uses
   Classes, SysUtils, Variants,
   James.Data,
   James.Data.Clss,
-  James.Data.Constraints;
+  James.Constraints;
 
 type
   { TODO -omdbs99 : This class is just a data bag and should be refactored, in the future }
