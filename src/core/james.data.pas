@@ -89,6 +89,32 @@ type
   end;
   IDataHashAlias = IDataHash;
 
+  IDataInformation = interface
+  ['{4E1B718C-D76E-4D3B-9781-866E767CD5EA}']
+    function Id: string;
+    function Text: string;
+    function Metadata: string;
+  end;
+  IDataInformationAlias = IDataInformation;
+
+  IDataInformations = interface
+  ['{4402481A-49D9-4722-B0CB-952C728932B6}']
+    function Add(const Info: IDataInformation): IDataInformations; overload;
+    function Add(const Infos: IDataInformations): IDataInformations; overload;
+    function Get(Index: Integer): IDataInformation;
+    function Count: Integer;
+    function Text: string;
+  end;
+  IDataInformationsAlias = IDataInformations;
+
+  IDataResult = interface
+  ['{9E1AB274-707A-4770-94B9-659945547A19}']
+    function OK: Boolean;
+    function Data: IDataParams;
+    function Informations: IDataInformations;
+  end;
+  IDataResultAlias = IDataResult;
+
 implementation
 
 end.
