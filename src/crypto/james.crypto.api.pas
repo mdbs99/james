@@ -20,61 +20,21 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-} 
-unit James.Crypto.MD5.Tests;
+}
+unit James.Crypto.API;
 
 {$include james.inc}
 
 interface
 
 uses
-  Classes, SysUtils,
-  James.API,
-  James.Testing.Clss;
+  James.Crypto.MD5.Clss;
 
 type
-  TMD5HashTest = class(TTestCase)
-  published
-    procedure HashByMd5HashGeneratorPage;
-  end;
-
-  TMD5StreamTest = class(TTestCase)
-  published
-    procedure StreamFromMemory;
-  end;
+  TMD5Hash = James.Crypto.MD5.Clss.TMD5Hash;
+  TMD5Stream = James.Crypto.MD5.Clss.TMD5Stream;
 
 implementation
 
-{ TMD5HashTest }
-
-procedure TMD5HashTest.HashByMd5HashGeneratorPage;
-const
-  VALUE: string = 'http://www.md5hashgenerator.com/';
-  VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
-begin
-  CheckEquals(
-    VALUE_HASH,
-    TMD5Hash.New(VALUE).AsString
-  );
-end;
-
-{ TMD5StreamTest }
-
-procedure TMD5StreamTest.StreamFromMemory;
-const
-  TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
-begin
-  CheckEquals(
-    TMD5Hash.New(TXT).AsString,
-    TMD5Stream.New(
-      TDataStream.New(TXT)
-    ).AsString
-  );
-end;
-
-initialization
-  TTestSuite.New('Core.Crypto')
-    .Add(TTest.New(TMD5HashTest))
-    .Add(TTest.New(TMD5StreamTest));
-
 end.
+
