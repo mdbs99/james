@@ -33,21 +33,21 @@ uses
   James.XML.Core.Clss;
 
 type
-  TXMLString = TXMLStringAlias;
+  TXMLString = James.XML.Core.TXMLString;
 
-  EXMLError = EXMLErrorAlias;
+  EXMLError = James.XML.Core.EXMLError;
 
-  IXMLAttribute  = IXMLAttributeAlias;
-  IXMLAttributes = IXMLAttributesAlias;
-  IXMLNode       = IXMLNodeAlias;
-  IXMLNodes      = IXMLNodesAlias;
-  IXMLPack       = IXMLPackAlias;
+  IXMLAttribute  = James.XML.Core.IXMLAttribute;
+  IXMLAttributes = James.XML.Core.IXMLAttributes;
+  IXMLNode       = James.XML.Core.IXMLNode;
+  IXMLNodes      = James.XML.Core.IXMLNodes;
+  IXMLPack       = James.XML.Core.IXMLPack;
 
-  TXMLAttribute  = TXMLAttributeAlias;
-  TXMLAttributes = TXMLAttributesAlias;
-  TXMLNode       = TXMLNodeAlias;
-  TXMLNodes      = TXMLNodesAlias;
-  TXMLPack       = TXMLPackAlias;
+  TXMLAttribute  = James.XML.Core.Clss.TXMLAttribute;
+  TXMLAttributes = James.XML.Core.Clss.TXMLAttributes;
+  TXMLNode       = James.XML.Core.Clss.TXMLNode;
+  TXMLNodes      = James.XML.Core.Clss.TXMLNodes;
+  TXMLPack       = James.XML.Core.Clss.TXMLPack;
 
 implementation
 

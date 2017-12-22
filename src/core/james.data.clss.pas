@@ -61,7 +61,6 @@ type
       function Size: Int64;
     end;
   end;
-  TDataStreamAlias = TDataStream;
 
   TDataParam = class(TInterfacedObject, IDataParam)
   private
@@ -88,7 +87,6 @@ type
     function AsTime: TDateTime;
     function AsWord: LongInt;
   end;
-  TDataParamAlias = TDataParam;
 
   EDataParams = class(Exception);
   EDataParamsAlias = EDataParams;
@@ -123,7 +121,6 @@ type
       function AsString: string; overload;
     end;
   end;
-  TDataParamsAlias = TDataParams;
 
   TDataGuid = class(TInterfacedObject, IDataGuid)
   private
@@ -138,7 +135,6 @@ type
     function AsString: string;
     function AsSmallString: string;
   end;
-  TDataGuidAlias = TDataGuid;
 
   TNullGuid = class(TInterfacedObject, IDataGuid)
   private
@@ -150,7 +146,6 @@ type
     function AsString: string;
     function AsSmallString: string;
   end;
-  TNullGuidAlias = TNullGuid;
 
   { TODO -omdbs99 : This class is just a data bag and should be refactored, in the future }
   TDataInformation = class(TInterfacedObject, IDataInformation)
@@ -167,7 +162,6 @@ type
     function Text: string;
     function Metadata: string;
   end;
-  TDataInformationAlias = TDataInformation;
 
   TDataInformations = class(TInterfacedObject, IDataInformations)
   private
@@ -181,7 +175,6 @@ type
     function Count: Integer;
     function Text: string;
   end;
-  TDataInformationsAlias = TDataInformations;
 
   TDataResult = class sealed(TInterfacedObject, IDataResult)
   private
@@ -198,7 +191,6 @@ type
     function Data: IDataParams;
     function Informations: IDataInformations;
   end;
-  TDataResultAlias = TDataResult;
 
 implementation
 

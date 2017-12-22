@@ -34,8 +34,6 @@ uses
   James.Constraints.Clss,
   James.IO,
   James.IO.Clss,
-  James.Format.Base64.Clss,
-  James.Crypto.MD5.Clss,
   James.Log,
   James.Log.Clss;
 
@@ -43,55 +41,44 @@ type
 
   { Data }
 
-  IDataStream = IDataStreamAlias;
-  IDataParam  = IDataParamAlias;
-  IDataParams = IDataParamsAlias;
-  IDataGuid   = IDataGuidAlias;
-  IDataHash   = IDataHashAlias;
+  IDataStream = James.Data.IDataStream;
+  IDataParam = James.Data.IDataParam;
+  IDataParams = James.Data.IDataParams;
+  IDataGuid = James.Data.IDataGuid;
+  IDataHash = James.Data.IDataHash;
+  IDataInformation = James.Data.IDataInformation;
+  IDataInformations = James.Data.IDataInformations;
+  IDataResult = James.Data.IDataResult;
 
-  EDataParams = EDataParamsAlias;
+  EDataParams = James.Data.Clss.EDataParams;
 
-  TDataStream = TDataStreamAlias;
-  TDataParam  = TDataParamAlias;
-  TDataParams = TDataParamsAlias;
-  TDataGuid   = TDataGuidAlias;
-  TNullGuid   = TNullGuidAlias;
+  TDataStream = James.Data.Clss.TDataStream;
+  TDataParam = James.Data.Clss.TDataParam;
+  TDataParams = James.Data.Clss.TDataParams;
+  TDataGuid = James.Data.Clss.TDataGuid;
+  TNullGuid = James.Data.Clss.TNullGuid;
+  TDataInformation = James.Data.Clss.TDataInformation;
+  TDataInformations = James.Data.Clss.TDataInformations;
+  TDataResult = James.Data.Clss.TDataResult;
+  TDataConstraints = James.Constraints.Clss.TDataConstraints;
 
   { Constraints }
 
-  IDataInformation  = IDataInformationAlias;
-  IDataInformations = IDataInformationsAlias;
-  IDataResult       = IDataResultAlias;
-  IDataConstraint   = IDataConstraintAlias;
-  IDataConstraints  = IDataConstraintsAlias;
-
-  TDataInformation  = TDataInformationAlias;
-  TDataInformations = TDataInformationsAlias;
-  TDataResult       = TDataResultAlias;
-  TDataConstraints  = TDataConstraintsAlias;
+  IDataConstraint = James.Constraints.IDataConstraint;
+  IDataConstraints = James.Constraints.IDataConstraints;
 
   { IO }
 
-  IFile = IFileAlias;
+  IFile = James.IO.IFile;
 
-  TFile = TFileAlias;
-  TFileAsStream = TFileAsStreamAlias;
-
- { Format Base64 }
-
-  TBase64Hash = TBase64HashAlias;
-  TBase64Stream = TBase64StreamAlias;
-
-{ Crypto MD5 }
-
-  TMD5Hash = TMD5HashAlias;
-  TMD5Stream = TMD5StreamAlias;
+  TFile = James.IO.Clss.TFile;
+  TFileAsStream = James.IO.Clss.TFileAsStream;
 
 { Log }
 
-  ILog = ILogAlias;
+  ILog = James.Log.ILog;
 
-  TLogInFile = TLogInFileAlias;
+  TLogInFile = James.Log.Clss.TLogInFile;
 
 implementation
 

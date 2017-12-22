@@ -45,8 +45,7 @@ type
     function Count: Integer;
     function Checked: IDataResult;
   end;
-  TDataConstraintsAlias = TDataConstraints;
-  
+
 implementation
 
 { TDataConstraints }

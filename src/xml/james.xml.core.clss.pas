@@ -41,26 +41,16 @@ uses
 
 type
   TXMLAttribute = TCAttribute;
-  TXMLAttributeAlias = TXMLAttribute;
-
   TXMLAttributes = TCAttributes;
-  TXMLAttributesAlias = TXMLAttributes;
-
   TXMLNode = TCNode;
-  TXMLNodeAlias = TXMLNode;
-
   TXMLNodes = TCNodes;
-  TXMLNodesAlias = TXMLNodes;
-
   TXMLChilds = TCChilds;
-  TXMLChildsAlias = TXMLChilds;
 
   TXMLPack = class(TCPack)
   public
     class function New(const AStream: IDataStream): IXMLPack; overload;
     class function New(const ARootName: TXMLString): IXMLPack; overload;
   end;
-  TXMLPackAlias = TXMLPack;
 
 implementation
 

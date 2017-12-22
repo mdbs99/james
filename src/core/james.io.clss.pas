@@ -47,7 +47,6 @@ type
     function FileName: string;
     function Stream: IDataStream;
   end;
-  TFileAlias = TFile;
 
   TFileAsStream = class(TInterfacedObject, IDataStream)
   private
@@ -61,7 +60,6 @@ type
     property Stream: TDataStream.TAggregated
         read GetStream implements IDataStream;
   end;
-  TFileAsStreamAlias = TFileAsStream;
 
 implementation
 

@@ -39,7 +39,6 @@ type
     function FileName: string;
     function Stream: IDataStream;
   end;
-  IFileAlias = IFile;
 
 implementation
 

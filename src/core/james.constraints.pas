@@ -36,7 +36,6 @@ type
   ['{C580D0F6-B724-468F-9B74-40F7D49DA5DA}']
     function Checked: IDataResult;
   end;
-  IDataConstraintAlias = IDataConstraint;
 
   IDataConstraints = interface
   ['{31FA938E-93C9-4450-B34F-DDC4B2935899}']
@@ -45,7 +44,6 @@ type
     function Count: Integer;
     function Checked: IDataResult;
   end;
-  IDataConstraintsAlias = IDataConstraints;
 
 implementation
 

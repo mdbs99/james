@@ -36,7 +36,6 @@ type
     function Log(const S: string): ILog; overload;
     function Log(E: Exception): ILog; overload;
   end;
-  ILogAlias = ILog;
 
 implementation
 

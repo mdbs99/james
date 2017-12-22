@@ -38,10 +38,8 @@ uses
 
 type
   TXMLString = DOMString;
-  TXMLStringAlias = TXMLString;
 
   EXMLError = class(Exception);
-  EXMLErrorAlias = EXMLError;
 
   IXMLNode = interface;
   IXMLNodes = interface;
@@ -53,7 +51,6 @@ type
     function Text(const AText: TXMLString): IXMLAttribute; overload;
     function Node: IXMLNode;
   end;
-  IXMLAttributeAlias = IXMLAttribute;
 
   IXMLAttributes = interface
   ['{6D64F5F4-BF46-4A45-8014-A72DFA8E8F29}']
@@ -62,7 +59,6 @@ type
     function Item(const AName: TXMLString): IXMLAttribute; overload;
     function Count: Integer;
   end;
-  IXMLAttributesAlias = IXMLAttributes;
 
   IXMLNode = interface
   ['{78CF296B-3F7E-4324-A8E2-28CA7D2A6DF5}']
@@ -75,7 +71,6 @@ type
     function Childs: IXMLNodes;
     function Parent: IXMLNode;
   end;
-  IXMLNodeAlias = IXMLNode;
 
   IXMLNodes = interface
   ['{4AE9A045-B1FA-46C5-B90E-0FB05BAF13A4}']
@@ -83,7 +78,6 @@ type
     function Item(const AName: TXMLString): IXMLNode; overload;
     function Count: Integer;
   end;
-  IXMLNodesAlias = IXMLNodes;
 
   IXMLPack = interface
   ['{35E1DA6D-6022-47BB-B7B0-E651E209F12A}']
@@ -91,7 +85,6 @@ type
     function Node(const AXPath: TXMLString): IXMLNode;
     function Stream: IDataStream;
   end;
-  IXMLPackAlias = IXMLPack;
 
 implementation
 
