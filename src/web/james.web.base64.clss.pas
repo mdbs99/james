@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Format.Base64.Clss;
+unit James.Web.Base64.Clss;
 
 {$include james.inc}
 
@@ -30,16 +30,15 @@ interface
 uses
   Classes, SysUtils,
   {$ifdef FPC}
-    James.Format.Base64.FPC,
+    James.Web.Base64.FPC,
   {$else}
-    James.Format.Base64.Delphi,
+    James.Web.Base64.Delphi,
   {$endif}
   James.Data,
   James.Data.Clss;
 
 type
   TBase64Hash = TCBase64Hash;
-  TBase64HashAlias = TBase64Hash;
 
   TBase64Stream = class sealed(TInterfacedObject, IDataStream)
   private
@@ -54,7 +53,6 @@ type
     function AsString: string;
     function Size: Int64;
   end;
-  TBase64StreamAlias = TBase64Stream;
 
 implementation
 

@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Format.Base64.FPC;
+unit James.Web.Base64.FPC;
 
 {$include james.inc}
 

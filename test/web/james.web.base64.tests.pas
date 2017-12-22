@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 } 
-unit James.Format.Base64.Tests;
+unit James.Web.Base64.Tests;
 
 {$include james.inc}
 
@@ -30,6 +30,7 @@ interface
 uses
   Classes, SysUtils,
   James.API,
+  James.Web.API,
   James.Testing.Clss;
 
 type
@@ -130,7 +131,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Core.Base64')
+  TTestSuite.New('Web.Base64')
     .Add(TTest.New(TBase64HashTest))
     .Add(TTest.New(TBase64StreamTest))
     ;
