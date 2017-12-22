@@ -11,7 +11,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\inc"/>
-        <OtherUnitFiles Value="..\test\core;..\test\xml"/>
+        <OtherUnitFiles Value="..\test\core;..\test\xml;..\test\web;..\test\crypto"/>
         <UnitOutputDirectory Value="..\lib\test\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Linking>
@@ -37,42 +37,48 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Data.Tests"/>
       </Item1>
       <Item2>
-        <Filename Value="..\test\core\james.format.base64.tests.pas"/>
-        <UnitName Value="James.Format.Base64.Tests"/>
-      </Item2>
-      <Item3>
         <Filename Value="..\test\core\james.io.tests.pas"/>
         <UnitName Value="James.IO.Tests"/>
-      </Item3>
-      <Item4>
-        <Filename Value="..\test\core\james.crypto.md5.tests.pas"/>
-        <UnitName Value="James.Crypto.MD5.Tests"/>
-      </Item4>
-      <Item5>
-        <Filename Value="..\test\core\james.data.constraints.tests.pas"/>
-        <UnitName Value="James.Data.Constraints.Tests"/>
-      </Item5>
-      <Item6>
-        <Filename Value="..\test\xml\james.xml.core.tests.pas"/>
-        <UnitName Value="James.XML.Core.Tests"/>
-      </Item6>
-    </Files>
-    <RequiredPkgs Count="5">
-      <Item1>
-        <PackageName Value="James.XML"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="James"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <Filename Value="..\test\core\james.data.constraints.tests.pas"/>
+        <UnitName Value="James.Data.Constraints.Tests"/>
       </Item3>
       <Item4>
-        <PackageName Value="laz_synapse"/>
+        <Filename Value="..\test\xml\james.xml.core.tests.pas"/>
+        <UnitName Value="James.XML.Core.Tests"/>
       </Item4>
       <Item5>
-        <PackageName Value="FCL"/>
+        <Filename Value="..\test\web\james.web.base64.tests.pas"/>
+        <UnitName Value="James.Web.Base64.Tests"/>
       </Item5>
+      <Item6>
+        <Filename Value="..\test\crypto\james.crypto.md5.tests.pas"/>
+        <UnitName Value="James.Crypto.MD5.Tests"/>
+      </Item6>
+    </Files>
+    <RequiredPkgs Count="7">
+      <Item1>
+        <PackageName Value="James.Crypto"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="James.Web"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="James.XML"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="James"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="laz_synapse"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="FCL"/>
+      </Item7>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

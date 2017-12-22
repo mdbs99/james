@@ -29,8 +29,8 @@ for details about the copyright.
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
-    <Version Minor="8"/>
-    <Files Count="16">
+    <Version Minor="8" Release="1"/>
+    <Files Count="12">
       <Item1>
         <Filename Value="..\src\core\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -48,53 +48,37 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Log"/>
       </Item4>
       <Item5>
-        <Filename Value="..\src\core\james.format.base64.clss.pas"/>
-        <UnitName Value="James.Format.Base64.Clss"/>
-      </Item5>
-      <Item6>
         <Filename Value="..\src\core\james.io.clss.pas"/>
         <UnitName Value="James.IO.Clss"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <Filename Value="..\src\core\james.io.pas"/>
         <UnitName Value="James.IO"/>
-      </Item7>
-      <Item8>
-        <Filename Value="..\src\core\james.crypto.md5.clss.pas"/>
-        <UnitName Value="James.Crypto.MD5.Clss"/>
-      </Item8>
-      <Item9>
-        <Filename Value="..\src\core\james.crypto.md5.fpc.pas"/>
-        <UnitName Value="James.Crypto.MD5.FPC"/>
-      </Item9>
-      <Item10>
-        <Filename Value="..\src\core\james.format.base64.fpc.pas"/>
-        <UnitName Value="James.Format.Base64.FPC"/>
-      </Item10>
-      <Item11>
+      </Item6>
+      <Item7>
         <Filename Value="..\src\core\james.testing.clss.pas"/>
         <UnitName Value="James.Testing.Clss"/>
-      </Item11>
-      <Item12>
+      </Item7>
+      <Item8>
         <Filename Value="..\src\core\james.testing.fpc.pas"/>
         <UnitName Value="James.Testing.FPC"/>
-      </Item12>
-      <Item13>
+      </Item8>
+      <Item9>
         <Filename Value="..\src\core\james.testing.pas"/>
         <UnitName Value="James.Testing"/>
-      </Item13>
-      <Item14>
+      </Item9>
+      <Item10>
         <Filename Value="..\src\core\james.api.pas"/>
         <UnitName Value="James.API"/>
-      </Item14>
-      <Item15>
+      </Item10>
+      <Item11>
         <Filename Value="..\src\core\james.constraints.clss.pas"/>
         <UnitName Value="James.Constraints.Clss"/>
-      </Item15>
-      <Item16>
+      </Item11>
+      <Item12>
         <Filename Value="..\src\core\james.constraints.pas"/>
         <UnitName Value="James.Constraints"/>
-      </Item16>
+      </Item12>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>
