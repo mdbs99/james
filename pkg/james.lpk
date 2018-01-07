@@ -30,7 +30,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="8" Release="1"/>
-    <Files Count="12">
+    <Files Count="14">
       <Item1>
         <Filename Value="..\src\core\james.data.clss.pas"/>
         <UnitName Value="James.Data.Clss"/>
@@ -79,6 +79,14 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <Filename Value="..\src\core\james.constraints.pas"/>
         <UnitName Value="James.Constraints"/>
       </Item12>
+      <Item13>
+        <Filename Value="..\src\core\james.scalar.pas"/>
+        <UnitName Value="James.Scalar"/>
+      </Item13>
+      <Item14>
+        <Filename Value="..\src\core\james.scalar.clss.pas"/>
+        <UnitName Value="James.Scalar.Clss"/>
+      </Item14>
     </Files>
     <RequiredPkgs Count="2">
       <Item1>

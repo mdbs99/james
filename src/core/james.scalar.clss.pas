@@ -21,64 +21,45 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.API;
+unit James.Scalar.Clss;
 
 {$include james.inc}
 
 interface
 
 uses
-  James.Data,
-  James.Data.Clss,
-  James.Scalar,
-  James.Constraints,
-  James.Constraints.Clss,
-  James.IO,
-  James.IO.Clss,
-  James.Log,
-  James.Log.Clss;
+  SysUtils,
+  James.Scalar;
 
 type
-
-  { Data }
-
-  IDataStream = James.Data.IDataStream;
-  IDataParam = James.Data.IDataParam;
-  IDataParams = James.Data.IDataParams;
-  IDataGuid = James.Data.IDataGuid;
-  IDataHash = James.Data.IDataHash;
-  IDataResult = James.Data.IDataResult;
-
-  EDataParams = James.Data.Clss.EDataParams;
-
-  TDataStream = James.Data.Clss.TDataStream;
-  TDataParam = James.Data.Clss.TDataParam;
-  TDataParams = James.Data.Clss.TDataParams;
-  TDataGuid = James.Data.Clss.TDataGuid;
-  TNullGuid = James.Data.Clss.TNullGuid;
-  TDataResult = James.Data.Clss.TDataResult;
-
-  { Constraints }
-
-  IConstraint = James.Constraints.IConstraint;
-  IConstraints = James.Constraints.IConstraints;
-
-  TConstraints = James.Constraints.Clss.TConstraints;
-
-  { IO }
-
-  IFile = James.IO.IFile;
-
-  TFile = James.IO.Clss.TFile;
-  TFileAsStream = James.IO.Clss.TFileAsStream;
-
-{ Log }
-
-  ILog = James.Log.ILog;
-
-  TLogInFile = James.Log.Clss.TLogInFile;
+  TScalar<T> = class(TInterfacedObject, IScalar<T>)
+  private
+    FValue: T;
+  public
+    constructor Create(const Value: T);
+    class function New(const Value: T): IScalar<T>;
+    function Value: T;
+  end;
 
 implementation
+
+{ TScalar }
+
+constructor TScalar<T>.Create(const Value: T);
+begin
+  inherited Create;
+  FValue := Value;
+end;
+
+class function TScalar<T>.New(const Value: T): IScalar<T>;
+begin
+  Result := Create(Value);
+end;
+
+function TScalar<T>.Value: T;
+begin
+  Result := FValue;
+end;
 
 end.
 
