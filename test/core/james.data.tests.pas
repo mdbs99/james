@@ -49,13 +49,6 @@ type
     procedure SmallString;
   end;
 
-  TDataInformationsTest = class(TTestCase)
-  published
-    procedure ReceiveInformation;
-    procedure ReceiveInformations;
-    procedure Counter;
-  end;
-
 implementation
 
 { TDataGuidTest }
@@ -158,39 +151,50 @@ begin
   end;
 end;
 
-{ TDataInformationsTest }
+{ TDataParamTest }
 
-procedure TDataInformationsTest.ReceiveInformation;
+procedure TDataParamTest.AutoDataType;
+var
+  Params: IDataParams;
 begin
+  Params := TDataParams.New
+    .Add(TDataParam.New('p1', 'str'))
+    .Add(TDataParam.New('p2', 10))
+    .Add(TDataParam.New('p3', 20.50))
+    ;
   CheckEquals(
-    'foo: data',
-    TDataInformations.New
-      .Add(TDataInformation.New('foo', 'data'))
-      .Text
+    GetEnumName(TypeInfo(TFieldType), Integer(ftString)),
+    GetEnumName(TypeInfo(TFieldType), Integer(Params.Get(0).DataType))
+  );
+  CheckEquals(
+    GetEnumName(TypeInfo(TFieldType), Integer(ftSmallint)),
+    GetEnumName(TypeInfo(TFieldType), Integer(Params.Get(1).DataType))
+  );
+  CheckEquals(
+    GetEnumName(TypeInfo(TFieldType), Integer(ftFloat)),
+    GetEnumName(TypeInfo(TFieldType), Integer(Params.Get(2).DataType))
   );
 end;
 
-procedure TDataInformationsTest.ReceiveInformations;
+{ TDataGuidTest }
+
+procedure TDataGuidTest.NewGuid;
+begin
+  StringToGUID(TDataGuid.New.AsString);
+end;
+
+procedure TDataGuidTest.NullGuid;
 begin
   CheckEquals(
-    'foo: data 1'#13'foo: data 2'#13'foo: data 3',
-    TDataInformations.New
-      .Add(TDataInformation.New('foo', 'data 1'))
-      .Add(TDataInformation.New('foo', 'data 2'))
-      .Add(TDataInformation.New('foo', 'data 3'))
-      .Text
+    TNullGuid.New.AsString,
+    TDataGuid.New('foo').AsString
   );
 end;
 
-procedure TDataInformationsTest.Counter;
+procedure TDataGuidTest.ValueAsVariant;
 begin
   CheckEquals(
-    3,
-    TDataInformations.New
-      .Add(TDataInformation.New('foo'))
-      .Add(TDataInformation.New('foo'))
-      .Add(TDataInformation.New('foo'))
-      .Count
+    TNullGuid.New.AsString,
   );
 end;
 
@@ -198,7 +202,6 @@ initialization
   TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamTest))
     .Add(TTest.New(TDataGuidTest))
-    .Add(TTest.New(TDataInformationsTest))
     ;
 
 end.

@@ -73,7 +73,10 @@ end;
 
 function TFakeConstraint.Evaluate: IDataResult;
 begin
-  Result := TDataResult.New(FValue, TDataInformation.New(FId, FText));
+  Result := TDataResult.New(
+    FValue,
+    TDataParam.New(FId, ftString, FText)
+  );
 end;
 
 { TConstraintsTest }
@@ -96,8 +99,6 @@ begin
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Get(0)
       .Evaluate
-      .Informations
-      .Text
   );
 end;
 

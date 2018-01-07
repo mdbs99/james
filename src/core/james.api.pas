@@ -46,8 +46,6 @@ type
   IDataParams = James.Data.IDataParams;
   IDataGuid = James.Data.IDataGuid;
   IDataHash = James.Data.IDataHash;
-  IDataInformation = James.Data.IDataInformation;
-  IDataInformations = James.Data.IDataInformations;
   IDataResult = James.Data.IDataResult;
 
   EDataParams = James.Data.Clss.EDataParams;
@@ -57,8 +55,6 @@ type
   TDataParams = James.Data.Clss.TDataParams;
   TDataGuid = James.Data.Clss.TDataGuid;
   TNullGuid = James.Data.Clss.TNullGuid;
-  TDataInformation = James.Data.Clss.TDataInformation;
-  TDataInformations = James.Data.Clss.TDataInformations;
   TDataResult = James.Data.Clss.TDataResult;
 
   { Constraints }

@@ -83,18 +83,18 @@ var
   I: Integer;
   Ok: Boolean;
   R: IDataResult;
-  Infos: IDataInformations;
+  Params: IDataParams;
 begin
   Ok := True;
-  Infos := TDataInformations.New;
+  Params := TDataParams.New;
   for I := 0 to Count-1 do
   begin
     R := Get(I).Evaluate;
-    if not R.Ok then
+    if not R.Success then
       Ok := False;
-    Infos.Add(R.Informations);
+    Params.Add(R.Data);
   end;
-  Result := TDataResult.New(Ok, Infos);
+  Result := TDataResult.New(Ok, Params);
 end;
 
 end.
