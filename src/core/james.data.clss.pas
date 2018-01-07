@@ -67,9 +67,11 @@ type
     FParam: TParam;
   public
     constructor Create(const Name: string; DataType: TFieldType; Value: Variant); reintroduce;
-    class function New(const Name: string; DataType: TFieldType; Value: Variant): IDataParam;
+    class function New(const Name: string; DataType: TFieldType; Value: Variant): IDataParam; overload;
+    class function New(const Name: string; Value: Variant): IDataParam; overload;
     destructor Destroy; override;
     function Name: string;
+    function DataType: TFieldType;
     function Value: Variant;
     function IsNull: Boolean;
     function AsParam: TParam;
@@ -310,6 +312,11 @@ begin
   Result := Create(Name, DataType, Value);
 end;
 
+class function TDataParam.New(const Name: string; Value: Variant): IDataParam;
+begin
+  Result := New(Name, ftUnknown, Value);
+end;
+
 destructor TDataParam.Destroy;
 begin
   FParam.Free;
@@ -319,6 +326,11 @@ end;
 function TDataParam.Name: string;
 begin
   Result := FParam.Name;
+end;
+
+function TDataParam.DataType: TFieldType;
+begin
+  Result := FParam.DataType;
 end;
 
 function TDataParam.Value: Variant;

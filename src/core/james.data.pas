@@ -43,6 +43,7 @@ type
   IDataParam = interface
   ['{2C6B41D7-CB75-488A-85D4-59CE4D5388E5}']
     function Name: string;
+    function DataType: TFieldType;
     function Value: Variant;
     function IsNull: Boolean;
     function AsParam: TParam;
