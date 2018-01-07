@@ -60,12 +60,13 @@ type
   TDataInformation = James.Data.Clss.TDataInformation;
   TDataInformations = James.Data.Clss.TDataInformations;
   TDataResult = James.Data.Clss.TDataResult;
-  TDataConstraints = James.Constraints.Clss.TDataConstraints;
 
   { Constraints }
 
-  IDataConstraint = James.Constraints.IDataConstraint;
-  IDataConstraints = James.Constraints.IDataConstraints;
+  IConstraint = James.Constraints.IConstraint;
+  IConstraints = James.Constraints.IConstraints;
+
+  TConstraints = James.Constraints.Clss.TConstraints;
 
   { IO }
 

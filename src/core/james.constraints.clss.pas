@@ -34,66 +34,67 @@ uses
   James.Constraints;
 
 type
-  TDataConstraints = class(TInterfacedObject, IDataConstraint, IDataConstraints)
+  TConstraints = class(TInterfacedObject, IConstraint, IConstraints)
   private
     FList: IInterfaceList;
   public
     constructor Create;
-    class function New: IDataConstraints;
-    function Add(const C: IDataConstraint): IDataConstraints;
-    function Get(Index: Integer): IDataConstraint;
+    class function New: IConstraints;
+    function Add(const AConstraint: IConstraint): IConstraints;
+    function Get(Index: Integer): IConstraint;
     function Count: Integer;
-    function Checked: IDataResult;
+    function Evaluate: IDataResult;
   end;
 
 implementation
 
-{ TDataConstraints }
+{ TConstraints }
 
-constructor TDataConstraints.Create;
+constructor TConstraints.Create;
 begin
   inherited Create;
   FList := TInterfaceList.Create
 end;
 
-class function TDataConstraints.New: IDataConstraints;
+class function TConstraints.New: IConstraints;
 begin
   Result := Create;
 end;
 
-function TDataConstraints.Add(const C: IDataConstraint): IDataConstraints;
+function TConstraints.Add(const AConstraint: IConstraint
+  ): IConstraints;
 begin
   Result := Self;
-  FList.Add(C);
+  FList.Add(AConstraint);
 end;
 
-function TDataConstraints.Get(Index: Integer): IDataConstraint;
+function TConstraints.Get(Index: Integer): IConstraint;
 begin
-  Result := FList.Items[Index] as IDataConstraint;
+  Result := FList.Items[Index] as IConstraint;
 end;
 
-function TDataConstraints.Count: Integer;
+function TConstraints.Count: Integer;
 begin
   Result := FList.Count;
 end;
 
-function TDataConstraints.Checked: IDataResult;
+function TConstraints.Evaluate: IDataResult;
 var
   I: Integer;
-  OK: Boolean;
+  Ok: Boolean;
   R: IDataResult;
   Infos: IDataInformations;
 begin
-  OK := True;
+  Ok := True;
   Infos := TDataInformations.New;
   for I := 0 to Count-1 do
   begin
-    R := Get(I).Checked;
-    if not R.OK then
-      OK := False;
+    R := Get(I).Evaluate;
+    if not R.Ok then
+      Ok := False;
     Infos.Add(R.Informations);
   end;
-  Result := TDataResult.New(OK, Infos);
+  Result := TDataResult.New(Ok, Infos);
 end;
 
 end.

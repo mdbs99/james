@@ -32,17 +32,17 @@ uses
   James.Data;
 
 type
-  IDataConstraint = interface
+  IConstraint = interface
   ['{C580D0F6-B724-468F-9B74-40F7D49DA5DA}']
-    function Checked: IDataResult;
+    function Evaluate: IDataResult;
   end;
 
-  IDataConstraints = interface
+  IConstraints = interface
   ['{31FA938E-93C9-4450-B34F-DDC4B2935899}']
-    function Add(const C: IDataConstraint): IDataConstraints;
-    function Get(Index: Integer): IDataConstraint;
+    function Add(const AConstraint: IConstraint): IConstraints;
+    function Get(Index: Integer): IConstraint;
     function Count: Integer;
-    function Checked: IDataResult;
+    function Evaluate: IDataResult;
   end;
 
 implementation

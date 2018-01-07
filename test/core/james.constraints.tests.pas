@@ -33,24 +33,24 @@ uses
   James.Testing.Clss;
 
 type
-  TFakeConstraint = class(TInterfacedObject, IDataConstraint)
+  TFakeConstraint = class(TInterfacedObject, IConstraint)
   private
     FValue: Boolean;
     FId: string;
     FText: string;
   public
     constructor Create(Value: Boolean; const Id, Text: string);
-    class function New(Value: Boolean; const Id, Text: string): IDataConstraint;
-    function Checked: IDataResult;
+    class function New(Value: Boolean; const Id, Text: string): IConstraint;
+    function Evaluate: IDataResult;
   end;
 
   TConstraintsTest = class(TTestCase)
   published
     procedure ReceiveConstraint;
     procedure GetConstraint;
-    procedure CheckedTrue;
-    procedure CheckedFalse;
-    procedure CheckedTrueAndFalse;
+    procedure EvaluateTrue;
+    procedure EvaluateFalse;
+    procedure EvaluateTrueAndFalse;
   end;
 
 implementation
@@ -66,12 +66,12 @@ begin
 end;
 
 class function TFakeConstraint.New(Value: Boolean; const Id, Text: string
-  ): IDataConstraint;
+  ): IConstraint;
 begin
   Result := Create(Value, Id, Text);
 end;
 
-function TFakeConstraint.Checked: IDataResult;
+function TFakeConstraint.Evaluate: IDataResult;
 begin
   Result := TDataResult.New(FValue, TDataInformation.New(FId, FText));
 end;
@@ -81,9 +81,9 @@ end;
 procedure TConstraintsTest.ReceiveConstraint;
 begin
   CheckTrue(
-    TDataConstraints.New
+    TConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Checked
+      .Evaluate
       .OK
   );
 end;
@@ -92,44 +92,44 @@ procedure TConstraintsTest.GetConstraint;
 begin
   CheckEquals(
     'id: foo',
-    TDataConstraints.New
+    TConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Get(0)
-      .Checked
+      .Evaluate
       .Informations
       .Text
   );
 end;
 
-procedure TConstraintsTest.CheckedTrue;
+procedure TConstraintsTest.EvaluateTrue;
 begin
   CheckTrue(
-    TDataConstraints.New
+    TConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Checked
+      .Evaluate
       .OK
   );
 end;
 
-procedure TConstraintsTest.CheckedFalse;
+procedure TConstraintsTest.EvaluateFalse;
 begin
   CheckFalse(
-    TDataConstraints.New
+    TConstraints.New
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
-      .Checked
+      .Evaluate
       .OK
   );
 end;
 
-procedure TConstraintsTest.CheckedTrueAndFalse;
+procedure TConstraintsTest.EvaluateTrueAndFalse;
 begin
   CheckFalse(
-    TDataConstraints.New
+    TConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
-      .Checked
+      .Evaluate
       .OK
   );
 end;
