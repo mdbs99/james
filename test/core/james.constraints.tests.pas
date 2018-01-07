@@ -28,7 +28,7 @@ unit James.Constraints.Tests;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, DB,
   James.API,
   James.Testing.Clss;
 
@@ -87,18 +87,19 @@ begin
     TConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Evaluate
-      .OK
+      .Success
   );
 end;
 
 procedure TConstraintsTest.GetConstraint;
 begin
   CheckEquals(
-    'id: foo',
+    'foo',
     TConstraints.New
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Get(0)
       .Evaluate
+      .Data
+      .AsString
   );
 end;
 
@@ -109,7 +110,7 @@ begin
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Evaluate
-      .OK
+      .Success
   );
 end;
 
@@ -120,7 +121,7 @@ begin
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
       .Evaluate
-      .OK
+      .Success
   );
 end;
 
@@ -131,7 +132,7 @@ begin
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
       .Evaluate
-      .OK
+      .Success
   );
 end;
 

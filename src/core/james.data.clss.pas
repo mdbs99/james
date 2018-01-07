@@ -101,10 +101,11 @@ type
     class function New: IDataParams; overload;
     class function New(Origin: TFields): IDataParams; overload;
     destructor Destroy; override;
-    function Add(const Param: IDataParam): IDataParams; overload;
     function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
-    function Param(Index: Integer): IDataParam; overload;
-    function Param(const ParamName: string): IDataParam; overload;
+    function Add(const AParam: IDataParam): IDataParams; overload;
+    function Add(const AParams: IDataParams): IDataParams; overload;
+    function Get(Index: Integer): IDataParam; overload;
+    function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
@@ -114,10 +115,11 @@ type
       FOrigin: IDataParams;
     public
       constructor Create(const AController: IInterface; Origin: IDataParams); reintroduce;
-      function Add(const Param: IDataParam): IDataParams; overload;
       function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
-      function Param(Index: Integer): IDataParam; overload;
-      function Param(const ParamName: string): IDataParam; overload;
+      function Add(const AParam: IDataParam): IDataParams; overload;
+      function Add(const AParams: IDataParams): IDataParams; overload;
+      function Get(Index: Integer): IDataParam; overload;
+      function Get(const ParamName: string): IDataParam; overload;
       function Count: Integer;
       function AsString(const SeparatorChar: string): string; overload;
       function AsString: string; overload;
@@ -442,10 +444,10 @@ begin
   inherited;
 end;
 
-function TDataParams.Add(const Param: IDataParam): IDataParams;
+function TDataParams.Add(const AParam: IDataParam): IDataParams;
 begin
   Result := Self;
-  FList.Add(Param);
+  FList.Add(AParam);
 end;
 
 function TDataParams.Add(const ParamName: string; DataType: TFieldType;
@@ -455,12 +457,21 @@ begin
   FList.Add(TDataParam.New(ParamName, DataType, Value));
 end;
 
-function TDataParams.Param(Index: Integer): IDataParam;
+function TDataParams.Add(const AParams: IDataParams): IDataParams;
+var
+  I: Integer;
+begin
+  Result := Self;
+  for I := 0 to AParams.Count-1 do
+    Add(AParams.Get(I));
+end;
+
+function TDataParams.Get(Index: Integer): IDataParam;
 begin
   Result := FList.Items[Index] as IDataParam;
 end;
 
-function TDataParams.Param(const ParamName: string): IDataParam;
+function TDataParams.Get(const ParamName: string): IDataParam;
 var
   I: Integer;
   P: IDataParam;
@@ -469,7 +480,7 @@ begin
   Result := nil;
   for I := 0 to FList.Count -1 do
   begin
-    P := Param(I);
+    P := Get(I);
     if CompareText(P.Name, ParamName) = 0 then
     begin
       Result := P;
@@ -490,11 +501,11 @@ var
   I: Integer;
 begin
   Result := '';
-  for I := 0 to Count -1 do
+  for I := 0 to Count-1 do
   begin
     if I > 0 then
       Result := Result + SeparatorChar;
-     Result := Result + Param(IntToStr(I)).AsString;
+     Result := Result + Get(I).AsString;
   end;
 end;
 
@@ -512,25 +523,30 @@ begin
   FOrigin := Origin;
 end;
 
-function TDataParams.TAggregate.Add(const Param: IDataParam): IDataParams;
-begin
-  Result := FOrigin.Add(Param);
-end;
-
 function TDataParams.TAggregate.Add(const ParamName: string; DataType: TFieldType;
   Value: Variant): IDataParams;
 begin
   Result := FOrigin.Add(ParamName, DataType, Value);
 end;
 
-function TDataParams.TAggregate.Param(Index: Integer): IDataParam;
+function TDataParams.TAggregate.Add(const AParam: IDataParam): IDataParams;
 begin
-  Result := FOrigin.Param(Index);
+  Result := FOrigin.Add(AParam);
 end;
 
-function TDataParams.TAggregate.Param(const ParamName: string): IDataParam;
+function TDataParams.TAggregate.Add(const AParams: IDataParams): IDataParams;
 begin
-  Result := FOrigin.Param(ParamName);
+  Result := FOrigin.Add(AParams);
+end;
+
+function TDataParams.TAggregate.Get(Index: Integer): IDataParam;
+begin
+  Result := FOrigin.Get(Index);
+end;
+
+function TDataParams.TAggregate.Get(const ParamName: string): IDataParam;
+begin
+  Result := FOrigin.Get(ParamName);
 end;
 
 function TDataParams.TAggregate.Count: Integer;
