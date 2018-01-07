@@ -28,7 +28,7 @@ unit James.Data.Tests;
 interface
 
 uses
-  Classes, SysUtils, Variants,
+  Classes, SysUtils, Variants, DB, TypInfo,
   James.API,
   James.Testing.Clss;
 
@@ -38,6 +38,22 @@ type
     procedure AsString;
     procedure SaveStream;
     procedure SaveStrings;
+  end;
+
+  TDataParamTest = class(TTestCase)
+  published
+    procedure AutoDataType;
+  end;
+
+  TDataParamsTest = class(TTestCase)
+  published
+    procedure Add;
+    procedure AddParam;
+    procedure AddParams;
+    procedure GetByIndex;
+    procedure GetByName;
+    procedure Count;
+    procedure AsStringWithSeparator;
   end;
 
   TDataGuidTest = class(TTestCase)
@@ -51,46 +67,97 @@ type
 
 implementation
 
-{ TDataGuidTest }
+{ TDataParamsTest }
 
-procedure TDataGuidTest.NewGuid;
-begin
-  StringToGUID(TDataGuid.New.AsString);
-end;
-
-procedure TDataGuidTest.NullGuid;
+procedure TDataParamsTest.Add;
 begin
   CheckEquals(
-    TNullGuid.New.AsString,
-    TDataGuid.New('foo').AsString
+    10,
+    TDataParams.New
+      .Add('foo', ftSmallint, 10)
+      .Get(0)
+      .AsInteger
   );
 end;
 
-procedure TDataGuidTest.ValueAsVariant;
+procedure TDataParamsTest.AddParam;
+var
+  P: IDataParam;
 begin
+  P := TDataParam.New('foo', 20);
   CheckEquals(
-    TNullGuid.New.AsString,
-    TDataGuid.New(NULL).AsString
+    P.AsInteger,
+    TDataParams.New
+      .Add(P)
+      .Get(0)
+      .AsInteger
   );
 end;
 
-procedure TDataGuidTest.ValueWithoutBrackets;
-const
-  G: string = 'FCCE420A-8C4F-4E54-84D1-39001AE344BA';
+procedure TDataParamsTest.AddParams;
 begin
   CheckEquals(
-    '{' + G + '}',
-    TDataGuid.New(G).AsString
+    5,
+    TDataParams.New
+      .Add(TDataParam.New('1', 1))
+      .Add(TDataParam.New('2', 2))
+      .Add(
+        TDataParams.New
+          .Add(TDataParam.New('3', 3))
+          .Add(TDataParam.New('4', 4))
+          .Add(TDataParam.New('5', 4))
+      )
+      .Count
   );
 end;
 
-procedure TDataGuidTest.SmallString;
-const
-  V = '89000BC9';
-  G = '{'+V+'-5700-43A3-B340-E34A1656F683}';
+procedure TDataParamsTest.GetByIndex;
 begin
   CheckEquals(
-    V, TDataGuid.New(G).AsSmallString
+    2,
+    TDataParams.New
+      .Add(TDataParam.New('1', 1))
+      .Add(TDataParam.New('2', 2))
+      .Get(1)
+      .AsInteger
+  );
+end;
+
+procedure TDataParamsTest.GetByName;
+begin
+  CheckEquals(
+    33,
+    TDataParams.New
+      .Add(TDataParam.New('foo', 22))
+      .Add(TDataParam.New('bar', 33))
+      .Get('bar')
+      .AsInteger
+  );
+end;
+
+procedure TDataParamsTest.Count;
+begin
+  CheckEquals(
+    5,
+    TDataParams.New
+      .Add(TDataParam.New('1', 1))
+      .Add(TDataParam.New('2', 2))
+      .Add(TDataParam.New('3', 3))
+      .Add(TDataParam.New('4', 4))
+      .Add(TDataParam.New('5', 4))
+      .Count
+  );
+end;
+
+procedure TDataParamsTest.AsStringWithSeparator;
+begin
+  CheckEquals(
+    '1;2;3',
+    TDataParams.New
+      .Add(TDataParam.New('1', 1))
+      .Add(TDataParam.New('2', 2))
+      .Add(TDataParam.New('3', 3))
+      .AsString(';')
   );
 end;
 
@@ -195,12 +262,35 @@ procedure TDataGuidTest.ValueAsVariant;
 begin
   CheckEquals(
     TNullGuid.New.AsString,
+    TDataGuid.New(NULL).AsString
+  );
+end;
+
+procedure TDataGuidTest.ValueWithoutBrackets;
+const
+  G: string = 'FCCE420A-8C4F-4E54-84D1-39001AE344BA';
+begin
+  CheckEquals(
+    '{' + G + '}',
+    TDataGuid.New(G).AsString
+  );
+end;
+
+procedure TDataGuidTest.SmallString;
+const
+  V = '89000BC9';
+  G = '{'+V+'-5700-43A3-B340-E34A1656F683}';
+begin
+  CheckEquals(
+    V, TDataGuid.New(G).AsSmallString
   );
 end;
 
 initialization
   TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamTest))
+    .Add(TTest.New(TDataParamTest))
+    .Add(TTest.New(TDataParamsTest))
     .Add(TTest.New(TDataGuidTest))
     ;
 
