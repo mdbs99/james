@@ -49,7 +49,57 @@ type
     procedure SmallString;
   end;
 
+  TDataInformationsTest = class(TTestCase)
+  published
+    procedure ReceiveInformation;
+    procedure ReceiveInformations;
+    procedure Counter;
+  end;
+
 implementation
+
+{ TDataGuidTest }
+
+procedure TDataGuidTest.NewGuid;
+begin
+  StringToGUID(TDataGuid.New.AsString);
+end;
+
+procedure TDataGuidTest.NullGuid;
+begin
+  CheckEquals(
+    TNullGuid.New.AsString,
+    TDataGuid.New('foo').AsString
+  );
+end;
+
+procedure TDataGuidTest.ValueAsVariant;
+begin
+  CheckEquals(
+    TNullGuid.New.AsString,
+    TDataGuid.New(NULL).AsString
+  );
+end;
+
+procedure TDataGuidTest.ValueWithoutBrackets;
+const
+  G: string = 'FCCE420A-8C4F-4E54-84D1-39001AE344BA';
+begin
+  CheckEquals(
+    '{' + G + '}',
+    TDataGuid.New(G).AsString
+  );
+end;
+
+procedure TDataGuidTest.SmallString;
+const
+  V = '89000BC9';
+  G = '{'+V+'-5700-43A3-B340-E34A1656F683}';
+begin
+  CheckEquals(
+    V, TDataGuid.New(G).AsSmallString
+  );
+end;
 
 { TDataStreamTest }
 
@@ -108,46 +158,39 @@ begin
   end;
 end;
 
-{ TDataGuidTest }
+{ TDataInformationsTest }
 
-procedure TDataGuidTest.NewGuid;
-begin
-  StringToGUID(TDataGuid.New.AsString);
-end;
-
-procedure TDataGuidTest.NullGuid;
+procedure TDataInformationsTest.ReceiveInformation;
 begin
   CheckEquals(
-    TNullGuid.New.AsString,
-    TDataGuid.New('foo').AsString
+    'foo: data',
+    TDataInformations.New
+      .Add(TDataInformation.New('foo', 'data'))
+      .Text
   );
 end;
 
-procedure TDataGuidTest.ValueAsVariant;
+procedure TDataInformationsTest.ReceiveInformations;
 begin
   CheckEquals(
-    TNullGuid.New.AsString,
-    TDataGuid.New(NULL).AsString
+    'foo: data 1'#13'foo: data 2'#13'foo: data 3',
+    TDataInformations.New
+      .Add(TDataInformation.New('foo', 'data 1'))
+      .Add(TDataInformation.New('foo', 'data 2'))
+      .Add(TDataInformation.New('foo', 'data 3'))
+      .Text
   );
 end;
 
-procedure TDataGuidTest.ValueWithoutBrackets;
-const
-  G: string = 'FCCE420A-8C4F-4E54-84D1-39001AE344BA';
+procedure TDataInformationsTest.Counter;
 begin
   CheckEquals(
-    '{' + G + '}',
-    TDataGuid.New(G).AsString
-  );
-end;
-
-procedure TDataGuidTest.SmallString;
-const
-  V = '89000BC9';
-  G = '{'+V+'-5700-43A3-B340-E34A1656F683}';
-begin
-  CheckEquals(
-    V, TDataGuid.New(G).AsSmallString
+    3,
+    TDataInformations.New
+      .Add(TDataInformation.New('foo'))
+      .Add(TDataInformation.New('foo'))
+      .Add(TDataInformation.New('foo'))
+      .Count
   );
 end;
 
@@ -155,6 +198,7 @@ initialization
   TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamTest))
     .Add(TTest.New(TDataGuidTest))
+    .Add(TTest.New(TDataInformationsTest))
     ;
 
 end.
