@@ -53,7 +53,7 @@ implementation
 constructor TConstraints.Create;
 begin
   inherited Create;
-  FList := TInterfaceList.Create
+  FList := TInterfaceList.Create;
 end;
 
 class function TConstraints.New: IConstraints;

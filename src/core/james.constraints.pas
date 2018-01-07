@@ -37,12 +37,11 @@ type
     function Evaluate: IDataResult;
   end;
 
-  IConstraints = interface
+  IConstraints = interface(IConstraint)
   ['{31FA938E-93C9-4450-B34F-DDC4B2935899}']
     function Add(const AConstraint: IConstraint): IConstraints;
     function Get(Index: Integer): IConstraint;
     function Count: Integer;
-    function Evaluate: IDataResult;
   end;
 
 implementation
