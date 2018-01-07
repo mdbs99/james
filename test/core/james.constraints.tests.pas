@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Data.Constraints.Tests;
+unit James.Constraints.Tests;
 
 {$include james.inc}
 
@@ -33,20 +33,6 @@ uses
   James.Testing.Clss;
 
 type
-  TDataStreamTest = class(TTestCase)
-  published
-    procedure AsString;
-    procedure SaveStream;
-    procedure SaveStrings;
-  end;
-
-  TDataInformationsTest = class(TTestCase)
-  published
-    procedure ReceiveInformation;
-    procedure ReceiveInformations;
-    procedure Counter;
-  end;
-
   TFakeConstraint = class(TInterfacedObject, IDataConstraint)
   private
     FValue: Boolean;
@@ -58,7 +44,7 @@ type
     function Checked: IDataResult;
   end;
 
-  TDataConstraintsTest = class(TTestCase)
+  TConstraintsTest = class(TTestCase)
   published
     procedure ReceiveConstraint;
     procedure GetConstraint;
@@ -90,102 +76,9 @@ begin
   Result := TDataResult.New(FValue, TDataInformation.New(FId, FText));
 end;
 
-{ TDataStreamTest }
+{ TConstraintsTest }
 
-procedure TDataStreamTest.AsString;
-const
-  TXT: string = 'Line1-'#13#10'Line2-'#13#10'Line3';
-var
-  Buf: TMemoryStream;
-  Ss: TStrings;
-begin
-  Buf := TMemoryStream.Create;
-  Ss := TStringList.Create;
-  try
-    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
-    Ss.Text := TXT;
-    CheckEquals(TXT, TDataStream.New(Buf).AsString, 'Test Stream');
-    CheckEquals(TXT, TDataStream.New(TXT).AsString, 'Test String');
-    CheckEquals( TXT+#13#10, TDataStream.New(Ss).AsString, 'Test Strings');
-  finally
-    Buf.Free;
-    Ss.Free;
-  end;
-end;
-
-procedure TDataStreamTest.SaveStream;
-const
-  TXT: string = 'ABCDEFG#13#10IJL';
-var
-  Buf: TMemoryStream;
-  S: string;
-begin
-  Buf := TMemoryStream.Create;
-  try
-    TDataStream.New(TXT).Save(Buf);
-    SetLength(S, Buf.Size * SizeOf(Char));
-    Buf.Position := 0;
-    Buf.ReadBuffer(S[1], Buf.Size);
-    CheckEquals(TXT, S);
-  finally
-    Buf.Free;
-  end;
-end;
-
-procedure TDataStreamTest.SaveStrings;
-const
-  TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
-var
-  Ss: TStrings;
-begin
-  Ss := TStringList.Create;
-  try
-    TDataStream.New(TXT).Save(Ss);
-    CheckEquals(TXT+#13#10, Ss.Text);
-  finally
-    Ss.Free;
-  end;
-end;
-
-{ TDataInformationsTest }
-
-procedure TDataInformationsTest.ReceiveInformation;
-begin
-  CheckEquals(
-    'foo: data',
-    TDataInformations.New
-      .Add(TDataInformation.New('foo', 'data'))
-      .Text
-  );
-end;
-
-procedure TDataInformationsTest.ReceiveInformations;
-begin
-  CheckEquals(
-    'foo: data 1'#13'foo: data 2'#13'foo: data 3',
-    TDataInformations.New
-      .Add(TDataInformation.New('foo', 'data 1'))
-      .Add(TDataInformation.New('foo', 'data 2'))
-      .Add(TDataInformation.New('foo', 'data 3'))
-      .Text
-  );
-end;
-
-procedure TDataInformationsTest.Counter;
-begin
-  CheckEquals(
-    3,
-    TDataInformations.New
-      .Add(TDataInformation.New('foo'))
-      .Add(TDataInformation.New('foo'))
-      .Add(TDataInformation.New('foo'))
-      .Count
-  );
-end;
-
-{ TDataConstraintsTest }
-
-procedure TDataConstraintsTest.ReceiveConstraint;
+procedure TConstraintsTest.ReceiveConstraint;
 begin
   CheckTrue(
     TDataConstraints.New
@@ -195,7 +88,7 @@ begin
   );
 end;
 
-procedure TDataConstraintsTest.GetConstraint;
+procedure TConstraintsTest.GetConstraint;
 begin
   CheckEquals(
     'id: foo',
@@ -208,7 +101,7 @@ begin
   );
 end;
 
-procedure TDataConstraintsTest.CheckedTrue;
+procedure TConstraintsTest.CheckedTrue;
 begin
   CheckTrue(
     TDataConstraints.New
@@ -219,7 +112,7 @@ begin
   );
 end;
 
-procedure TDataConstraintsTest.CheckedFalse;
+procedure TConstraintsTest.CheckedFalse;
 begin
   CheckFalse(
     TDataConstraints.New
@@ -230,7 +123,7 @@ begin
   );
 end;
 
-procedure TDataConstraintsTest.CheckedTrueAndFalse;
+procedure TConstraintsTest.CheckedTrueAndFalse;
 begin
   CheckFalse(
     TDataConstraints.New
@@ -243,8 +136,7 @@ end;
 
 initialization
   TTestSuite.New('Core.Data')
-    .Add(TTest.New(TDataStreamTest))
-    .Add(TTest.New(TDataInformationsTest))
-    .Add(TTest.New(TDataConstraintsTest));
+    .Add(TTest.New(TConstraintsTest))
+    ;
 
 end.
