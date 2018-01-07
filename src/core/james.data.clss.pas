@@ -91,7 +91,6 @@ type
   end;
 
   EDataParams = class(Exception);
-  EDataParamsAlias = EDataParams;
 
   TDataParams = class(TInterfacedObject, IDataParams)
   private

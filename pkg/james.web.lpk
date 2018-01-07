@@ -43,18 +43,21 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Web.API"/>
       </Item4>
     </Files>
-    <RequiredPkgs Count="3">
+    <RequiredPkgs Count="4">
       <Item1>
+        <PackageName Value="laz_synapse"/>
+      </Item1>
+      <Item2>
         <PackageName Value="James"/>
         <MaxVersion Minor="5"/>
         <MinVersion Minor="5"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="LCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
