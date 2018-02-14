@@ -32,60 +32,60 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="8" Release="1"/>
     <Files Count="14">
       <Item1>
-        <Filename Value="..\src\core\james.data.clss.pas"/>
-        <UnitName Value="James.Data.Clss"/>
+        <Filename Value="..\src\core\JamesDataClss.pas"/>
+        <UnitName Value="JamesDataClss"/>
       </Item1>
       <Item2>
-        <Filename Value="..\src\core\james.data.pas"/>
-        <UnitName Value="James.Data"/>
+        <Filename Value="..\src\core\JamesData.pas"/>
+        <UnitName Value="JamesData"/>
       </Item2>
       <Item3>
-        <Filename Value="..\src\core\james.log.clss.pas"/>
-        <UnitName Value="James.Log.Clss"/>
+        <Filename Value="..\src\core\JamesLogClss.pas"/>
+        <UnitName Value="JamesLogClss"/>
       </Item3>
       <Item4>
-        <Filename Value="..\src\core\james.log.pas"/>
-        <UnitName Value="James.Log"/>
+        <Filename Value="..\src\core\JamesLog.pas"/>
+        <UnitName Value="JamesLog"/>
       </Item4>
       <Item5>
-        <Filename Value="..\src\core\james.io.clss.pas"/>
-        <UnitName Value="James.IO.Clss"/>
+        <Filename Value="..\src\core\JamesIOClss.pas"/>
+        <UnitName Value="JamesIOClss"/>
       </Item5>
       <Item6>
-        <Filename Value="..\src\core\james.io.pas"/>
-        <UnitName Value="James.IO"/>
+        <Filename Value="..\src\core\JamesIO.pas"/>
+        <UnitName Value="JamesIO"/>
       </Item6>
       <Item7>
-        <Filename Value="..\src\core\james.testing.clss.pas"/>
-        <UnitName Value="James.Testing.Clss"/>
+        <Filename Value="..\src\core\JamesTestingClss.pas"/>
+        <UnitName Value="JamesTestingClss"/>
       </Item7>
       <Item8>
-        <Filename Value="..\src\core\james.testing.fpc.pas"/>
-        <UnitName Value="James.Testing.FPC"/>
+        <Filename Value="..\src\core\JamesTestingFPC.pas"/>
+        <UnitName Value="JamesTestingFPC"/>
       </Item8>
       <Item9>
-        <Filename Value="..\src\core\james.testing.pas"/>
-        <UnitName Value="James.Testing"/>
+        <Filename Value="..\src\core\JamesTesting.pas"/>
+        <UnitName Value="JamesTesting"/>
       </Item9>
       <Item10>
-        <Filename Value="..\src\core\james.api.pas"/>
-        <UnitName Value="James.API"/>
+        <Filename Value="..\src\core\JamesAPI.pas"/>
+        <UnitName Value="JamesAPI"/>
       </Item10>
       <Item11>
-        <Filename Value="..\src\core\james.constraints.clss.pas"/>
-        <UnitName Value="James.Constraints.Clss"/>
+        <Filename Value="..\src\core\JamesConstraintsClss.pas"/>
+        <UnitName Value="JamesConstraintsClss"/>
       </Item11>
       <Item12>
-        <Filename Value="..\src\core\james.constraints.pas"/>
-        <UnitName Value="James.Constraints"/>
+        <Filename Value="..\src\core\JamesConstraints.pas"/>
+        <UnitName Value="JamesConstraints"/>
       </Item12>
       <Item13>
-        <Filename Value="..\src\core\james.scalar.pas"/>
-        <UnitName Value="James.Scalar"/>
+        <Filename Value="..\src\core\JamesScalar.pas"/>
+        <UnitName Value="JamesScalar"/>
       </Item13>
       <Item14>
-        <Filename Value="..\src\core\james.scalar.clss.pas"/>
-        <UnitName Value="James.Scalar.Clss"/>
+        <Filename Value="..\src\core\JamesScalarClss.pas"/>
+        <UnitName Value="JamesScalarClss"/>
       </Item14>
     </Files>
     <RequiredPkgs Count="2">

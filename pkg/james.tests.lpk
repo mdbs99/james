@@ -33,28 +33,28 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="9"/>
     <Files Count="6">
       <Item1>
-        <Filename Value="..\test\core\james.data.tests.pas"/>
-        <UnitName Value="James.Data.Tests"/>
+        <Filename Value="..\test\core\JamesDataTests.pas"/>
+        <UnitName Value="JamesDataTests"/>
       </Item1>
       <Item2>
-        <Filename Value="..\test\core\james.io.tests.pas"/>
-        <UnitName Value="James.IO.Tests"/>
+        <Filename Value="..\test\core\JamesIOTests.pas"/>
+        <UnitName Value="JamesIOTests"/>
       </Item2>
       <Item3>
-        <Filename Value="..\test\core\james.constraints.tests.pas"/>
-        <UnitName Value="James.Constraints.Tests"/>
+        <Filename Value="..\test\core\JamesConstraintsTests.pas"/>
+        <UnitName Value="JamesConstraintsTests"/>
       </Item3>
       <Item4>
-        <Filename Value="..\test\xml\james.xml.core.tests.pas"/>
-        <UnitName Value="James.XML.Core.Tests"/>
+        <Filename Value="..\test\xml\JamesXMLCoreTests.pas"/>
+        <UnitName Value="JamesXMLCoreTests"/>
       </Item4>
       <Item5>
-        <Filename Value="..\test\web\james.web.base64.tests.pas"/>
-        <UnitName Value="James.Web.Base64.Tests"/>
+        <Filename Value="..\test\web\JamesWebBase64ClssTests.pas"/>
+        <UnitName Value="JamesWebBase64ClssTests"/>
       </Item5>
       <Item6>
-        <Filename Value="..\test\crypto\james.crypto.md5.tests.pas"/>
-        <UnitName Value="James.Crypto.MD5.Tests"/>
+        <Filename Value="..\test\crypto\JamesCryptoMD5Tests.pas"/>
+        <UnitName Value="JamesCryptoMD5Tests"/>
       </Item6>
     </Files>
     <RequiredPkgs Count="6">

@@ -27,16 +27,16 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="5"/>
     <Files Count="3">
       <Item1>
-        <Filename Value="..\src\crypto\james.crypto.md5.clss.pas"/>
-        <UnitName Value="James.Crypto.MD5.Clss"/>
+        <Filename Value="..\src\crypto\JamesCryptoMD5.pas"/>
+        <UnitName Value="JamesCryptoMD5"/>
       </Item1>
       <Item2>
-        <Filename Value="..\src\crypto\james.crypto.md5.fpc.pas"/>
-        <UnitName Value="James.Crypto.MD5.FPC"/>
+        <Filename Value="..\src\crypto\JamesCryptoMD5FPC.pas"/>
+        <UnitName Value="JamesCryptoMD5FPC"/>
       </Item2>
       <Item3>
-        <Filename Value="..\src\crypto\james.crypto.api.pas"/>
-        <UnitName Value="James.Crypto.API"/>
+        <Filename Value="..\src\crypto\JamesCryptoAPI.pas"/>
+        <UnitName Value="JamesCryptoAPI"/>
       </Item3>
     </Files>
     <RequiredPkgs Count="3">

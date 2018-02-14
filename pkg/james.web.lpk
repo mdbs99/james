@@ -27,20 +27,20 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="5"/>
     <Files Count="4">
       <Item1>
-        <Filename Value="..\src\web\james.web.constraints.clss.pas"/>
-        <UnitName Value="James.Web.Constraints.Clss"/>
+        <Filename Value="..\src\web\JamesWebConstraintsClss.pas"/>
+        <UnitName Value="JamesWebConstraintsClss"/>
       </Item1>
       <Item2>
-        <Filename Value="..\src\web\james.web.base64.clss.pas"/>
-        <UnitName Value="James.Web.Base64.Clss"/>
+        <Filename Value="..\src\web\JamesWebBase64Clss.pas"/>
+        <UnitName Value="JamesWebBase64Clss"/>
       </Item2>
       <Item3>
-        <Filename Value="..\src\web\james.web.base64.fpc.pas"/>
-        <UnitName Value="James.Web.Base64.FPC"/>
+        <Filename Value="..\src\web\JamesWebBase64FPC.pas"/>
+        <UnitName Value="JamesWebBase64FPC"/>
       </Item3>
       <Item4>
-        <Filename Value="..\src\web\james.web.api.pas"/>
-        <UnitName Value="James.Web.API"/>
+        <Filename Value="..\src\web\JamesWebAPI.pas"/>
+        <UnitName Value="JamesWebAPI"/>
       </Item4>
     </Files>
     <RequiredPkgs Count="4">
