@@ -78,7 +78,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Core.IO')
+  TTestSuite.New('IO')
     .Add(TTest.New(TFileTest));
 
 end.

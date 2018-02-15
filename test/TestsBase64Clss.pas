@@ -132,7 +132,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Web.Base64')
+  TTestSuite.New('Base64')
     .Add(TTest.New(TBase64HashTest))
     .Add(TTest.New(TBase64StreamTest))
     ;

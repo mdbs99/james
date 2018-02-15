@@ -140,7 +140,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Core.Constraint')
+  TTestSuite.New('Constraint')
     .Add(TTest.New(TConstraintsTest))
     ;
 
