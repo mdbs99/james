@@ -24,8 +24,8 @@
             <Filename Value="..\bin\TestsGUI"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\inc\src"/>
+            <IncludeFiles Value="..\src;$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\src"/>
             <UnitOutputDirectory Value="..\bin\lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -106,7 +106,8 @@
       <Filename Value="..\bin\TestsGUI"/>
     </Target>
     <SearchPaths>
-      <OtherUnitFiles Value="..\inc\src"/>
+      <IncludeFiles Value="..\src"/>
+      <OtherUnitFiles Value="..\src"/>
       <UnitOutputDirectory Value="..\bin\lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

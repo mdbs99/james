@@ -23,7 +23,7 @@
 }
 program TestsGUI;
 
-{$include james.inc}
+{$include James.inc}
 
 uses
   Interfaces, Forms, GuiTestRunner, fpcunittestrunner;
@@ -32,7 +32,6 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TGuiTestRunner, TestRunner);
   Application.Run;
 end.
 
