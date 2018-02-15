@@ -21,15 +21,16 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesDataTests;
+unit TestsDataClss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
 uses
   Classes, SysUtils, Variants, DB, TypInfo,
-  JamesAPI,
+  JamesData,
+  JamesDataClss,
   JamesTestingClss;
 
 type

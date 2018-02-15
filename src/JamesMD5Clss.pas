@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesMD5;
+unit JamesMD5Clss;
 
 {$include james.inc}
 

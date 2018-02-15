@@ -21,16 +21,17 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 } 
-unit JamesWebBase64ClssTests;
+unit TestsBase64Clss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
 uses
   Classes, SysUtils,
-  JamesAPI,
-  JamesWebAPI,
+  JamesData,
+  JamesDataClss,
+  JamesBase64Clss,
   JamesTestingClss;
 
 type

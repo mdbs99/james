@@ -21,16 +21,16 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 } 
-unit JamesCryptoMD5Tests;
+unit TestsMD5Clss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
 uses
   Classes, SysUtils,
-  JamesAPI,
-  JamesCryptoAPI,
+  JamesDataClss,
+  JamesMD5Clss,
   JamesTestingClss;
 
 type

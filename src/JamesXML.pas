@@ -23,7 +23,7 @@
 }
 unit JamesXML;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
@@ -34,7 +34,7 @@ uses
   {$else}
     XMLDOM,
   {$endif}
-  JamesAPI;
+  JamesData;
 
 type
   TXMLString = DOMString;

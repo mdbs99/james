@@ -23,13 +23,15 @@
 }
 unit JamesXMLFPC;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
 uses
   Classes, SysUtils,
   DOM, XPath, XMLRead, XMLWrite,
+  JamesData,
+  JamesDataClss,
   JamesXML;
 
 type

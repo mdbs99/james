@@ -21,16 +21,21 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesXMLCoreTests;
+unit TestsXMLClss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
 uses
-  JamesAPI,
+  Classes, SysUtils,
+  JamesData,
+  JamesDataClss,
+  JamesIO,
+  JamesIOClss,
   JamesTestingClss,
-  JamesXMLAPI;
+  JamesXML,
+  JamesXMLClss;
   
 type
   TXMLFileForTest = class(TFile)

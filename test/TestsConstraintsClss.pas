@@ -21,15 +21,18 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesConstraintsTests;
+unit TestsConstraintsClss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
 uses
   Classes, SysUtils, DB,
-  JamesAPI,
+  JamesData,
+  JamesDataClss,
+  JamesConstraints,
+  JamesConstraintsClss,
   JamesTestingClss;
 
 type

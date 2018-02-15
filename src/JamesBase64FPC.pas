@@ -23,7 +23,7 @@
 }
 unit JamesBase64FPC;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
