@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesWebBase64FPC;
+unit JamesMD5Delphi;
 
 {$include james.inc}
 
@@ -29,11 +29,11 @@ interface
 
 uses
   Classes, SysUtils,
-  synacode,
+  hash,
   JamesData;
 
 type
-  TCBase64Hash = class sealed(TInterfacedObject, IDataHash)
+  TCMD5Hash = class sealed(TInterfacedObject, IDataHash)
   private
     FValue: string;
   public
@@ -44,22 +44,22 @@ type
 
 implementation
 
-{ TCBase64Hash }
+{ TCMD5Hash }
 
-constructor TCBase64Hash.Create(const Value: string);
+constructor TCMD5Hash.Create(const Value: string);
 begin
   inherited Create;
   FValue := Value;
 end;
 
-class function TCBase64Hash.New(const Value: string): IDataHash;
+class function TCMD5Hash.New(const Value: string): IDataHash;
 begin
   Result := Create(Value);
 end;
 
-function TCBase64Hash.AsString: string;
+function TCMD5Hash.AsString: string;
 begin
-  Result := EncodeBase64(FValue);
+  Result := THashMD5.GetHashString(FValue);
 end;
 
 end.

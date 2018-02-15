@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesCryptoMD5;
+unit JamesMD5;
 
 {$include james.inc}
 
@@ -32,9 +32,9 @@ uses
   JamesData,
   JamesDataClss,
   {$ifdef FPC}
-    JamesCryptoMD5FPC
+    JamesMD5FPC
   {$else}
-    JamesCryptoMD5Delphi
+    JamesMD5Delphi
   {$endif}
   ;
 

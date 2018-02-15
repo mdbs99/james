@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesWebBase64Clss;
+unit JamesBase64Clss;
 
 {$include james.inc}
 
@@ -30,9 +30,9 @@ interface
 uses
   Classes, SysUtils,
   {$ifdef FPC}
-    JamesWebBase64FPC,
+    JamesBase64FPC,
   {$else}
-    JamesWebBase64Delphi,
+    JamesBase64Delphi,
   {$endif}
   JamesData,
   JamesDataClss;

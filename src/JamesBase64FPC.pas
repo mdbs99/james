@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesWebBase64Delphi;
+unit JamesBase64FPC;
 
 {$include james.inc}
 
@@ -29,8 +29,8 @@ interface
 
 uses
   Classes, SysUtils,
-  JamesData,
-  JamesDataClss;
+  synacode,
+  JamesData;
 
 type
   TCBase64Hash = class sealed(TInterfacedObject, IDataHash)
@@ -59,7 +59,7 @@ end;
 
 function TCBase64Hash.AsString: string;
 begin
-  raise Exception.Create('TBase64Hash.AsString was not implemented yet');
+  Result := EncodeBase64(FValue);
 end;
 
 end.
