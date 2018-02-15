@@ -23,7 +23,7 @@
 }
 unit JamesTestingFPC;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

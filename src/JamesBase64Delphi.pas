@@ -23,7 +23,7 @@
 }
 unit JamesBase64Delphi;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

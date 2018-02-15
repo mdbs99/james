@@ -23,7 +23,7 @@
 }
 unit JamesTestingDelphi;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

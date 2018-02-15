@@ -23,7 +23,7 @@
 }
 unit JamesScalarClss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

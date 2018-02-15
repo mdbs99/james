@@ -23,7 +23,7 @@
 }
 unit JamesMD5FPC;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

@@ -23,7 +23,7 @@
 }
 unit JamesMD5Clss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

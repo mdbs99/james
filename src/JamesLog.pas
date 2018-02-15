@@ -23,7 +23,7 @@
 }
 unit JamesLog;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

@@ -23,7 +23,7 @@
 }
 unit JamesXMLDelphi;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

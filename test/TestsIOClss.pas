@@ -23,7 +23,7 @@
 }
 unit TestsIOClss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

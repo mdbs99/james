@@ -23,7 +23,7 @@
 }
 unit JamesConstraints;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

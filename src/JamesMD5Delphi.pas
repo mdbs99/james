@@ -23,7 +23,7 @@
 }
 unit JamesMD5Delphi;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 

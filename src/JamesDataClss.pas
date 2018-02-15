@@ -23,7 +23,7 @@
 }
 unit JamesDataClss;
 
-{$include james.inc}
+{$include James.inc}
 
 interface
 
