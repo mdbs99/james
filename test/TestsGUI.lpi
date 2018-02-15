@@ -11,9 +11,6 @@
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
     </General>
-    <i18n>
-      <EnableI18N LFM="False"/>
-    </i18n>
     <BuildModes Count="2">
       <Item1 Name="Debug" Default="True"/>
       <Item2 Name="Release">
@@ -24,9 +21,9 @@
             <Filename Value="..\bin\TestsGUI"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="..\src;$(ProjOutDir)"/>
+            <IncludeFiles Value="$(ProjOutDir);..\src"/>
             <OtherUnitFiles Value="..\src"/>
-            <UnitOutputDirectory Value="..\bin\lib\$(TargetCPU)-$(TargetOS)"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -57,16 +54,19 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="fpcunittestrunner"/>
+        <PackageName Value="laz_synapse"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="fpcunittestrunner"/>
       </Item2>
       <Item3>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
     </RequiredPackages>
     <Units Count="7">
       <Unit0>
@@ -106,9 +106,9 @@
       <Filename Value="..\bin\TestsGUI"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="..\src"/>
+      <IncludeFiles Value="$(ProjOutDir);..\src"/>
       <OtherUnitFiles Value="..\src"/>
-      <UnitOutputDirectory Value="..\bin\lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
@@ -122,11 +122,13 @@
         <OverflowChecks Value="True"/>
         <StackChecks Value="True"/>
       </Checks>
+      <VerifyObjMethodCallValidity Value="True"/>
     </CodeGeneration>
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2Set"/>
         <UseHeaptrc Value="True"/>
+        <TrashVariables Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <Options>
