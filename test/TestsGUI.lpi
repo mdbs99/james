@@ -6,7 +6,7 @@
     <General>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="james.tests.gui.lazarus"/>
+      <Title Value="TestsGUI"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -21,10 +21,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\bin\james.tests.gui"/>
+            <Filename Value="..\bin\TestsGUI"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\inc"/>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\inc\src"/>
             <UnitOutputDirectory Value="..\bin\lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -56,36 +57,56 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="James.Tests"/>
+        <PackageName Value="fpcunittestrunner"/>
       </Item1>
       <Item2>
-        <PackageName Value="fpcunittestrunner"/>
+        <PackageName Value="LCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
-      </Item3>
-      <Item4>
         <PackageName Value="FCL"/>
-      </Item4>
+      </Item3>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="7">
       <Unit0>
-        <Filename Value="james.tests.gui.lazarus.lpr"/>
+        <Filename Value="TestsGUI.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="james.tests.gui"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="TestsBase64Clss.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="TestsConstraintsClss.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="TestsDataClss.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="TestsIOClss.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="TestsMD5Clss.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="TestsXMLClss.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\bin\james.tests.gui"/>
+      <Filename Value="..\bin\TestsGUI"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);..\inc"/>
+      <OtherUnitFiles Value="..\inc\src"/>
       <UnitOutputDirectory Value="..\bin\lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

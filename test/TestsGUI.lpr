@@ -21,12 +21,12 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-program james.tests.gui;
+program TestsGUI;
 
 {$include james.inc}
 
 uses
-  Interfaces, Forms, james.tests, GuiTestRunner, fpcunittestrunner;
+  Interfaces, Forms, GuiTestRunner, fpcunittestrunner;
 
 {$R *.res}
 
