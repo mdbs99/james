@@ -74,7 +74,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Crypto.MD5')
+  TTestSuite.New('MD5')
     .Add(TTest.New(TMD5HashTest))
     .Add(TTest.New(TMD5StreamTest));
 
