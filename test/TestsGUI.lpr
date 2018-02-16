@@ -5,7 +5,7 @@ program TestsGUI;
 uses
   Interfaces, Forms, GuiTestRunner,
   TestsBase64Clss, TestsConstraintsClss, TestsDataClss,
-  TestsIOClss, TestsMD5Clss, TestsXMLClss;
+  TestsMD5Clss, TestsXMLClss;
 
 {$R *.res}
 

@@ -68,7 +68,7 @@
         <PackageName Value="FCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="7">
+    <Units Count="6">
       <Unit0>
         <Filename Value="TestsGUI.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -86,17 +86,13 @@
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="TestsIOClss.pas"/>
+        <Filename Value="TestsMD5Clss.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="TestsMD5Clss.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit5>
-      <Unit6>
         <Filename Value="TestsXMLClss.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit6>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
