@@ -31,16 +31,14 @@ uses
   Classes, SysUtils,
   JamesData,
   JamesDataClss,
-  JamesIO,
-  JamesIOClss,
   JamesTestingClss,
   JamesXML,
   JamesXMLClss;
   
 type
-  TXMLFileForTest = class(TFile)
+  TXMLFileForTest = class(TDataFile)
   public
-    class function New: IFile; reintroduce;
+    class function New: IDataFile; reintroduce;
   end;
 
   TXMLStreamForTest = class(TDataStream)
@@ -103,7 +101,7 @@ implementation
 
 { TXMLFileForTest }
 
-class function TXMLFileForTest.New: IFile;
+class function TXMLFileForTest.New: IDataFile;
 begin
   Result := inherited New('..\pkg\james.xml.lpk');
 end;
