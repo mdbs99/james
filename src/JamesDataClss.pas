@@ -163,6 +163,33 @@ type
     function Data: IDataParams;
   end;
 
+  TDataFile = class(TInterfacedObject, IDataFile)
+  private
+    FFileName: string;
+    FStream: IDataStream;
+  public
+    constructor Create(const FileName: string; Stream: IDataStream); overload;
+    class function New(const FileName: string; const Stream: IDataStream): IDataFile; overload;
+    class function New(const FileName: string): IDataFile; overload;
+    function Path: string;
+    function Name: string;
+    function FileName: string;
+    function Stream: IDataStream;
+  end;
+
+  TDataFileAsStream = class(TInterfacedObject, IDataStream)
+  private
+    FFile: IDataFile;
+    FStream: TDataStream.TAggregated;
+    function GetStream: TDataStream.TAggregated;
+  public
+    constructor Create(const AFile: IDataFile);
+    class function New(const AFile: IDataFile): IDataStream;
+    destructor Destroy; override;
+    property Stream: TDataStream.TAggregated
+        read GetStream implements IDataStream;
+  end;
+
 implementation
 
 { TDataStream }
@@ -685,6 +712,86 @@ end;
 function TDataResult.Data: IDataParams;
 begin
   Result := FData;
+end;
+
+{ TDataFile }
+
+constructor TDataFile.Create(const FileName: string; Stream: IDataStream);
+begin
+  inherited Create;
+  FFileName := FileName;
+  FStream := Stream;
+end;
+
+class function TDataFile.New(const FileName: string; const Stream: IDataStream
+  ): IDataFile;
+begin
+  Result := Create(FileName, Stream);
+end;
+
+class function TDataFile.New(const FileName: string): IDataFile;
+begin
+  Result := Create(FileName, TDataStream.New(''));
+end;
+
+function TDataFile.Path: string;
+begin
+  Result := SysUtils.ExtractFilePath(FFileName);
+end;
+
+function TDataFile.Name: string;
+begin
+  Result := SysUtils.ExtractFileName(FFileName);
+end;
+
+function TDataFile.FileName: string;
+begin
+  Result := FFileName;
+end;
+
+function TDataFile.Stream: IDataStream;
+var
+  Buf: TFileStream;
+begin
+  if FStream.Size > 0 then
+  begin
+    Result := FStream;
+    Exit;
+  end;
+  if not FileExists(FFileName) then
+    raise EFileNotFoundException.CreateFmt('File "%s" not found', [FFileName]);
+  Buf := TFileStream.Create(FFileName, fmOpenRead);
+  try
+    Result := TDataStream.New(Buf);
+  finally
+    Buf.Free;
+  end;
+end;
+
+{ TDataFileAsStream }
+
+function TDataFileAsStream.GetStream: TDataStream.TAggregated;
+begin
+  if not Assigned(FStream) then
+    FStream := TDataStream.TAggregated.Create(Self, FFile.Stream);
+  Result := FStream;
+end;
+
+constructor TDataFileAsStream.Create(const AFile: IDataFile);
+begin
+  inherited Create;
+  FFile := AFile;
+end;
+
+class function TDataFileAsStream.New(const AFile: IDataFile): IDataStream;
+begin
+  Result := Create(AFile);
+end;
+
+destructor TDataFileAsStream.Destroy;
+begin
+  FStream.Free;
+  inherited Destroy;
 end;
 
 end.

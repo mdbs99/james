@@ -66,6 +66,13 @@ type
     procedure SmallString;
   end;
 
+  TDataFileTest = class(TTestCase)
+  published
+    procedure Path;
+    procedure Name;
+    procedure Stream;
+  end;
+
 implementation
 
 { TDataParamsTest }
@@ -287,12 +294,43 @@ begin
   );
 end;
 
+{ TDataFileTest }
+
+procedure TDataFileTest.Path;
+begin
+  CheckEquals('c:\path\', TDataFile.New('c:\path\filename.txt').Path);
+end;
+
+procedure TDataFileTest.Name;
+begin
+  CheckEquals('filename.txt', TDataFile.New('c:\path\filename.txt').Name);
+end;
+
+procedure TDataFileTest.Stream;
+const
+  TXT: string = 'ABCC~#';
+  FILE_NAME: string = 'file.txt';
+var
+  M: TMemoryStream;
+begin
+  M := TMemoryStream.Create;
+  try
+    M.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    M.SaveToFile(FILE_NAME);
+    CheckEquals(TXT, TDataFile.New(FILE_NAME).Stream.AsString);
+  finally
+    DeleteFile(FILE_NAME);
+    M.Free;
+  end;
+end;
+
 initialization
   TTestSuite.New('Data')
     .Add(TTest.New(TDataStreamTest))
     .Add(TTest.New(TDataParamTest))
     .Add(TTest.New(TDataParamsTest))
     .Add(TTest.New(TDataGuidTest))
+    .Add(TTest.New(TDataFileTest))
     ;
 
 end.
