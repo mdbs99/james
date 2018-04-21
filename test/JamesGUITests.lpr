@@ -1,11 +1,11 @@
-program TestsGUI;
+program JamesGUITests;
 
 {$mode objfpc}{$H+}
 
 uses
   Interfaces, Forms, GuiTestRunner,
-  TestsBase64Clss, TestsConstraintsClss, TestsDataClss,
-  TestsMD5Clss, TestsXMLClss;
+  JamesBase64Tests, JamesConstraintsTests, JamesDataTests,
+  JamesMD5Tests, JamesXMLTests;
 
 {$R *.res}
 
