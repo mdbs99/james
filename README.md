@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/mdbs99/james/blob/master/README.md)
 
-James is a collection of object-oriented primitives (only interfaces and classes) for truly object-oriented projects written in Object Pascal.
+James is a collection of object-oriented Pascal primitives (only interfaces and classes). 
 
 **ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
 
