@@ -66,6 +66,26 @@ type
     procedure SmallString;
   end;
 
+  TFakeConstraint = class(TInterfacedObject, IDataConstraint)
+  private
+    FValue: Boolean;
+    FId: string;
+    FText: string;
+  public
+    constructor Create(Value: Boolean; const Id, Text: string);
+    class function New(Value: Boolean; const Id, Text: string): IDataConstraint;
+    function Evaluate: IDataResult;
+  end;
+
+  TDataConstraintsTest = class(TTestCase)
+  published
+    procedure ReceiveConstraint;
+    procedure GetConstraint;
+    procedure EvaluateTrue;
+    procedure EvaluateFalse;
+    procedure EvaluateTrueAndFalse;
+  end;
+
   TDataFileTest = class(TTestCase)
   published
     procedure Path;
@@ -294,6 +314,87 @@ begin
   );
 end;
 
+{ TFakeConstraint }
+
+constructor TFakeConstraint.Create(Value: Boolean; const Id, Text: string);
+begin
+  inherited Create;
+  FValue := Value;
+  FId := Id;
+  FText := Text;
+end;
+
+class function TFakeConstraint.New(Value: Boolean; const Id, Text: string
+  ): IDataConstraint;
+begin
+  Result := Create(Value, Id, Text);
+end;
+
+function TFakeConstraint.Evaluate: IDataResult;
+begin
+  Result := TDataResult.New(
+    FValue,
+    TDataParam.New(FId, ftString, FText)
+  );
+end;
+
+{ TDataConstraintsTest }
+
+procedure TDataConstraintsTest.ReceiveConstraint;
+begin
+  CheckTrue(
+    TDataConstraints.New
+      .Add(TFakeConstraint.New(True, 'id', 'foo'))
+      .Evaluate
+      .Success
+  );
+end;
+
+procedure TDataConstraintsTest.GetConstraint;
+begin
+  CheckEquals(
+    'foo',
+    TDataConstraints.New
+      .Add(TFakeConstraint.New(True, 'id', 'foo'))
+      .Evaluate
+      .Data
+      .AsString
+  );
+end;
+
+procedure TDataConstraintsTest.EvaluateTrue;
+begin
+  CheckTrue(
+    TDataConstraints.New
+      .Add(TFakeConstraint.New(True, 'id', 'foo'))
+      .Add(TFakeConstraint.New(True, 'id', 'foo'))
+      .Evaluate
+      .Success
+  );
+end;
+
+procedure TDataConstraintsTest.EvaluateFalse;
+begin
+  CheckFalse(
+    TDataConstraints.New
+      .Add(TFakeConstraint.New(False, 'id', 'foo'))
+      .Add(TFakeConstraint.New(False, 'id', 'foo'))
+      .Evaluate
+      .Success
+  );
+end;
+
+procedure TDataConstraintsTest.EvaluateTrueAndFalse;
+begin
+  CheckFalse(
+    TDataConstraints.New
+      .Add(TFakeConstraint.New(True, 'id', 'foo'))
+      .Add(TFakeConstraint.New(False, 'id', 'foo'))
+      .Evaluate
+      .Success
+  );
+end;
+
 { TDataFileTest }
 
 procedure TDataFileTest.Path;
@@ -330,6 +431,7 @@ initialization
     .Add(TTest.New(TDataParamTest))
     .Add(TTest.New(TDataParamsTest))
     .Add(TTest.New(TDataGuidTest))
+    .Add(TTest.New(TDataConstraintsTest))
     .Add(TTest.New(TDataFileTest))
     ;
 

@@ -163,6 +163,18 @@ type
     function Data: IDataParams;
   end;
 
+  TDataConstraints = class(TInterfacedObject, IDataConstraint, IDataConstraints)
+  private
+    FList: IInterfaceList;
+  public
+    constructor Create;
+    class function New: IDataConstraints;
+    function Add(const AConstraint: IDataConstraint): IDataConstraints;
+    function Get(Index: Integer): IDataConstraint;
+    function Count: Integer;
+    function Evaluate: IDataResult;
+  end;
+
   TDataFile = class(TInterfacedObject, IDataFile)
   private
     FFileName: string;
@@ -712,6 +724,55 @@ end;
 function TDataResult.Data: IDataParams;
 begin
   Result := FData;
+end;
+
+{ TDataConstraints }
+
+constructor TDataConstraints.Create;
+begin
+  inherited Create;
+  FList := TInterfaceList.Create;
+end;
+
+class function TDataConstraints.New: IDataConstraints;
+begin
+  Result := Create;
+end;
+
+function TDataConstraints.Add(const AConstraint: IDataConstraint
+  ): IDataConstraints;
+begin
+  Result := Self;
+  FList.Add(AConstraint);
+end;
+
+function TDataConstraints.Get(Index: Integer): IDataConstraint;
+begin
+  Result := FList.Items[Index] as IDataConstraint;
+end;
+
+function TDataConstraints.Count: Integer;
+begin
+  Result := FList.Count;
+end;
+
+function TDataConstraints.Evaluate: IDataResult;
+var
+  I: Integer;
+  Ok: Boolean;
+  R: IDataResult;
+  Params: IDataParams;
+begin
+  Ok := True;
+  Params := TDataParams.New;
+  for I := 0 to Count-1 do
+  begin
+    R := Get(I).Evaluate;
+    if not R.Success then
+      Ok := False;
+    Params.Add(R.Data);
+  end;
+  Result := TDataResult.New(Ok, Params);
 end;
 
 { TDataFile }

@@ -92,6 +92,18 @@ type
     function Data: IDataParams;
   end;
 
+  IDataConstraint = interface
+  ['{C580D0F6-B724-468F-9B74-40F7D49DA5DA}']
+    function Evaluate: IDataResult;
+  end;
+
+  IDataConstraints = interface(IDataConstraint)
+  ['{31FA938E-93C9-4450-B34F-DDC4B2935899}']
+    function Add(const AConstraint: IDataConstraint): IDataConstraints;
+    function Get(Index: Integer): IDataConstraint;
+    function Count: Integer;
+  end;
+
   IDataFile = interface
   ['{E700F3AE-3DD6-4146-A256-E516B692BC0A}']
     function Path: string;

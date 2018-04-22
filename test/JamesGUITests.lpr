@@ -4,7 +4,7 @@ program JamesGUITests;
 
 uses
   Interfaces, Forms, GuiTestRunner,
-  JamesBase64Tests, JamesConstraintsTests, JamesDataTests,
+  JamesBase64Tests, JamesDataTests,
   JamesMD5Tests, JamesXMLTests;
 
 {$R *.res}
