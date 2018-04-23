@@ -21,7 +21,7 @@
             <Filename Value="..\bin\JamesGUITests"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\src"/>
+            <IncludeFiles Value="..\src;$(ProjOutDir)"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
