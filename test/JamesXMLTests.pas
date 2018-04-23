@@ -103,7 +103,7 @@ implementation
 
 class function TXMLFileForTest.New: IDataFile;
 begin
-  Result := inherited New('..\pkg\james.xml.lpk');
+  Result := inherited New('..\pkg\JamesPack.lpk');
 end;
 
 { TXMLStreamForTest }
@@ -112,21 +112,21 @@ class function TXMLStreamForTest.New: IDataStream;
 begin
   Result := TDataStream.New(
       '<?xml version="1.0" encoding="UTF-8"?>'
-      + '<root>'
-      + '  <group>'
-      + '    <item id="1" a="1" b="2">'
-      + '      <name>foo</name>'
-      + '      <value>bar</value>'
-      + '    </item>'
-      + '    <item id="2" a="1" b="2">'
-      + '      <name>foo2</name>'
-      + '      <value>bar2</value>'
-      + '    </item>'
-      + '  </group>'
-      + '  <footer>'
-      + '    <name>foo</name>'
-      + '  </footer>'
-      + '</root>'
+    + '<root>'
+    + '  <group>'
+    + '    <item id="1" a="1" b="2">'
+    + '      <name>foo</name>'
+    + '      <value>bar</value>'
+    + '    </item>'
+    + '    <item id="2" a="1" b="2">'
+    + '      <name>foo2</name>'
+    + '      <value>bar2</value>'
+    + '    </item>'
+    + '  </group>'
+    + '  <footer>'
+    + '    <name>foo</name>'
+    + '  </footer>'
+    + '</root>'
   );
 end;
 
@@ -162,7 +162,7 @@ end;
 procedure TXMLPackTest.Nodes;
 begin
   CheckEquals(
-    3,
+    4,
     TXMLPack.New(TXMLFileForTest.New.Stream).Nodes(
       '/CONFIG/Package/CompilerOptions/*'
     )
@@ -379,7 +379,7 @@ end;
 procedure TXMLAttributeTest.GetValue;
 begin
   CheckEquals(
-    TXMLString('James.XML'),
+    TXMLString('JamesPack'),
     TXMLPack.New(TXMLFileForTest.New.Stream).Node(
       '/CONFIG/Package/Name'
     )
