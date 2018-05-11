@@ -74,6 +74,11 @@ type
     function AsString: string; overload;
   end;
 
+  IDataParamsOf = interface
+  ['{F960A3BA-EDD0-4823-B72E-2FDAC22A1C5D}']
+    function Value: IDataParams;
+  end;
+
   IDataGuid = interface
   ['{F7269A91-B5E7-4067-BB8E-8712BC99EE08}']
     function Value: TGuid;
