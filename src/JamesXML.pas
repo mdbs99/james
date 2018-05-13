@@ -86,6 +86,11 @@ type
     function Stream: IDataStream;
   end;
 
+  IXMLPackOf = interface
+  ['{D40BB454-1559-4217-9D22-7D79A7D1DD2D}']
+    function Value: IXMLPack;
+  end;
+
 implementation
 
 end.
