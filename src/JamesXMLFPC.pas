@@ -365,7 +365,7 @@ var
 begin
   L := Nodes(AXPath);
   if L.Count = 0 then
-    raise EXMLError.Create('Node not found.');
+    raise EXMLError.CreateFmt('Node "%s" not found.', [AXPath]);
   Result := L.Item(0);
 end;
 
