@@ -100,6 +100,7 @@ type
     class function New: IDataParams; overload;
     class function New(Origin: TFields): IDataParams; overload;
     destructor Destroy; override;
+    function Exists(const ParamName: string): Boolean;
     function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
     function Add(const AParam: IDataParam): IDataParams; overload;
     function Add(const AParams: IDataParams): IDataParams; overload;
@@ -114,6 +115,7 @@ type
       FOrigin: IDataParams;
     public
       constructor Create(const AController: IInterface; Origin: IDataParams); reintroduce;
+      function Exists(const ParamName: string): Boolean;
       function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
       function Add(const AParam: IDataParam): IDataParams; overload;
       function Add(const AParams: IDataParams): IDataParams; overload;
@@ -482,6 +484,21 @@ begin
   inherited;
 end;
 
+function TDataParams.Exists(const ParamName: string): Boolean;
+var
+  I: Integer;
+begin
+  Result := False;
+  for I := 0 to FList.Count -1 do
+  begin
+    if Get(I).Name = ParamName then
+    begin
+      Result := True;
+      Break;
+    end;
+  end;
+end;
+
 function TDataParams.Add(const AParam: IDataParam): IDataParams;
 begin
   Result := Self;
@@ -559,6 +576,11 @@ constructor TDataParams.TAggregate.Create(const AController: IInterface;
 begin
   inherited Create(AController);
   FOrigin := Origin;
+end;
+
+function TDataParams.TAggregate.Exists(const ParamName: string): Boolean;
+begin
+  Result := FOrigin.Exists(ParamName);
 end;
 
 function TDataParams.TAggregate.Add(const ParamName: string; DataType: TFieldType;
