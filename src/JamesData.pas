@@ -58,6 +58,7 @@ type
     function AsSmallInt: LongInt;
     function AsMemo: string;
     function AsString: string;
+    function AsWideString: WideString;
     function AsTime: TDateTime;
     function AsWord: LongInt;
   end;

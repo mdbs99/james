@@ -86,6 +86,7 @@ type
     function AsSmallInt: LongInt;
     function AsMemo: string;
     function AsString: string;
+    function AsWideString: WideString;
     function AsTime: TDateTime;
     function AsWord: LongInt;
   end;
@@ -443,6 +444,11 @@ end;
 function TDataParam.AsString: string;
 begin
   Result := FParam.AsString;
+end;
+
+function TDataParam.AsWideString: WideString;
+begin
+  Result := FParam.AsWideString;
 end;
 
 function TDataParam.AsTime: TDateTime;
