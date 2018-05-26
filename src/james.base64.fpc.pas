@@ -21,59 +21,45 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesTestingClss;
+unit James.Base64.FPC;
 
 {$include James.inc}
 
 interface
 
 uses
-  {$ifdef FPC}
-    fpcunit,
-    JamesTestingFPC,
-  {$else}
-    TestFramework,
-    JamesTestingDelphi,
-  {$endif}
-  JamesTesting;
+  Classes, SysUtils,
+  synacode,
+  James.Data.Base;
 
 type
-  {$ifdef FPC}
-    TTest = JamesTestingFPC.TTest;
-    TTestCase = FPCUnit.TTestCase;
-  {$else}
-    TTest = JamesTestingDelphi.TTest;
-    TTestCase = TestFramework.TTestCase;
-  {$endif}
-
-  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
+  TCBase64Hash = class sealed(TInterfacedObject, IDataHash)
   private
-    FPath: string;
+    FValue: string;
   public
-    constructor Create(const Path: string);
-    class function New(const Path: string): ITestSuite;
-    function Add(const Test: ITest): ITestSuite;
+    constructor Create(const Value: string);
+    class function New(const Value: string): IDataHash;
+    function AsString: string;
   end;
 
 implementation
 
-{ TTestSuite }
+{ TCBase64Hash }
 
-function TTestSuite.Add(const Test: ITest): ITestSuite;
+constructor TCBase64Hash.Create(const Value: string);
 begin
-  Result := Self;
-  Test.RegisterOn(FPath);
+  inherited Create;
+  FValue := Value;
 end;
 
-constructor TTestSuite.Create(const Path: string);
+class function TCBase64Hash.New(const Value: string): IDataHash;
 begin
-  FPath := Path;
+  Result := Create(Value);
 end;
 
-class function TTestSuite.New(const Path: string): ITestSuite;
+function TCBase64Hash.AsString: string;
 begin
-  Result := Create(Path);
+  Result := EncodeBase64(FValue);
 end;
-
 
 end.

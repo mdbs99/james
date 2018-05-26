@@ -21,46 +21,23 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesTestingFPC;
+unit James.Logger.Base;
 
 {$include James.inc}
 
 interface
 
 uses
-  fpcunit,
-  testregistry,
-  JamesTesting;
+  Classes, SysUtils;
 
 type
-  TTest = class sealed(TInterfacedObject, ITest)
-  private
-    FClss: TTestCaseClass;
-  public
-    constructor Create(Clss: TTestCaseClass);
-    class function New(Clss: TTestCaseClass): ITest;
-    function RegisterOn(const SuitePath: string): ITest;
+  ILog = interface
+  ['{BE7AF0F3-B1EE-4853-8E18-EB6711655D07}']
+    function Log(const S: string): ILog; overload;
+    function Log(E: Exception): ILog; overload;
   end;
 
 implementation
 
-{ TTest }
-
-constructor TTest.Create(Clss: TTestCaseClass);
-begin
-  inherited Create;
-  FClss := Clss;
-end;
-
-class function TTest.New(Clss: TTestCaseClass): ITest;
-begin
-  Result := Create(Clss);
-end;
-
-function TTest.RegisterOn(const SuitePath: string): ITest;
-begin
-  Result := Self;
-  TestRegistry.RegisterTest(SuitePath, FClss);
-end;
-
 end.
+

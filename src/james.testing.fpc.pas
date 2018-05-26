@@ -21,21 +21,46 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesScalar;
+unit James.Testing.FPC;
 
 {$include James.inc}
 
 interface
 
 uses
-  SysUtils;
+  fpcunit,
+  testregistry,
+  James.Testing.Base;
 
 type
-  IScalar<T> = interface
-    function Value: T;
+  TTest = class sealed(TInterfacedObject, ITest)
+  private
+    FClss: TTestCaseClass;
+  public
+    constructor Create(Clss: TTestCaseClass);
+    class function New(Clss: TTestCaseClass): ITest;
+    function RegisterOn(const SuitePath: string): ITest;
   end;
 
 implementation
 
-end.
+{ TTest }
 
+constructor TTest.Create(Clss: TTestCaseClass);
+begin
+  inherited Create;
+  FClss := Clss;
+end;
+
+class function TTest.New(Clss: TTestCaseClass): ITest;
+begin
+  Result := Create(Clss);
+end;
+
+function TTest.RegisterOn(const SuitePath: string): ITest;
+begin
+  Result := Self;
+  TestRegistry.RegisterTest(SuitePath, FClss);
+end;
+
+end.

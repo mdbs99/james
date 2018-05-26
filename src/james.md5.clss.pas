@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesMD5Clss;
+unit James.MD5.Clss;
 
 {$include James.inc}
 
@@ -29,12 +29,12 @@ interface
 
 uses
   Classes, SysUtils,
-  JamesData,
-  JamesDataClss,
+  James.Data.Base,
+  James.Data.Clss,
   {$ifdef FPC}
-    JamesMD5FPC
+    James.MD5.FPC
   {$else}
-    JamesMD5Delphi
+    James.MD5.Delphi
   {$endif}
   ;
 

@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesXMLClss;
+unit James.MD5.FPC;
 
 {$include James.inc}
 
@@ -29,53 +29,39 @@ interface
 
 uses
   Classes, SysUtils,
-  JamesData,
-  JamesDataClss,
-  JamesXML,
-  {$ifdef FPC}
-    JamesXMLFPC
-  {$else}
-    JamesXMLDelphi
-  {$endif}
-  ;
+  md5,
+  James.Data.Base;
 
 type
-  TXMLAttribute = TCAttribute;
-  TXMLAttributes = TCAttributes;
-  TXMLNode = TCNode;
-  TXMLNodes = TCNodes;
-  TXMLChilds = TCChilds;
-
-  TXMLPack = class(TCPack)
+  TCMD5Hash = class sealed(TInterfacedObject, IDataHash)
+  private
+    FValue: string;
   public
-    class function New(const AStream: IDataStream): IXMLPack; overload;
-    class function New(const ARootName: TXMLString): IXMLPack; overload;
+    constructor Create(const Value: string);
+    class function New(const Value: string): IDataHash;
+    function AsString: string;
   end;
 
 implementation
 
-{ TXMLPack }
+{ TCMD5Hash }
 
-class function TXMLPack.New(const AStream: IDataStream): IXMLPack;
-var
-  Buf: TMemoryStream;
+constructor TCMD5Hash.Create(const Value: string);
 begin
-  Buf := TMemoryStream.Create;
-  try
-    AStream.Save(Buf);
-    Result := Create(Buf);
-  finally
-    Buf.Free;
-  end;
+  inherited Create;
+  FValue := Value;
 end;
 
-class function TXMLPack.New(const ARootName: TXMLString): IXMLPack;
+class function TCMD5Hash.New(const Value: string): IDataHash;
 begin
-  Result := New(
-    TDataStream.New(
-      Format(
-        '<?xml version="1.0" encoding="UTF-8"?><%s />', [ARootName]
-      )
+  Result := Create(Value);
+end;
+
+function TCMD5Hash.AsString: string;
+begin
+  Result := MD5Print(
+    MD5String(
+      FValue
     )
   );
 end;

@@ -6,7 +6,7 @@
     <General>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="JamesGUITests"/>
+      <Title Value="James.Tests"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -18,11 +18,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\bin\JamesGUITests"/>
+            <Filename Value="..\bin\James.Tests"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="..\src;$(ProjOutDir)"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+            <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -55,7 +55,7 @@
     </RunParams>
     <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="JamesPack"/>
+        <PackageName Value="James.Pack"/>
       </Item1>
       <Item2>
         <PackageName Value="laz_synapse"/>
@@ -72,24 +72,26 @@
     </RequiredPackages>
     <Units Count="5">
       <Unit0>
-        <Filename Value="JamesGUITests.lpr"/>
+        <Filename Value="james.tests.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.Tests"/>
       </Unit0>
       <Unit1>
-        <Filename Value="JamesBase64Tests.pas"/>
+        <Filename Value="James.Base64.Tests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="JamesDataTests.pas"/>
+        <Filename Value="James.MD5.Tests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="JamesMD5Tests.pas"/>
+        <Filename Value="James.XML.Tests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="JamesXMLTests.pas"/>
+        <Filename Value="james.data.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.Data.Tests"/>
       </Unit4>
     </Units>
   </ProjectOptions>
@@ -97,12 +99,12 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\bin\JamesGUITests"/>
+      <Filename Value="..\bin\James.Tests"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);..\src"/>
       <OtherUnitFiles Value="..\src"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

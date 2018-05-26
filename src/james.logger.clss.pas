@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesLogClss;
+unit James.Logger.Clss;
 
 {$include James.inc}
 
@@ -29,7 +29,7 @@ interface
 
 uses
   Classes, SysUtils,
-  JamesLog;
+  James.Logger.Base;
 
 type
   TLogInFile = class sealed(TInterfacedObject, ILog)

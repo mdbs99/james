@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesXMLDelphi;
+unit James.XML.Delphi;
 
 {$include James.inc}
 
@@ -30,7 +30,7 @@ interface
 uses
   Classes, SysUtils,
   xmlDoc, xmlIntf, xmlDom,
-  JamesXML;
+  James.XML.Base;
 
 type
   TCAttribute = class(TInterfacedObject, IXMLAttribute)

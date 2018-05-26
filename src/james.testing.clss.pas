@@ -21,45 +21,59 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesBase64Delphi;
+unit James.Testing.Clss;
 
 {$include James.inc}
 
 interface
 
 uses
-  Classes, SysUtils,
-  JamesData,
-  JamesDataClss;
+  {$ifdef FPC}
+    fpcunit,
+    James.Testing.FPC,
+  {$else}
+    TestFramework,
+    James.Testing.Delphi,
+  {$endif}
+  James.Testing.Base;
 
 type
-  TCBase64Hash = class sealed(TInterfacedObject, IDataHash)
+  {$ifdef FPC}
+    TTest = James.Testing.FPC.TTest;
+    TTestCase = FPCUnit.TTestCase;
+  {$else}
+    TTest = JamesTestingDelphi.TTest;
+    TTestCase = TestFramework.TTestCase;
+  {$endif}
+
+  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
   private
-    FValue: string;
+    FPath: string;
   public
-    constructor Create(const Value: string);
-    class function New(const Value: string): IDataHash;
-    function AsString: string;
+    constructor Create(const Path: string);
+    class function New(const Path: string): ITestSuite;
+    function Add(const Test: ITest): ITestSuite;
   end;
 
 implementation
 
-{ TCBase64Hash }
+{ TTestSuite }
 
-constructor TCBase64Hash.Create(const Value: string);
+function TTestSuite.Add(const Test: ITest): ITestSuite;
 begin
-  inherited Create;
-  FValue := Value;
+  Result := Self;
+  Test.RegisterOn(FPath);
 end;
 
-class function TCBase64Hash.New(const Value: string): IDataHash;
+constructor TTestSuite.Create(const Path: string);
 begin
-  Result := Create(Value);
+  FPath := Path;
 end;
 
-function TCBase64Hash.AsString: string;
+class function TTestSuite.New(const Path: string): ITestSuite;
 begin
-  raise Exception.Create('TBase64Hash.AsString was not implemented yet');
+  Result := Create(Path);
 end;
+
 
 end.

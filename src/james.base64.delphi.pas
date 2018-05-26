@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesMD5Delphi;
+unit James.Base64.Delphi;
 
 {$include James.inc}
 
@@ -29,11 +29,11 @@ interface
 
 uses
   Classes, SysUtils,
-  hash,
-  JamesData;
+  James.Data.Base,
+  James.Data.Clss;
 
 type
-  TCMD5Hash = class sealed(TInterfacedObject, IDataHash)
+  TCBase64Hash = class sealed(TInterfacedObject, IDataHash)
   private
     FValue: string;
   public
@@ -44,22 +44,22 @@ type
 
 implementation
 
-{ TCMD5Hash }
+{ TCBase64Hash }
 
-constructor TCMD5Hash.Create(const Value: string);
+constructor TCBase64Hash.Create(const Value: string);
 begin
   inherited Create;
   FValue := Value;
 end;
 
-class function TCMD5Hash.New(const Value: string): IDataHash;
+class function TCBase64Hash.New(const Value: string): IDataHash;
 begin
   Result := Create(Value);
 end;
 
-function TCMD5Hash.AsString: string;
+function TCBase64Hash.AsString: string;
 begin
-  Result := THashMD5.GetHashString(FValue);
+  raise Exception.Create('TBase64Hash.AsString was not implemented yet');
 end;
 
 end.

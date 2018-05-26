@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
-    <Name Value="JamesPack"/>
+    <Name Value="James.Pack"/>
     <Type Value="RunAndDesignTime"/>
     <Author Value="Marcos Douglas B. Santos"/>
     <CompilerOptions>
@@ -29,56 +29,48 @@ for details about the copyright.
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
-    <Version Minor="8" Release="2"/>
-    <Files Count="12">
+    <Version Minor="9"/>
+    <Files Count="10">
       <Item1>
-        <Filename Value="..\src\JamesDataClss.pas"/>
-        <UnitName Value="JamesDataClss"/>
+        <Filename Value="..\src\james.data.clss.pas"/>
+        <UnitName Value="James.Data.Clss"/>
       </Item1>
       <Item2>
-        <Filename Value="..\src\JamesBase64Clss.pas"/>
-        <UnitName Value="JamesBase64Clss"/>
+        <Filename Value="..\src\james.base64.clss.pas"/>
+        <UnitName Value="James.Base64.Clss"/>
       </Item2>
       <Item3>
-        <Filename Value="..\src\JamesData.pas"/>
-        <UnitName Value="JamesData"/>
+        <Filename Value="..\src\james.data.base.pas"/>
+        <UnitName Value="James.Data.Base"/>
       </Item3>
       <Item4>
-        <Filename Value="..\src\JamesLog.pas"/>
-        <UnitName Value="JamesLog"/>
+        <Filename Value="..\src\james.logger.base.pas"/>
+        <UnitName Value="James.Logger.Base"/>
       </Item4>
       <Item5>
-        <Filename Value="..\src\JamesLogClss.pas"/>
-        <UnitName Value="JamesLogClss"/>
+        <Filename Value="..\src\james.logger.clss.pas"/>
+        <UnitName Value="James.Logger.Clss"/>
       </Item5>
       <Item6>
-        <Filename Value="..\src\JamesMD5Clss.pas"/>
-        <UnitName Value="JamesMD5Clss"/>
+        <Filename Value="..\src\james.md5.clss.pas"/>
+        <UnitName Value="James.MD5.Clss"/>
       </Item6>
       <Item7>
-        <Filename Value="..\src\JamesScalar.pas"/>
-        <UnitName Value="JamesScalar"/>
+        <Filename Value="..\src\james.testing.base.pas"/>
+        <UnitName Value="James.Testing.Base"/>
       </Item7>
       <Item8>
-        <Filename Value="..\src\JamesScalarClss.pas"/>
-        <UnitName Value="JamesScalarClss"/>
+        <Filename Value="..\src\james.testing.clss.pas"/>
+        <UnitName Value="James.Testing.Clss"/>
       </Item8>
       <Item9>
-        <Filename Value="..\src\JamesTesting.pas"/>
-        <UnitName Value="JamesTesting"/>
+        <Filename Value="..\src\james.xml.base.pas"/>
+        <UnitName Value="James.XML.Base"/>
       </Item9>
       <Item10>
-        <Filename Value="..\src\JamesTestingClss.pas"/>
-        <UnitName Value="JamesTestingClss"/>
+        <Filename Value="..\src\james.xml.clss.pas"/>
+        <UnitName Value="James.XML.Clss"/>
       </Item10>
-      <Item11>
-        <Filename Value="..\src\JamesXML.pas"/>
-        <UnitName Value="JamesXML"/>
-      </Item11>
-      <Item12>
-        <Filename Value="..\src\JamesXMLClss.pas"/>
-        <UnitName Value="JamesXMLClss"/>
-      </Item12>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>

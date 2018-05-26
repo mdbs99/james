@@ -21,49 +21,23 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesMD5FPC;
+unit James.Testing.Base;
 
 {$include James.inc}
 
 interface
 
-uses
-  Classes, SysUtils,
-  md5,
-  JamesData;
-
 type
-  TCMD5Hash = class sealed(TInterfacedObject, IDataHash)
-  private
-    FValue: string;
-  public
-    constructor Create(const Value: string);
-    class function New(const Value: string): IDataHash;
-    function AsString: string;
+  ITest = interface
+  ['{CF6EE529-CC09-461F-B6FB-526982D37C3B}']
+    function RegisterOn(const SuitePath: string): ITest;
+  end;
+
+  ITestSuite = interface
+  ['{08E6BA19-7082-4BC0-AA14-8E7A92633D5B}']
+    function Add(const Test: ITest): ITestSuite;
   end;
 
 implementation
-
-{ TCMD5Hash }
-
-constructor TCMD5Hash.Create(const Value: string);
-begin
-  inherited Create;
-  FValue := Value;
-end;
-
-class function TCMD5Hash.New(const Value: string): IDataHash;
-begin
-  Result := Create(Value);
-end;
-
-function TCMD5Hash.AsString: string;
-begin
-  Result := MD5Print(
-    MD5String(
-      FValue
-    )
-  );
-end;
 
 end.

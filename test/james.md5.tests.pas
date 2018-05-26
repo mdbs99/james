@@ -20,24 +20,62 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-}
-unit JamesTesting;
+} 
+unit James.MD5.Tests;
 
 {$include James.inc}
 
 interface
 
+uses
+  Classes, SysUtils,
+  James.Data.Clss,
+  James.MD5.Clss,
+  James.Testing.Clss;
+
 type
-  ITest = interface
-  ['{CF6EE529-CC09-461F-B6FB-526982D37C3B}']
-    function RegisterOn(const SuitePath: string): ITest;
+  TMD5HashTest = class(TTestCase)
+  published
+    procedure HashByMd5HashGeneratorPage;
   end;
 
-  ITestSuite = interface
-  ['{08E6BA19-7082-4BC0-AA14-8E7A92633D5B}']
-    function Add(const Test: ITest): ITestSuite;
+  TMD5StreamTest = class(TTestCase)
+  published
+    procedure StreamFromMemory;
   end;
 
 implementation
+
+{ TMD5HashTest }
+
+procedure TMD5HashTest.HashByMd5HashGeneratorPage;
+const
+  VALUE: string = 'http://www.md5hashgenerator.com/';
+  VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
+begin
+  CheckEquals(
+    VALUE_HASH,
+    TMD5Hash.New(VALUE).AsString
+  );
+end;
+
+{ TMD5StreamTest }
+
+procedure TMD5StreamTest.StreamFromMemory;
+const
+  TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
+begin
+  CheckEquals(
+    TMD5Hash.New(TXT).AsString,
+    TMD5Stream.New(
+      TDataStream.New(TXT)
+    ).AsString
+  );
+end;
+
+initialization
+  TTestSuite.New('MD5')
+    .Add(TTest.New(TMD5HashTest))
+    .Add(TTest.New(TMD5StreamTest));
 
 end.

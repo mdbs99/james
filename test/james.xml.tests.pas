@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesXMLTests;
+unit James.XML.Tests;
 
 {$include James.inc}
 
@@ -29,11 +29,11 @@ interface
 
 uses
   Classes, SysUtils,
-  JamesData,
-  JamesDataClss,
-  JamesTestingClss,
-  JamesXML,
-  JamesXMLClss;
+  James.Data.Base,
+  James.Data.Clss,
+  James.Testing.Clss,
+  James.XML.Base,
+  James.XML.Clss;
   
 type
   TXMLFileForTest = class(TDataFile)
@@ -103,7 +103,7 @@ implementation
 
 class function TXMLFileForTest.New: IDataFile;
 begin
-  Result := inherited New('..\pkg\JamesPack.lpk');
+  Result := inherited New('..\pkg\James.Pack.lpk');
 end;
 
 { TXMLStreamForTest }
@@ -379,7 +379,7 @@ end;
 procedure TXMLAttributeTest.GetValue;
 begin
   CheckEquals(
-    TXMLString('JamesPack'),
+    TXMLString('James.Pack'),
     TXMLPack.New(TXMLFileForTest.New.Stream).Node(
       '/CONFIG/Package/Name'
     )

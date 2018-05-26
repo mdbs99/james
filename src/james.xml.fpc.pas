@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesXMLFPC;
+unit James.XML.FPC;
 
 {$include James.inc}
 
@@ -30,9 +30,9 @@ interface
 uses
   Classes, SysUtils,
   DOM, XPath, XMLRead, XMLWrite,
-  JamesData,
-  JamesDataClss,
-  JamesXML;
+  James.Data.Base,
+  James.Data.Clss,
+  James.XML.Base;
 
 type
   TCAttribute = class(TInterfacedObject, IXMLAttribute)

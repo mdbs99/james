@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesBase64Clss;
+unit James.Base64.Clss;
 
 {$include James.inc}
 
@@ -30,12 +30,12 @@ interface
 uses
   Classes, SysUtils,
   {$ifdef FPC}
-    JamesBase64FPC,
+    James.Base64.FPC,
   {$else}
-    JamesBase64Delphi,
+    James.Base64.Delphi,
   {$endif}
-  JamesData,
-  JamesDataClss;
+  James.Data.Base,
+  James.Data.Clss;
 
 type
   TBase64Hash = TCBase64Hash;

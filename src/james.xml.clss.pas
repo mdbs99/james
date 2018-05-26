@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesBase64FPC;
+unit James.XML.Clss;
 
 {$include James.inc}
 
@@ -29,37 +29,55 @@ interface
 
 uses
   Classes, SysUtils,
-  synacode,
-  JamesData;
+  James.Data.Base,
+  James.Data.Clss,
+  James.XML.Base,
+  {$ifdef FPC}
+    James.XML.FPC
+  {$else}
+    James.XML.Delphi
+  {$endif}
+  ;
 
 type
-  TCBase64Hash = class sealed(TInterfacedObject, IDataHash)
-  private
-    FValue: string;
+  TXMLAttribute = TCAttribute;
+  TXMLAttributes = TCAttributes;
+  TXMLNode = TCNode;
+  TXMLNodes = TCNodes;
+  TXMLChilds = TCChilds;
+
+  TXMLPack = class(TCPack)
   public
-    constructor Create(const Value: string);
-    class function New(const Value: string): IDataHash;
-    function AsString: string;
+    class function New(const AStream: IDataStream): IXMLPack; overload;
+    class function New(const ARootName: TXMLString): IXMLPack; overload;
   end;
 
 implementation
 
-{ TCBase64Hash }
+{ TXMLPack }
 
-constructor TCBase64Hash.Create(const Value: string);
+class function TXMLPack.New(const AStream: IDataStream): IXMLPack;
+var
+  Buf: TMemoryStream;
 begin
-  inherited Create;
-  FValue := Value;
+  Buf := TMemoryStream.Create;
+  try
+    AStream.Save(Buf);
+    Result := Create(Buf);
+  finally
+    Buf.Free;
+  end;
 end;
 
-class function TCBase64Hash.New(const Value: string): IDataHash;
+class function TXMLPack.New(const ARootName: TXMLString): IXMLPack;
 begin
-  Result := Create(Value);
-end;
-
-function TCBase64Hash.AsString: string;
-begin
-  Result := EncodeBase64(FValue);
+  Result := New(
+    TDataStream.New(
+      Format(
+        '<?xml version="1.0" encoding="UTF-8"?><%s />', [ARootName]
+      )
+    )
+  );
 end;
 
 end.
