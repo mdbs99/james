@@ -119,6 +119,10 @@ type
     function Stream: IDataStream;
   end;
 
+  IDataAdapter<T> = interface
+    function Value: T;
+  end;
+
 implementation
 
 end.
