@@ -88,6 +88,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
       </Item3>
     </RequiredPkgs>
     <UsageOptions>
+      <IncludePath Value="..\inc"/>
       <UnitPath Value="$(PkgOutDir)"/>
     </UsageOptions>
     <PublishOptions>
