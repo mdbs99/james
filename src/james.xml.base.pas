@@ -81,8 +81,9 @@ type
 
   IXMLPack = interface
   ['{35E1DA6D-6022-47BB-B7B0-E651E209F12A}']
-    function Nodes(const AXPath: TXMLString): IXMLNodes;
-    function Node(const AXPath: TXMLString): IXMLNode;
+    function Nodes(const XPath: TXMLString): IXMLNodes;
+    function Node(const XPath: TXMLString): IXMLNode; overload;
+    function Node(const XPath: TXMLString; const Def: IXMLNode): IXMLNode; overload;
     function Stream: IDataStream;
   end;
 
