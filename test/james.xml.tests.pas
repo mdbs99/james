@@ -64,6 +64,7 @@ type
     procedure TestAddTwoLevels;
     procedure TestChildsNotNull;
     procedure TestParent;
+    procedure TestDefault;
   end;
 
   TXMLNodesTest = class(TTestCase)
@@ -266,6 +267,18 @@ begin
       '/CONFIG/Package/CompilerOptions'
     )
     .Parent
+    .Name
+  );
+end;
+
+procedure TXMLNodeTest.TestDefault;
+begin
+  CheckEquals(
+    'foo',
+    TXMLPack.New(TXMLStreamForTest.New).Node(
+      '/root/group/xpto',
+      TXMLNodeDefault.New('foo', '')
+    )
     .Name
   );
 end;
