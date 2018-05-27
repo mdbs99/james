@@ -48,53 +48,53 @@ type
 
   TXMLPackTest = class(TTestCase)
   published
-    procedure New;
-    procedure Load;
-    procedure Node;
-    procedure Nodes;
+    procedure TestNew;
+    procedure TestLoad;
+    procedure TestNode;
+    procedure TestNodes;
   end;
 
   TXMLNodeTest = class(TTestCase)
   published
-    procedure Name;
-    procedure GetValue;
-    procedure SetValue;
-    procedure AttrsNotNull;
-    procedure Add;
-    procedure AddTwoLevels;
-    procedure ChildsNotNull;
-    procedure Parent;
+    procedure TestName;
+    procedure TestGetValue;
+    procedure TestSetValue;
+    procedure TestAttrsNotNull;
+    procedure TestAdd;
+    procedure TestAddTwoLevels;
+    procedure TestChildsNotNull;
+    procedure TestParent;
   end;
 
   TXMLNodesTest = class(TTestCase)
   published
-    procedure ItemByIndex;
-    procedure ItemByName;
-    procedure Count;
-    procedure Empty;
+    procedure TestItemByIndex;
+    procedure TestItemByName;
+    procedure TestCount;
+    procedure TestEmpty;
   end;
 
   TXMLChildsTest = class(TTestCase)
   published
-    procedure ItemByIndex;
-    procedure ItemByName;
-    procedure Count;
+    procedure TestItemByIndex;
+    procedure TestItemByName;
+    procedure TestCount;
   end;
 
   TXMLAttributeTest = class(TTestCase)
   published
-    procedure Name;
-    procedure GetValue;
-    procedure SetValue;
-    procedure Node;
+    procedure TestName;
+    procedure TestGetValue;
+    procedure TestSetValue;
+    procedure TestNode;
   end;
 
   TXMLAttributesTest = class(TTestCase)
   published
-    procedure Add;
-    procedure ItemByIndex;
-    procedure ItemByName;
-    procedure Count;
+    procedure TestAdd;
+    procedure TestItemByIndex;
+    procedure TestItemByName;
+    procedure TestCount;
   end;
 
 implementation
@@ -132,7 +132,7 @@ end;
 
 { TXMLPackTest }
 
-procedure TXMLPackTest.New;
+procedure TXMLPackTest.TestNew;
 var
   N: TXMLString;
 begin
@@ -143,14 +143,14 @@ begin
   );
 end;
 
-procedure TXMLPackTest.Load;
+procedure TXMLPackTest.TestLoad;
 begin
   CheckNotNull(
     TXMLPack.New(TXMLFileForTest.New.Stream).Stream
   );
 end;
 
-procedure TXMLPackTest.Node;
+procedure TXMLPackTest.TestNode;
 begin
   CheckNotNull(
     TXMLPack.New(TXMLFileForTest.New.Stream).Node(
@@ -159,7 +159,7 @@ begin
   );
 end;
 
-procedure TXMLPackTest.Nodes;
+procedure TXMLPackTest.TestNodes;
 begin
   CheckEquals(
     4,
@@ -172,7 +172,7 @@ end;
 
 { TXMLNodeTest }
 
-procedure TXMLNodeTest.Name;
+procedure TXMLNodeTest.TestName;
 begin
   CheckEquals(
     TXMLString('CompilerOptions'),
@@ -183,7 +183,7 @@ begin
   );
 end;
 
-procedure TXMLNodeTest.GetValue;
+procedure TXMLNodeTest.TestGetValue;
 begin
   CheckEquals(
     TXMLString('foo'),
@@ -194,7 +194,7 @@ begin
   );
 end;
 
-procedure TXMLNodeTest.SetValue;
+procedure TXMLNodeTest.TestSetValue;
 var
   S: TXMLString;
 begin
@@ -209,7 +209,7 @@ begin
   );
 end;
 
-procedure TXMLNodeTest.AttrsNotNull;
+procedure TXMLNodeTest.TestAttrsNotNull;
 begin
   CheckEquals(
     0,
@@ -221,7 +221,7 @@ begin
   );
 end;
 
-procedure TXMLNodeTest.Add;
+procedure TXMLNodeTest.TestAdd;
 var
   N: IXMLNode;
   C: Integer;
@@ -237,7 +237,7 @@ begin
   );
 end;
 
-procedure TXMLNodeTest.AddTwoLevels;
+procedure TXMLNodeTest.TestAddTwoLevels;
 var
   P: IXMLPack;
 begin
@@ -248,7 +248,7 @@ begin
   CheckNotNull(P.Node('/root/level-1/level-2'));
 end;
 
-procedure TXMLNodeTest.ChildsNotNull;
+procedure TXMLNodeTest.TestChildsNotNull;
 begin
   CheckNotNull(
     TXMLPack.New(TXMLStreamForTest.New).Node(
@@ -258,7 +258,7 @@ begin
   );
 end;
 
-procedure TXMLNodeTest.Parent;
+procedure TXMLNodeTest.TestParent;
 begin
   CheckEquals(
     TXMLString('Package'),
@@ -272,7 +272,7 @@ end;
 
 { TXMLNodesTest }
 
-procedure TXMLNodesTest.ItemByIndex;
+procedure TXMLNodesTest.TestItemByIndex;
 begin
   CheckEquals(
     3,
@@ -285,7 +285,7 @@ begin
   );
 end;
 
-procedure TXMLNodesTest.ItemByName;
+procedure TXMLNodesTest.TestItemByName;
 begin
   CheckEquals(
     TXMLString('item'),
@@ -297,7 +297,7 @@ begin
   );
 end;
 
-procedure TXMLNodesTest.Count;
+procedure TXMLNodesTest.TestCount;
 begin
   CheckEquals(
     2,
@@ -308,7 +308,7 @@ begin
   );
 end;
 
-procedure TXMLNodesTest.Empty;
+procedure TXMLNodesTest.TestEmpty;
 begin
   CheckEquals(
     0,
@@ -321,7 +321,7 @@ end;
 
 { TXMLChildsTest }
 
-procedure TXMLChildsTest.ItemByIndex;
+procedure TXMLChildsTest.TestItemByIndex;
 begin
   CheckEquals(
     TXMLString('foo2'),
@@ -336,7 +336,7 @@ begin
   );
 end;
 
-procedure TXMLChildsTest.ItemByName;
+procedure TXMLChildsTest.TestItemByName;
 begin
   CheckEquals(
     TXMLString('item'),
@@ -349,7 +349,7 @@ begin
   );
 end;
 
-procedure TXMLChildsTest.Count;
+procedure TXMLChildsTest.TestCount;
 begin
   CheckEquals(
     2,
@@ -363,7 +363,7 @@ end;
 
 { TXMLAttributeTest }
 
-procedure TXMLAttributeTest.Name;
+procedure TXMLAttributeTest.TestName;
 begin
   CheckEquals(
     TXMLString('Value'),
@@ -376,7 +376,7 @@ begin
   );
 end;
 
-procedure TXMLAttributeTest.GetValue;
+procedure TXMLAttributeTest.TestGetValue;
 begin
   CheckEquals(
     TXMLString('James.Pack'),
@@ -389,7 +389,7 @@ begin
   );
 end;
 
-procedure TXMLAttributeTest.SetValue;
+procedure TXMLAttributeTest.TestSetValue;
 var
   S: TXMLString;
 begin
@@ -406,7 +406,7 @@ begin
   );
 end;
 
-procedure TXMLAttributeTest.Node;
+procedure TXMLAttributeTest.TestNode;
 begin
   CheckEquals(
     TXMLString('Name'),
@@ -415,14 +415,14 @@ begin
     )
     .Attrs
     .Item(0) // goto item
-    .Node    // and return to owner node
+    .Node    // and return to owner TestNode
     .Name
   );
 end;
 
 { TXMLAttributesTest }
 
-procedure TXMLAttributesTest.Add;
+procedure TXMLAttributesTest.TestAdd;
 begin
   CheckEquals(
     TXMLString('1'),
@@ -435,7 +435,7 @@ begin
   );
 end;
 
-procedure TXMLAttributesTest.ItemByIndex;
+procedure TXMLAttributesTest.TestItemByIndex;
 begin
   CheckEquals(
     TXMLString('1'),
@@ -448,7 +448,7 @@ begin
   );
 end;
 
-procedure TXMLAttributesTest.ItemByName;
+procedure TXMLAttributesTest.TestItemByName;
 begin
   CheckEquals(
     TXMLString('1'),
@@ -461,7 +461,7 @@ begin
   );
 end;
 
-procedure TXMLAttributesTest.Count;
+procedure TXMLAttributesTest.TestCount;
 begin
   CheckEquals(
     3,

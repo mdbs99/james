@@ -37,21 +37,21 @@ uses
 type
   TBase64HashTest = class(TTestCase)
   published
-    procedure HashByBase64encodePage;
+    procedure TestHashByBase64encodePage;
   end;
 
   TBase64StreamTest = class(TTestCase)
   published
-    procedure AsString;
-    procedure SaveStream;
-    procedure SaveStrings;
+    procedure TestAsString;
+    procedure TestSaveStream;
+    procedure TestSaveStrings;
   end;
 
 implementation
 
 { TBase64HashTest }
 
-procedure TBase64HashTest.HashByBase64encodePage;
+procedure TBase64HashTest.TestHashByBase64encodePage;
 const
   VALUE: string = 'https://www.base64encode.org/';
   VALUE_HASH: string = 'aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=';
@@ -64,7 +64,7 @@ end;
 
 { TBase64StreamTest }
 
-procedure TBase64StreamTest.AsString;
+procedure TBase64StreamTest.TestAsString;
 const
   TXT: string = 'AEIOU123456qwert';
 var
@@ -97,7 +97,7 @@ begin
   end;
 end;
 
-procedure TBase64StreamTest.SaveStream;
+procedure TBase64StreamTest.TestSaveStream;
 const
   TXT: string = 'ABCDEFG#13#10IJL';
 var
@@ -116,7 +116,7 @@ begin
   end;
 end;
 
-procedure TBase64StreamTest.SaveStrings;
+procedure TBase64StreamTest.TestSaveStrings;
 const
   TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
 var

@@ -36,19 +36,19 @@ uses
 type
   TMD5HashTest = class(TTestCase)
   published
-    procedure HashByMd5HashGeneratorPage;
+    procedure TestHashByMd5HashGeneratorPage;
   end;
 
   TMD5StreamTest = class(TTestCase)
   published
-    procedure StreamFromMemory;
+    procedure TestStreamFromMemory;
   end;
 
 implementation
 
 { TMD5HashTest }
 
-procedure TMD5HashTest.HashByMd5HashGeneratorPage;
+procedure TMD5HashTest.TestHashByMd5HashGeneratorPage;
 const
   VALUE: string = 'http://www.md5hashgenerator.com/';
   VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
@@ -61,7 +61,7 @@ end;
 
 { TMD5StreamTest }
 
-procedure TMD5StreamTest.StreamFromMemory;
+procedure TMD5StreamTest.TestStreamFromMemory;
 const
   TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin

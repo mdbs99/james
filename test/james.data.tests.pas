@@ -36,34 +36,34 @@ uses
 type
   TDataStreamTest = class(TTestCase)
   published
-    procedure AsString;
-    procedure SaveStream;
-    procedure SaveStrings;
+    procedure TestAsString;
+    procedure TestSaveStream;
+    procedure TestSaveStrings;
   end;
 
   TDataParamTest = class(TTestCase)
   published
-    procedure AutoDataType;
+    procedure TestAutoDataType;
   end;
 
   TDataParamsTest = class(TTestCase)
   published
-    procedure Add;
-    procedure AddParam;
-    procedure AddParams;
-    procedure GetByIndex;
-    procedure GetByName;
-    procedure Count;
-    procedure AsStringWithSeparator;
+    procedure TestAdd;
+    procedure TestAddParam;
+    procedure TestAddParams;
+    procedure TestGetByIndex;
+    procedure TestGetByName;
+    procedure TestCount;
+    procedure TestAsStringWithSeparator;
   end;
 
   TDataGuidTest = class(TTestCase)
   published
-    procedure NewGuid;
-    procedure NullGuid;
-    procedure ValueAsVariant;
-    procedure ValueWithoutBrackets;
-    procedure SmallString;
+    procedure TestNewGuid;
+    procedure TestNullGuid;
+    procedure TestValueAsVariant;
+    procedure TestValueWithoutBrackets;
+    procedure TestSmallString;
   end;
 
   TFakeConstraint = class(TInterfacedObject, IDataConstraint)
@@ -79,25 +79,25 @@ type
 
   TDataConstraintsTest = class(TTestCase)
   published
-    procedure ReceiveConstraint;
-    procedure GetConstraint;
-    procedure EvaluateTrue;
-    procedure EvaluateFalse;
-    procedure EvaluateTrueAndFalse;
+    procedure TestReceiveConstraint;
+    procedure TestGetConstraint;
+    procedure TestEvaluateTrue;
+    procedure TestEvaluateFalse;
+    procedure TestEvaluateTrueAndFalse;
   end;
 
   TDataFileTest = class(TTestCase)
   published
-    procedure Path;
-    procedure Name;
-    procedure Stream;
+    procedure TestPath;
+    procedure TestName;
+    procedure TestStream;
   end;
 
 implementation
 
 { TDataParamsTest }
 
-procedure TDataParamsTest.Add;
+procedure TDataParamsTest.TestAdd;
 begin
   CheckEquals(
     10,
@@ -108,7 +108,7 @@ begin
   );
 end;
 
-procedure TDataParamsTest.AddParam;
+procedure TDataParamsTest.TestAddParam;
 var
   P: IDataParam;
 begin
@@ -122,7 +122,7 @@ begin
   );
 end;
 
-procedure TDataParamsTest.AddParams;
+procedure TDataParamsTest.TestAddParams;
 begin
   CheckEquals(
     5,
@@ -139,7 +139,7 @@ begin
   );
 end;
 
-procedure TDataParamsTest.GetByIndex;
+procedure TDataParamsTest.TestGetByIndex;
 begin
   CheckEquals(
     2,
@@ -151,7 +151,7 @@ begin
   );
 end;
 
-procedure TDataParamsTest.GetByName;
+procedure TDataParamsTest.TestGetByName;
 begin
   CheckEquals(
     33,
@@ -163,7 +163,7 @@ begin
   );
 end;
 
-procedure TDataParamsTest.Count;
+procedure TDataParamsTest.TestCount;
 begin
   CheckEquals(
     5,
@@ -177,7 +177,7 @@ begin
   );
 end;
 
-procedure TDataParamsTest.AsStringWithSeparator;
+procedure TDataParamsTest.TestAsStringWithSeparator;
 begin
   CheckEquals(
     '1;2;3',
@@ -191,7 +191,7 @@ end;
 
 { TDataStreamTest }
 
-procedure TDataStreamTest.AsString;
+procedure TDataStreamTest.TestAsString;
 const
   TXT: string = 'Line1-'#13#10'Line2-'#13#10'Line3';
 var
@@ -212,7 +212,7 @@ begin
   end;
 end;
 
-procedure TDataStreamTest.SaveStream;
+procedure TDataStreamTest.TestSaveStream;
 const
   TXT: string = 'ABCDEFG#13#10IJL';
 var
@@ -231,7 +231,7 @@ begin
   end;
 end;
 
-procedure TDataStreamTest.SaveStrings;
+procedure TDataStreamTest.TestSaveStrings;
 const
   TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
@@ -248,7 +248,7 @@ end;
 
 { TDataParamTest }
 
-procedure TDataParamTest.AutoDataType;
+procedure TDataParamTest.TestAutoDataType;
 var
   Params: IDataParams;
 begin
@@ -273,12 +273,12 @@ end;
 
 { TDataGuidTest }
 
-procedure TDataGuidTest.NewGuid;
+procedure TDataGuidTest.TestNewGuid;
 begin
   StringToGUID(TDataGuid.New.AsString);
 end;
 
-procedure TDataGuidTest.NullGuid;
+procedure TDataGuidTest.TestNullGuid;
 begin
   CheckEquals(
     TNullGuid.New.AsString,
@@ -286,7 +286,7 @@ begin
   );
 end;
 
-procedure TDataGuidTest.ValueAsVariant;
+procedure TDataGuidTest.TestValueAsVariant;
 begin
   CheckEquals(
     TNullGuid.New.AsString,
@@ -294,7 +294,7 @@ begin
   );
 end;
 
-procedure TDataGuidTest.ValueWithoutBrackets;
+procedure TDataGuidTest.TestValueWithoutBrackets;
 const
   G: string = 'FCCE420A-8C4F-4E54-84D1-39001AE344BA';
 begin
@@ -304,7 +304,7 @@ begin
   );
 end;
 
-procedure TDataGuidTest.SmallString;
+procedure TDataGuidTest.TestSmallString;
 const
   V = '89000BC9';
   G = '{'+V+'-5700-43A3-B340-E34A1656F683}';
@@ -340,7 +340,7 @@ end;
 
 { TDataConstraintsTest }
 
-procedure TDataConstraintsTest.ReceiveConstraint;
+procedure TDataConstraintsTest.TestReceiveConstraint;
 begin
   CheckTrue(
     TDataConstraints.New
@@ -350,7 +350,7 @@ begin
   );
 end;
 
-procedure TDataConstraintsTest.GetConstraint;
+procedure TDataConstraintsTest.TestGetConstraint;
 begin
   CheckEquals(
     'foo',
@@ -362,7 +362,7 @@ begin
   );
 end;
 
-procedure TDataConstraintsTest.EvaluateTrue;
+procedure TDataConstraintsTest.TestEvaluateTrue;
 begin
   CheckTrue(
     TDataConstraints.New
@@ -373,7 +373,7 @@ begin
   );
 end;
 
-procedure TDataConstraintsTest.EvaluateFalse;
+procedure TDataConstraintsTest.TestEvaluateFalse;
 begin
   CheckFalse(
     TDataConstraints.New
@@ -384,7 +384,7 @@ begin
   );
 end;
 
-procedure TDataConstraintsTest.EvaluateTrueAndFalse;
+procedure TDataConstraintsTest.TestEvaluateTrueAndFalse;
 begin
   CheckFalse(
     TDataConstraints.New
@@ -397,17 +397,17 @@ end;
 
 { TDataFileTest }
 
-procedure TDataFileTest.Path;
+procedure TDataFileTest.TestPath;
 begin
   CheckEquals('c:\path\', TDataFile.New('c:\path\filename.txt').Path);
 end;
 
-procedure TDataFileTest.Name;
+procedure TDataFileTest.TestName;
 begin
   CheckEquals('filename.txt', TDataFile.New('c:\path\filename.txt').Name);
 end;
 
-procedure TDataFileTest.Stream;
+procedure TDataFileTest.TestStream;
 const
   TXT: string = 'ABCC~#';
   FILE_NAME: string = 'file.txt';
