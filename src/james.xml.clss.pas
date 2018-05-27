@@ -52,7 +52,80 @@ type
     class function New(const ARootName: TXMLString): IXMLPack; overload;
   end;
 
+  TXMLNodeDefault = class(TInterfacedObject, IXMLNode)
+  private
+    FName: TXMLString;
+    FText: TXMLString;
+  public
+    constructor Create(const Name, Text: TXMLString);
+    class function New(const Name, Text: TXMLString): IXMLNode;
+    function Name: TXMLString;
+    function Text: TXMLString; overload;
+    function Text(const AText: TXMLString): IXMLNode; overload;
+    function Text(const AText: string): IXMLNode; overload;
+    function Attrs: IXMLAttributes;
+    function Add({%H-}const AName: TXMLString): IXMLNode;
+    function Childs: IXMLNodes;
+    function Parent: IXMLNode;
+  end;
+
 implementation
+
+{ TXMLNodeDefault }
+
+constructor TXMLNodeDefault.Create(const Name, Text: TXMLString);
+begin
+  inherited Create;
+  FName := Name;
+  FText := Text;
+end;
+
+class function TXMLNodeDefault.New(const Name, Text: TXMLString): IXMLNode;
+begin
+  Result := Create(Name, Text);
+end;
+
+function TXMLNodeDefault.Name: TXMLString;
+begin
+  Result := FName;
+end;
+
+function TXMLNodeDefault.Text: TXMLString;
+begin
+  Result := FText;
+end;
+
+function TXMLNodeDefault.Text(const AText: TXMLString): IXMLNode;
+begin
+  Result := Self;
+  FText := AText;
+end;
+
+function TXMLNodeDefault.Text(const AText: string): IXMLNode;
+begin
+  Result := Self;
+  Text(TXMLString(AText));
+end;
+
+function TXMLNodeDefault.Attrs: IXMLAttributes;
+begin
+  raise EXMLError.Create('Attributes not allowed.');
+end;
+
+function TXMLNodeDefault.Add(const AName: TXMLString): IXMLNode;
+begin
+  raise EXMLError.Create('Add not allowed.');
+end;
+
+function TXMLNodeDefault.Childs: IXMLNodes;
+begin
+  raise EXMLError.Create('Childs not allowed.');
+end;
+
+function TXMLNodeDefault.Parent: IXMLNode;
+begin
+  Result := Self;
+end;
 
 { TXMLPack }
 
