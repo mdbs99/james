@@ -12,6 +12,7 @@ uses
 {$R *.res}
 
 begin
+  Application.Title := 'James.Tests';
   Application.Initialize;
   Application.CreateForm(TGuiTestRunner, TestRunner);
   Application.Run;

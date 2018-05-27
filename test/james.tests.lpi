@@ -21,7 +21,7 @@
             <Filename Value="..\bin\James.Tests"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="..\src;$(ProjOutDir)"/>
+            <IncludeFiles Value="$(ProjOutDir);..\inc"/>
             <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -77,16 +77,19 @@
         <UnitName Value="James.Tests"/>
       </Unit0>
       <Unit1>
-        <Filename Value="James.Base64.Tests.pas"/>
+        <Filename Value="james.base64.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.Base64.Tests"/>
       </Unit1>
       <Unit2>
-        <Filename Value="James.MD5.Tests.pas"/>
+        <Filename Value="james.md5.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.MD5.Tests"/>
       </Unit2>
       <Unit3>
-        <Filename Value="James.XML.Tests.pas"/>
+        <Filename Value="james.xml.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.XML.Tests"/>
       </Unit3>
       <Unit4>
         <Filename Value="james.data.tests.pas"/>
@@ -102,8 +105,7 @@
       <Filename Value="..\bin\James.Tests"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);..\src"/>
-      <OtherUnitFiles Value="..\src"/>
+      <IncludeFiles Value="$(ProjOutDir);..\inc"/>
       <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
