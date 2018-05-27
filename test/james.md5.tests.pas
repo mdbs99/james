@@ -23,7 +23,7 @@
 } 
 unit James.MD5.Tests;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 

@@ -23,7 +23,7 @@
 }
 unit James.Core.Adpt.Clss;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 

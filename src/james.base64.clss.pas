@@ -23,7 +23,7 @@
 }
 unit James.Base64.Clss;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 

@@ -1,6 +1,6 @@
 program James.Tests;
 
-{$mode objfpc}{$H+}
+{$i James.inc}
 
 uses
   Interfaces, Forms, GuiTestRunner,

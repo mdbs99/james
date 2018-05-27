@@ -23,7 +23,7 @@
 }
 unit James.Logger.Base;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 

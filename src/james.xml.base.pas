@@ -23,7 +23,7 @@
 }
 unit James.XML.Base;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 

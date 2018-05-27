@@ -23,7 +23,7 @@
 }
 unit James.XML.Tests;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 

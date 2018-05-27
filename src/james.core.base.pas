@@ -23,7 +23,7 @@
 }
 unit James.Core.Base;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 
