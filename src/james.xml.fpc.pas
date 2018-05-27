@@ -104,8 +104,9 @@ type
   public
     constructor Create(AStream: TStream); reintroduce;
     destructor Destroy; override;
-    function Nodes(const AXPath: TXMLString): IXMLNodes;
-    function Node(const AXPath: TXMLString): IXMLNode;
+    function Nodes(const XPath: TXMLString): IXMLNodes;
+    function Node(const XPath: TXMLString): IXMLNode; overload;
+    function Node(const XPath: TXMLString; const Def: IXMLNode): IXMLNode; overload;
     function Stream: IDataStream;
   end;
 
@@ -339,14 +340,14 @@ begin
   inherited Destroy;
 end;
 
-function TCPack.Nodes(const AXPath: TXMLString): IXMLNodes;
+function TCPack.Nodes(const XPath: TXMLString): IXMLNodes;
 var
   V: TXPathVariable;
   L: IInterfaceList;
   I: Integer;
 begin
   L := TInterfaceList.Create;
-  V := EvaluateXPathExpression(AXPath, FDocument.DocumentElement);
+  V := EvaluateXPathExpression(XPath, FDocument.DocumentElement);
   try
     if Assigned(V) then
     begin
@@ -359,14 +360,25 @@ begin
   end;
 end;
 
-function TCPack.Node(const AXPath: TXMLString): IXMLNode;
+function TCPack.Node(const XPath: TXMLString): IXMLNode;
 var
   L: IXMLNodes;
 begin
-  L := Nodes(AXPath);
+  L := Nodes(XPath);
   if L.Count = 0 then
-    raise EXMLError.CreateFmt('Node "%s" not found.', [AXPath]);
+    raise EXMLError.CreateFmt('Node "%s" not found.', [XPath]);
   Result := L.Item(0);
+end;
+
+function TCPack.Node(const XPath: TXMLString; const Def: IXMLNode): IXMLNode;
+var
+  L: IXMLNodes;
+begin
+  L := Nodes(XPath);
+  if L.Count = 0 then
+    Result := Def
+  else
+    Result := L.Item(0);
 end;
 
 function TCPack.Stream: IDataStream;

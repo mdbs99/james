@@ -23,7 +23,7 @@
 }
 unit James.XML.Delphi;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 
@@ -100,8 +100,9 @@ type
     FDocument: IXMLDocument;
   public
     constructor Create(AStream: TStream); reintroduce;
-    function Nodes(const AXPath: TXMLString): IXMLNodes;
-    function Node(const AXPath: TXMLString): IXMLNode;
+    function Nodes(const XPath: TXMLString): IXMLNodes;
+    function Node(const XPath: TXMLString): IXMLNode; overload;
+    function Node(const XPath: TXMLString; const Def: IXMLNode): IXMLNode; overload;
     function Stream: IDataStream;
   end;
 
@@ -327,19 +328,30 @@ begin
   FDocument.LoadFromStream(AStream);
 end;
 
-function TCPack.Nodes(const AXPath: TXMLString): IXMLNodes;
+function TCPack.Nodes(const XPath: TXMLString): IXMLNodes;
 begin
   raise EXMLError.Create('Not implemented yet');
 end;
 
-function TCPack.Node(const AXPath: TXMLString): IXMLNode;
+function TCPack.Node(const XPath: TXMLString): IXMLNode;
 var
   L: IXMLNodes;
 begin
-  L := Nodes(AXPath);
+  L := Nodes(XPath);
   if L.Count = 0 then
     raise EXMLError.Create('Node not found.');
   Result := L.Item(0);
+end;
+
+function TCPack.Node(const XPath: TXMLString; const Def: IXMLNode): IXMLNode;
+var
+  L: IXMLNodes;
+begin
+  L := Nodes(XPath);
+  if L.Count = 0 then
+    Result := Def
+  else
+    Result := L.Item(0);
 end;
 
 function TCPack.Stream: IDataStream;
