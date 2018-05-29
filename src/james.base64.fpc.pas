@@ -33,7 +33,16 @@ uses
   James.Data.Base;
 
 type
-  TCBase64Hash = class sealed(TInterfacedObject, IDataHash)
+  TCBase64Encoder = class sealed(TInterfacedObject, IDataHash)
+  private
+    FValue: string;
+  public
+    constructor Create(const Value: string);
+    class function New(const Value: string): IDataHash;
+    function AsString: string;
+  end;
+
+  TCBase64Decoder = class sealed(TInterfacedObject, IDataHash)
   private
     FValue: string;
   public
@@ -44,22 +53,40 @@ type
 
 implementation
 
-{ TCBase64Hash }
+{ TCBase64Encoder }
 
-constructor TCBase64Hash.Create(const Value: string);
+constructor TCBase64Encoder.Create(const Value: string);
 begin
   inherited Create;
   FValue := Value;
 end;
 
-class function TCBase64Hash.New(const Value: string): IDataHash;
+class function TCBase64Encoder.New(const Value: string): IDataHash;
 begin
   Result := Create(Value);
 end;
 
-function TCBase64Hash.AsString: string;
+function TCBase64Encoder.AsString: string;
 begin
-  Result := EncodeBase64(FValue);
+  Result := synacode.EncodeBase64(FValue);
+end;
+
+{ TCBase64Decoder }
+
+constructor TCBase64Decoder.Create(const Value: string);
+begin
+  inherited Create;
+  FValue := Value;
+end;
+
+class function TCBase64Decoder.New(const Value: string): IDataHash;
+begin
+  Result := Create(Value);
+end;
+
+function TCBase64Decoder.AsString: string;
+begin
+  Result := synacode.DecodeBase64(FValue);
 end;
 
 end.
