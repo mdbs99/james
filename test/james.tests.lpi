@@ -70,7 +70,7 @@
         <PackageName Value="FCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="6">
       <Unit0>
         <Filename Value="james.tests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -96,6 +96,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="James.Data.Tests"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="james.core.tests.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="James.Core.Tests"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

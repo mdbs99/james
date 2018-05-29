@@ -43,6 +43,15 @@ type
     function Value: IDataStream;
   end;
 
+  TOleVariantFromStream = class(TInterfacedObject, IAdapter<OleVariant>)
+  private
+    FValue: IDataStream;
+  public
+    constructor Create(const Value: IDataStream);
+    class function New(const Value: IDataStream): IAdapter<OleVariant>;
+    function Value: OleVariant;
+  end;
+
 implementation
 
 { TOleVariantAsStream }
@@ -80,6 +89,40 @@ begin
     end;
   finally
     S.Free;
+  end;
+end;
+
+{ TOleVariantFromStream }
+
+constructor TOleVariantFromStream.Create(const Value: IDataStream);
+begin
+  inherited Create;
+  FValue := Value;
+end;
+
+class function TOleVariantFromStream.New(const Value: IDataStream): IAdapter<OleVariant>;
+begin
+  Result := Create(Value);
+end;
+
+function TOleVariantFromStream.Value: OleVariant;
+var
+  Data: PByteArray;
+  M: TMemoryStream;
+begin
+  M := TMemoryStream.Create;
+  try
+    FValue.Save(M);
+    Result := VarArrayCreate([0, M.Size-1], varByte);
+    Data := VarArrayLock(Result);
+    try
+      M.Position := 0;
+      M.ReadBuffer(Data^, M.Size);
+    finally
+      VarArrayUnlock(Result);
+    end;
+  finally
+    M.Free;
   end;
 end;
 

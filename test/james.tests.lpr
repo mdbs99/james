@@ -4,6 +4,7 @@ program James.Tests;
 
 uses
   Interfaces, Forms, GuiTestRunner,
+  James.Core.Tests,
   James.Data.Tests,
   James.XML.Tests,
   James.Base64.Tests,
