@@ -76,8 +76,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <UnitName Value="James.Core.Base"/>
       </Item11>
       <Item12>
-        <Filename Value="..\src\james.core.adpt.clss.pas"/>
-        <UnitName Value="James.Core.Adpt.Clss"/>
+        <Filename Value="..\src\james.core.adapters.pas"/>
+        <UnitName Value="James.Core.Adapters"/>
       </Item12>
     </Files>
     <RequiredPkgs Count="3">
