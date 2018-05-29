@@ -39,6 +39,7 @@ uses
 
 type
   TBase64Encoder = TCBase64Encoder;
+  { TODO : Add tests }
   TBase64Decoder = TCBase64Decoder;
 
   TBase64StreamEncoded = class sealed(TInterfacedObject, IDataStream)
@@ -54,7 +55,7 @@ type
     function AsString: string;
     function Size: Int64;
   end;
-
+  { TODO : Add tests }
   TBase64StreamDecoded = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
