@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Core.Adapters;
+unit James.Core.Data.Adapters;
 
 {$i James.inc}
 
@@ -34,7 +34,7 @@ uses
   James.Data.Clss;
 
 type
-  TOleVariantAsStream = class(TInterfacedObject, IAdapter<IDataStream>)
+  TOleVariantToStream = class(TInterfacedObject, IAdapter<IDataStream>)
   private
     FValue: OleVariant;
   public
@@ -54,20 +54,20 @@ type
 
 implementation
 
-{ TOleVariantAsStream }
+{ TOleVariantToStream }
 
-constructor TOleVariantAsStream.Create(const Value: OleVariant);
+constructor TOleVariantToStream.Create(const Value: OleVariant);
 begin
   inherited Create;
   FValue := Value;
 end;
 
-class function TOleVariantAsStream.New(const Value: OleVariant): IAdapter<IDataStream>;
+class function TOleVariantToStream.New(const Value: OleVariant): IAdapter<IDataStream>;
 begin
   Result := Create(Value);
 end;
 
-function TOleVariantAsStream.Value: IDataStream;
+function TOleVariantToStream.Value: IDataStream;
 var
   I: Integer;
   P: Pointer;
