@@ -39,7 +39,7 @@ uses
 
 type
   TBase64Encoder = TCBase64Encoder;
-  { TODO : New tests for TBase64Decoder }
+
   TBase64Decoder = TCBase64Decoder;
 
   TBase64StreamEncoded = class sealed(TInterfacedObject, IDataStream)

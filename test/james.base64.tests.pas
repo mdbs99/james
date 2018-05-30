@@ -37,12 +37,17 @@ uses
 type
   TBase64EncoderTest = class(TTestCase)
   published
-    procedure TestHashByBase64encodePage;
+    procedure TestValue;
+  end;
+
+  TBase64DecoderTest = class(TTestCase)
+  published
+    procedure TestValue;
   end;
 
   TBase64StreamEncodedTest = class(TTestCase)
   published
-    procedure TestAsString;
+    procedure TestValue;
     procedure TestSaveStream;
     procedure TestSaveStrings;
   end;
@@ -51,20 +56,27 @@ implementation
 
 { TBase64EncoderTest }
 
-procedure TBase64EncoderTest.TestHashByBase64encodePage;
-const
-  VALUE: string = 'https://www.base64encode.org/';
-  VALUE_HASH: string = 'aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=';
+procedure TBase64EncoderTest.TestValue;
 begin
   CheckEquals(
-    VALUE_HASH,
-    TBase64Encoder.New(VALUE).AsString
+    'aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=',
+    TBase64Encoder.New('https://www.base64encode.org/').AsString
+  );
+end;
+
+{ TBase64DecoderTest }
+
+procedure TBase64DecoderTest.TestValue;
+begin
+  CheckEquals(
+    'https://www.base64encode.org/',
+    TBase64Decoder.New('aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=').AsString
   );
 end;
 
 { TBase64StreamEncodedTest }
 
-procedure TBase64StreamEncodedTest.TestAsString;
+procedure TBase64StreamEncodedTest.TestValue;
 const
   TXT: string = 'AEIOU123456qwert';
 var
