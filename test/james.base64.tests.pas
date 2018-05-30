@@ -52,6 +52,11 @@ type
     procedure TestSaveStrings;
   end;
 
+  TBase64StreamDecodedTest = class(TTestCase)
+  published
+    procedure TestValue;
+  end;
+
 implementation
 
 { TBase64EncoderTest }
@@ -143,10 +148,34 @@ begin
   end;
 end;
 
+{ TBase64StreamDecodedTest }
+
+procedure TBase64StreamDecodedTest.TestValue;
+const
+  VALUE = 'foo bar 123';
+begin
+  CheckEquals(
+    TBase64Decoder.New(
+      TBase64Encoder.New(
+        VALUE
+      ).AsString
+    ).AsString,
+    TBase64StreamDecoded.New(
+      TDataStream.New(
+        TBase64Encoder.New(
+          VALUE
+        ).AsString
+      )
+    ).AsString
+  );
+end;
+
 initialization
   TTestSuite.New('Base64')
     .Add(TTest.New(TBase64EncoderTest))
+    .Add(TTest.New(TBase64DecoderTest))
     .Add(TTest.New(TBase64StreamEncodedTest))
+    .Add(TTest.New(TBase64StreamDecodedTest))
     ;
 
 end.
