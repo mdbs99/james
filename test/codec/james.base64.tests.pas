@@ -171,7 +171,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Base64')
+  TTestSuite.New('Codec')
     .Add(TTest.New(TBase64EncoderTest))
     .Add(TTest.New(TBase64DecoderTest))
     .Add(TTest.New(TBase64EncodedAsStreamTest))

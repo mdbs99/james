@@ -487,7 +487,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('XML')
+  TTestSuite.New('Text')
     .Add(TTest.New(TXMLPackTest))
     .Add(TTest.New(TXMLNodeTest))
     .Add(TTest.New(TXMLNodesTest))

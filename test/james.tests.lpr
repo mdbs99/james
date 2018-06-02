@@ -3,12 +3,8 @@ program James.Tests;
 {$i James.inc}
 
 uses
-  Interfaces, Forms, GuiTestRunner,
-  James.Core.Tests,
-  James.Data.Tests,
-  James.XML.Tests,
-  James.Base64.Tests,
-  James.MD5.Tests;
+  Interfaces, Forms, james.core.tests, James.Data.Tests, James.Base64.Tests,
+  James.MD5.Tests, James.XML.Tests, GuiTestRunner;
 
 {$R *.res}
 

@@ -84,6 +84,7 @@
       <Unit2>
         <Filename Value="core\james.data.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.Data.Tests"/>
       </Unit2>
       <Unit3>
         <Filename Value="codec\james.base64.tests.pas"/>
@@ -93,10 +94,12 @@
       <Unit4>
         <Filename Value="codec\james.md5.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.MD5.Tests"/>
       </Unit4>
       <Unit5>
         <Filename Value="text\james.xml.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.XML.Tests"/>
       </Unit5>
     </Units>
   </ProjectOptions>
