@@ -10,7 +10,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\inc"/>
-        <OtherUnitFiles Value="..\src;..\test"/>
+        <OtherUnitFiles Value="..\src\core;..\src\testing;..\src\text;..\src\log;..\src\codec"/>
         <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Linking>
@@ -32,52 +32,52 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="9" Release="2"/>
     <Files Count="12">
       <Item1>
-        <Filename Value="..\src\james.data.clss.pas"/>
-        <UnitName Value="James.Data.Clss"/>
+        <Filename Value="..\src\core\james.core.base.pas"/>
+        <UnitName Value="James.Core.Base"/>
       </Item1>
       <Item2>
-        <Filename Value="..\src\james.base64.clss.pas"/>
-        <UnitName Value="James.Base64.Clss"/>
+        <Filename Value="..\src\core\james.core.data.adapters.pas"/>
+        <UnitName Value="James.Core.Data.Adapters"/>
       </Item2>
       <Item3>
-        <Filename Value="..\src\james.data.base.pas"/>
+        <Filename Value="..\src\core\james.data.base.pas"/>
         <UnitName Value="James.Data.Base"/>
       </Item3>
       <Item4>
-        <Filename Value="..\src\james.logger.base.pas"/>
-        <UnitName Value="James.Logger.Base"/>
+        <Filename Value="..\src\core\james.data.clss.pas"/>
+        <UnitName Value="James.Data.Clss"/>
       </Item4>
       <Item5>
-        <Filename Value="..\src\james.logger.clss.pas"/>
-        <UnitName Value="James.Logger.Clss"/>
+        <Filename Value="..\src\testing\james.testing.base.pas"/>
+        <UnitName Value="James.Testing.Base"/>
       </Item5>
       <Item6>
-        <Filename Value="..\src\james.md5.clss.pas"/>
-        <UnitName Value="James.MD5.Clss"/>
+        <Filename Value="..\src\testing\james.testing.clss.pas"/>
+        <UnitName Value="James.Testing.Clss"/>
       </Item6>
       <Item7>
-        <Filename Value="..\src\james.testing.base.pas"/>
-        <UnitName Value="James.Testing.Base"/>
+        <Filename Value="..\src\text\james.xml.base.pas"/>
+        <UnitName Value="James.XML.Base"/>
       </Item7>
       <Item8>
-        <Filename Value="..\src\james.testing.clss.pas"/>
-        <UnitName Value="James.Testing.Clss"/>
+        <Filename Value="..\src\text\james.xml.clss.pas"/>
+        <UnitName Value="James.XML.Clss"/>
       </Item8>
       <Item9>
-        <Filename Value="..\src\james.xml.base.pas"/>
-        <UnitName Value="James.XML.Base"/>
+        <Filename Value="..\src\log\james.logger.base.pas"/>
+        <UnitName Value="James.Logger.Base"/>
       </Item9>
       <Item10>
-        <Filename Value="..\src\james.xml.clss.pas"/>
-        <UnitName Value="James.XML.Clss"/>
+        <Filename Value="..\src\log\james.logger.clss.pas"/>
+        <UnitName Value="James.Logger.Clss"/>
       </Item10>
       <Item11>
-        <Filename Value="..\src\james.core.base.pas"/>
-        <UnitName Value="James.Core.Base"/>
+        <Filename Value="..\src\codec\james.base64.clss.pas"/>
+        <UnitName Value="James.Base64.Clss"/>
       </Item11>
       <Item12>
-        <Filename Value="..\src\james.core.data.adapters.pas"/>
-        <UnitName Value="james.core.data.adapters"/>
+        <Filename Value="..\src\codec\james.md5.clss.pas"/>
+        <UnitName Value="James.MD5.Clss"/>
       </Item12>
     </Files>
     <RequiredPkgs Count="3">
