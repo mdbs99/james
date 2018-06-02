@@ -88,6 +88,7 @@
       <Unit3>
         <Filename Value="codec\james.base64.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.Base64.Tests"/>
       </Unit3>
       <Unit4>
         <Filename Value="codec\james.md5.tests.pas"/>

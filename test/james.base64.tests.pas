@@ -95,17 +95,17 @@ begin
     Ss.Text := TXT;
     CheckEquals(
       TBase64Encoder.New(TXT).AsString,
-      TBase64StreamEncoded.New(TDataStream.New(Buf)).AsString,
+      TBase64EncodedAsStream.New(TDataStream.New(Buf)).AsString,
       'Test Stream'
     );
     CheckEquals(
       TBase64Encoder.New(TXT).AsString,
-      TBase64StreamEncoded.New(TDataStream.New(TXT)).AsString,
+      TBase64EncodedAsStream.New(TDataStream.New(TXT)).AsString,
       'Test String'
     );
     CheckEquals(
       TBase64Encoder.New(TXT+#13#10).AsString,
-      TBase64StreamEncoded.New(TDataStream.New(Ss)).AsString,
+      TBase64EncodedAsStream.New(TDataStream.New(Ss)).AsString,
       'Test Strings'
     );
   finally
@@ -123,7 +123,7 @@ var
 begin
   Buf := TMemoryStream.Create;
   try
-    TBase64StreamEncoded.New(TDataStream.New(TXT)).Save(Buf);
+    TBase64EncodedAsStream.New(TDataStream.New(TXT)).Save(Buf);
     SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
@@ -141,7 +141,7 @@ var
 begin
   Ss := TStringList.Create;
   try
-    TBase64StreamEncoded.New(TDataStream.New(TXT)).Save(Ss);
+    TBase64EncodedAsStream.New(TDataStream.New(TXT)).Save(Ss);
     CheckEquals(TBase64Encoder.New(TXT).AsString, Trim(Ss.Text));
   finally
     Ss.Free;
@@ -160,7 +160,7 @@ begin
         VALUE
       ).AsString
     ).AsString,
-    TBase64StreamDecoded.New(
+    TBase64DecodedAsStream.New(
       TDataStream.New(
         TBase64Encoder.New(
           VALUE

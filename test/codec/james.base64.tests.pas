@@ -45,14 +45,14 @@ type
     procedure TestValue;
   end;
 
-  TBase64StreamEncodedTest = class(TTestCase)
+  TBase64EncodedAsStreamTest = class(TTestCase)
   published
     procedure TestValue;
     procedure TestSaveStream;
     procedure TestSaveStrings;
   end;
 
-  TBase64StreamDecodedTest = class(TTestCase)
+  TBase64DecodedAsStreamTest = class(TTestCase)
   published
     procedure TestValue;
   end;
@@ -79,9 +79,9 @@ begin
   );
 end;
 
-{ TBase64StreamEncodedTest }
+{ TBase64EncodedAsStreamTest }
 
-procedure TBase64StreamEncodedTest.TestValue;
+procedure TBase64EncodedAsStreamTest.TestValue;
 const
   TXT: string = 'AEIOU123456qwert';
 var
@@ -95,17 +95,17 @@ begin
     Ss.Text := TXT;
     CheckEquals(
       TBase64Encoder.New(TXT).AsString,
-      TBase64StreamEncoded.New(TDataStream.New(Buf)).AsString,
+      TBase64EncodedAsStream.New(TDataStream.New(Buf)).AsString,
       'Test Stream'
     );
     CheckEquals(
       TBase64Encoder.New(TXT).AsString,
-      TBase64StreamEncoded.New(TDataStream.New(TXT)).AsString,
+      TBase64EncodedAsStream.New(TDataStream.New(TXT)).AsString,
       'Test String'
     );
     CheckEquals(
       TBase64Encoder.New(TXT+#13#10).AsString,
-      TBase64StreamEncoded.New(TDataStream.New(Ss)).AsString,
+      TBase64EncodedAsStream.New(TDataStream.New(Ss)).AsString,
       'Test Strings'
     );
   finally
@@ -114,7 +114,7 @@ begin
   end;
 end;
 
-procedure TBase64StreamEncodedTest.TestSaveStream;
+procedure TBase64EncodedAsStreamTest.TestSaveStream;
 const
   TXT: string = 'ABCDEFG#13#10IJL';
 var
@@ -123,7 +123,7 @@ var
 begin
   Buf := TMemoryStream.Create;
   try
-    TBase64StreamEncoded.New(TDataStream.New(TXT)).Save(Buf);
+    TBase64EncodedAsStream.New(TDataStream.New(TXT)).Save(Buf);
     SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
@@ -133,7 +133,7 @@ begin
   end;
 end;
 
-procedure TBase64StreamEncodedTest.TestSaveStrings;
+procedure TBase64EncodedAsStreamTest.TestSaveStrings;
 const
   TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
@@ -141,16 +141,16 @@ var
 begin
   Ss := TStringList.Create;
   try
-    TBase64StreamEncoded.New(TDataStream.New(TXT)).Save(Ss);
+    TBase64EncodedAsStream.New(TDataStream.New(TXT)).Save(Ss);
     CheckEquals(TBase64Encoder.New(TXT).AsString, Trim(Ss.Text));
   finally
     Ss.Free;
   end;
 end;
 
-{ TBase64StreamDecodedTest }
+{ TBase64DecodedAsStreamTest }
 
-procedure TBase64StreamDecodedTest.TestValue;
+procedure TBase64DecodedAsStreamTest.TestValue;
 const
   VALUE = 'foo bar 123';
 begin
@@ -160,7 +160,7 @@ begin
         VALUE
       ).AsString
     ).AsString,
-    TBase64StreamDecoded.New(
+    TBase64DecodedAsStream.New(
       TDataStream.New(
         TBase64Encoder.New(
           VALUE
@@ -174,8 +174,8 @@ initialization
   TTestSuite.New('Base64')
     .Add(TTest.New(TBase64EncoderTest))
     .Add(TTest.New(TBase64DecoderTest))
-    .Add(TTest.New(TBase64StreamEncodedTest))
-    .Add(TTest.New(TBase64StreamDecodedTest))
+    .Add(TTest.New(TBase64EncodedAsStreamTest))
+    .Add(TTest.New(TBase64DecodedAsStreamTest))
     ;
 
 end.
