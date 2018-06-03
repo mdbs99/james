@@ -29,7 +29,7 @@ for details about the copyright.
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
-    <Version Minor="9" Release="2"/>
+    <Version Minor="9" Release="3"/>
     <Files Count="13">
       <Item1>
         <Filename Value="..\src\core\james.core.base.pas"/>
@@ -37,7 +37,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
       </Item1>
       <Item2>
         <Filename Value="..\src\core\james.rtl.adapters.pas"/>
-        <UnitName Value="james.rtl.adapters"/>
+        <UnitName Value="James.RTL.Adapters"/>
       </Item2>
       <Item3>
         <Filename Value="..\src\core\james.data.base.pas"/>
