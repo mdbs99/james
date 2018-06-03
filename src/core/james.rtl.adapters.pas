@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Core.Data.Adapters;
+unit James.RTL.Adapters;
 
 {$i James.inc}
 
@@ -34,7 +34,7 @@ uses
   James.Data.Clss;
 
 type
-  TOleVariantToStream = class(TInterfacedObject, IAdapter<IDataStream>)
+  TOleVariantAsDataStream = class(TInterfacedObject, IAdapter<IDataStream>)
   private
     FValue: OleVariant;
   public
@@ -43,31 +43,22 @@ type
     function Value: IDataStream;
   end;
 
-  TOleVariantFromStream = class(TInterfacedObject, IAdapter<OleVariant>)
-  private
-    FValue: IDataStream;
-  public
-    constructor Create(const Value: IDataStream);
-    class function New(const Value: IDataStream): IAdapter<OleVariant>;
-    function Value: OleVariant;
-  end;
-
 implementation
 
-{ TOleVariantToStream }
+{ TOleVariantAsDataStream }
 
-constructor TOleVariantToStream.Create(const Value: OleVariant);
+constructor TOleVariantAsDataStream.Create(const Value: OleVariant);
 begin
   inherited Create;
   FValue := Value;
 end;
 
-class function TOleVariantToStream.New(const Value: OleVariant): IAdapter<IDataStream>;
+class function TOleVariantAsDataStream.New(const Value: OleVariant): IAdapter<IDataStream>;
 begin
   Result := Create(Value);
 end;
 
-function TOleVariantToStream.Value: IDataStream;
+function TOleVariantAsDataStream.Value: IDataStream;
 var
   I: Integer;
   P: Pointer;
@@ -89,40 +80,6 @@ begin
     end;
   finally
     S.Free;
-  end;
-end;
-
-{ TOleVariantFromStream }
-
-constructor TOleVariantFromStream.Create(const Value: IDataStream);
-begin
-  inherited Create;
-  FValue := Value;
-end;
-
-class function TOleVariantFromStream.New(const Value: IDataStream): IAdapter<OleVariant>;
-begin
-  Result := Create(Value);
-end;
-
-function TOleVariantFromStream.Value: OleVariant;
-var
-  Data: PByteArray;
-  M: TMemoryStream;
-begin
-  M := TMemoryStream.Create;
-  try
-    FValue.Save(M);
-    Result := VarArrayCreate([0, M.Size-1], varByte);
-    Data := VarArrayLock(Result);
-    try
-      M.Position := 0;
-      M.ReadBuffer(Data^, M.Size);
-    finally
-      VarArrayUnlock(Result);
-    end;
-  finally
-    M.Free;
   end;
 end;
 

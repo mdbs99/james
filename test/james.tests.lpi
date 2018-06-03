@@ -71,36 +71,42 @@
         <PackageName Value="FCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="james.tests.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="James.Tests"/>
       </Unit0>
       <Unit1>
-        <Filename Value="core\james.core.tests.pas"/>
+        <Filename Value="core\james.rtl.adapters.tests.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="James.RTL.Adapters.Tests"/>
       </Unit1>
       <Unit2>
-        <Filename Value="core\james.data.tests.pas"/>
+        <Filename Value="core\james.data.clss.tests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.Data.Tests"/>
+        <UnitName Value="James.Data.Clss.Tests"/>
       </Unit2>
       <Unit3>
-        <Filename Value="codec\james.base64.tests.pas"/>
+        <Filename Value="codec\james.base64.clss.tests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.Base64.Tests"/>
+        <UnitName Value="James.Base64.Clss.Tests"/>
       </Unit3>
       <Unit4>
-        <Filename Value="codec\james.md5.tests.pas"/>
+        <Filename Value="codec\james.md5.clss.tests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.MD5.Tests"/>
+        <UnitName Value="James.MD5.Clss.Tests"/>
       </Unit4>
       <Unit5>
-        <Filename Value="text\james.xml.tests.pas"/>
+        <Filename Value="text\james.xml.clss.tests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.XML.Tests"/>
+        <UnitName Value="James.XML.Clss.Tests"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="core\james.data.adapters.tests.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="James.Data.Adapters.Tests"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

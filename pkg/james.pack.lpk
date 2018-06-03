@@ -30,14 +30,14 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="9" Release="2"/>
-    <Files Count="12">
+    <Files Count="13">
       <Item1>
         <Filename Value="..\src\core\james.core.base.pas"/>
         <UnitName Value="James.Core.Base"/>
       </Item1>
       <Item2>
-        <Filename Value="..\src\core\james.core.data.adapters.pas"/>
-        <UnitName Value="James.Core.Data.Adapters"/>
+        <Filename Value="..\src\core\james.rtl.adapters.pas"/>
+        <UnitName Value="james.rtl.adapters"/>
       </Item2>
       <Item3>
         <Filename Value="..\src\core\james.data.base.pas"/>
@@ -79,6 +79,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <Filename Value="..\src\codec\james.md5.clss.pas"/>
         <UnitName Value="James.MD5.Clss"/>
       </Item12>
+      <Item13>
+        <Filename Value="..\src\core\james.data.adapters.pas"/>
+        <UnitName Value="James.Data.Adapters"/>
+      </Item13>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>

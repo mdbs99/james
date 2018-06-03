@@ -42,7 +42,7 @@ type
 
   TBase64Decoder = TCBase64Decoder;
 
-  TBase64EncodedAsStream = class sealed(TInterfacedObject, IDataStream)
+  TBase64EncodedStream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
     function Encode: IDataStream;
@@ -56,7 +56,7 @@ type
     function Size: Int64;
   end;
 
-  TBase64DecodedAsStream = class sealed(TInterfacedObject, IDataStream)
+  TBase64DecodedStream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
     function Decode: IDataStream;
@@ -72,9 +72,9 @@ type
 
 implementation
 
-{ TBase64EncodedAsStream }
+{ TBase64EncodedStream }
 
-function TBase64EncodedAsStream.Encode: IDataStream;
+function TBase64EncodedStream.Encode: IDataStream;
 var
   Buf1, Buf2: TStringStream;
 begin
@@ -93,45 +93,45 @@ begin
   end;
 end;
 
-constructor TBase64EncodedAsStream.Create(const Origin: IDataStream);
+constructor TBase64EncodedStream.Create(const Origin: IDataStream);
 begin
   inherited Create;
   FOrigin := Origin;
 end;
 
-class function TBase64EncodedAsStream.New(const Origin: IDataStream): IDataStream;
+class function TBase64EncodedStream.New(const Origin: IDataStream): IDataStream;
 begin
   Result := Create(Origin);
 end;
 
-function TBase64EncodedAsStream.Save(Stream: TStream): IDataStream;
+function TBase64EncodedStream.Save(Stream: TStream): IDataStream;
 begin
   Result := Encode.Save(Stream);
 end;
 
-function TBase64EncodedAsStream.Save(const FileName: string): IDataStream;
+function TBase64EncodedStream.Save(const FileName: string): IDataStream;
 begin
   Result := Encode.Save(FileName);
 end;
 
-function TBase64EncodedAsStream.Save(Strings: TStrings): IDataStream;
+function TBase64EncodedStream.Save(Strings: TStrings): IDataStream;
 begin
   Result := Encode.Save(Strings);
 end;
 
-function TBase64EncodedAsStream.AsString: string;
+function TBase64EncodedStream.AsString: string;
 begin
   Result := Trim(Encode.AsString);
 end;
 
-function TBase64EncodedAsStream.Size: Int64;
+function TBase64EncodedStream.Size: Int64;
 begin
   Result := Encode.Size;
 end;
 
-{ TBase64DecodedAsStream }
+{ TBase64DecodedStream }
 
-function TBase64DecodedAsStream.Decode: IDataStream;
+function TBase64DecodedStream.Decode: IDataStream;
 var
   Buf1, Buf2: TStringStream;
 begin
@@ -150,38 +150,38 @@ begin
   end;
 end;
 
-constructor TBase64DecodedAsStream.Create(const Origin: IDataStream);
+constructor TBase64DecodedStream.Create(const Origin: IDataStream);
 begin
   inherited Create;
   FOrigin := Origin;
 end;
 
-class function TBase64DecodedAsStream.New(const Origin: IDataStream): IDataStream;
+class function TBase64DecodedStream.New(const Origin: IDataStream): IDataStream;
 begin
   Result := Create(Origin);
 end;
 
-function TBase64DecodedAsStream.Save(Stream: TStream): IDataStream;
+function TBase64DecodedStream.Save(Stream: TStream): IDataStream;
 begin
   Result := Decode.Save(Stream);
 end;
 
-function TBase64DecodedAsStream.Save(const FileName: string): IDataStream;
+function TBase64DecodedStream.Save(const FileName: string): IDataStream;
 begin
   Result := Decode.Save(FileName);
 end;
 
-function TBase64DecodedAsStream.Save(Strings: TStrings): IDataStream;
+function TBase64DecodedStream.Save(Strings: TStrings): IDataStream;
 begin
   Result := Decode.Save(Strings);
 end;
 
-function TBase64DecodedAsStream.AsString: string;
+function TBase64DecodedStream.AsString: string;
 begin
   Result := Trim(Decode.AsString);
 end;
 
-function TBase64DecodedAsStream.Size: Int64;
+function TBase64DecodedStream.Size: Int64;
 begin
   Result := Decode.Size;
 end;

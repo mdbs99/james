@@ -20,62 +20,63 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-} 
-unit James.MD5.Tests;
+}
+unit James.Data.Adapters;
 
 {$i James.inc}
 
 interface
 
 uses
-  Classes, SysUtils,
-  James.Data.Clss,
-  James.MD5.Clss,
-  James.Testing.Clss;
+  Classes, SysUtils, COMObj, Variants,
+  James.Core.Base,
+  James.Data.Base,
+  James.Data.Clss;
 
 type
-  TMD5HashTest = class(TTestCase)
-  published
-    procedure TestHashByMd5HashGeneratorPage;
-  end;
-
-  TMD5StreamTest = class(TTestCase)
-  published
-    procedure TestStreamFromMemory;
+  TDataStreamAsOleVariant = class(TInterfacedObject, IAdapter<OleVariant>)
+  private
+    FValue: IDataStream;
+  public
+    constructor Create(const Value: IDataStream);
+    class function New(const Value: IDataStream): IAdapter<OleVariant>;
+    function Value: OleVariant;
   end;
 
 implementation
 
-{ TMD5HashTest }
+{ TDataStreamAsOleVariant }
 
-procedure TMD5HashTest.TestHashByMd5HashGeneratorPage;
-const
-  VALUE: string = 'http://www.md5hashgenerator.com/';
-  VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
+constructor TDataStreamAsOleVariant.Create(const Value: IDataStream);
 begin
-  CheckEquals(
-    VALUE_HASH,
-    TMD5Hash.New(VALUE).AsString
-  );
+  inherited Create;
+  FValue := Value;
 end;
 
-{ TMD5StreamTest }
-
-procedure TMD5StreamTest.TestStreamFromMemory;
-const
-  TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
+class function TDataStreamAsOleVariant.New(const Value: IDataStream): IAdapter<OleVariant>;
 begin
-  CheckEquals(
-    TMD5Hash.New(TXT).AsString,
-    TMD5Stream.New(
-      TDataStream.New(TXT)
-    ).AsString
-  );
+  Result := Create(Value);
 end;
 
-initialization
-  TTestSuite.New('Codec')
-    .Add(TTest.New(TMD5HashTest))
-    .Add(TTest.New(TMD5StreamTest));
+function TDataStreamAsOleVariant.Value: OleVariant;
+var
+  Data: PByteArray;
+  M: TMemoryStream;
+begin
+  M := TMemoryStream.Create;
+  try
+    FValue.Save(M);
+    Result := VarArrayCreate([0, M.Size-1], varByte);
+    Data := VarArrayLock(Result);
+    try
+      M.Position := 0;
+      M.ReadBuffer(Data^, M.Size);
+    finally
+      VarArrayUnlock(Result);
+    end;
+  finally
+    M.Free;
+  end;
+end;
 
 end.
