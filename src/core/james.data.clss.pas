@@ -29,6 +29,7 @@ interface
 
 uses
   Classes, SysUtils, DB, Variants,
+  James.Core.Base,
   James.Data.Base;
 
 type
@@ -37,9 +38,9 @@ type
     FStream: TMemoryStream;
   public
     constructor Create(Stream: TStream); overload;
-    constructor Create(const S: string); overload;
     class function New(Stream: TStream): IDataStream; overload;
     class function New(const S: string): IDataStream; overload;
+    class function New(const S: IAdapter<string>): IDataStream; overload;
     class function New(Strings: TStrings): IDataStream; overload;
     class function New: IDataStream; overload;
     destructor Destroy; override;
@@ -213,38 +214,38 @@ begin
     FStream.LoadFromStream(Stream);
 end;
 
-constructor TDataStream.Create(const S: string);
-var
-  F: TStringStream;
-begin
-  F := TStringStream.Create(S);
-  try
-    Create(F);
-  finally
-    F.Free;
-  end;
-end;
-
 class function TDataStream.New(Stream: TStream): IDataStream;
 begin
   Result := Create(Stream);
 end;
 
 class function TDataStream.New(const S: string): IDataStream;
+var
+  M: TStringStream;
 begin
-  Result := Create(S);
+  M := TStringStream.Create(S);
+  try
+    Result := New(M);
+  finally
+    M.Free;
+  end;
+end;
+
+class function TDataStream.New(const S: IAdapter<string>): IDataStream;
+begin
+  Result := New(S.Value);
 end;
 
 class function TDataStream.New(Strings: TStrings): IDataStream;
 var
-  Buf: TMemoryStream;
+  M: TMemoryStream;
 begin
-  Buf := TMemoryStream.Create;
+  M := TMemoryStream.Create;
   try
-    Strings.SaveToStream(Buf);
-    Result := New(Buf);
+    Strings.SaveToStream(M);
+    Result := New(M);
   finally
-    Buf.Free;
+    M.Free;
   end;
 end;
 
