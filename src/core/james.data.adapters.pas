@@ -30,8 +30,7 @@ interface
 uses
   Classes, SysUtils, COMObj, Variants,
   James.Core.Base,
-  James.Data.Base,
-  James.Data.Clss;
+  James.Data.Base;
 
 type
   TDataStreamAsOleVariant = class(TInterfacedObject, IAdapter<OleVariant>)
