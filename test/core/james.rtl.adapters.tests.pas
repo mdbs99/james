@@ -36,16 +36,16 @@ uses
   James.Testing.Clss;
 
 type
-  TOleVariantAsStreamTest = class(TTestCase)
+  TOleVariantAsDataStreamTest = class(TTestCase)
   published
     procedure TestValue;
   end;
 
 implementation
 
-{ TOleVariantAsStreamTest }
+{ TOleVariantAsDataStreamTest }
 
-procedure TOleVariantAsStreamTest.TestValue;
+procedure TOleVariantAsDataStreamTest.TestValue;
 var
   V: OleVariant;
 begin
@@ -58,6 +58,6 @@ end;
 
 initialization
   TTestSuite.New('Core.RTL')
-    .Add(TTest.New(TOleVariantAsStreamTest))
+    .Add(TTest.New(TOleVariantAsDataStreamTest))
 
 end.
