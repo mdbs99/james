@@ -65,7 +65,7 @@ procedure TBase64EncoderTest.TestValue;
 begin
   CheckEquals(
     'aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=',
-    TBase64Encoder.New('https://www.base64encode.org/').AsString
+    TBase64Encoder.New('https://www.base64encode.org/').Value
   );
 end;
 
@@ -75,7 +75,7 @@ procedure TBase64DecoderTest.TestValue;
 begin
   CheckEquals(
     'https://www.base64encode.org/',
-    TBase64Decoder.New('aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=').AsString
+    TBase64Decoder.New('aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=').Value
   );
 end;
 
@@ -94,17 +94,17 @@ begin
     Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
     CheckEquals(
-      TBase64Encoder.New(TXT).AsString,
+      TBase64Encoder.New(TXT).Value,
       TBase64EncodedStream.New(TDataStream.New(Buf)).AsString,
       'Test Stream'
     );
     CheckEquals(
-      TBase64Encoder.New(TXT).AsString,
+      TBase64Encoder.New(TXT).Value,
       TBase64EncodedStream.New(TDataStream.New(TXT)).AsString,
       'Test String'
     );
     CheckEquals(
-      TBase64Encoder.New(TXT+#13#10).AsString,
+      TBase64Encoder.New(TXT+#13#10).Value,
       TBase64EncodedStream.New(TDataStream.New(Ss)).AsString,
       'Test Strings'
     );
@@ -127,7 +127,7 @@ begin
     SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
-    CheckEquals(TBase64Encoder.New(TXT).AsString, S);
+    CheckEquals(TBase64Encoder.New(TXT).Value, S);
   finally
     Buf.Free;
   end;
@@ -145,7 +145,7 @@ begin
   try
     TBase64EncodedStream.New(TDataStream.New(TXT)).Save(M);
     S.LoadFromStream(M);
-    CheckEquals(TBase64Encoder.New(TXT).AsString, Trim(S.Text));
+    CheckEquals(TBase64Encoder.New(TXT).Value, Trim(S.Text));
   finally
     M.Free;
     S.Free;
@@ -162,13 +162,13 @@ begin
     TBase64Decoder.New(
       TBase64Encoder.New(
         VALUE
-      ).AsString
-    ).AsString,
+      ).Value
+    ).Value,
     TBase64DecodedStream.New(
       TDataStream.New(
         TBase64Encoder.New(
           VALUE
-        ).AsString
+        )
       )
     ).AsString
   );

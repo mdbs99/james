@@ -39,7 +39,7 @@ type
   public
     constructor Create(const Value: string);
     class function New(const Value: string): IDataHash;
-    function AsString: string;
+    function Value: string;
   end;
 
 implementation
@@ -57,7 +57,7 @@ begin
   Result := Create(Value);
 end;
 
-function TCBase64Encoder.AsString: string;
+function TCBase64Encoder.Value: string;
 begin
   raise Exception.Create('TCBase64Encoder.AsString was not implemented yet');
 end;
