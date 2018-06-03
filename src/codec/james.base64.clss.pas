@@ -38,9 +38,9 @@ uses
   James.Data.Clss;
 
 type
-  TBase64Encoder = TCBase64Encoder;
+  TBase64Encoder = class(TCBase64Encoder, IDataHash);
 
-  TBase64Decoder = TCBase64Decoder;
+  TBase64Decoder = class(TCBase64Decoder, IDataHash);
 
   TBase64EncodedStream = class sealed(TInterfacedObject, IDataStream)
   private
