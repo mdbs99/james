@@ -44,7 +44,6 @@ type
     class function New: IDataStream; overload;
     destructor Destroy; override;
     function Save(Stream: TStream): IDataStream; overload;
-    function Save(Strings: TStrings): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
   public type
@@ -54,7 +53,6 @@ type
     public
       constructor Create(const aController: IUnknown; Origin: IDataStream);
       function Save(Stream: TStream): IDataStream; overload;
-      function Save(Strings: TStrings): IDataStream; overload;
       function AsString: string;
       function Size: Int64;
     end;
@@ -268,20 +266,6 @@ begin
   Stream.Position := 0;
 end;
 
-function TDataStream.Save(Strings: TStrings): IDataStream;
-var
-  Buf: TStream;
-begin
-  Result := Self;
-  Buf := TMemoryStream.Create;
-  try
-    Save(Buf);
-    Strings.LoadFromStream(Buf);
-  finally
-    Buf.Free;
-  end;
-end;
-
 function TDataStream.AsString: string;
 begin
   with FStream do
@@ -309,11 +293,6 @@ end;
 function TDataStream.TAggregated.Save(Stream: TStream): IDataStream;
 begin
   Result := FOrigin.Save(Stream);
-end;
-
-function TDataStream.TAggregated.Save(Strings: TStrings): IDataStream;
-begin
-  Result := FOrigin.Save(Strings);
 end;
 
 function TDataStream.TAggregated.AsString: string;

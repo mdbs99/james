@@ -50,7 +50,6 @@ type
     constructor Create(const Origin: IDataStream); reintroduce;
     class function New(const Origin: IDataStream): IDataStream;
     function Save(Stream: TStream): IDataStream; overload;
-    function Save(Strings: TStrings): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
   end;
@@ -63,7 +62,6 @@ type
     constructor Create(const Origin: IDataStream); reintroduce;
     class function New(const Origin: IDataStream): IDataStream;
     function Save(Stream: TStream): IDataStream; overload;
-    function Save(Strings: TStrings): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
   end;
@@ -105,11 +103,6 @@ end;
 function TBase64EncodedStream.Save(Stream: TStream): IDataStream;
 begin
   Result := Encode.Save(Stream);
-end;
-
-function TBase64EncodedStream.Save(Strings: TStrings): IDataStream;
-begin
-  Result := Encode.Save(Strings);
 end;
 
 function TBase64EncodedStream.AsString: string;
@@ -157,11 +150,6 @@ end;
 function TBase64DecodedStream.Save(Stream: TStream): IDataStream;
 begin
   Result := Decode.Save(Stream);
-end;
-
-function TBase64DecodedStream.Save(Strings: TStrings): IDataStream;
-begin
-  Result := Decode.Save(Strings);
 end;
 
 function TBase64DecodedStream.AsString: string;

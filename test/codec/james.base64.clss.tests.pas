@@ -137,14 +137,18 @@ procedure TBase64EncodedStreamTest.TestSaveStrings;
 const
   TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
-  Ss: TStrings;
+  S: TStrings;
+  M: TMemoryStream;
 begin
-  Ss := TStringList.Create;
+  M := TMemoryStream.Create;
+  S := TStringList.Create;
   try
-    TBase64EncodedStream.New(TDataStream.New(TXT)).Save(Ss);
-    CheckEquals(TBase64Encoder.New(TXT).AsString, Trim(Ss.Text));
+    TBase64EncodedStream.New(TDataStream.New(TXT)).Save(M);
+    S.LoadFromStream(M);
+    CheckEquals(TBase64Encoder.New(TXT).AsString, Trim(S.Text));
   finally
-    Ss.Free;
+    M.Free;
+    S.Free;
   end;
 end;
 

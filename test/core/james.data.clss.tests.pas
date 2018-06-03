@@ -235,14 +235,18 @@ procedure TDataStreamTest.TestSaveStrings;
 const
   TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
 var
-  Ss: TStrings;
+  S: TStrings;
+  M: TMemoryStream;
 begin
-  Ss := TStringList.Create;
+  M := TMemoryStream.Create;
+  S := TStringList.Create;
   try
-    TDataStream.New(TXT).Save(Ss);
-    CheckEquals(TXT+#13#10, Ss.Text);
+    TDataStream.New(TXT).Save(M);
+    S.LoadFromStream(M);
+    CheckEquals(TXT+#13#10, S.Text);
   finally
-    Ss.Free;
+    M.Free;
+    S.Free;
   end;
 end;
 
