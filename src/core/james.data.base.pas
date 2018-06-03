@@ -28,7 +28,8 @@ unit James.Data.Base;
 interface
 
 uses
-  Classes, SysUtils, Variants, DB;
+  Classes, SysUtils, Variants, DB,
+  James.Core.Base;
 
 type
   IDataStream = interface
@@ -81,9 +82,9 @@ type
     function AsSmallString: string;
   end;
 
-  IDataHash = interface
+  IDataHash = interface(IAdapter<string>)
   ['{69A5ED2A-7E06-4942-A6EA-48B36670F360}']
-    function AsString: string;
+    function Value: string;
   end;
 
   IDataResult = interface
