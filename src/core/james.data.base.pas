@@ -35,7 +35,6 @@ type
   ['{698868A5-9C57-4F1F-9E84-4AA7580CB01A}']
     function Save(Stream: TStream): IDataStream; overload;
     function Save(Strings: TStrings): IDataStream; overload;
-    function Save(const FileName: string): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
   end;

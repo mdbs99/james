@@ -49,7 +49,6 @@ type
     constructor Create(const Origin: IDataStream); reintroduce;
     class function New(const Origin: IDataStream): IDataStream;
     function Save(Stream: TStream): IDataStream; overload;
-    function Save(const FileName: string): IDataStream; overload;
     function Save(Strings: TStrings): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
@@ -80,11 +79,6 @@ end;
 function TMD5Stream.Save(Stream: TStream): IDataStream;
 begin
   Result := GetStream.Save(Stream);
-end;
-
-function TMD5Stream.Save(const FileName: string): IDataStream;
-begin
-  Result := GetStream.Save(FileName);
 end;
 
 function TMD5Stream.Save(Strings: TStrings): IDataStream;

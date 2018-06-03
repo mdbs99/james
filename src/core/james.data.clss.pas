@@ -45,7 +45,6 @@ type
     destructor Destroy; override;
     function Save(Stream: TStream): IDataStream; overload;
     function Save(Strings: TStrings): IDataStream; overload;
-    function Save(const FileName: string): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
   public type
@@ -56,7 +55,6 @@ type
       constructor Create(const aController: IUnknown; Origin: IDataStream);
       function Save(Stream: TStream): IDataStream; overload;
       function Save(Strings: TStrings): IDataStream; overload;
-      function Save(const FileName: string): IDataStream; overload;
       function AsString: string;
       function Size: Int64;
     end;
@@ -284,12 +282,6 @@ begin
   end;
 end;
 
-function TDataStream.Save(const FileName: string): IDataStream;
-begin
-  Result := Self;
-  FStream.SaveToFile(FileName);
-end;
-
 function TDataStream.AsString: string;
 begin
   with FStream do
@@ -322,11 +314,6 @@ end;
 function TDataStream.TAggregated.Save(Strings: TStrings): IDataStream;
 begin
   Result := FOrigin.Save(Strings);
-end;
-
-function TDataStream.TAggregated.Save(const FileName: string): IDataStream;
-begin
-  Result := FOrigin.Save(FileName);
 end;
 
 function TDataStream.TAggregated.AsString: string;
