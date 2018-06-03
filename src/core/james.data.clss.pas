@@ -99,7 +99,6 @@ type
     class function New(Origin: TFields): IDataParams; overload;
     destructor Destroy; override;
     function Exists(const ParamName: string): Boolean;
-    function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
     function Add(const AParam: IDataParam): IDataParams; overload;
     function Add(const AParams: IDataParams): IDataParams; overload;
     function Get(Index: Integer): IDataParam; overload;
@@ -114,7 +113,6 @@ type
     public
       constructor Create(const AController: IInterface; Origin: IDataParams); reintroduce;
       function Exists(const ParamName: string): Boolean;
-      function Add(const ParamName: string; DataType: TFieldType; Value: Variant): IDataParams; overload;
       function Add(const AParam: IDataParam): IDataParams; overload;
       function Add(const AParams: IDataParams): IDataParams; overload;
       function Get(Index: Integer): IDataParam; overload;
@@ -448,7 +446,7 @@ begin
   Result := Self.New;
   for I := 0 to Origin.Count -1 do
     with Origin[I] do
-      Result.Add(FieldName, DataType, Value);
+      Result.Add(TDataParam.New(FieldName, DataType, Value));
 end;
 
 destructor TDataParams.Destroy;
@@ -476,13 +474,6 @@ function TDataParams.Add(const AParam: IDataParam): IDataParams;
 begin
   Result := Self;
   FList.Add(AParam);
-end;
-
-function TDataParams.Add(const ParamName: string; DataType: TFieldType;
-  Value: Variant): IDataParams;
-begin
-  Result := Self;
-  FList.Add(TDataParam.New(ParamName, DataType, Value));
 end;
 
 function TDataParams.Add(const AParams: IDataParams): IDataParams;
@@ -554,12 +545,6 @@ end;
 function TDataParams.TAggregate.Exists(const ParamName: string): Boolean;
 begin
   Result := FOrigin.Exists(ParamName);
-end;
-
-function TDataParams.TAggregate.Add(const ParamName: string; DataType: TFieldType;
-  Value: Variant): IDataParams;
-begin
-  Result := FOrigin.Add(ParamName, DataType, Value);
 end;
 
 function TDataParams.TAggregate.Add(const AParam: IDataParam): IDataParams;

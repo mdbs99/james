@@ -102,7 +102,7 @@ begin
   CheckEquals(
     10,
     TDataParams.New
-      .Add('foo', ftSmallint, 10)
+      .Add(TDataParam.New('foo', ftSmallint, 10))
       .Get(0)
       .AsInteger
   );
