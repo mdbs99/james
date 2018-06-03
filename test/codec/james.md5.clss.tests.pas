@@ -74,7 +74,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Codec')
+  TTestSuite.New('Codec.MD5')
     .Add(TTest.New(TMD5HashTest))
     .Add(TTest.New(TMD5StreamTest));
 

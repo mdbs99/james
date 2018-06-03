@@ -59,7 +59,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Core')
+  TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamAsOleVariantTest))
 
 end.

@@ -430,7 +430,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Core')
+  TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamTest))
     .Add(TTest.New(TDataParamTest))
     .Add(TTest.New(TDataParamsTest))

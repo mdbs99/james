@@ -57,7 +57,7 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Core')
+  TTestSuite.New('Core.RTL')
     .Add(TTest.New(TOleVariantAsStreamTest))
 
 end.
