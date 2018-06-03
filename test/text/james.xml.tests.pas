@@ -277,7 +277,7 @@ begin
     'foo',
     TXMLPack.New(TXMLStreamForTest.New).Node(
       '/root/group/xpto',
-      TXMLNodeDefault.New('foo', '')
+      TXMLNodeAsDefault.New('foo', '')
     )
     .Name
   );

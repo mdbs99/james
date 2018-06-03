@@ -52,7 +52,7 @@ type
     class function New(const ARootName: TXMLString): IXMLPack; overload;
   end;
 
-  TXMLNodeDefault = class(TInterfacedObject, IXMLNode)
+  TXMLNodeAsDefault = class(TInterfacedObject, IXMLNode)
   private
     FName: TXMLString;
     FText: TXMLString;
@@ -71,58 +71,58 @@ type
 
 implementation
 
-{ TXMLNodeDefault }
+{ TXMLNodeAsDefault }
 
-constructor TXMLNodeDefault.Create(const Name, Text: TXMLString);
+constructor TXMLNodeAsDefault.Create(const Name, Text: TXMLString);
 begin
   inherited Create;
   FName := Name;
   FText := Text;
 end;
 
-class function TXMLNodeDefault.New(const Name, Text: TXMLString): IXMLNode;
+class function TXMLNodeAsDefault.New(const Name, Text: TXMLString): IXMLNode;
 begin
   Result := Create(Name, Text);
 end;
 
-function TXMLNodeDefault.Name: TXMLString;
+function TXMLNodeAsDefault.Name: TXMLString;
 begin
   Result := FName;
 end;
 
-function TXMLNodeDefault.Text: TXMLString;
+function TXMLNodeAsDefault.Text: TXMLString;
 begin
   Result := FText;
 end;
 
-function TXMLNodeDefault.Text(const AText: TXMLString): IXMLNode;
+function TXMLNodeAsDefault.Text(const AText: TXMLString): IXMLNode;
 begin
   Result := Self;
   FText := AText;
 end;
 
-function TXMLNodeDefault.Text(const AText: string): IXMLNode;
+function TXMLNodeAsDefault.Text(const AText: string): IXMLNode;
 begin
   Result := Self;
   Text(TXMLString(AText));
 end;
 
-function TXMLNodeDefault.Attrs: IXMLAttributes;
+function TXMLNodeAsDefault.Attrs: IXMLAttributes;
 begin
   raise EXMLError.Create('Attributes not allowed.');
 end;
 
-function TXMLNodeDefault.Add(const AName: TXMLString): IXMLNode;
+function TXMLNodeAsDefault.Add(const AName: TXMLString): IXMLNode;
 begin
   raise EXMLError.Create('Add not allowed.');
 end;
 
-function TXMLNodeDefault.Childs: IXMLNodes;
+function TXMLNodeAsDefault.Childs: IXMLNodes;
 begin
   raise EXMLError.Create('Childs not allowed.');
 end;
 
-function TXMLNodeDefault.Parent: IXMLNode;
+function TXMLNodeAsDefault.Parent: IXMLNode;
 begin
   Result := Self;
 end;
