@@ -28,7 +28,7 @@ unit James.Data.Adapters.Tests;
 interface
 
 uses
-  Classes, SysUtils, COMObj, Variants,
+  Classes, SysUtils, COMObj, Variants, DB,
   James.Data.Base,
   James.Data.Clss,
   James.Data.Adapters,
@@ -37,6 +37,11 @@ uses
 
 type
   TDataStreamAsOleVariantTest = class(TTestCase)
+  published
+    procedure TestValue;
+  end;
+
+  TDataStreamAsParamTest = class(TTestCase)
   published
     procedure TestValue;
   end;
@@ -58,8 +63,28 @@ begin
   );
 end;
 
+{ TDataStreamAsParamTest }
+
+procedure TDataStreamAsParamTest.TestValue;
+var
+  S: IDataStream;
+  P: TParam;
+begin
+  S := TDataStream.New('bar');
+  P := TParam.Create(nil);
+  try
+    CheckEquals(
+      'bar',
+      TDataStreamAsParam.New(S, P).Value.AsString
+    );
+  finally
+    P.Free;
+  end;
+end;
+
 initialization
   TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamAsOleVariantTest))
+    .Add(TTest.New(TDataStreamAsParamTest))
 
 end.
