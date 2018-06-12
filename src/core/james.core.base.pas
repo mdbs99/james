@@ -32,7 +32,7 @@ uses
 
 type
   IAdapter<T> = interface
-    function Value: T;
+    function Adapted: T;
   end;
 
 implementation
