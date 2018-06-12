@@ -40,7 +40,7 @@ type
   public
     constructor Create(const Value: OleVariant);
     class function New(const Value: OleVariant): IAdapter<IDataStream>;
-    function Value: IDataStream;
+    function Adapted: IDataStream;
   end;
 
 implementation
@@ -58,7 +58,7 @@ begin
   Result := Create(Value);
 end;
 
-function TOleVariantAsDataStream.Value: IDataStream;
+function TOleVariantAsDataStream.Adapted: IDataStream;
 var
   I: Integer;
   P: Pointer;

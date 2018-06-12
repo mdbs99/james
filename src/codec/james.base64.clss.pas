@@ -80,7 +80,7 @@ begin
     FOrigin.Save(Buf1);
     Buf1.Position := soFromBeginning;
     Buf2 := TStringStream.Create(
-      TBase64Encoder.New(Buf1.DataString).Value
+      TBase64Encoder.New(Buf1.DataString).Adapted
     );
     Result := TDataStream.New(Buf2);
   finally
@@ -127,7 +127,7 @@ begin
     FOrigin.Save(Buf1);
     Buf1.Position := soFromBeginning;
     Buf2 := TStringStream.Create(
-      TBase64Decoder.New(Buf1.DataString).Value
+      TBase64Decoder.New(Buf1.DataString).Adapted
     );
     Result := TDataStream.New(Buf2);
   finally

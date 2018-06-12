@@ -64,7 +64,7 @@ type
     function Text(const AText: TXMLString): IXMLNode; overload;
     function Text(const AText: string): IXMLNode; overload;
     function Attrs: IXMLAttributes;
-    function Add({%H-}const AName: TXMLString): IXMLNode;
+    function Add(const {%H-}AName: TXMLString): IXMLNode;
     function Childs: IXMLNodes;
     function Parent: IXMLNode;
   end;

@@ -49,10 +49,10 @@ procedure TOleVariantAsDataStreamTest.TestValue;
 var
   V: OleVariant;
 begin
-  V := TDataStreamAsOleVariant.New(TDataStream.New('foo')).Value;
+  V := TDataStreamAsOleVariant.New(TDataStream.New('foo')).Adapted;
   CheckEquals(
     'foo',
-    TOleVariantAsDataStream.New(V).Value.AsString
+    TOleVariantAsDataStream.New(V).Adapted.AsString
   );
 end;
 

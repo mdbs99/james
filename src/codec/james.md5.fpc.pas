@@ -39,7 +39,7 @@ type
   public
     constructor Create(const Value: string);
     class function New(const Value: string): IDataHash;
-    function Value: string;
+    function Adapted: string;
   end;
 
 implementation
@@ -57,7 +57,7 @@ begin
   Result := Create(Value);
 end;
 
-function TCMD5Hash.Value: string;
+function TCMD5Hash.Adapted: string;
 begin
   Result := MD5Print(
     MD5String(

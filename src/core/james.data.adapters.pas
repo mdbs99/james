@@ -39,7 +39,7 @@ type
   public
     constructor Create(const Value: IDataStream);
     class function New(const Value: IDataStream): IAdapter<OleVariant>;
-    function Value: OleVariant;
+    function Adapted: OleVariant;
   end;
 
   TDataStreamAsParam = class(TInterfacedObject, IAdapter<TParam>)
@@ -49,7 +49,7 @@ type
   public
     constructor Create(const Src: IDataStream; const Dest: TParam);
     class function New(const Src: IDataStream; const Dest: TParam): IAdapter<TParam>;
-    function Value: TParam;
+    function Adapted: TParam;
   end;
 
 implementation
@@ -70,7 +70,7 @@ begin
   Result := Create(Src, Dest);
 end;
 
-function TDataStreamAsParam.Value: TParam;
+function TDataStreamAsParam.Adapted: TParam;
 var
   M: TMemoryStream;
 begin
@@ -97,7 +97,7 @@ begin
   Result := Create(Value);
 end;
 
-function TDataStreamAsOleVariant.Value: OleVariant;
+function TDataStreamAsOleVariant.Adapted: OleVariant;
 var
   Data: PByteArray;
   M: TMemoryStream;

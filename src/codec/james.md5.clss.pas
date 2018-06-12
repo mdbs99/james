@@ -60,7 +60,7 @@ implementation
 function TMD5Stream.GetStream: IDataStream;
 begin
   Result := TDataStream.New(
-    TMD5Hash.New(FOrigin.AsString).Value
+    TMD5Hash.New(FOrigin.AsString).Adapted
   );
 end;
 

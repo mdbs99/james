@@ -35,58 +35,58 @@ uses
 type
   TCBase64Encoder = class(TInterfacedObject, IDataHash)
   private
-    FValue: string;
+    FText: string;
   public
-    constructor Create(const Value: string);
-    class function New(const Value: string): IDataHash;
-    function Value: string;
+    constructor Create(const Text: string);
+    class function New(const Text: string): IDataHash;
+    function Adapted: string;
   end;
 
   TCBase64Decoder = class(TInterfacedObject, IDataHash)
   private
-    FValue: string;
+    FHash: string;
   public
-    constructor Create(const Value: string);
-    class function New(const Value: string): IDataHash;
-    function Value: string;
+    constructor Create(const Hash: string);
+    class function New(const Hash: string): IDataHash;
+    function Adapted: string;
   end;
 
 implementation
 
 { TCBase64Encoder }
 
-constructor TCBase64Encoder.Create(const Value: string);
+constructor TCBase64Encoder.Create(const Text: string);
 begin
   inherited Create;
-  FValue := Value;
+  FText := Text;
 end;
 
-class function TCBase64Encoder.New(const Value: string): IDataHash;
+class function TCBase64Encoder.New(const Text: string): IDataHash;
 begin
-  Result := Create(Value);
+  Result := Create(Text);
 end;
 
-function TCBase64Encoder.Value: string;
+function TCBase64Encoder.Adapted: string;
 begin
-  Result := synacode.EncodeBase64(FValue);
+  Result := synacode.EncodeBase64(FText);
 end;
 
 { TCBase64Decoder }
 
-constructor TCBase64Decoder.Create(const Value: string);
+constructor TCBase64Decoder.Create(const Hash: string);
 begin
   inherited Create;
-  FValue := Value;
+  FHash := Hash;
 end;
 
-class function TCBase64Decoder.New(const Value: string): IDataHash;
+class function TCBase64Decoder.New(const Hash: string): IDataHash;
 begin
-  Result := Create(Value);
+  Result := Create(Hash);
 end;
 
-function TCBase64Decoder.Value: string;
+function TCBase64Decoder.Adapted: string;
 begin
-  Result := synacode.DecodeBase64(FValue);
+  Result := synacode.DecodeBase64(FHash);
 end;
 
 end.

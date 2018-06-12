@@ -231,7 +231,7 @@ end;
 
 class function TDataStream.New(const S: IAdapter<string>): IDataStream;
 begin
-  Result := New(S.Value);
+  Result := New(S.Adapted);
 end;
 
 class function TDataStream.New(Strings: TStrings): IDataStream;

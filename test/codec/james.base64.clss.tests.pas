@@ -65,7 +65,7 @@ procedure TBase64EncoderTest.TestValue;
 begin
   CheckEquals(
     'aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=',
-    TBase64Encoder.New('https://www.base64encode.org/').Value
+    TBase64Encoder.New('https://www.base64encode.org/').Adapted
   );
 end;
 
@@ -75,7 +75,7 @@ procedure TBase64DecoderTest.TestValue;
 begin
   CheckEquals(
     'https://www.base64encode.org/',
-    TBase64Decoder.New('aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=').Value
+    TBase64Decoder.New('aHR0cHM6Ly93d3cuYmFzZTY0ZW5jb2RlLm9yZy8=').Adapted
   );
 end;
 
@@ -94,17 +94,17 @@ begin
     Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
     CheckEquals(
-      TBase64Encoder.New(TXT).Value,
+      TBase64Encoder.New(TXT).Adapted,
       TBase64EncodedStream.New(TDataStream.New(Buf)).AsString,
       'Test Stream'
     );
     CheckEquals(
-      TBase64Encoder.New(TXT).Value,
+      TBase64Encoder.New(TXT).Adapted,
       TBase64EncodedStream.New(TDataStream.New(TXT)).AsString,
       'Test String'
     );
     CheckEquals(
-      TBase64Encoder.New(TXT+#13#10).Value,
+      TBase64Encoder.New(TXT+#13#10).Adapted,
       TBase64EncodedStream.New(TDataStream.New(Ss)).AsString,
       'Test Strings'
     );
@@ -127,7 +127,7 @@ begin
     SetLength(S, Buf.Size);
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
-    CheckEquals(TBase64Encoder.New(TXT).Value, S);
+    CheckEquals(TBase64Encoder.New(TXT).Adapted, S);
   finally
     Buf.Free;
   end;
@@ -145,7 +145,7 @@ begin
   try
     TBase64EncodedStream.New(TDataStream.New(TXT)).Save(M);
     S.LoadFromStream(M);
-    CheckEquals(TBase64Encoder.New(TXT).Value, Trim(S.Text));
+    CheckEquals(TBase64Encoder.New(TXT).Adapted, Trim(S.Text));
   finally
     M.Free;
     S.Free;
@@ -162,8 +162,8 @@ begin
     TBase64Decoder.New(
       TBase64Encoder.New(
         VALUE
-      ).Value
-    ).Value,
+      ).Adapted
+    ).Adapted,
     TBase64DecodedStream.New(
       TDataStream.New(
         TBase64Encoder.New(

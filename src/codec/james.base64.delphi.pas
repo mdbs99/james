@@ -23,7 +23,7 @@
 }
 unit James.Base64.Delphi;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 
@@ -39,7 +39,7 @@ type
   public
     constructor Create(const Value: string);
     class function New(const Value: string): IDataHash;
-    function Value: string;
+    function Adapted: string;
   end;
 
 implementation
@@ -57,7 +57,7 @@ begin
   Result := Create(Value);
 end;
 
-function TCBase64Encoder.Value: string;
+function TCBase64Encoder.Adapted: string;
 begin
   raise Exception.Create('TCBase64Encoder.AsString was not implemented yet');
 end;

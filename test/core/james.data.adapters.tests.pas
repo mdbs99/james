@@ -58,8 +58,8 @@ begin
   CheckEquals(
     'foo',
     TOleVariantAsDataStream.New(
-      TDataStreamAsOleVariant.New(S).Value
-    ).Value.AsString
+      TDataStreamAsOleVariant.New(S).Adapted
+    ).Adapted.AsString
   );
 end;
 
@@ -75,7 +75,7 @@ begin
   try
     CheckEquals(
       'bar',
-      TDataStreamAsParam.New(S, P).Value.AsString
+      TDataStreamAsParam.New(S, P).Adapted.AsString
     );
   finally
     P.Free;
