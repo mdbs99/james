@@ -83,7 +83,6 @@ type
 
   IDataHash = interface(IAdapter<string>)
   ['{69A5ED2A-7E06-4942-A6EA-48B36670F360}']
-    function Value: string;
   end;
 
   IDataResult = interface
