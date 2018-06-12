@@ -28,7 +28,7 @@ unit James.Data.Adapters;
 interface
 
 uses
-  Classes, SysUtils, COMObj, Variants,
+  Classes, SysUtils, COMObj, Variants, DB,
   James.Core.Base,
   James.Data.Base;
 
@@ -42,7 +42,47 @@ type
     function Value: OleVariant;
   end;
 
+  TDataStreamAsParam = class(TInterfacedObject, IAdapter<TParam>)
+  private
+    FSrc: IDataStream;
+    FDest: TParam;
+  public
+    constructor Create(const Src: IDataStream; const Dest: TParam);
+    class function New(const Src: IDataStream; const Dest: TParam): IAdapter<TParam>;
+    function Value: TParam;
+  end;
+
 implementation
+
+{ TDataStreamAsParam }
+
+constructor TDataStreamAsParam.Create(const Src: IDataStream;
+  const Dest: TParam);
+begin
+  inherited Create;
+  FSrc := Src;
+  FDest := Dest;
+end;
+
+class function TDataStreamAsParam.New(const Src: IDataStream;
+  const Dest: TParam): IAdapter<TParam>;
+begin
+  Result := Create(Src, Dest);
+end;
+
+function TDataStreamAsParam.Value: TParam;
+var
+  M: TMemoryStream;
+begin
+  Result := FDest;
+  M := TMemoryStream.Create;
+  try
+   FSrc.Save(M);
+   FDest.LoadFromStream(M, ftBlob);
+  finally
+    M.Free;
+  end;
+end;
 
 { TDataStreamAsOleVariant }
 
