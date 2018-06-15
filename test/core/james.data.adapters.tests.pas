@@ -38,19 +38,24 @@ uses
 type
   TDataStreamAsOleVariantTest = class(TTestCase)
   published
-    procedure TestValue;
+    procedure TestAdapted;
   end;
 
   TDataStreamAsParamTest = class(TTestCase)
   published
-    procedure TestValue;
+    procedure TestAdapted;
+  end;
+
+  TDataStreamAsStringsTest = class(TTestCase)
+  published
+    procedure TestAdapted;
   end;
 
 implementation
 
 { TDataStreamAsOleVariantTest }
 
-procedure TDataStreamAsOleVariantTest.TestValue;
+procedure TDataStreamAsOleVariantTest.TestAdapted;
 var
   S: IDataStream;
 begin
@@ -65,7 +70,7 @@ end;
 
 { TDataStreamAsParamTest }
 
-procedure TDataStreamAsParamTest.TestValue;
+procedure TDataStreamAsParamTest.TestAdapted;
 var
   S: IDataStream;
   P: TParam;
@@ -82,9 +87,32 @@ begin
   end;
 end;
 
+{ TDataStreamAsStringsTest }
+
+procedure TDataStreamAsStringsTest.TestAdapted;
+var
+  S: IDataStream;
+  SL: TStrings;
+begin
+  S := TDataStream.New('strings');
+  SL := TStringList.Create;
+  try
+    CheckEquals(
+      'strings',
+      TDataStreamAsStrings.New(S, SL)
+        .Adapted
+        .Text
+        .TrimRight
+    );
+  finally
+    sl.Free;
+  end;
+end;
+
 initialization
   TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamAsOleVariantTest))
     .Add(TTest.New(TDataStreamAsParamTest))
+    .Add(TTest.New(TDataStreamAsStringsTest))
 
 end.

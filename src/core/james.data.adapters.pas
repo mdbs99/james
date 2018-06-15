@@ -52,7 +52,51 @@ type
     function Adapted: TParam;
   end;
 
+  TDataStreamAsStrings = class(TInterfacedObject, IAdapter<TStrings>)
+  private
+    FSrc: IDataStream;
+    FDest: TStrings;
+  public
+    constructor Create(const Src: IDataStream; const Dest: TStrings);
+    class function New(const Src: IDataStream; const Dest: TStrings): IAdapter<TStrings>;
+    function Adapted: TStrings;
+  end;
+
 implementation
+
+{ TDataStreamAsOleVariant }
+
+constructor TDataStreamAsOleVariant.Create(const Value: IDataStream);
+begin
+  inherited Create;
+  FValue := Value;
+end;
+
+class function TDataStreamAsOleVariant.New(const Value: IDataStream): IAdapter<OleVariant>;
+begin
+  Result := Create(Value);
+end;
+
+function TDataStreamAsOleVariant.Adapted: OleVariant;
+var
+  Data: PByteArray;
+  M: TMemoryStream;
+begin
+  M := TMemoryStream.Create;
+  try
+    FValue.Save(M);
+    Result := VarArrayCreate([0, M.Size-1], varByte);
+    Data := VarArrayLock(Result);
+    try
+      M.Position := 0;
+      M.ReadBuffer(Data^, M.Size);
+    finally
+      VarArrayUnlock(Result);
+    end;
+  finally
+    M.Free;
+  end;
+end;
 
 { TDataStreamAsParam }
 
@@ -84,35 +128,31 @@ begin
   end;
 end;
 
-{ TDataStreamAsOleVariant }
+{ TDataStreamAsStrings }
 
-constructor TDataStreamAsOleVariant.Create(const Value: IDataStream);
+constructor TDataStreamAsStrings.Create(const Src: IDataStream;
+  const Dest: TStrings);
 begin
   inherited Create;
-  FValue := Value;
+  FSrc := Src;
+  FDest := Dest;
 end;
 
-class function TDataStreamAsOleVariant.New(const Value: IDataStream): IAdapter<OleVariant>;
+class function TDataStreamAsStrings.New(const Src: IDataStream;
+  const Dest: TStrings): IAdapter<TStrings>;
 begin
-  Result := Create(Value);
+  Result := Create(Src, Dest);
 end;
 
-function TDataStreamAsOleVariant.Adapted: OleVariant;
+function TDataStreamAsStrings.Adapted: TStrings;
 var
-  Data: PByteArray;
   M: TMemoryStream;
 begin
+  Result := FDest;
   M := TMemoryStream.Create;
   try
-    FValue.Save(M);
-    Result := VarArrayCreate([0, M.Size-1], varByte);
-    Data := VarArrayLock(Result);
-    try
-      M.Position := 0;
-      M.ReadBuffer(Data^, M.Size);
-    finally
-      VarArrayUnlock(Result);
-    end;
+   FSrc.Save(M);
+   FDest.LoadFromStream(M);
   finally
     M.Free;
   end;
