@@ -30,7 +30,7 @@ This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Minor="9" Release="4"/>
-    <Files Count="14">
+    <Files Count="13">
       <Item1>
         <Filename Value="..\src\core\james.core.base.pas"/>
         <UnitName Value="James.Core.Base"/>
@@ -83,10 +83,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
         <Filename Value="..\src\core\james.data.adapters.pas"/>
         <UnitName Value="James.Data.Adapters"/>
       </Item13>
-      <Item14>
-        <Filename Value="..\src\web\james.web.app.pas"/>
-        <UnitName Value="James.Web.App"/>
-      </Item14>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>
