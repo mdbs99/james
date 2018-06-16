@@ -39,9 +39,9 @@ uses
   ;
 
 type
-  TMD5Hash = TCMD5Hash;
+  TMD5Encoder = class(TCMD5Encoder, IDataHash);
 
-  TMD5Stream = class sealed(TInterfacedObject, IDataStream)
+  TMD5EncodedStream = class sealed(TInterfacedObject, IDataStream)
   private
     FOrigin: IDataStream;
     function GetStream: IDataStream;
@@ -55,37 +55,37 @@ type
 
 implementation
 
-{ TMD5Stream }
+{ TMD5EncodedStream }
 
-function TMD5Stream.GetStream: IDataStream;
+function TMD5EncodedStream.GetStream: IDataStream;
 begin
   Result := TDataStream.New(
-    TMD5Hash.New(FOrigin.AsString).Adapted
+    TMD5Encoder.New(FOrigin.AsString).Adapted
   );
 end;
 
-constructor TMD5Stream.Create(const Origin: IDataStream);
+constructor TMD5EncodedStream.Create(const Origin: IDataStream);
 begin
   inherited Create;
   FOrigin := Origin;
 end;
 
-class function TMD5Stream.New(const Origin: IDataStream): IDataStream;
+class function TMD5EncodedStream.New(const Origin: IDataStream): IDataStream;
 begin
   Result := Create(Origin);
 end;
 
-function TMD5Stream.Save(Stream: TStream): IDataStream;
+function TMD5EncodedStream.Save(Stream: TStream): IDataStream;
 begin
   Result := GetStream.Save(Stream);
 end;
 
-function TMD5Stream.AsString: string;
+function TMD5EncodedStream.AsString: string;
 begin
   Result := GetStream.AsString;
 end;
 
-function TMD5Stream.Size: Int64;
+function TMD5EncodedStream.Size: Int64;
 begin
   Result := GetStream.Size;
 end;

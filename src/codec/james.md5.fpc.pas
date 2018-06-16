@@ -33,7 +33,7 @@ uses
   James.Data.Base;
 
 type
-  TCMD5Hash = class sealed(TInterfacedObject, IDataHash)
+  TCMD5Encoder = class(TInterfacedObject, IDataHash)
   private
     FValue: string;
   public
@@ -44,20 +44,20 @@ type
 
 implementation
 
-{ TCMD5Hash }
+{ TCMD5Encoder }
 
-constructor TCMD5Hash.Create(const Value: string);
+constructor TCMD5Encoder.Create(const Value: string);
 begin
   inherited Create;
   FValue := Value;
 end;
 
-class function TCMD5Hash.New(const Value: string): IDataHash;
+class function TCMD5Encoder.New(const Value: string): IDataHash;
 begin
   Result := Create(Value);
 end;
 
-function TCMD5Hash.Adapted: string;
+function TCMD5Encoder.Adapted: string;
 begin
   Result := MD5Print(
     MD5String(
