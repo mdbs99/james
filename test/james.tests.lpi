@@ -23,7 +23,7 @@
           <SearchPaths>
             <IncludeFiles Value="..\inc"/>
             <OtherUnitFiles Value="core;codec;text"/>
-            <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
+            <UnitOutputDirectory Value="..\units\test\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -118,7 +118,7 @@
     <SearchPaths>
       <IncludeFiles Value="..\inc;$(ProjOutDir)"/>
       <OtherUnitFiles Value="core;codec;text"/>
-      <UnitOutputDirectory Value="..\lib\tests\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="..\units\test\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

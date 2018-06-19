@@ -11,7 +11,7 @@
       <SearchPaths>
         <IncludeFiles Value="..\inc"/>
         <OtherUnitFiles Value="..\src\core;..\src\testing;..\src\text;..\src\log;..\src\codec;..\src\web"/>
-        <UnitOutputDirectory Value="..\units\$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="..\units\lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Linking>
         <Debugging>
