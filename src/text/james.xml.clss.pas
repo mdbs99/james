@@ -107,6 +107,7 @@ begin
   Text(TXMLString(AText));
 end;
 
+{$warnings off}
 function TXMLNodeAsDefault.Attrs: IXMLAttributes;
 begin
   raise EXMLError.Create('Attributes not allowed.');
@@ -121,6 +122,7 @@ function TXMLNodeAsDefault.Childs: IXMLNodes;
 begin
   raise EXMLError.Create('Childs not allowed.');
 end;
+{$warnings on}
 
 function TXMLNodeAsDefault.Parent: IXMLNode;
 begin
