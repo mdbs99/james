@@ -55,7 +55,7 @@ const
 begin
   CheckEquals(
     VALUE_HASH,
-    TMD5Hash.New(VALUE).Adapted
+    TMD5Encoder.New(VALUE).Adapted
   );
 end;
 
@@ -66,8 +66,8 @@ const
   TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin
   CheckEquals(
-    TMD5Hash.New(TXT).Adapted,
-    TMD5Stream.New(
+    TMD5Encoder.New(TXT).Adapted,
+    TMD5EncodedStream.New(
       TDataStream.New(TXT)
     ).AsString
   );
