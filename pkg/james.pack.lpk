@@ -10,8 +10,8 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\inc"/>
-        <OtherUnitFiles Value="..\src\core;..\src\testing;..\src\text;..\src\log;..\src\codec;..\src\web"/>
-        <UnitOutputDirectory Value="..\units\lib\$(TargetCPU)-$(TargetOS)"/>
+        <OtherUnitFiles Value="..\src\core;..\src\testing;..\src\text;..\src\log;..\src\codec"/>
+        <UnitOutputDirectory Value="..\units\src\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Linking>
         <Debugging>
