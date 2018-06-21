@@ -59,6 +59,21 @@ type
     end;
   end;
 
+  TDataStrings = class(TInterfacedObject, IDataStrings)
+  private
+    FStrings: TStrings;
+  public
+    constructor Create(const Stream: TStream);
+    class function New(const Stream: IDataStream): IDataStrings; overload;
+    class function New(const S: string): IDataStrings; overload;
+    class function New: IDataStrings; overload;
+    destructor Destroy; override;
+    function Add(const Value: string): IDataStrings;
+    function Get(Index: Integer): string;
+    function Count: Integer;
+    function Text: string;
+  end;
+
   TDataParam = class(TInterfacedObject, IDataParam)
   private
     FParam: TParam;
@@ -302,6 +317,65 @@ end;
 function TDataStream.TAggregated.Size: Int64;
 begin
   Result := FOrigin.Size;
+end;
+
+{ TDataStrings }
+
+constructor TDataStrings.Create(const Stream: TStream);
+begin
+  inherited Create;
+  FStrings := TStringList.Create;
+  FStrings.LoadFromStream(Stream);
+end;
+
+class function TDataStrings.New(const Stream: IDataStream): IDataStrings;
+var
+  M: TMemoryStream;
+begin
+  M := TMemoryStream.Create;
+  try
+    Stream.Save(M);
+    Result := Create(M);
+  finally
+    M.Free;
+  end;
+end;
+
+class function TDataStrings.New(const S: string): IDataStrings;
+begin
+  Result := New(TDataStream.New(S));
+end;
+
+class function TDataStrings.New: IDataStrings;
+begin
+  Result := New('');
+end;
+
+destructor TDataStrings.Destroy;
+begin
+  FStrings.Free;
+  inherited Destroy;
+end;
+
+function TDataStrings.Add(const Value: string): IDataStrings;
+begin
+  Result := Self;
+  FStrings.Add(Value);
+end;
+
+function TDataStrings.Get(Index: Integer): string;
+begin
+  Result := FStrings.Strings[Index];
+end;
+
+function TDataStrings.Count: Integer;
+begin
+  Result := FStrings.Count;
+end;
+
+function TDataStrings.Text: string;
+begin
+  Result := FStrings.Text;
 end;
 
 { TDataParam }
