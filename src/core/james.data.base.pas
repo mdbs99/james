@@ -39,6 +39,14 @@ type
     function Size: Int64;
   end;
 
+  IDataStrings = interface
+  ['{CC6CBD96-D204-4D32-81B5-DBEDF90D73F9}']
+    function Add(const Value: string): IDataStrings;
+    function Get(Index: Integer): string;
+    function Count: Integer;
+    function Text: string;
+  end;
+
   IDataParam = interface
   ['{2C6B41D7-CB75-488A-85D4-59CE4D5388E5}']
     function Name: string;
