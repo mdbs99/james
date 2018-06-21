@@ -66,7 +66,7 @@ initialization
   WebApplication := Application;
 {$ifdef WEB_STANDALONE}
   WebApplication.Port := 8080;
-  HTTPRouter.RegisterRoute('quit', rmGet, @TerminateCall);
+  HTTPRouter.RegisterRoute('quit', rmAll, @TerminateCall);
 {$endif}
 
 end.
