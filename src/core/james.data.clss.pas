@@ -109,7 +109,7 @@ type
   private
     FList: TInterfaceList;
   public
-    constructor Create;
+    constructor Create; virtual;
     class function New: IDataParams; overload;
     class function New(Origin: TFields): IDataParams; overload;
     destructor Destroy; override;
@@ -119,6 +119,7 @@ type
     function Get(Index: Integer): IDataParam; overload;
     function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
+    function SaveIn(aDest: TParams): IDataParams;
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
   public type
@@ -133,6 +134,7 @@ type
       function Get(Index: Integer): IDataParam; overload;
       function Get(const ParamName: string): IDataParam; overload;
       function Count: Integer;
+      function SaveIn(aDest: TParams): IDataParams;
       function AsString(const SeparatorChar: string): string; overload;
       function AsString: string; overload;
     end;
@@ -284,6 +286,7 @@ function TDataStream.AsString: string;
 begin
   with FStream do
   begin
+    Result := '';
     SetLength(Result, Size);
     Position := 0;
     ReadBuffer(Pointer(Result)^, Size);
@@ -589,6 +592,17 @@ begin
   Result := FList.Count;
 end;
 
+function TDataParams.SaveIn(aDest: TParams): IDataParams;
+var
+  i: Integer;
+begin
+  Result := Self;
+  if not assigned(aDest) then
+    exit;
+  for i := 0 to Count -1 do
+    aDest.AddParam(Get(i).AsParam);
+end;
+
 function TDataParams.AsString(const SeparatorChar: string): string;
 var
   I: Integer;
@@ -644,6 +658,11 @@ end;
 function TDataParams.TAggregate.Count: Integer;
 begin
   Result := FOrigin.Count;
+end;
+
+function TDataParams.TAggregate.SaveIn(aDest: TParams): IDataParams;
+begin
+  Result := FOrigin.SaveIn(aDest);
 end;
 
 function TDataParams.TAggregate.AsString(const SeparatorChar: string): string;
