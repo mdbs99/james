@@ -119,7 +119,7 @@ type
     function Get(Index: Integer): IDataParam; overload;
     function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
-    function SaveIn(aDest: TParams): IDataParams;
+    function SaveAs(aDest: TParams): IDataParams;
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
   public type
@@ -134,7 +134,7 @@ type
       function Get(Index: Integer): IDataParam; overload;
       function Get(const ParamName: string): IDataParam; overload;
       function Count: Integer;
-      function SaveIn(aDest: TParams): IDataParams;
+      function SaveAs(aDest: TParams): IDataParams;
       function AsString(const SeparatorChar: string): string; overload;
       function AsString: string; overload;
     end;
@@ -195,7 +195,7 @@ type
     FFileName: string;
     FStream: IDataStream;
   public
-    constructor Create(const FileName: string; Stream: IDataStream); overload;
+    constructor Create(const FileName: string; const Stream: IDataStream); overload;
     class function New(const FileName: string; const Stream: IDataStream): IDataFile; overload;
     class function New(const FileName: string): IDataFile; overload;
     function Path: string;
@@ -592,15 +592,25 @@ begin
   Result := FList.Count;
 end;
 
-function TDataParams.SaveIn(aDest: TParams): IDataParams;
+function TDataParams.SaveAs(aDest: TParams): IDataParams;
 var
   i: Integer;
+  p: TParam;
 begin
   Result := Self;
   if not assigned(aDest) then
     exit;
   for i := 0 to Count -1 do
-    aDest.AddParam(Get(i).AsParam);
+  begin
+    p := TParam.Create(aDest);
+    with Get(i).AsParam do
+    begin
+      p.Name := Name;
+      p.ParamType := ParamType;
+      p.DataType := DataType;
+      p.Value := Value;
+    end;
+  end;
 end;
 
 function TDataParams.AsString(const SeparatorChar: string): string;
@@ -660,9 +670,9 @@ begin
   Result := FOrigin.Count;
 end;
 
-function TDataParams.TAggregate.SaveIn(aDest: TParams): IDataParams;
+function TDataParams.TAggregate.SaveAs(aDest: TParams): IDataParams;
 begin
-  Result := FOrigin.SaveIn(aDest);
+  Result := FOrigin.SaveAs(aDest);
 end;
 
 function TDataParams.TAggregate.AsString(const SeparatorChar: string): string;
@@ -850,7 +860,7 @@ end;
 
 { TDataFile }
 
-constructor TDataFile.Create(const FileName: string; Stream: IDataStream);
+constructor TDataFile.Create(const FileName: string; const Stream: IDataStream);
 begin
   inherited Create;
   FFileName := FileName;

@@ -78,7 +78,7 @@ type
     function Get(Index: Integer): IDataParam; overload;
     function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
-    function SaveIn(aDest: TParams): IDataParams;
+    function SaveAs(aDest: TParams): IDataParams;
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
   end;
