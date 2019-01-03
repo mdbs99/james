@@ -21,7 +21,7 @@
     </CompilerOptions>
     <Description Value="James is a collection of object-oriented Pascal primitives."/>
     <License Value="James Runtime Package
-Copyright (C) 2017-2018 by Marcos Douglas B. Santos
+Copyright (c) 2017-2019 by Marcos Douglas B. Santos
 
 See the file LICENSE.txt, included in this distribution,
 for details about the copyright.
