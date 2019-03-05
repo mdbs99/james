@@ -21,45 +21,53 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Base64.Delphi;
+unit JamesWebApp;
 
 {$i James.inc}
 
 interface
 
 uses
-  Classes, SysUtils,
-  James.Data.Base,
-  James.Data.Clss;
+  SysUtils,
+  {$ifdef WEB_STANDALONE}
+    fphttpapp,
+  {$endif}
+  {$ifdef WEB_CGI}
+    fpcgi,
+  {$endif}
+  {$ifdef WEB_FCGI}
+    fpfcgi,
+  {$endif}
+  HTTPDefs, HTTPRoute;
 
 type
-  TCBase64Encoder = class sealed(TInterfacedObject, IDataHash)
-  private
-    FValue: string;
-  public
-    constructor Create(const Value: string);
-    class function New(const Value: string): IDataHash;
-    function Adapted: string;
-  end;
+  TWebApplication =
+    {$ifdef WEB_STANDALONE}
+      THTTPApplication
+    {$endif}
+    {$ifdef WEB_FCGI}
+      TFCGIApplication
+    {$endif}
+  ;
+
+var
+  WebApplication: TWebApplication = nil;
 
 implementation
 
-{ TCBase64Encoder }
-
-constructor TCBase64Encoder.Create(const Value: string);
+{$ifdef WEB_STANDALONE}
+procedure TerminateCall({%H-}ARequest: TRequest; {%H-}AResponse: TResponse);
 begin
-  inherited Create;
-  FValue := Value;
+  WebApplication.Terminate;
 end;
+{$endif}
 
-class function TCBase64Encoder.New(const Value: string): IDataHash;
-begin
-  Result := Create(Value);
-end;
-
-function TCBase64Encoder.Adapted: string;
-begin
-  raise Exception.Create('TCBase64Encoder.AsString was not implemented yet');
-end;
+initialization
+  WebApplication := Application;
+{$ifdef WEB_STANDALONE}
+  WebApplication.Port := 8080;
+  HTTPRouter.RegisterRoute('quit', rmAll, @TerminateCall);
+{$endif}
 
 end.
+

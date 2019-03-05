@@ -21,53 +21,21 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Web.App;
+unit JamesCoreBase;
 
 {$i James.inc}
 
 interface
 
 uses
-  SysUtils,
-  {$ifdef WEB_STANDALONE}
-    fphttpapp,
-  {$endif}
-  {$ifdef WEB_CGI}
-    fpcgi,
-  {$endif}
-  {$ifdef WEB_FCGI}
-    fpfcgi,
-  {$endif}
-  HTTPDefs, HTTPRoute;
+  Classes, SysUtils;
 
 type
-  TWebApplication =
-    {$ifdef WEB_STANDALONE}
-      THTTPApplication
-    {$endif}
-    {$ifdef WEB_FCGI}
-      TFCGIApplication
-    {$endif}
-  ;
-
-var
-  WebApplication: TWebApplication = nil;
+  IAdapter<T> = interface
+    function Adapted: T;
+  end;
 
 implementation
-
-{$ifdef WEB_STANDALONE}
-procedure TerminateCall({%H-}ARequest: TRequest; {%H-}AResponse: TResponse);
-begin
-  WebApplication.Terminate;
-end;
-{$endif}
-
-initialization
-  WebApplication := Application;
-{$ifdef WEB_STANDALONE}
-  WebApplication.Port := 8080;
-  HTTPRouter.RegisterRoute('quit', rmAll, @TerminateCall);
-{$endif}
 
 end.
 

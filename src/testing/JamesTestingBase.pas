@@ -21,59 +21,23 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Testing.Clss;
+unit JamesTestingBase;
 
 {$i James.inc}
 
 interface
 
-uses
-  {$ifdef FPC}
-    fpcunit,
-    James.Testing.FPC,
-  {$else}
-    TestFramework,
-    James.Testing.Delphi,
-  {$endif}
-  James.Testing.Base;
-
 type
-  {$ifdef FPC}
-    TTest = James.Testing.FPC.TTest;
-    TTestCase = FPCUnit.TTestCase;
-  {$else}
-    TTest = JamesTestingDelphi.TTest;
-    TTestCase = TestFramework.TTestCase;
-  {$endif}
+  ITest = interface
+  ['{CF6EE529-CC09-461F-B6FB-526982D37C3B}']
+    function RegisterOn(const SuitePath: string): ITest;
+  end;
 
-  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
-  private
-    FPath: string;
-  public
-    constructor Create(const Path: string);
-    class function New(const Path: string): ITestSuite;
+  ITestSuite = interface
+  ['{08E6BA19-7082-4BC0-AA14-8E7A92633D5B}']
     function Add(const Test: ITest): ITestSuite;
   end;
 
 implementation
-
-{ TTestSuite }
-
-function TTestSuite.Add(const Test: ITest): ITestSuite;
-begin
-  Result := Self;
-  Test.RegisterOn(FPath);
-end;
-
-constructor TTestSuite.Create(const Path: string);
-begin
-  FPath := Path;
-end;
-
-class function TTestSuite.New(const Path: string): ITestSuite;
-begin
-  Result := Create(Path);
-end;
-
 
 end.

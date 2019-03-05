@@ -20,46 +20,62 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-}
-unit James.Testing.Delphi;
+} 
+unit JamesMD5ClssTests;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 
 uses
-  TestFramework,
-  JamesTesting;
+  Classes, SysUtils,
+  JamesDataClss,
+  JamesMD5Clss,
+  JamesTestingClss;
 
 type
-  TTest = class sealed(TInterfacedObject, ITest)
-  private
-    FClss: TTestCaseClass;
-  public
-    constructor Create(Clss: TTestCaseClass);
-    class function New(Clss: TTestCaseClass): ITest;
-    function RegisterOn(const SuitePath: string): ITest;
+  TMD5HashTest = class(TTestCase)
+  published
+    procedure TestHashByMd5HashGeneratorPage;
+  end;
+
+  TMD5StreamTest = class(TTestCase)
+  published
+    procedure TestStreamFromMemory;
   end;
 
 implementation
 
-{ TTest }
+{ TMD5HashTest }
 
-constructor TTest.Create(Clss: TTestCaseClass);
+procedure TMD5HashTest.TestHashByMd5HashGeneratorPage;
+const
+  VALUE: string = 'http://www.md5hashgenerator.com/';
+  VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
 begin
-  inherited Create;
-  FClss := Clss;
+  CheckEquals(
+    VALUE_HASH,
+    TMD5Encoder.New(VALUE).Adapted
+  );
 end;
 
-class function TTest.New(Clss: TTestCaseClass): ITest;
+{ TMD5StreamTest }
+
+procedure TMD5StreamTest.TestStreamFromMemory;
+const
+  TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin
-  Result := Create(Clss);
+  CheckEquals(
+    TMD5Encoder.New(TXT).Adapted,
+    TMD5EncodedStream.New(
+      TDataStream.New(TXT)
+    ).AsString
+  );
 end;
 
-function TTest.RegisterOn(const SuitePath: string): ITest;
-begin
-  Result := Self;
-  TestFramework.RegisterTest(SuitePath, FClss.Suite);
-end;
+initialization
+  TTestSuite.New('Codec.MD5')
+    .Add(TTest.New(TMD5HashTest))
+    .Add(TTest.New(TMD5StreamTest));
 
 end.

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="James.Tests"/>
+      <Title Value="JamesTests"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -22,7 +22,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="..\inc"/>
-            <OtherUnitFiles Value="core;codec;text"/>
+            <OtherUnitFiles Value="codec;core;text"/>
             <UnitOutputDirectory Value="..\units\test\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -50,62 +50,50 @@
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="James.Pack"/>
+        <PackageName Value="fpcunittestrunner"/>
       </Item1>
       <Item2>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="LCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="fpcunittestrunner"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="LCL"/>
-      </Item4>
-      <Item5>
         <PackageName Value="FCL"/>
-      </Item5>
+      </Item3>
     </RequiredPackages>
     <Units Count="7">
       <Unit0>
-        <Filename Value="james.tests.lpr"/>
+        <Filename Value="JamesTests.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.Tests"/>
       </Unit0>
       <Unit1>
-        <Filename Value="core\james.rtl.adapters.tests.pas"/>
+        <Filename Value="codec\JamesBase64ClssTests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.RTL.Adapters.Tests"/>
       </Unit1>
       <Unit2>
-        <Filename Value="core\james.data.clss.tests.pas"/>
+        <Filename Value="codec\JamesMD5ClssTests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.Data.Clss.Tests"/>
       </Unit2>
       <Unit3>
-        <Filename Value="codec\james.base64.clss.tests.pas"/>
+        <Filename Value="core\JamesDataAdaptersTests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.Base64.Clss.Tests"/>
       </Unit3>
       <Unit4>
-        <Filename Value="codec\james.md5.clss.tests.pas"/>
+        <Filename Value="core\JamesDataClssTests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.MD5.Clss.Tests"/>
       </Unit4>
       <Unit5>
-        <Filename Value="text\james.xml.clss.tests.pas"/>
+        <Filename Value="core\JamesRTLAdaptersTests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.XML.Clss.Tests"/>
       </Unit5>
       <Unit6>
-        <Filename Value="core\james.data.adapters.tests.pas"/>
+        <Filename Value="text\JamesXMLClssTests.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="James.Data.Adapters.Tests"/>
       </Unit6>
     </Units>
   </ProjectOptions>
@@ -117,7 +105,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="..\inc;$(ProjOutDir)"/>
-      <OtherUnitFiles Value="core;codec;text"/>
+      <OtherUnitFiles Value="codec;core;text"/>
       <UnitOutputDirectory Value="..\units\test\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

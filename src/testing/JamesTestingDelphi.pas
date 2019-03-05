@@ -21,21 +21,45 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Core.Base;
+unit JamesTestingDelphi;
 
-{$i James.inc}
+{$include James.inc}
 
 interface
 
 uses
-  Classes, SysUtils;
+  TestFramework,
+  JamesTesting;
 
 type
-  IAdapter<T> = interface
-    function Adapted: T;
+  TTest = class sealed(TInterfacedObject, ITest)
+  private
+    FClss: TTestCaseClass;
+  public
+    constructor Create(Clss: TTestCaseClass);
+    class function New(Clss: TTestCaseClass): ITest;
+    function RegisterOn(const SuitePath: string): ITest;
   end;
 
 implementation
 
-end.
+{ TTest }
 
+constructor TTest.Create(Clss: TTestCaseClass);
+begin
+  inherited Create;
+  FClss := Clss;
+end;
+
+class function TTest.New(Clss: TTestCaseClass): ITest;
+begin
+  Result := Create(Clss);
+end;
+
+function TTest.RegisterOn(const SuitePath: string): ITest;
+begin
+  Result := Self;
+  TestFramework.RegisterTest(SuitePath, FClss.Suite);
+end;
+
+end.

@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.XML.Clss;
+unit JamesXMLClss;
 
 {$i James.inc}
 
@@ -29,13 +29,13 @@ interface
 
 uses
   Classes, SysUtils,
-  James.Data.Base,
-  James.Data.Clss,
-  James.XML.Base,
+  JamesDataBase,
+  JamesDataClss,
+  JamesXMLBase,
   {$ifdef FPC}
-    James.XML.FPC
+    JamesXMLFPC
   {$else}
-    James.XML.Delphi
+    JamesXMLDelphi
   {$endif}
   ;
 

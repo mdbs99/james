@@ -21,46 +21,49 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Testing.FPC;
+unit JamesMD5FPC;
 
 {$include James.inc}
 
 interface
 
 uses
-  fpcunit,
-  testregistry,
-  James.Testing.Base;
+  Classes, SysUtils,
+  md5,
+  JamesDataBase;
 
 type
-  TTest = class sealed(TInterfacedObject, ITest)
+  TCMD5Encoder = class(TInterfacedObject, IDataHash)
   private
-    FClss: TTestCaseClass;
+    FValue: string;
   public
-    constructor Create(Clss: TTestCaseClass);
-    class function New(Clss: TTestCaseClass): ITest;
-    function RegisterOn(const SuitePath: string): ITest;
+    constructor Create(const Value: string);
+    class function New(const Value: string): IDataHash;
+    function Adapted: string;
   end;
 
 implementation
 
-{ TTest }
+{ TCMD5Encoder }
 
-constructor TTest.Create(Clss: TTestCaseClass);
+constructor TCMD5Encoder.Create(const Value: string);
 begin
   inherited Create;
-  FClss := Clss;
+  FValue := Value;
 end;
 
-class function TTest.New(Clss: TTestCaseClass): ITest;
+class function TCMD5Encoder.New(const Value: string): IDataHash;
 begin
-  Result := Create(Clss);
+  Result := Create(Value);
 end;
 
-function TTest.RegisterOn(const SuitePath: string): ITest;
+function TCMD5Encoder.Adapted: string;
 begin
-  Result := Self;
-  TestRegistry.RegisterTest(SuitePath, FClss);
+  Result := MD5Print(
+    MD5String(
+      FValue
+    )
+  );
 end;
 
 end.

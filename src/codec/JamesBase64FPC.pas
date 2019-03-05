@@ -21,80 +21,72 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Logger.Clss;
+unit JamesBase64FPC;
 
-{$i James.inc}
+{$include James.inc}
 
 interface
 
 uses
   Classes, SysUtils,
-  James.Logger.Base;
+  synacode,
+  JamesDataBase;
 
 type
-  TLogInFile = class sealed(TInterfacedObject, ILog)
+  TCBase64Encoder = class(TInterfacedObject, IDataHash)
   private
-    FBuffer: TStrings;
-    FFileName: string;
-    procedure FlushBuffer;
+    FText: string;
   public
-    constructor Create(const FileName: string);
-    class function New(const FileName: string): ILog;
-    destructor Destroy; override;
-    function Log(const S: string): ILog; overload;
-    function Log(E: Exception): ILog; overload;
+    constructor Create(const Text: string);
+    class function New(const Text: string): IDataHash;
+    function Adapted: string;
+  end;
+
+  TCBase64Decoder = class(TInterfacedObject, IDataHash)
+  private
+    FHash: string;
+  public
+    constructor Create(const Hash: string);
+    class function New(const Hash: string): IDataHash;
+    function Adapted: string;
   end;
 
 implementation
 
-{ TLogInFile }
+{ TCBase64Encoder }
 
-constructor TLogInFile.Create(const FileName: string);
+constructor TCBase64Encoder.Create(const Text: string);
 begin
   inherited Create;
-  FBuffer := TStringList.Create;
-  FFileName := FileName;
+  FText := Text;
 end;
 
-class function TLogInFile.New(const FileName: string): ILog;
+class function TCBase64Encoder.New(const Text: string): IDataHash;
 begin
-  Result := TLogInFile.Create(FileName);
+  Result := Create(Text);
 end;
 
-destructor TLogInFile.Destroy;
+function TCBase64Encoder.Adapted: string;
 begin
-  FlushBuffer;
-  FBuffer.Free;
-  inherited Destroy;
+  Result := synacode.EncodeBase64(FText);
 end;
 
-procedure TLogInFile.FlushBuffer;
+{ TCBase64Decoder }
+
+constructor TCBase64Decoder.Create(const Hash: string);
 begin
-  ForceDirectories(ExtractFilePath(FFileName));
-  with TStringList.Create do
-  try
-    if FileExists(FFileName) then
-      LoadFromFile(FFileName);
-    Append(FBuffer.Text);
-    SaveToFile(FFileName);
-  finally
-    Free;
-  end;
+  inherited Create;
+  FHash := Hash;
 end;
 
-function TLogInFile.Log(const S: string): ILog;
+class function TCBase64Decoder.New(const Hash: string): IDataHash;
 begin
-  Result := Self;
-  FBuffer.Add(S);
+  Result := Create(Hash);
 end;
 
-function TLogInFile.Log(E: Exception): ILog;
+function TCBase64Decoder.Adapted: string;
 begin
-  Result := Self;
-  Log(Format('%s (%s)', [TimeToStr(Now), E.ClassName]));
-  Log(E.Message);
-  Log('-------------------------------------------------------------');
+  Result := synacode.DecodeBase64(FHash);
 end;
 
 end.
-

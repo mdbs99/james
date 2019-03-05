@@ -21,72 +21,59 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Base64.FPC;
+unit JamesTestingClss;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 
 uses
-  Classes, SysUtils,
-  synacode,
-  James.Data.Base;
+  {$ifdef FPC}
+    fpcunit,
+    JamesTestingFPC,
+  {$else}
+    TestFramework,
+    JamesTestingDelphi,
+  {$endif}
+  JamesTestingBase;
 
 type
-  TCBase64Encoder = class(TInterfacedObject, IDataHash)
-  private
-    FText: string;
-  public
-    constructor Create(const Text: string);
-    class function New(const Text: string): IDataHash;
-    function Adapted: string;
-  end;
+  {$ifdef FPC}
+    TTest = JamesTestingFPC.TTest;
+    TTestCase = FPCUnit.TTestCase;
+  {$else}
+    TTest = JamesTestingDelphi.TTest;
+    TTestCase = TestFramework.TTestCase;
+  {$endif}
 
-  TCBase64Decoder = class(TInterfacedObject, IDataHash)
+  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
   private
-    FHash: string;
+    FPath: string;
   public
-    constructor Create(const Hash: string);
-    class function New(const Hash: string): IDataHash;
-    function Adapted: string;
+    constructor Create(const Path: string);
+    class function New(const Path: string): ITestSuite;
+    function Add(const Test: ITest): ITestSuite;
   end;
 
 implementation
 
-{ TCBase64Encoder }
+{ TTestSuite }
 
-constructor TCBase64Encoder.Create(const Text: string);
+function TTestSuite.Add(const Test: ITest): ITestSuite;
 begin
-  inherited Create;
-  FText := Text;
+  Result := Self;
+  Test.RegisterOn(FPath);
 end;
 
-class function TCBase64Encoder.New(const Text: string): IDataHash;
+constructor TTestSuite.Create(const Path: string);
 begin
-  Result := Create(Text);
+  FPath := Path;
 end;
 
-function TCBase64Encoder.Adapted: string;
+class function TTestSuite.New(const Path: string): ITestSuite;
 begin
-  Result := synacode.EncodeBase64(FText);
+  Result := Create(Path);
 end;
 
-{ TCBase64Decoder }
-
-constructor TCBase64Decoder.Create(const Hash: string);
-begin
-  inherited Create;
-  FHash := Hash;
-end;
-
-class function TCBase64Decoder.New(const Hash: string): IDataHash;
-begin
-  Result := Create(Hash);
-end;
-
-function TCBase64Decoder.Adapted: string;
-begin
-  Result := synacode.DecodeBase64(FHash);
-end;
 
 end.

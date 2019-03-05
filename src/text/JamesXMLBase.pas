@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.XML.Base;
+unit JamesXMLBase;
 
 {$i James.inc}
 
@@ -34,7 +34,7 @@ uses
   {$else}
     XMLDOM,
   {$endif}
-  James.Data.Base;
+  JamesDataBase;
 
 type
   TXMLString = DOMString;

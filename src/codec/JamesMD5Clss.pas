@@ -20,8 +20,8 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-} 
-unit James.MD5.Clss.Tests;
+}
+unit JamesMD5Clss;
 
 {$i James.inc}
 
@@ -29,53 +29,65 @@ interface
 
 uses
   Classes, SysUtils,
-  James.Data.Clss,
-  James.MD5.Clss,
-  James.Testing.Clss;
+  JamesDataBase,
+  JamesDataClss,
+  {$ifdef FPC}
+    JamesMD5FPC
+  {$else}
+    JamesMD5Delphi
+  {$endif}
+  ;
 
 type
-  TMD5HashTest = class(TTestCase)
-  published
-    procedure TestHashByMd5HashGeneratorPage;
-  end;
+  TMD5Encoder = class(TCMD5Encoder, IDataHash);
 
-  TMD5StreamTest = class(TTestCase)
-  published
-    procedure TestStreamFromMemory;
+  TMD5EncodedStream = class sealed(TInterfacedObject, IDataStream)
+  private
+    FOrigin: IDataStream;
+    function GetStream: IDataStream;
+  public
+    constructor Create(const Origin: IDataStream); reintroduce;
+    class function New(const Origin: IDataStream): IDataStream;
+    function Save(Stream: TStream): IDataStream; overload;
+    function AsString: string;
+    function Size: Int64;
   end;
 
 implementation
 
-{ TMD5HashTest }
+{ TMD5EncodedStream }
 
-procedure TMD5HashTest.TestHashByMd5HashGeneratorPage;
-const
-  VALUE: string = 'http://www.md5hashgenerator.com/';
-  VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
+function TMD5EncodedStream.GetStream: IDataStream;
 begin
-  CheckEquals(
-    VALUE_HASH,
-    TMD5Encoder.New(VALUE).Adapted
+  Result := TDataStream.New(
+    TMD5Encoder.New(FOrigin.AsString).Adapted
   );
 end;
 
-{ TMD5StreamTest }
-
-procedure TMD5StreamTest.TestStreamFromMemory;
-const
-  TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
+constructor TMD5EncodedStream.Create(const Origin: IDataStream);
 begin
-  CheckEquals(
-    TMD5Encoder.New(TXT).Adapted,
-    TMD5EncodedStream.New(
-      TDataStream.New(TXT)
-    ).AsString
-  );
+  inherited Create;
+  FOrigin := Origin;
 end;
 
-initialization
-  TTestSuite.New('Codec.MD5')
-    .Add(TTest.New(TMD5HashTest))
-    .Add(TTest.New(TMD5StreamTest));
+class function TMD5EncodedStream.New(const Origin: IDataStream): IDataStream;
+begin
+  Result := Create(Origin);
+end;
+
+function TMD5EncodedStream.Save(Stream: TStream): IDataStream;
+begin
+  Result := GetStream.Save(Stream);
+end;
+
+function TMD5EncodedStream.AsString: string;
+begin
+  Result := GetStream.AsString;
+end;
+
+function TMD5EncodedStream.Size: Int64;
+begin
+  Result := GetStream.Size;
+end;
 
 end.

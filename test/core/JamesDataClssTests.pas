@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Data.Clss.Tests;
+unit JamesDataClssTests;
 
 {$i James.inc}
 
@@ -29,9 +29,9 @@ interface
 
 uses
   Classes, SysUtils, Variants, DB, TypInfo,
-  James.Data.Base,
-  James.Data.Clss,
-  James.Testing.Clss;
+  JamesDataBase,
+  JamesDataClss,
+  JamesTestingClss;
 
 type
   TDataStreamTest = class(TTestCase)

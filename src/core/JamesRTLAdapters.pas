@@ -21,73 +21,66 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.MD5.Clss;
+unit JamesRTLAdapters;
 
 {$i James.inc}
 
 interface
 
 uses
-  Classes, SysUtils,
-  James.Data.Base,
-  James.Data.Clss,
-  {$ifdef FPC}
-    James.MD5.FPC
-  {$else}
-    James.MD5.Delphi
-  {$endif}
-  ;
+  Classes, SysUtils, COMObj, Variants,
+  JamesCoreBase,
+  JamesDataBase,
+  JamesDataClss;
 
 type
-  TMD5Encoder = class(TCMD5Encoder, IDataHash);
-
-  TMD5EncodedStream = class sealed(TInterfacedObject, IDataStream)
+  TOleVariantAsDataStream = class(TInterfacedObject, IAdapter<IDataStream>)
   private
-    FOrigin: IDataStream;
-    function GetStream: IDataStream;
+    FValue: OleVariant;
   public
-    constructor Create(const Origin: IDataStream); reintroduce;
-    class function New(const Origin: IDataStream): IDataStream;
-    function Save(Stream: TStream): IDataStream; overload;
-    function AsString: string;
-    function Size: Int64;
+    constructor Create(const Value: OleVariant);
+    class function New(const Value: OleVariant): IAdapter<IDataStream>;
+    function Adapted: IDataStream;
   end;
 
 implementation
 
-{ TMD5EncodedStream }
+{ TOleVariantAsDataStream }
 
-function TMD5EncodedStream.GetStream: IDataStream;
-begin
-  Result := TDataStream.New(
-    TMD5Encoder.New(FOrigin.AsString).Adapted
-  );
-end;
-
-constructor TMD5EncodedStream.Create(const Origin: IDataStream);
+constructor TOleVariantAsDataStream.Create(const Value: OleVariant);
 begin
   inherited Create;
-  FOrigin := Origin;
+  FValue := Value;
 end;
 
-class function TMD5EncodedStream.New(const Origin: IDataStream): IDataStream;
+class function TOleVariantAsDataStream.New(const Value: OleVariant): IAdapter<IDataStream>;
 begin
-  Result := Create(Origin);
+  Result := Create(Value);
 end;
 
-function TMD5EncodedStream.Save(Stream: TStream): IDataStream;
+function TOleVariantAsDataStream.Adapted: IDataStream;
+var
+  I: Integer;
+  P: Pointer;
+  S: TStream;
 begin
-  Result := GetStream.Save(Stream);
-end;
-
-function TMD5EncodedStream.AsString: string;
-begin
-  Result := GetStream.AsString;
-end;
-
-function TMD5EncodedStream.Size: Int64;
-begin
-  Result := GetStream.Size;
+  Assert(VarType(FValue) = varByte or varArray);
+  Assert(VarArrayDimCount(FValue) = 1);
+  S := TMemoryStream.Create;
+  try
+    I := VarArrayHighBound(FValue, 1) - VarArrayLowBound(FValue, 1) + 1;
+    S.Size := I;
+    S.Position := 0;
+    P := VarArrayLock(FValue);
+    try
+      S.Write(P^, S.Size);
+      Result := TDataStream.New(S);
+    finally
+      VarArrayUnlock(FValue);
+    end;
+  finally
+    S.Free;
+  end;
 end;
 
 end.

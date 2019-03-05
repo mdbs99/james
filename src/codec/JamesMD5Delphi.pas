@@ -21,23 +21,45 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Testing.Base;
+unit JamesMD5Delphi;
 
-{$i James.inc}
+{$include James.inc}
 
 interface
 
-type
-  ITest = interface
-  ['{CF6EE529-CC09-461F-B6FB-526982D37C3B}']
-    function RegisterOn(const SuitePath: string): ITest;
-  end;
+uses
+  Classes, SysUtils,
+  hash,
+  JamesDataBase;
 
-  ITestSuite = interface
-  ['{08E6BA19-7082-4BC0-AA14-8E7A92633D5B}']
-    function Add(const Test: ITest): ITestSuite;
+type
+  TCMD5Encoder = class(TInterfacedObject, IDataHash)
+  private
+    FValue: string;
+  public
+    constructor Create(const Value: string);
+    class function New(const Value: string): IDataHash;
+    function Adapted: string;
   end;
 
 implementation
+
+{ TCMD5Encoder }
+
+constructor TCMD5Encoder.Create(const Value: string);
+begin
+  inherited Create;
+  FValue := Value;
+end;
+
+class function TCMD5Encoder.New(const Value: string): IDataHash;
+begin
+  Result := Create(Value);
+end;
+
+function TCMD5Encoder.Adapted: string;
+begin
+  Result := THashMD5.GetHashString(FValue);
+end;
 
 end.

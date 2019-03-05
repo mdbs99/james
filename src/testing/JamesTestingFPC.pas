@@ -21,66 +21,46 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.RTL.Adapters;
+unit JamesTestingFPC;
 
-{$i James.inc}
+{$include James.inc}
 
 interface
 
 uses
-  Classes, SysUtils, COMObj, Variants,
-  James.Core.Base,
-  James.Data.Base,
-  James.Data.Clss;
+  fpcunit,
+  testregistry,
+  JamesTestingBase;
 
 type
-  TOleVariantAsDataStream = class(TInterfacedObject, IAdapter<IDataStream>)
+  TTest = class sealed(TInterfacedObject, ITest)
   private
-    FValue: OleVariant;
+    FClss: TTestCaseClass;
   public
-    constructor Create(const Value: OleVariant);
-    class function New(const Value: OleVariant): IAdapter<IDataStream>;
-    function Adapted: IDataStream;
+    constructor Create(Clss: TTestCaseClass);
+    class function New(Clss: TTestCaseClass): ITest;
+    function RegisterOn(const SuitePath: string): ITest;
   end;
 
 implementation
 
-{ TOleVariantAsDataStream }
+{ TTest }
 
-constructor TOleVariantAsDataStream.Create(const Value: OleVariant);
+constructor TTest.Create(Clss: TTestCaseClass);
 begin
   inherited Create;
-  FValue := Value;
+  FClss := Clss;
 end;
 
-class function TOleVariantAsDataStream.New(const Value: OleVariant): IAdapter<IDataStream>;
+class function TTest.New(Clss: TTestCaseClass): ITest;
 begin
-  Result := Create(Value);
+  Result := Create(Clss);
 end;
 
-function TOleVariantAsDataStream.Adapted: IDataStream;
-var
-  I: Integer;
-  P: Pointer;
-  S: TStream;
+function TTest.RegisterOn(const SuitePath: string): ITest;
 begin
-  Assert(VarType(FValue) = varByte or varArray);
-  Assert(VarArrayDimCount(FValue) = 1);
-  S := TMemoryStream.Create;
-  try
-    I := VarArrayHighBound(FValue, 1) - VarArrayLowBound(FValue, 1) + 1;
-    S.Size := I;
-    S.Position := 0;
-    P := VarArrayLock(FValue);
-    try
-      S.Write(P^, S.Size);
-      Result := TDataStream.New(S);
-    finally
-      VarArrayUnlock(FValue);
-    end;
-  finally
-    S.Free;
-  end;
+  Result := Self;
+  TestRegistry.RegisterTest(SuitePath, FClss);
 end;
 
 end.

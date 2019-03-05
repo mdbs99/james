@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 } 
-unit James.Data.Adapters.Tests;
+unit JamesDataAdaptersTests;
 
 {$i James.inc}
 
@@ -29,11 +29,11 @@ interface
 
 uses
   Classes, SysUtils, COMObj, Variants, DB,
-  James.Data.Base,
-  James.Data.Clss,
-  James.Data.Adapters,
-  James.RTL.Adapters,
-  James.Testing.Clss;
+  JamesDataBase,
+  JamesDataClss,
+  JamesDataAdapters,
+  JamesRTLAdapters,
+  JamesTestingClss;
 
 type
   TDataStreamAsOleVariantTest = class(TTestCase)

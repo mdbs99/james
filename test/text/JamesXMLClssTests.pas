@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.XML.Clss.Tests;
+unit JamesXMLClssTests;
 
 {$i James.inc}
 
@@ -29,11 +29,11 @@ interface
 
 uses
   Classes, SysUtils,
-  James.Data.Base,
-  James.Data.Clss,
-  James.Testing.Clss,
-  James.XML.Base,
-  James.XML.Clss;
+  JamesDataBase,
+  JamesDataClss,
+  JamesTestingClss,
+  JamesXMLBase,
+  JamesXMLClss;
   
 type
   TXMLFileForTest = class(TDataFile)

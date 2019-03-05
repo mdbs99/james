@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.Data.Clss;
+unit JamesDataClss;
 
 {$i James.inc}
 
@@ -29,8 +29,8 @@ interface
 
 uses
   Classes, SysUtils, DB, Variants,
-  James.Core.Base,
-  James.Data.Base;
+  JamesCoreBase,
+  JamesDataBase;
 
 type
   TDataStream = class(TInterfacedObject, IDataStream)

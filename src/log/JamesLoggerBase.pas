@@ -21,45 +21,23 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit James.MD5.Delphi;
+unit JamesLoggerBase;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 
 uses
-  Classes, SysUtils,
-  hash,
-  James.Data.Base;
+  Classes, SysUtils;
 
 type
-  TCMD5Encoder = class(TInterfacedObject, IDataHash)
-  private
-    FValue: string;
-  public
-    constructor Create(const Value: string);
-    class function New(const Value: string): IDataHash;
-    function Adapted: string;
+  ILog = interface
+  ['{BE7AF0F3-B1EE-4853-8E18-EB6711655D07}']
+    function Log(const S: string): ILog; overload;
+    function Log(E: Exception): ILog; overload;
   end;
 
 implementation
 
-{ TCMD5Encoder }
-
-constructor TCMD5Encoder.Create(const Value: string);
-begin
-  inherited Create;
-  FValue := Value;
-end;
-
-class function TCMD5Encoder.New(const Value: string): IDataHash;
-begin
-  Result := Create(Value);
-end;
-
-function TCMD5Encoder.Adapted: string;
-begin
-  Result := THashMD5.GetHashString(FValue);
-end;
-
 end.
+
