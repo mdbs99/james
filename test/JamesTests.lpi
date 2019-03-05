@@ -21,8 +21,7 @@
             <Filename Value="..\bin\James.Tests"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="..\inc"/>
-            <OtherUnitFiles Value="codec;core;text"/>
+            <OtherUnitFiles Value="..\src;codec;core;text"/>
             <UnitOutputDirectory Value="..\units\test\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -104,8 +103,7 @@
       <Filename Value="..\bin\James.Tests"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="..\inc;$(ProjOutDir)"/>
-      <OtherUnitFiles Value="codec;core;text"/>
+      <OtherUnitFiles Value="..\src;codec;core;text"/>
       <UnitOutputDirectory Value="..\units\test\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
