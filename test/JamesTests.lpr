@@ -6,11 +6,12 @@ uses
   Interfaces,
   Forms,
   GuiTestRunner,
-  JamesDataClssTests,
+  JamesDataTests,
   JamesDataAdaptersTests,
   JamesRTLAdaptersTests,
-  JamesMD5ClssTests,
-  JamesBase64ClssTests;
+  JamesXMLTests,
+  JamesBase64Tests,
+  JamesMD5Tests;
 
 {$R *.res}
 

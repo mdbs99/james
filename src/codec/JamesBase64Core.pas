@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesBase64Clss;
+unit JamesBase64Core;
 
 {$i James.inc}
 
@@ -35,7 +35,7 @@ uses
     JamesBase64Delphi,
   {$endif}
   JamesDataBase,
-  JamesDataClss;
+  JamesDataCore;
 
 type
   TBase64Encoder = class(TCBase64Encoder, IDataHash);

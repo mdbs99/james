@@ -20,62 +20,60 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-} 
-unit JamesMD5ClssTests;
+}
+unit JamesTestingCore;
 
 {$i James.inc}
 
 interface
 
 uses
-  Classes, SysUtils,
-  JamesDataClss,
-  JamesMD5Clss,
-  JamesTestingClss;
+  {$ifdef FPC}
+    fpcunit,
+    JamesTestingFPC,
+  {$else}
+    TestFramework,
+    JamesTestingDelphi,
+  {$endif}
+  JamesTestingBase;
 
 type
-  TMD5HashTest = class(TTestCase)
-  published
-    procedure TestHashByMd5HashGeneratorPage;
-  end;
+  {$ifdef FPC}
+    TTest = JamesTestingFPC.TTest;
+    TTestCase = FPCUnit.TTestCase;
+  {$else}
+    TTest = JamesTestingDelphi.TTest;
+    TTestCase = TestFramework.TTestCase;
+  {$endif}
 
-  TMD5StreamTest = class(TTestCase)
-  published
-    procedure TestStreamFromMemory;
+  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
+  private
+    FPath: string;
+  public
+    constructor Create(const Path: string);
+    class function New(const Path: string): ITestSuite;
+    function Add(const Test: ITest): ITestSuite;
   end;
 
 implementation
 
-{ TMD5HashTest }
+{ TTestSuite }
 
-procedure TMD5HashTest.TestHashByMd5HashGeneratorPage;
-const
-  VALUE: string = 'http://www.md5hashgenerator.com/';
-  VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
+function TTestSuite.Add(const Test: ITest): ITestSuite;
 begin
-  CheckEquals(
-    VALUE_HASH,
-    TMD5Encoder.New(VALUE).Adapted
-  );
+  Result := Self;
+  Test.RegisterOn(FPath);
 end;
 
-{ TMD5StreamTest }
-
-procedure TMD5StreamTest.TestStreamFromMemory;
-const
-  TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
+constructor TTestSuite.Create(const Path: string);
 begin
-  CheckEquals(
-    TMD5Encoder.New(TXT).Adapted,
-    TMD5EncodedStream.New(
-      TDataStream.New(TXT)
-    ).AsString
-  );
+  FPath := Path;
 end;
 
-initialization
-  TTestSuite.New('Codec.MD5')
-    .Add(TTest.New(TMD5HashTest))
-    .Add(TTest.New(TMD5StreamTest));
+class function TTestSuite.New(const Path: string): ITestSuite;
+begin
+  Result := Create(Path);
+end;
+
 
 end.

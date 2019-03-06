@@ -31,7 +31,7 @@ uses
   Classes, SysUtils, COMObj, Variants,
   JamesCoreBase,
   JamesDataBase,
-  JamesDataClss;
+  JamesDataCore;
 
 type
   TOleVariantAsDataStream = class(TInterfacedObject, IAdapter<IDataStream>)

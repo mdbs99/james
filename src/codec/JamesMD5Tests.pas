@@ -20,60 +20,62 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-}
-unit JamesTestingClss;
+} 
+unit JamesMD5Tests;
 
 {$i James.inc}
 
 interface
 
 uses
-  {$ifdef FPC}
-    fpcunit,
-    JamesTestingFPC,
-  {$else}
-    TestFramework,
-    JamesTestingDelphi,
-  {$endif}
-  JamesTestingBase;
+  Classes, SysUtils,
+  JamesDataCore,
+  JamesMD5Core,
+  JamesTestingCore;
 
 type
-  {$ifdef FPC}
-    TTest = JamesTestingFPC.TTest;
-    TTestCase = FPCUnit.TTestCase;
-  {$else}
-    TTest = JamesTestingDelphi.TTest;
-    TTestCase = TestFramework.TTestCase;
-  {$endif}
+  TMD5HashTest = class(TTestCase)
+  published
+    procedure TestHashByMd5HashGeneratorPage;
+  end;
 
-  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
-  private
-    FPath: string;
-  public
-    constructor Create(const Path: string);
-    class function New(const Path: string): ITestSuite;
-    function Add(const Test: ITest): ITestSuite;
+  TMD5StreamTest = class(TTestCase)
+  published
+    procedure TestStreamFromMemory;
   end;
 
 implementation
 
-{ TTestSuite }
+{ TMD5HashTest }
 
-function TTestSuite.Add(const Test: ITest): ITestSuite;
+procedure TMD5HashTest.TestHashByMd5HashGeneratorPage;
+const
+  VALUE: string = 'http://www.md5hashgenerator.com/';
+  VALUE_HASH: string = '93d1d8f5025cefe0fb747a6809a8405a';
 begin
-  Result := Self;
-  Test.RegisterOn(FPath);
+  CheckEquals(
+    VALUE_HASH,
+    TMD5Encoder.New(VALUE).Adapted
+  );
 end;
 
-constructor TTestSuite.Create(const Path: string);
+{ TMD5StreamTest }
+
+procedure TMD5StreamTest.TestStreamFromMemory;
+const
+  TXT: string = 'ABCABEC~#ABCABEC~#10#13xyz';
 begin
-  FPath := Path;
+  CheckEquals(
+    TMD5Encoder.New(TXT).Adapted,
+    TMD5EncodedStream.New(
+      TDataStream.New(TXT)
+    ).AsString
+  );
 end;
 
-class function TTestSuite.New(const Path: string): ITestSuite;
-begin
-  Result := Create(Path);
-end;
-
+initialization
+  TTestSuite.New('Codec.MD5')
+    .Add(TTest.New(TMD5HashTest))
+    .Add(TTest.New(TMD5StreamTest));
 
 end.

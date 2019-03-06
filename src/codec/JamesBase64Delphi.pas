@@ -30,7 +30,7 @@ interface
 uses
   Classes, SysUtils,
   JamesDataBase,
-  JamesDataClss;
+  JamesDataCore;
 
 type
   TCBase64Encoder = class sealed(TInterfacedObject, IDataHash)

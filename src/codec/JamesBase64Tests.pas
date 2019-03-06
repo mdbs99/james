@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 } 
-unit JamesBase64ClssTests;
+unit JamesBase64Tests;
 
 {$i James.inc}
 
@@ -30,9 +30,9 @@ interface
 uses
   Classes, SysUtils,
   JamesDataBase,
-  JamesDataClss,
-  JamesBase64Clss,
-  JamesTestingClss;
+  JamesDataCore,
+  JamesBase64Core,
+  JamesTestingCore;
 
 type
   TBase64EncoderTest = class(TTestCase)

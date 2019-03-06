@@ -31,7 +31,7 @@ uses
   Classes, SysUtils,
   DOM, XPath, XMLRead, XMLWrite,
   JamesDataBase,
-  JamesDataClss,
+  JamesDataCore,
   JamesXMLBase;
 
 type

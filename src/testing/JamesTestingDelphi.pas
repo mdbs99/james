@@ -34,10 +34,10 @@ uses
 type
   TTest = class sealed(TInterfacedObject, ITest)
   private
-    FClss: TTestCaseClass;
+    FCore: TTestCaseClass;
   public
-    constructor Create(Clss: TTestCaseClass);
-    class function New(Clss: TTestCaseClass): ITest;
+    constructor Create(Core: TTestCaseClass);
+    class function New(Core: TTestCaseClass): ITest;
     function RegisterOn(const SuitePath: string): ITest;
   end;
 
@@ -45,21 +45,21 @@ implementation
 
 { TTest }
 
-constructor TTest.Create(Clss: TTestCaseClass);
+constructor TTest.Create(Core: TTestCaseClass);
 begin
   inherited Create;
-  FClss := Clss;
+  FCore := Core;
 end;
 
-class function TTest.New(Clss: TTestCaseClass): ITest;
+class function TTest.New(Core: TTestCaseClass): ITest;
 begin
-  Result := Create(Clss);
+  Result := Create(Core);
 end;
 
 function TTest.RegisterOn(const SuitePath: string): ITest;
 begin
   Result := Self;
-  TestFramework.RegisterTest(SuitePath, FClss.Suite);
+  TestFramework.RegisterTest(SuitePath, FCore.Suite);
 end;
 
 end.

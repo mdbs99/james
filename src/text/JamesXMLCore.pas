@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesXMLClss;
+unit JamesXMLCore;
 
 {$i James.inc}
 
@@ -30,7 +30,7 @@ interface
 uses
   Classes, SysUtils,
   JamesDataBase,
-  JamesDataClss,
+  JamesDataCore,
   JamesXMLBase,
   {$ifdef FPC}
     JamesXMLFPC

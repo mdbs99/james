@@ -22,7 +22,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="..\src;$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\src\codec;..\src\core;..\src\text;..\src\testing"/>
+            <OtherUnitFiles Value="..\src\core;..\src\testing;..\src\codec;..\src\text"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -66,47 +66,39 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="8">
       <Unit0>
         <Filename Value="JamesTests.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="..\src\codec\JamesBase64ClssTests.pas"/>
+        <Filename Value="..\src\core\JamesDataAdaptersTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="..\src\codec\JamesMD5ClssTests.pas"/>
+        <Filename Value="..\src\core\JamesRTLAdaptersTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\src\core\JamesDataAdaptersTests.pas"/>
+        <Filename Value="..\src\testing\JamesTestingBase.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="..\src\core\JamesDataClssTests.pas"/>
+        <Filename Value="..\src\codec\JamesBase64Tests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="..\src\core\JamesRTLAdaptersTests.pas"/>
+        <Filename Value="..\src\codec\JamesMD5Tests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
       <Unit6>
-        <Filename Value="..\src\text\JamesXMLClssTests.pas"/>
+        <Filename Value="..\src\text\JamesXMLTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit6>
       <Unit7>
-        <Filename Value="..\src\James.inc"/>
+        <Filename Value="..\src\core\JamesDataTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit7>
-      <Unit8>
-        <Filename Value="..\src\testing\JamesTestingBase.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="..\src\testing\JamesTestingClss.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit9>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -117,7 +109,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="..\src"/>
-      <OtherUnitFiles Value="..\src\codec;..\src\core;..\src\text;..\src\testing"/>
+      <OtherUnitFiles Value="..\src\core;..\src\testing;..\src\codec;..\src\text"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

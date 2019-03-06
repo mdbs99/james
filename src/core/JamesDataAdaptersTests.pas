@@ -30,10 +30,10 @@ interface
 uses
   Classes, SysUtils, COMObj, Variants, DB,
   JamesDataBase,
-  JamesDataClss,
+  JamesDataCore,
   JamesDataAdapters,
   JamesRTLAdapters,
-  JamesTestingClss;
+  JamesTestingCore;
 
 type
   TDataStreamAsOleVariantTest = class(TTestCase)
