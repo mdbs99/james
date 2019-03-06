@@ -29,7 +29,7 @@ interface
 
 uses
   Classes, SysUtils, Variants, DB,
-  JamesCoreBase;
+  JamesBase;
 
 type
   IDataStream = interface

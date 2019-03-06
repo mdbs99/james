@@ -29,7 +29,7 @@ interface
 
 uses
   Classes, SysUtils, DB, Variants,
-  JamesCoreBase,
+  JamesBase,
   JamesDataBase;
 
 type

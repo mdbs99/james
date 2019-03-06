@@ -29,7 +29,7 @@ interface
 
 uses
   Classes, SysUtils, COMObj, Variants,
-  JamesCoreBase,
+  JamesBase,
   JamesDataBase,
   JamesDataCore;
 
