@@ -8,7 +8,7 @@ uses
 {$R *.res}
 
 begin
-  Application.Title := 'James.Tests';
+  Application.Title := 'JamesTests';
   Application.Initialize;
   Application.CreateForm(TGuiTestRunner, TestRunner);
   Application.Run;
