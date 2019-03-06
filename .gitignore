@@ -1,5 +1,6 @@
 ### Common ###
 bin/
+lib/
 *.[oa]
 *.bak*
 *.dll
