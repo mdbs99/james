@@ -28,9 +28,16 @@ unit JamesDataTests;
 interface
 
 uses
-  Classes, SysUtils, Variants, DB, TypInfo,
+  Classes,
+  SysUtils,
+  Variants,
+  DB,
+  TypInfo,
+  COMObj,
   JamesDataBase,
   JamesDataCore,
+  JamesDataAdapters,
+  JamesRTLAdapters,
   JamesTestingCore;
 
 type
@@ -91,6 +98,21 @@ type
     procedure TestPath;
     procedure TestName;
     procedure TestStream;
+  end;
+
+  TDataStreamAsOleVariantTest = class(TTestCase)
+  published
+    procedure TestAdapted;
+  end;
+
+  TDataStreamAsParamTest = class(TTestCase)
+  published
+    procedure TestAdapted;
+  end;
+
+  TDataStreamAsStringsTest = class(TTestCase)
+  published
+    procedure TestAdapted;
   end;
 
 implementation
@@ -429,6 +451,62 @@ begin
   end;
 end;
 
+{ TDataStreamAsOleVariantTest }
+
+procedure TDataStreamAsOleVariantTest.TestAdapted;
+var
+  S: IDataStream;
+begin
+  S := TDataStream.New('foo');
+  CheckEquals(
+    'foo',
+    TOleVariantAsDataStream.New(
+      TDataStreamAsOleVariant.New(S).Adapted
+    ).Adapted.AsString
+  );
+end;
+
+{ TDataStreamAsParamTest }
+
+procedure TDataStreamAsParamTest.TestAdapted;
+var
+  S: IDataStream;
+  P: TParam;
+begin
+  S := TDataStream.New('bar');
+  P := TParam.Create(nil);
+  try
+    CheckEquals(
+      'bar',
+      TDataStreamAsParam.New(S, P).Adapted.AsString
+    );
+  finally
+    P.Free;
+  end;
+end;
+
+{ TDataStreamAsStringsTest }
+
+procedure TDataStreamAsStringsTest.TestAdapted;
+var
+  S: IDataStream;
+  SL: TStrings;
+begin
+  S := TDataStream.New('strings');
+  SL := TStringList.Create;
+  try
+    CheckEquals(
+      'strings',
+      TDataStreamAsStrings.New(S, SL)
+        .Adapted
+        .Text
+        .TrimRight
+    );
+  finally
+    sl.Free;
+  end;
+end;
+
 initialization
   TTestSuite.New('Core.Data')
     .Add(TTest.New(TDataStreamTest))
@@ -437,6 +515,9 @@ initialization
     .Add(TTest.New(TDataGuidTest))
     .Add(TTest.New(TDataConstraintsTest))
     .Add(TTest.New(TDataFileTest))
+    .Add(TTest.New(TDataStreamAsOleVariantTest))
+    .Add(TTest.New(TDataStreamAsParamTest))
+    .Add(TTest.New(TDataStreamAsStringsTest))
     ;
 
 end.
