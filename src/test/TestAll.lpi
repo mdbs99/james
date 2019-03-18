@@ -6,7 +6,7 @@
     <General>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="JamesTests"/>
+      <Title Value="TestAll"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -18,11 +18,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\JamesTests"/>
+            <Filename Value="bin\TestAll"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="..\src;$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\src\core;..\src\testing;..\src\codec;..\src\text"/>
+            <IncludeFiles Value="..;$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\core;..\testing;..\codec;..\text;.."/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -43,6 +43,11 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerMessages>
+              <IgnoredMessages idx6058="True"/>
+            </CompilerMessages>
+          </Other>
         </CompilerOptions>
       </Item2>
     </BuildModes>
@@ -66,50 +71,42 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="8">
+    <Units Count="6">
       <Unit0>
-        <Filename Value="JamesTests.lpr"/>
+        <Filename Value="TestAll.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="..\src\core\JamesDataAdaptersTests.pas"/>
+        <Filename Value="..\testing\JamesTestingBase.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="..\src\core\JamesRTLAdaptersTests.pas"/>
+        <Filename Value="..\codec\JamesMD5Tests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\src\testing\JamesTestingBase.pas"/>
+        <Filename Value="..\text\JamesXMLTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="..\src\codec\JamesBase64Tests.pas"/>
+        <Filename Value="..\JamesDataTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="..\src\codec\JamesMD5Tests.pas"/>
+        <Filename Value="..\JamesRTLTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
-      <Unit6>
-        <Filename Value="..\src\text\JamesXMLTests.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="..\src\core\JamesDataTests.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="bin\JamesTests"/>
+      <Filename Value="bin\TestAll"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="..\src"/>
-      <OtherUnitFiles Value="..\src\core;..\src\testing;..\src\codec;..\src\text"/>
+      <IncludeFiles Value="..;$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\core;..\testing;..\codec;..\text;.."/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -139,6 +136,12 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CompilerMessages>
+        <IgnoredMessages idx6058="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="W:\md\dev\proj\cremerj\ide\lazarus\fpc\3.1.1\bin\i386-win32\fpc.exe"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

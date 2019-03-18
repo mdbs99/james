@@ -1,4 +1,4 @@
-program JamesTests;
+program TestAll;
 
 {$i James.inc}
 
@@ -7,16 +7,15 @@ uses
   Forms,
   GuiTestRunner,
   JamesDataTests,
-  JamesDataAdaptersTests,
-  JamesRTLAdaptersTests,
+  JamesRTLTests,
   JamesXMLTests,
-  JamesBase64Tests,
   JamesMD5Tests;
 
 {$R *.res}
 
 begin
   Application.Initialize;
+  Application.CreateForm(TGuiTestRunner, TestRunner);
   Application.Run;
 end.
 
