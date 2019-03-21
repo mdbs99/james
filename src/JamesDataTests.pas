@@ -100,19 +100,11 @@ type
     procedure TestStream;
   end;
 
-  TDataStreamAsOleVariantTest = class(TTestCase)
+  TDataStreamAdapterTest = class(TTestCase)
   published
-    procedure TestAdapted;
-  end;
-
-  TDataStreamAsParamTest = class(TTestCase)
-  published
-    procedure TestAdapted;
-  end;
-
-  TDataStreamAsStringsTest = class(TTestCase)
-  published
-    procedure TestAdapted;
+    procedure TestOleVariant;
+    procedure TestParam;
+    procedure TestStrings;
   end;
 
 implementation
@@ -451,73 +443,63 @@ begin
   end;
 end;
 
-{ TDataStreamAsOleVariantTest }
+{ TDataStreamAdapterTest }
 
-procedure TDataStreamAsOleVariantTest.TestAdapted;
+procedure TDataStreamAdapterTest.TestOleVariant;
 var
-  S: IDataStream;
+  v: OleVariant;
+  a: TDataStreamAdapter;
+  b: TOleVariantAdapter;
 begin
-  S := TDataStream.New('foo');
-  CheckEquals(
-    'foo',
-    TOleVariantAsDataStream.New(
-      TDataStreamAsOleVariant.New(S).Adapted
-    ).Adapted.AsString
-  );
+  a.Init(TDataStream.New('foo'));
+  v := a.ToOleVariant;
+  b.Init(v);
+  CheckEquals('foo', b.ToDataStream.AsString);
 end;
 
-{ TDataStreamAsParamTest }
-
-procedure TDataStreamAsParamTest.TestAdapted;
+procedure TDataStreamAdapterTest.TestParam;
 var
-  S: IDataStream;
-  P: TParam;
+  s: IDataStream;
+  p: TParam;
+  a: TDataStreamAdapter;
 begin
-  S := TDataStream.New('bar');
-  P := TParam.Create(nil);
+  s := TDataStream.New('bar');
+  p := TParam.Create(nil);
   try
-    CheckEquals(
-      'bar',
-      TDataStreamAsParam.New(S, P).Adapted.AsString
-    );
+    a.Init(s);
+    a.ToParam(p);
+    CheckEquals(VarToStr(p.Value), s.AsString);
   finally
-    P.Free;
+    p.Free;
   end;
 end;
 
-{ TDataStreamAsStringsTest }
-
-procedure TDataStreamAsStringsTest.TestAdapted;
+procedure TDataStreamAdapterTest.TestStrings;
 var
-  S: IDataStream;
-  SL: TStrings;
+  s: IDataStream;
+  ss: TStrings;
+  a: TDataStreamAdapter;
 begin
-  S := TDataStream.New('strings');
-  SL := TStringList.Create;
+  s := TDataStream.New('strings');
+  ss := TStringList.Create;
   try
-    CheckEquals(
-      'strings',
-      TDataStreamAsStrings.New(S, SL)
-        .Adapted
-        .Text
-        .TrimRight
-    );
+    a.Init(s);
+    a.ToStrings(ss);
+    CheckEquals(ss.Text.TrimRight, s.AsString);
   finally
-    sl.Free;
+    ss.Free;
   end;
 end;
 
 initialization
-  TTestSuite.New('Core.Data')
+  TTestSuite.New('Data')
     .Add(TTest.New(TDataStreamTest))
     .Add(TTest.New(TDataParamTest))
     .Add(TTest.New(TDataParamsTest))
     .Add(TTest.New(TDataGuidTest))
     .Add(TTest.New(TDataConstraintsTest))
     .Add(TTest.New(TDataFileTest))
-    .Add(TTest.New(TDataStreamAsOleVariantTest))
-    .Add(TTest.New(TDataStreamAsParamTest))
-    .Add(TTest.New(TDataStreamAsStringsTest))
+    .Add(TTest.New(TDataStreamAdapterTest))
     ;
 
 end.

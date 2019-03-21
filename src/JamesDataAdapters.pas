@@ -28,133 +28,78 @@ unit JamesDataAdapters;
 interface
 
 uses
-  Classes, SysUtils, COMObj, Variants, DB,
-  JamesBase,
+  Classes,
+  SysUtils,
+  COMObj,
+  Variants,
+  DB,
+  SynCommons,
   JamesDataBase;
 
 type
-  TDataStreamAsOleVariant = class(TInterfacedObject, IAdapter<OleVariant>)
+  TDataStreamAdapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
-    FValue: IDataStream;
+    fOrigin: IDataStream;
   public
-    constructor Create(const Value: IDataStream);
-    class function New(const Value: IDataStream): IAdapter<OleVariant>;
-    function Adapted: OleVariant;
-  end;
-
-  TDataStreamAsParam = class(TInterfacedObject, IAdapter<TParam>)
-  private
-    FSrc: IDataStream;
-    FDest: TParam;
-  public
-    constructor Create(const Src: IDataStream; const Dest: TParam);
-    class function New(const Src: IDataStream; const Dest: TParam): IAdapter<TParam>;
-    function Adapted: TParam;
-  end;
-
-  TDataStreamAsStrings = class(TInterfacedObject, IAdapter<TStrings>)
-  private
-    FSrc: IDataStream;
-    FDest: TStrings;
-  public
-    constructor Create(const Src: IDataStream; const Dest: TStrings);
-    class function New(const Src: IDataStream; const Dest: TStrings): IAdapter<TStrings>;
-    function Adapted: TStrings;
+    procedure Init(const aOrigin: IDataStream);
+    function ToOleVariant: OleVariant;
+    procedure ToParam(const aDest: TParam);
+    procedure ToStrings(const aDest: TStrings);
   end;
 
 implementation
 
-{ TDataStreamAsOleVariant }
+{ TDataStreamAdapter }
 
-constructor TDataStreamAsOleVariant.Create(const Value: IDataStream);
+procedure TDataStreamAdapter.Init(const aOrigin: IDataStream);
 begin
-  inherited Create;
-  FValue := Value;
+  fOrigin := aOrigin;
 end;
 
-class function TDataStreamAsOleVariant.New(const Value: IDataStream): IAdapter<OleVariant>;
-begin
-  Result := Create(Value);
-end;
-
-function TDataStreamAsOleVariant.Adapted: OleVariant;
+function TDataStreamAdapter.ToOleVariant: OleVariant;
 var
-  Data: PByteArray;
-  M: TMemoryStream;
+  data: PByteArray;
+  m: TMemoryStream;
 begin
-  M := TMemoryStream.Create;
+  m := TMemoryStream.Create;
   try
-    FValue.Save(M);
-    Result := VarArrayCreate([0, M.Size-1], varByte);
-    Data := VarArrayLock(Result);
+    fOrigin.Save(m);
+    result := VarArrayCreate([0, m.Size-1], varByte);
+    data := VarArrayLock(Result);
     try
-      M.Position := 0;
-      M.ReadBuffer(Data^, M.Size);
+      m.Position := 0;
+      m.ReadBuffer(data^, m.Size);
     finally
       VarArrayUnlock(Result);
     end;
   finally
-    M.Free;
+    m.Free;
   end;
 end;
 
-{ TDataStreamAsParam }
-
-constructor TDataStreamAsParam.Create(const Src: IDataStream;
-  const Dest: TParam);
-begin
-  inherited Create;
-  FSrc := Src;
-  FDest := Dest;
-end;
-
-class function TDataStreamAsParam.New(const Src: IDataStream;
-  const Dest: TParam): IAdapter<TParam>;
-begin
-  Result := Create(Src, Dest);
-end;
-
-function TDataStreamAsParam.Adapted: TParam;
+procedure TDataStreamAdapter.ToParam(const aDest: TParam);
 var
-  M: TMemoryStream;
+  m: TMemoryStream;
 begin
-  Result := FDest;
-  M := TMemoryStream.Create;
+  m := TMemoryStream.Create;
   try
-   FSrc.Save(M);
-   FDest.LoadFromStream(M, ftBlob);
+   fOrigin.Save(m);
+   aDest.LoadFromStream(m, ftBlob);
   finally
-    M.Free;
+    m.Free;
   end;
 end;
 
-{ TDataStreamAsStrings }
-
-constructor TDataStreamAsStrings.Create(const Src: IDataStream;
-  const Dest: TStrings);
-begin
-  inherited Create;
-  FSrc := Src;
-  FDest := Dest;
-end;
-
-class function TDataStreamAsStrings.New(const Src: IDataStream;
-  const Dest: TStrings): IAdapter<TStrings>;
-begin
-  Result := Create(Src, Dest);
-end;
-
-function TDataStreamAsStrings.Adapted: TStrings;
+procedure TDataStreamAdapter.ToStrings(const aDest: TStrings);
 var
-  M: TMemoryStream;
+  m: TMemoryStream;
 begin
-  Result := FDest;
-  M := TMemoryStream.Create;
+  m := TMemoryStream.Create;
   try
-   FSrc.Save(M);
-   FDest.LoadFromStream(M);
+   fOrigin.Save(m);
+   aDest.LoadFromStream(m);
   finally
-    M.Free;
+    m.Free;
   end;
 end;
 
