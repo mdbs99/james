@@ -33,6 +33,7 @@ uses
   COMObj,
   Variants,
   DB,
+  DateUtils,
   SynCommons,
   JamesDataBase;
 
@@ -42,9 +43,9 @@ type
     fOrigin: IDataStream;
   public
     procedure Init(const aOrigin: IDataStream);
-    function ToOleVariant: OleVariant;
-    procedure ToParam(const aDest: TParam);
-    procedure ToStrings(const aDest: TStrings);
+    function AsOleVariant: OleVariant;
+    procedure Adapt(const aDest: TParam); overload;
+    procedure Adapt(const aDest: TStrings); overload;
   end;
 
 implementation
@@ -56,7 +57,7 @@ begin
   fOrigin := aOrigin;
 end;
 
-function TDataStreamAdapter.ToOleVariant: OleVariant;
+function TDataStreamAdapter.AsOleVariant: OleVariant;
 var
   data: PByteArray;
   m: TMemoryStream;
@@ -77,7 +78,7 @@ begin
   end;
 end;
 
-procedure TDataStreamAdapter.ToParam(const aDest: TParam);
+procedure TDataStreamAdapter.Adapt(const aDest: TParam);
 var
   m: TMemoryStream;
 begin
@@ -90,7 +91,7 @@ begin
   end;
 end;
 
-procedure TDataStreamAdapter.ToStrings(const aDest: TStrings);
+procedure TDataStreamAdapter.Adapt(const aDest: TStrings);
 var
   m: TMemoryStream;
 begin

@@ -452,9 +452,9 @@ var
   b: TOleVariantAdapter;
 begin
   a.Init(TDataStream.New('foo'));
-  v := a.ToOleVariant;
+  v := a.AsOleVariant;
   b.Init(v);
-  CheckEquals('foo', b.ToDataStream.AsString);
+  CheckEquals('foo', b.AsDataStream.AsString);
 end;
 
 procedure TDataStreamAdapterTest.TestParam;
@@ -467,7 +467,7 @@ begin
   p := TParam.Create(nil);
   try
     a.Init(s);
-    a.ToParam(p);
+    a.Adapt(p);
     CheckEquals(VarToStr(p.Value), s.AsString);
   finally
     p.Free;
@@ -484,7 +484,7 @@ begin
   ss := TStringList.Create;
   try
     a.Init(s);
-    a.ToStrings(ss);
+    a.Adapt(ss);
     CheckEquals(ss.Text.TrimRight, s.AsString);
   finally
     ss.Free;

@@ -52,9 +52,9 @@ var
   b: TOleVariantAdapter;
 begin
   a.Init(TDataStream.New('foo'));
-  v := a.ToOleVariant;
+  v := a.AsOleVariant;
   b.Init(v);
-  CheckEquals('foo', b.ToDataStream.AsString);
+  CheckEquals('foo', b.AsDataStream.AsString);
 end;
 
 initialization
