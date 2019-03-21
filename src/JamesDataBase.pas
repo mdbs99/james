@@ -39,6 +39,10 @@ type
     function Size: Int64;
   end;
 
+  IDataStreamOf = interface
+    function Value: IDataStream;
+  end;
+
   IDataStrings = interface
   ['{CC6CBD96-D204-4D32-81B5-DBEDF90D73F9}']
     function Add(const Value: string): IDataStrings;
