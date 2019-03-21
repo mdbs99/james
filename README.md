@@ -2,11 +2,11 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/mdbs99/james/blob/master/README.md)
 
-James is a collection of object-oriented Pascal primitives (only interfaces and classes). 
+James is a collection of object-oriented Pascal primitives.
 
 **ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
 
-This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, making it compatible with [Delphi](https://www.embarcadero.com/products/delphi) is possible  (we are depending on more contributors to make it possible).
+This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, it is compatible with [Delphi](https://www.embarcadero.com/products/delphi).
 
 **Why**. We don't want to write procedural code anymore.
 The goal is to replace common procedural code in our projects, which has so many conditionals and "controllers", to a declarative and object-oriented code.
@@ -21,14 +21,11 @@ We want to write elegant, clean, and maintainable code using OOP.
 * No usage of nil/NULL in arguments or returns
 * No algorithms in constructors
 * No getters and setters
-* No type casting or reflection
 * No procedures or functions, only Interfaces and Objects
 
 ## Dependencies
 
-We are using other packages:
-
-* [Synapse](http://synapse.ararat.cz/doku.php/download) (it will be removed soon) — this project deals with network communication.
+We are using [mORMot](https://github.com/synopse/mORMot) as the only dependency.
 
 ## How to contribute?
 
