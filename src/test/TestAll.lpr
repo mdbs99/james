@@ -8,8 +8,7 @@ uses
   GuiTestRunner,
   JamesDataTests,
   JamesRTLTests,
-  JamesXMLTests,
-  JamesMD5Tests;
+  JamesXMLTests;
 
 {$R *.res}
 
