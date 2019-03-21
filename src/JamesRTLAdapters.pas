@@ -34,52 +34,45 @@ uses
   JamesDataCore;
 
 type
-  TOleVariantAsDataStream = class(TInterfacedObject, IAdapter<IDataStream>)
+  TOleVariantAdapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
-    FValue: OleVariant;
+    fOrigin: OleVariant;
   public
-    constructor Create(const Value: OleVariant);
-    class function New(const Value: OleVariant): IAdapter<IDataStream>;
-    function Adapted: IDataStream;
+    procedure Init(const aOrigin: OleVariant);
+    function ToDataStream: IDataStream;
   end;
 
 implementation
 
-{ TOleVariantAsDataStream }
+{ TOleVariantAdapter }
 
-constructor TOleVariantAsDataStream.Create(const Value: OleVariant);
+procedure TOleVariantAdapter.Init(const aOrigin: OleVariant);
 begin
-  inherited Create;
-  FValue := Value;
+  fOrigin := aOrigin;
 end;
 
-class function TOleVariantAsDataStream.New(const Value: OleVariant): IAdapter<IDataStream>;
-begin
-  Result := Create(Value);
-end;
-
-function TOleVariantAsDataStream.Adapted: IDataStream;
+function TOleVariantAdapter.ToDataStream: IDataStream;
 var
-  I: Integer;
-  P: Pointer;
-  S: TStream;
+  i: Integer;
+  p: Pointer;
+  s: TStream;
 begin
-  Assert(VarType(FValue) = varByte or varArray);
-  Assert(VarArrayDimCount(FValue) = 1);
-  S := TMemoryStream.Create;
+  Assert(VarType(fOrigin) = varByte or varArray);
+  Assert(VarArrayDimCount(fOrigin) = 1);
+  s := TMemoryStream.Create;
   try
-    I := VarArrayHighBound(FValue, 1) - VarArrayLowBound(FValue, 1) + 1;
-    S.Size := I;
-    S.Position := 0;
-    P := VarArrayLock(FValue);
+    i := VarArrayHighBound(fOrigin, 1) - VarArrayLowBound(fOrigin, 1) + 1;
+    s.Size := i;
+    s.Position := 0;
+    p := VarArrayLock(fOrigin);
     try
-      S.Write(P^, S.Size);
-      Result := TDataStream.New(S);
+      s.Write(p^, s.Size);
+      result := TDataStream.New(s);
     finally
-      VarArrayUnlock(FValue);
+      VarArrayUnlock(fOrigin);
     end;
   finally
-    S.Free;
+    s.Free;
   end;
 end;
 

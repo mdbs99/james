@@ -36,28 +36,29 @@ uses
   JamesTestingCore;
 
 type
-  TOleVariantAsDataStreamTest = class(TTestCase)
+  TOleVariantAdapterTest = class(TTestCase)
   published
-    procedure TestValue;
-  end;
+    procedure TestDataStream;
+end;
 
 implementation
 
-{ TOleVariantAsDataStreamTest }
+{ TOleVariantAdapterTest }
 
-procedure TOleVariantAsDataStreamTest.TestValue;
+procedure TOleVariantAdapterTest.TestDataStream;
 var
-  V: OleVariant;
+  v: OleVariant;
+  a: TDataStreamAdapter;
+  b: TOleVariantAdapter;
 begin
-  V := TDataStreamAsOleVariant.New(TDataStream.New('foo')).Adapted;
-  CheckEquals(
-    'foo',
-    TOleVariantAsDataStream.New(V).Adapted.AsString
-  );
+  a.Init(TDataStream.New('foo'));
+  v := a.ToOleVariant;
+  b.Init(v);
+  CheckEquals('foo', b.ToDataStream.AsString);
 end;
 
 initialization
-  TTestSuite.New('Core.RTL')
-    .Add(TTest.New(TOleVariantAsDataStreamTest))
+  TTestSuite.New('RTL')
+    .Add(TTest.New(TOleVariantAdapterTest))
 
 end.
