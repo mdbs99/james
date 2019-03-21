@@ -22,6 +22,4 @@
   SOFTWARE.
 }
 
-{$IFDEF FPC}
-  {$mode delphi}
-{$ENDIF}
+{$i Synopse.inc}
