@@ -56,7 +56,7 @@ var
 implementation
 
 {$ifdef WEB_STANDALONE}
-procedure TerminateCall({%H-}ARequest: TRequest; {%H-}AResponse: TResponse);
+procedure TerminateCall(ARequest: TRequest; AResponse: TResponse);
 begin
   WebApplication.Terminate;
 end;

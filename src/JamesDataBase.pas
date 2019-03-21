@@ -90,10 +90,6 @@ type
     function AsSmallString: string;
   end;
 
-  IDataHash = interface(IAdapter<string>)
-  ['{69A5ED2A-7E06-4942-A6EA-48B36670F360}']
-  end;
-
   IDataResult = interface
   ['{9E1AB274-707A-4770-94B9-659945547A19}']
     function Success: Boolean;
