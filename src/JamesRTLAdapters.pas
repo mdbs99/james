@@ -28,8 +28,10 @@ unit JamesRTLAdapters;
 interface
 
 uses
-  Classes, SysUtils, COMObj, Variants,
-  JamesBase,
+  Classes,
+  SysUtils,
+  COMObj,
+  Variants,
   JamesDataBase,
   JamesDataCore;
 
