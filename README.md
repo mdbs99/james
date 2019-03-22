@@ -34,7 +34,7 @@ mORMot do not have package. It works only by path. To run James TestAll project 
       james
       mormot
       
-Alternatively, you can change Text All paths to point to your mORMot copy.
+Alternatively, you can change paths of TestAll to point to your mORMot copy.
 
 ## How to contribute?
 
