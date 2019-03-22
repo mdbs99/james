@@ -28,7 +28,9 @@ We want to write elegant, clean, and maintainable code using OOP.
 We are using [mORMot](https://github.com/synopse/mORMot) as the only dependency.
 You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
 
-mORMot do not have package. It works only by path. To run James TestAll project easily you should save mORMot at the same level of James:
+As mORMot do not have packages, it works only by paths. 
+
+To run James TestAll project easily you should save mORMot at the same level of James:
 
     lib
       james
