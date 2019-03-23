@@ -23,7 +23,7 @@
           <SearchPaths>
             <IncludeFiles Value="..\..\..\mormot;..\..\..\mormot\SQLite3;..;$(ProjOutDir)"/>
             <Libraries Value="..\..\..\mormot\static\$(TargetCPU)-$(TargetOS)"/>
-            <OtherUnitFiles Value="..\..\..\mormot;..\..\..\mormot\SQLite3;..\..\..\mormot\SQLite3\DDD\infra;..;..\testing;..\text"/>
+            <OtherUnitFiles Value="..\..\..\mormot;..\..\..\mormot\SQLite3;..\..\..\mormot\SQLite3\DDD\infra;..;..\text"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -72,27 +72,31 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="6">
       <Unit0>
         <Filename Value="TestAll.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="..\testing\JamesTestingBase.pas"/>
+        <Filename Value="..\text\JamesXMLTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="..\text\JamesXMLTests.pas"/>
+        <Filename Value="..\JamesDataTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\JamesDataTests.pas"/>
+        <Filename Value="..\JamesRTLTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="..\JamesRTLTests.pas"/>
+        <Filename Value="..\JamesTestBase.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="..\JamesTestCore.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -104,7 +108,7 @@
     <SearchPaths>
       <IncludeFiles Value="..\..\..\mormot;..\..\..\mormot\SQLite3;..;$(ProjOutDir)"/>
       <Libraries Value="..\..\..\mormot\static\$(TargetCPU)-$(TargetOS)"/>
-      <OtherUnitFiles Value="..\..\..\mormot;..\..\..\mormot\SQLite3;..\..\..\mormot\SQLite3\DDD\infra;..;..\testing;..\text"/>
+      <OtherUnitFiles Value="..\..\..\mormot;..\..\..\mormot\SQLite3;..\..\..\mormot\SQLite3\DDD\infra;..;..\text"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

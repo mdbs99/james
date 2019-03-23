@@ -21,45 +21,58 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesTestingDelphi;
+unit JamesTestCore;
 
-{$include James.inc}
+{$i James.inc}
 
 interface
 
 uses
-  TestFramework,
-  JamesTesting;
+  {$ifdef FPC}
+    fpcunit,
+    JamesTestFPC,
+  {$else}
+    TestFramework,
+    JamesTestDelphi,
+  {$endif}
+  JamesTestBase;
 
 type
-  TTest = class sealed(TInterfacedObject, ITest)
+  {$ifdef FPC}
+    TTest = JamesTestFPC.TTest;
+    TTestCase = FPCUnit.TTestCase;
+  {$else}
+    TTest = JamesTestDelphi.TTest;
+    TTestCase = TestFramework.TTestCase;
+  {$endif}
+
+  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
   private
-    FCore: TTestCaseClass;
+    FPath: string;
   public
-    constructor Create(Core: TTestCaseClass);
-    class function New(Core: TTestCaseClass): ITest;
-    function RegisterOn(const SuitePath: string): ITest;
+    constructor Create(const Path: string);
+    class function New(const Path: string): ITestSuite;
+    function Add(const Test: ITest): ITestSuite;
   end;
 
 implementation
 
-{ TTest }
+{ TTestSuite }
 
-constructor TTest.Create(Core: TTestCaseClass);
-begin
-  inherited Create;
-  FCore := Core;
-end;
-
-class function TTest.New(Core: TTestCaseClass): ITest;
-begin
-  Result := Create(Core);
-end;
-
-function TTest.RegisterOn(const SuitePath: string): ITest;
+function TTestSuite.Add(const Test: ITest): ITestSuite;
 begin
   Result := Self;
-  TestFramework.RegisterTest(SuitePath, FCore.Suite);
+  Test.RegisterOn(FPath);
+end;
+
+constructor TTestSuite.Create(const Path: string);
+begin
+  FPath := Path;
+end;
+
+class function TTestSuite.New(const Path: string): ITestSuite;
+begin
+  Result := Create(Path);
 end;
 
 end.

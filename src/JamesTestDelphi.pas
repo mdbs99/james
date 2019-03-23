@@ -21,24 +21,22 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesTestingFPC;
+unit JamesTestDelphi;
 
 {$include James.inc}
 
 interface
 
 uses
-  fpcunit,
-  testregistry,
-  JamesTestingBase;
+  TestFramework,
+  JamesTestBase;
 
 type
   TTest = class sealed(TInterfacedObject, ITest)
   private
-    FCore: TTestCaseClass;
+    fCore: TTestCaseClass;
   public
-    constructor Create(Core: TTestCaseClass);
-    class function New(Core: TTestCaseClass): ITest;
+    constructor Create(aCore: TTestCaseClass);
     function RegisterOn(const SuitePath: string): ITest;
   end;
 
@@ -46,21 +44,16 @@ implementation
 
 { TTest }
 
-constructor TTest.Create(Core: TTestCaseClass);
+constructor TTest.Create(aCore: TTestCaseClass);
 begin
   inherited Create;
-  FCore := Core;
-end;
-
-class function TTest.New(Core: TTestCaseClass): ITest;
-begin
-  Result := Create(Core);
+  fCore := aCore;
 end;
 
 function TTest.RegisterOn(const SuitePath: string): ITest;
 begin
-  Result := Self;
-  TestRegistry.RegisterTest(SuitePath, FCore);
+  result := self;
+  TestFramework.RegisterTest(SuitePath, fCore.Suite);
 end;
 
 end.
