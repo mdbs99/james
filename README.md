@@ -6,13 +6,26 @@ James is a collection of object-oriented Pascal primitives.
 
 **ATTENTION:** We're still in a very early alpha version, the API may and will change frequently. Please, use it at your own risk, until we release version 1.0.
 
-This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, it is compatible with [Delphi](https://www.embarcadero.com/products/delphi).
+# Table of Contents
 
-**Why**. We don't want to write procedural code anymore.
+- [Overview](#overview)
+- [Concepts](#concepts)
+- [Installing](#installing)
+- [Dependencies](#dependencies)
+- [Getting Started](#getting-started)
+- [License](#license)
+
+# Overview
+
+This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, it is also compatible with [Delphi](https://www.embarcadero.com/products/delphi).
+
+# Concepts
+
+We don't want to write procedural code anymore.
 The goal is to replace common procedural code in our projects, which has so many conditionals and "controllers", to a declarative and object-oriented code.
 We want to write elegant, clean, and maintainable code using OOP.
 
-**Principles.** The code has some design principles:
+This project has some design principles:
 
 * Fully interface-based
 * Memory is released automatically
@@ -23,7 +36,29 @@ We want to write elegant, clean, and maintainable code using OOP.
 * No getters and setters
 * No procedures or functions, only Interfaces and Objects
 
-## Dependencies
+# Installing
+
+- Clone the repository in some directory in your computer.
+- For each project you just need to setup the paths, which depends on your platform are you using.
+- See [Dependencies]{#dependencies} below too
+  
+## Using Free Pascal  
+
+In your project, you must include these paths:
+
+- Other unit files (-Fu)
+  - include `/src` and `/src/fpc`
+- Include files (-Fi)
+  - include only `/src`
+
+## Using Delphi
+
+In your project, you must include these paths:
+
+- Search Path
+  - include `/src` and `/src/delphi`
+  
+# Dependencies
 
 We are using [mORMot](https://github.com/synopse/mORMot) as the only dependency.
 You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
@@ -37,25 +72,11 @@ To run James TestAll project easily you should save mORMot at the same level of 
       mormot
       
 Alternatively, you can change paths of TestAll pointing to your copy of mORMot in another place.
-  
-## License (MIT)
 
-Copyright (c) 2017-2019 Marcos Douglas B. Santos
+# Getting Started
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Under construction...
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+# License
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This project is released under MIT license. See [LICENSE](LICENSE).
