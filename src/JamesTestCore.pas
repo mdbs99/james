@@ -28,51 +28,37 @@ unit JamesTestCore;
 interface
 
 uses
-  {$ifdef FPC}
-    fpcunit,
-    JamesTestFPC,
-  {$else}
-    TestFramework,
-    JamesTestDelphi,
-  {$endif}
+  SysUtils,
   JamesTestBase;
 
 type
-  {$ifdef FPC}
-    TTest = JamesTestFPC.TTest;
-    TTestCase = FPCUnit.TTestCase;
-  {$else}
-    TTest = JamesTestDelphi.TTest;
-    TTestCase = TestFramework.TTestCase;
-  {$endif}
-
-  TTestSuite = class sealed(TInterfacedObject, ITestSuite)
+  TTestSuite = class(TInterfacedObject, ITestSuite)
   private
-    FPath: string;
+    fPath: string;
   public
-    constructor Create(const Path: string);
-    class function New(const Path: string): ITestSuite;
-    function Add(const Test: ITest): ITestSuite;
+    constructor Create(const aPath: string);
+    function Ref: ITestSuite;
+    function Add(const aTest: ITest): ITestSuite;
   end;
 
 implementation
 
 { TTestSuite }
 
-function TTestSuite.Add(const Test: ITest): ITestSuite;
+constructor TTestSuite.Create(const aPath: string);
 begin
-  Result := Self;
-  Test.RegisterOn(FPath);
+  fPath := aPath;
 end;
 
-constructor TTestSuite.Create(const Path: string);
+function TTestSuite.Ref: ITestSuite;
 begin
-  FPath := Path;
+  result := self;
 end;
 
-class function TTestSuite.New(const Path: string): ITestSuite;
+function TTestSuite.Add(const aTest: ITest): ITestSuite;
 begin
-  Result := Create(Path);
+  result := Self;
+  aTest.RegisterOn(fPath);
 end;
 
 end.
