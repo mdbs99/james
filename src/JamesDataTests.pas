@@ -38,7 +38,8 @@ uses
   JamesDataCore,
   JamesDataAdapters,
   JamesRTLAdapters,
-  JamesTestCore;
+  JamesTestCore,
+  JamesTestPlatform;
 
 type
   TDataStreamTest = class(TTestCase)
@@ -492,7 +493,8 @@ begin
 end;
 
 initialization
-  TTestSuite.New('Data')
+  TTestSuite.Create('Data')
+    .Ref
     .Add(TTest.Create(TDataStreamTest))
     .Add(TTest.Create(TDataParamTest))
     .Add(TTest.Create(TDataParamsTest))

@@ -33,7 +33,8 @@ uses
   JamesDataCore,
   JamesDataAdapters,
   JamesRTLAdapters,
-  JamesTestCore;
+  JamesTestCore,
+  JamesTestPlatform;
 
 type
   TOleVariantAdapterTest = class(TTestCase)
@@ -58,7 +59,8 @@ begin
 end;
 
 initialization
-  TTestSuite.New('RTL')
+  TTestSuite.Create('RTL')
+    .Ref
     .Add(TTest.Create(TOleVariantAdapterTest))
 
 end.
