@@ -40,7 +40,7 @@ This project has some design principles:
 
 - Clone the repository in some directory in your computer.
 - For each project you just need to setup the paths, which depends on your platform are you using.
-- See [Dependencies]{#dependencies} below too
+- See [Dependencies](#dependencies) below too
   
 ## Using Free Pascal  
 
