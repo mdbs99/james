@@ -36,33 +36,7 @@ To run James TestAll project easily you should save mORMot at the same level of 
       james
       mormot
       
-Alternatively, you can change paths of TestAll to point to your mORMot copy.
-
-## How to contribute?
-
-To contribute we suggest following these steps:
-
-1. Fork this project (Click on **Fork** button)
-2. Clone your forked project to your local machine
-3. Create a new issue describing about the problem or enhancement that you are going to make
-4. Create a new branch related to this issue. We suggest to use a name like `issue-10` — 10 is the issue's ID
-5. Make all the changes necessary and commit
-6. Push the new branch to your Github repository
-7. Go to James' Github project and click on **Compare & Pull Request**
-
-**Important:**
-
-- It is important for you create a new branch for each PR. We might need to request some further changes in your work, and having the original PR's code to make these changes is better than working with the whole code.
-- Each PR needs to work only in one issue, respecting the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle).
-- Make sure your branch builds without any warnings/issues.
-
-If you have questions or general suggestions, don't hesitate to submit a new [Github issue](https://github.com/mdbs99/james/issues/new).
-
-## Contributors
-
-  - [@mdbs99](https://github.com/mdbs99) as Marcos Douglas B. Santos ([Blog](http://objectpascalprogramming.com/))
-  - [@fabriciofx](https://github.com/fabriciofx) as Fabrício Cabral
-  - [@nunopicado](https://github.com/nunopicado) as Nuno Picado
+Alternatively, you can change paths of TestAll pointing to your copy of mORMot in another place.
   
 ## License (MIT)
 
