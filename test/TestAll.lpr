@@ -30,8 +30,8 @@ uses
   Forms,
   GuiTestRunner,
   JamesDataTests,
-  JamesRTLTests, JamesTestPlatform,
-  JamesXMLTests;
+  JamesRTLTests,
+  JamesTestPlatform;
 
 {$R *.res}
 
