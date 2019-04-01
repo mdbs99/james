@@ -44,8 +44,8 @@ type
   public
     procedure Init(const aOrigin: IDataStream);
     function AsOleVariant: OleVariant;
-    procedure Adapt(const aDest: TParam); overload;
-    procedure Adapt(const aDest: TStrings); overload;
+    procedure ForParam(const aDest: TParam); overload;
+    procedure ForStrings(const aDest: TStrings); overload;
   end;
 
 implementation
@@ -78,7 +78,7 @@ begin
   end;
 end;
 
-procedure TDataStreamAdapter.Adapt(const aDest: TParam);
+procedure TDataStreamAdapter.ForParam(const aDest: TParam);
 var
   m: TMemoryStream;
 begin
@@ -91,7 +91,7 @@ begin
   end;
 end;
 
-procedure TDataStreamAdapter.Adapt(const aDest: TStrings);
+procedure TDataStreamAdapter.ForStrings(const aDest: TStrings);
 var
   m: TMemoryStream;
 begin

@@ -468,7 +468,7 @@ begin
   p := TParam.Create(nil);
   try
     a.Init(s);
-    a.Adapt(p);
+    a.ForParam(p);
     CheckEquals(VarToStr(p.Value), s.AsString);
   finally
     p.Free;
@@ -485,7 +485,7 @@ begin
   ss := TStringList.Create;
   try
     a.Init(s);
-    a.Adapt(ss);
+    a.ForStrings(ss);
     CheckEquals(ss.Text.TrimRight, s.AsString);
   finally
     ss.Free;
