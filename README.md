@@ -11,6 +11,8 @@ James is a collection of object-oriented Pascal primitives.
 - [Overview](#overview)
 - [Concepts](#concepts)
 - [Installing](#installing)
+  - [On Lazarus](#on-lazarus)
+  - [On Delphi](#on-delphi)
 - [Dependencies](#dependencies)
 - [Getting Started](#getting-started)
 - [License](#license)
@@ -34,7 +36,7 @@ This project has some design principles:
 * No usage of nil/NULL in arguments or returns
 * No algorithms in constructors
 * No getters and setters
-* No procedures or functions, only Interfaces and Objects
+* No procedures or functions, only interfaces and objects
 
 # Installing
 
@@ -42,7 +44,7 @@ This project has some design principles:
 - For each project you just need to setup the paths, which depends on your platform are you using.
 - See [Dependencies](#dependencies) below too
   
-## Using Free Pascal  
+## On Lazarus
 
 In your project, you must include these paths:
 
@@ -51,7 +53,7 @@ In your project, you must include these paths:
 - Include files (-Fi)
   - include only `/src`
 
-## Using Delphi
+## On Delphi
 
 In your project, you must include these paths:
 
@@ -60,8 +62,8 @@ In your project, you must include these paths:
   
 # Dependencies
 
-We are using [mORMot](https://github.com/synopse/mORMot) as the only dependency.
-You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
+- [mORMot](https://github.com/synopse/mORMot) — client-server ORM SOA MVC framework for Delphi 6 up to latest Delphi and FPC
+  You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
 
 As mORMot do not have packages, it works only by paths. 
 
