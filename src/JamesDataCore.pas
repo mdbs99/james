@@ -195,9 +195,9 @@ type
     FFileName: string;
     FStream: IDataStream;
   public
-    constructor Create(const FileName: string; const Stream: IDataStream); overload;
-    class function New(const FileName: string; const Stream: IDataStream): IDataFile; overload;
-    class function New(const FileName: string): IDataFile; overload;
+    constructor Create(const FileName: string; const Stream: IDataStream); reintroduce; overload;
+    constructor Create(const FileName: string); overload;
+    function Ref: IDataFile;
     function Path: string;
     function Name: string;
     function FileName: string;
@@ -867,15 +867,14 @@ begin
   FStream := Stream;
 end;
 
-class function TDataFile.New(const FileName: string; const Stream: IDataStream
-  ): IDataFile;
+constructor TDataFile.Create(const FileName: string);
 begin
-  Result := Create(FileName, Stream);
+  Create(FileName, TDataStream.New(''));
 end;
 
-class function TDataFile.New(const FileName: string): IDataFile;
+function TDataFile.Ref: IDataFile;
 begin
-  Result := Create(FileName, TDataStream.New(''));
+  result := self;
 end;
 
 function TDataFile.Path: string;
