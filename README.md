@@ -43,22 +43,22 @@ This project has some design principles:
 - Clone the repository in some directory in your computer.
 - For each project you just need to setup the paths, which depends on your platform are you using.
 - See [Dependencies](#dependencies) below too
-  
+
 ## On Lazarus
 
-In your project, you must include these paths:
+Considering `<james>` as the path where you have saved the sources, your project must include these paths:
 
 - Other unit files (-Fu)
-  - include `/src` and `/src/fpc`
+  - include `<james>\src;<james>\src\fpc`
 - Include files (-Fi)
-  - include only `/src`
+  - include only `<james>\src;<james>\src\fpc`
 
 ## On Delphi
 
-In your project, you must include these paths:
+Considering `<james>` as the path where you have saved the sources, your project must include these paths:
 
 - Search Path
-  - include `/src` and `/src/delphi`
+  - include `<james>\src;<james>\src\delphi`
   
 # Dependencies
 
