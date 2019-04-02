@@ -63,9 +63,8 @@ In your project, you must include these paths:
 # Dependencies
 
 - [mORMot](https://github.com/synopse/mORMot) — client-server ORM SOA MVC framework for Delphi 6 up to latest Delphi and FPC
-  You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
-
-As mORMot do not have packages, it works only by paths. 
+  - You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
+  - As mORMot do not have packages, it works only by paths. 
 
 To run James TestAll project easily you should save mORMot at the same level of James:
 
