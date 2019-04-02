@@ -28,8 +28,10 @@ unit JamesDataBase;
 interface
 
 uses
-  Classes, SysUtils, Variants, DB,
-  JamesBase;
+  Classes,
+  SysUtils,
+  Variants,
+  DB;
 
 type
   IDataStream = interface
