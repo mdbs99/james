@@ -32,6 +32,7 @@ uses
   SysUtils,
   DB,
   Variants,
+  SynCommons,
   JamesDataBase;
 
 type
@@ -52,17 +53,14 @@ type
 
   TDataStrings = class(TInterfacedObject, IDataStrings)
   private
-    FStrings: TStrings;
+    fList: TRawUTF8List;
   public
-    constructor Create(const Stream: TStream);
-    class function New(const Stream: IDataStream): IDataStrings; overload;
-    class function New(const S: string): IDataStrings; overload;
-    class function New: IDataStrings; overload;
+    constructor Create; reintroduce;
     destructor Destroy; override;
-    function Add(const Value: string): IDataStrings;
-    function Get(Index: Integer): string;
+    function Add(const aText: RawUTF8): IDataStrings;
+    function Get(aIndex: PtrInt): RawUTF8;
     function Count: Integer;
-    function Text: string;
+    function Text: RawUTF8;
   end;
 
   TDataParam = class(TInterfacedObject, IDataParam)
@@ -273,61 +271,37 @@ end;
 
 { TDataStrings }
 
-constructor TDataStrings.Create(const Stream: TStream);
+constructor TDataStrings.Create;
 begin
   inherited Create;
-  FStrings := TStringList.Create;
-  FStrings.LoadFromStream(Stream);
-end;
-
-class function TDataStrings.New(const Stream: IDataStream): IDataStrings;
-var
-  M: TMemoryStream;
-begin
-  M := TMemoryStream.Create;
-  try
-    Stream.Save(M);
-    Result := Create(M);
-  finally
-    M.Free;
-  end;
-end;
-
-class function TDataStrings.New(const S: string): IDataStrings;
-begin
-  Result := New(TDataStream.Create(S));
-end;
-
-class function TDataStrings.New: IDataStrings;
-begin
-  Result := New('');
+  fList := TRawUTF8List.Create;
 end;
 
 destructor TDataStrings.Destroy;
 begin
-  FStrings.Free;
+  fList.Free;
   inherited Destroy;
 end;
 
-function TDataStrings.Add(const Value: string): IDataStrings;
+function TDataStrings.Add(const aText: RawUTF8): IDataStrings;
 begin
-  Result := Self;
-  FStrings.Add(Value);
+  result := self;
+  fList.Add(aText);
 end;
 
-function TDataStrings.Get(Index: Integer): string;
+function TDataStrings.Get(aIndex: PtrInt): RawUTF8;
 begin
-  Result := FStrings.Strings[Index];
+  result := fList.Get(aIndex);
 end;
 
 function TDataStrings.Count: Integer;
 begin
-  Result := FStrings.Count;
+  Result := fList.Count;
 end;
 
-function TDataStrings.Text: string;
+function TDataStrings.Text: RawUTF8;
 begin
-  Result := FStrings.Text;
+  Result := fList.Text;
 end;
 
 { TDataParam }

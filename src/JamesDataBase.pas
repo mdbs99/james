@@ -32,6 +32,7 @@ uses
   SysUtils,
   Variants,
   DB,
+  SynCommons,
   JamesBase;
 
 type
@@ -50,10 +51,10 @@ type
 
   IDataStrings = interface
   ['{CC6CBD96-D204-4D32-81B5-DBEDF90D73F9}']
-    function Add(const Value: string): IDataStrings;
-    function Get(Index: Integer): string;
+    function Add(const aText: RawUTF8): IDataStrings;
+    function Get(aIndex: PtrInt): RawUTF8;
     function Count: Integer;
-    function Text: string;
+    function Text: RawUTF8;
   end;
 
   IDataParam = interface

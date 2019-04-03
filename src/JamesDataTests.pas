@@ -45,6 +45,7 @@ type
   TDataTests = class(TTestCase)
   published
     procedure DataStream;
+    procedure DataSrings;
   end;
 
   TDataParamTest = class(TTestCase)
@@ -137,6 +138,27 @@ begin
   finally
     m1.Free;
     m2.Free;
+    ss1.Free;
+  end;
+end;
+
+procedure TDataTests.DataSrings;
+var
+  a: IDataStrings;
+  i: Integer;
+  ss1: TStrings;
+begin
+  ss1 := TStringList.Create;
+  try
+    a := TDataStrings.Create;
+    for i := 0 to 10 do
+    begin
+      a.Add(IntToStr(i));
+      ss1.Add(IntToStr(i));
+    end;
+    check(a.Count = ss1.Count, 'count');
+    check(a.Text = Trim(ss1.Text), 'text'); // TStrings needs to call Trim
+  finally
     ss1.Free;
   end;
 end;
