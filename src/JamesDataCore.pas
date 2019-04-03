@@ -48,16 +48,6 @@ type
     function Save(Stream: TStream): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
-  public type
-    TAggregated = class sealed(TAggregatedObject, IDataStream)
-    private
-      FOrigin: IDataStream;
-    public
-      constructor Create(const aController: IUnknown; Origin: IDataStream);
-      function Save(Stream: TStream): IDataStream; overload;
-      function AsString: string;
-      function Size: Int64;
-    end;
   end;
 
   TDataStrings = class(TInterfacedObject, IDataStrings)
@@ -205,19 +195,6 @@ type
     function Stream: IDataStream;
   end;
 
-  TDataFileAsStream = class(TInterfacedObject, IDataStream)
-  private
-    FFile: IDataFile;
-    FStream: TDataStream.TAggregated;
-    function GetStream: TDataStream.TAggregated;
-  public
-    constructor Create(const AFile: IDataFile);
-    class function New(const AFile: IDataFile): IDataStream;
-    destructor Destroy; override;
-    property Stream: TDataStream.TAggregated
-        read GetStream implements IDataStream;
-  end;
-
 implementation
 
 { TDataStream }
@@ -292,30 +269,6 @@ end;
 function TDataStream.Size: Int64;
 begin
   Result := fStream.Size;
-end;
-
-{ TDataStream.TAggregated }
-
-constructor TDataStream.TAggregated.Create(const aController: IUnknown;
-  Origin: IDataStream);
-begin
-  inherited Create(aController);
-  FOrigin := Origin;
-end;
-
-function TDataStream.TAggregated.Save(Stream: TStream): IDataStream;
-begin
-  Result := FOrigin.Save(Stream);
-end;
-
-function TDataStream.TAggregated.AsString: string;
-begin
-  Result := FOrigin.AsString;
-end;
-
-function TDataStream.TAggregated.Size: Int64;
-begin
-  Result := FOrigin.Size;
 end;
 
 { TDataStrings }
@@ -905,32 +858,6 @@ begin
   finally
     Buf.Free;
   end;
-end;
-
-{ TDataFileAsStream }
-
-function TDataFileAsStream.GetStream: TDataStream.TAggregated;
-begin
-  if not Assigned(FStream) then
-    FStream := TDataStream.TAggregated.Create(Self, FFile.Stream);
-  Result := FStream;
-end;
-
-constructor TDataFileAsStream.Create(const AFile: IDataFile);
-begin
-  inherited Create;
-  FFile := AFile;
-end;
-
-class function TDataFileAsStream.New(const AFile: IDataFile): IDataStream;
-begin
-  Result := Create(AFile);
-end;
-
-destructor TDataFileAsStream.Destroy;
-begin
-  FStream.Free;
-  inherited Destroy;
 end;
 
 end.
