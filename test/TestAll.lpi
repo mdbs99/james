@@ -142,7 +142,6 @@
       <CompilerMessages>
         <IgnoredMessages idx6058="True"/>
       </CompilerMessages>
-      <CompilerPath Value="W:\md\dev\proj\cremerj\ide\lazarus\fpc\3.1.1\bin\i386-win32\fpc.exe"/>
     </Other>
   </CompilerOptions>
   <Debugging>
