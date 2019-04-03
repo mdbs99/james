@@ -132,27 +132,21 @@ type
 
   TDataGuid = class(TInterfacedObject, IDataGuid)
   private
-    FGuid: TGuid;
+    fGuid: TGuid;
   public
-    constructor Create(Guid: TGuid); reintroduce;
-    class function New(Guid: TGuid): IDataGuid; overload;
-    class function New(const Guid: string): IDataGuid; overload;
-    class function New(Guid: Variant): IDataGuid; overload;
-    class function New: IDataGuid; overload;
+    constructor Create(const aGuid: TGuid); reintroduce; overload;
+    constructor Create(const aGuid: RawUTF8); overload;
+    constructor Create(aGuid: Variant); overload;
+    constructor Create; overload;
+    function Ref: IDataGuid;
     function Value: TGuid;
-    function AsString: string;
-    function AsSmallString: string;
+    function AsString: ShortString;
+    function AsSmallString: ShortString;
   end;
 
-  TNullGuid = class(TInterfacedObject, IDataGuid)
-  private
-    FGuid: IDataGuid;
+  TNullGuid = class(TDataGuid, IDataGuid)
   public
     constructor Create; reintroduce;
-    class function New: IDataGuid;
-    function Value: TGuid;
-    function AsString: string;
-    function AsSmallString: string;
   end;
 
   TDataResult = class sealed(TInterfacedObject, IDataResult)
@@ -616,60 +610,62 @@ end;
 
 { TDataGuid }
 
-constructor TDataGuid.Create(Guid: TGuid);
+constructor TDataGuid.Create(const aGuid: TGuid);
 begin
   inherited Create;
-  FGuid := Guid;
+  fGuid := aGuid;
 end;
 
-class function TDataGuid.New(Guid: TGuid): IDataGuid;
-begin
-  Result := Create(Guid);
-end;
-
-class function TDataGuid.New(const Guid: string): IDataGuid;
+constructor TDataGuid.Create(const aGuid: RawUTF8);
 var
-  S: string;
+  s: string;
+  g: TGuid;
 begin
-  S := Guid;
-  if Copy(S, 1, 1) <> '{' then
-    S := '{' + S + '}';
+  s := aGuid;
+  if Copy(s, 1, 1) <> '{' then
+    s := '{' + s + '}';
   try
-    Result := New(StringToGuid(S));
+    g := StringToGuid(s);
   except
-    Result := TNullGuid.New;
+    g := TNullGuid.Create.Ref.Value;
   end;
+  Create(g);
 end;
 
-class function TDataGuid.New(Guid: Variant): IDataGuid;
+constructor TDataGuid.Create(aGuid: Variant);
 begin
-  if VarIsStr(Guid) then
-    Result := New(VarToStr(Guid))
+  if VarIsStr(aGuid) then
+    Create(VarToStr(aGuid))
   else
-    Result := TNullGuid.New;
+    Create(TNullGuid.Create.Ref.Value);
 end;
 
-class function TDataGuid.New: IDataGuid;
+constructor TDataGuid.Create;
 var
-  G: TGUID;
-  S: string;
+  g: TGUID;
+  s: string;
 begin
-  CreateGUID(G);
-  S := GUIDToString(G);
-  Result := New(Copy(S, 2, Length(S)-2));
+  CreateGUID(g);
+  s := GUIDToString(g);
+  Create(Copy(s, 2, Length(s)-2));
+end;
+
+function TDataGuid.Ref: IDataGuid;
+begin
+  result := self;
 end;
 
 function TDataGuid.Value: TGuid;
 begin
-  Result := FGuid;
+  Result := fGuid;
 end;
 
-function TDataGuid.AsString: string;
+function TDataGuid.AsString: ShortString;
 begin
-  Result := GuidToString(FGuid);
+  Result := GuidToString(fGuid);
 end;
 
-function TDataGuid.AsSmallString: string;
+function TDataGuid.AsSmallString: ShortString;
 begin
   Result := Copy(AsString, 2, 8);
 end;
@@ -678,28 +674,7 @@ end;
 
 constructor TNullGuid.Create;
 begin
-  inherited Create;
-  FGuid := TDataGuid.New('{00000000-0000-0000-0000-000000000000}');
-end;
-
-class function TNullGuid.New: IDataGuid;
-begin
-  Result := Create;
-end;
-
-function TNullGuid.Value: TGuid;
-begin
-  Result := FGuid.Value;
-end;
-
-function TNullGuid.AsString: string;
-begin
-  Result := FGuid.AsString;
-end;
-
-function TNullGuid.AsSmallString: string;
-begin
-  Result := FGuid.AsString;
+  inherited Create('{00000000-0000-0000-0000-000000000000}');
 end;
 
 { TDataResult }

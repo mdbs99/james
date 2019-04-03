@@ -48,15 +48,7 @@ type
     procedure DataStrings;
     procedure DataParam;
     procedure DataParams;
-  end;
-
-  TDataGuidTest = class(TTestCase)
-  published
-    procedure TestNewGuid;
-    procedure TestNullGuid;
-    procedure TestValueAsVariant;
-    procedure TestValueWithoutBrackets;
-    procedure TestSmallString;
+    procedure DataGuid;
   end;
 
   TFakeConstraint = class(TInterfacedObject, IDataConstraint)
@@ -183,47 +175,20 @@ begin
   check(ps.AsString(';') = '1;2;3', 'separator');
 end;
 
-{ TDataGuidTest }
-
-procedure TDataGuidTest.TestNewGuid;
+procedure TDataTests.DataGuid;
+var
+  g1, g2: IDataGuid;
 begin
-  StringToGUID(TDataGuid.New.AsString);
-end;
-
-procedure TDataGuidTest.TestNullGuid;
-begin
-  CheckEquals(
-    TNullGuid.New.AsString,
-    TDataGuid.New('foo').AsString
-  );
-end;
-
-procedure TDataGuidTest.TestValueAsVariant;
-begin
-  CheckEquals(
-    TNullGuid.New.AsString,
-    TDataGuid.New(NULL).AsString
-  );
-end;
-
-procedure TDataGuidTest.TestValueWithoutBrackets;
-const
-  G: string = 'FCCE420A-8C4F-4E54-84D1-39001AE344BA';
-begin
-  CheckEquals(
-    '{' + G + '}',
-    TDataGuid.New(G).AsString
-  );
-end;
-
-procedure TDataGuidTest.TestSmallString;
-const
-  V = '89000BC9';
-  G = '{'+V+'-5700-43A3-B340-E34A1656F683}';
-begin
-  CheckEquals(
-    V, TDataGuid.New(G).AsSmallString
-  );
+  g1 := TDataGuid.Create('NONE');
+  g2 := TNullGuid.Create;
+  check(g1.AsString = g2.AsString, 'none');
+  g1 := TDataGuid.Create(NULL);
+  g2 := TNullGuid.Create;
+  check(g1.AsString = g2.AsString, 'NULL');
+  g1 := TDataGuid.Create('FCCE420A-8C4F-4E54-84D1-39001AE344BA');
+  g2 := TDataGuid.Create(g1.AsString);
+  check(g1.AsString = g2.AsString, 'guid');
+  check(g1.AsSmallString = g2.AsSmallString, 'AsSmallString');
 end;
 
 { TFakeConstraint }
@@ -389,7 +354,6 @@ initialization
   TTestSuite.Create('Data')
     .Ref
     .Add(TTest.Create(TDataTests))
-    .Add(TTest.Create(TDataGuidTest))
     .Add(TTest.Create(TDataConstraintsTest))
     .Add(TTest.Create(TDataFileTest))
     .Add(TTest.Create(TDataStreamAdapterTest))
