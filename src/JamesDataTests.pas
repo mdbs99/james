@@ -418,12 +418,12 @@ end;
 
 procedure TDataFileTest.TestPath;
 begin
-  CheckEquals('c:\path\', TDataFile.New('c:\path\filename.txt').Path);
+  CheckEquals('c:\path\', TDataFile.Create('c:\path\filename.txt').Ref.Path);
 end;
 
 procedure TDataFileTest.TestName;
 begin
-  CheckEquals('filename.txt', TDataFile.New('c:\path\filename.txt').Name);
+  CheckEquals('filename.txt', TDataFile.Create('c:\path\filename.txt').Ref.Name);
 end;
 
 procedure TDataFileTest.TestStream;
@@ -437,7 +437,7 @@ begin
   try
     M.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     M.SaveToFile(FILE_NAME);
-    CheckEquals(TXT, TDataFile.New(FILE_NAME).Stream.AsString);
+    CheckEquals(TXT, TDataFile.Create(FILE_NAME).Ref.Stream.AsString);
   finally
     DeleteFile(FILE_NAME);
     M.Free;
