@@ -26,6 +26,7 @@ program TestAll;
 {$i James.inc}
 
 uses
+  {$I SynDprUses.inc} // includes FastMM4 (Delphi) or cthreads (FPC-Linux)
   Interfaces,
   Forms,
   GuiTestRunner,
