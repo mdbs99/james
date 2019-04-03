@@ -46,7 +46,7 @@ type
     destructor Destroy; override;
     function Ref: IDataStream;
     function Save(Stream: TStream): IDataStream; overload;
-    function AsString: string;
+    function AsString: RawByteString;
     function Size: Int64;
   end;
 
@@ -255,7 +255,7 @@ begin
   Stream.Position := 0;
 end;
 
-function TDataStream.AsString: string;
+function TDataStream.AsString: RawByteString;
 begin
   with fStream do
   begin
