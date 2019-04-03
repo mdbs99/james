@@ -487,7 +487,7 @@ begin
     if CompareText(P.Name, ParamName) = 0 then
     begin
       result := P;
-      Exit;
+      exit;
     end;
   end;
   if not Assigned(P) then
@@ -733,7 +733,7 @@ begin
   if FStream.Size > 0 then
   begin
     result := FStream;
-    Exit;
+    exit;
   end;
   if not FileExists(FFileName) then
     raise EFileNotFoundException.CreateFmt('File "%s" not found', [FFileName]);
