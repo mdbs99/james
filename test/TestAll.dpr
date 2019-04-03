@@ -30,9 +30,9 @@ uses
   Interfaces,
   Forms,
   GuiTestRunner,
-  JamesDataTests,
-  JamesRTLTests,
-  JamesTestPlatform;
+  JamesTestPlatform,
+  JamesDataTests in '..\src\JamesDataTests.pas',
+  JamesRTLTests in '..\src\JamesRTLTests.pas';
 
 {$R *.res}
 

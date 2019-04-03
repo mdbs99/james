@@ -74,7 +74,7 @@
     </RequiredPackages>
     <Units Count="6">
       <Unit0>
-        <Filename Value="TestAll.lpr"/>
+        <Filename Value="TestAll.dpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
