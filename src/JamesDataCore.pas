@@ -28,22 +28,23 @@ unit JamesDataCore;
 interface
 
 uses
-  Classes, SysUtils, DB, Variants,
-  JamesBase,
+  Classes,
+  SysUtils,
+  DB,
+  Variants,
   JamesDataBase;
 
 type
   TDataStream = class(TInterfacedObject, IDataStream)
   private
-    FStream: TMemoryStream;
+    fStream: TMemoryStream;
   public
-    constructor Create(Stream: TStream); overload;
-    class function New(Stream: TStream): IDataStream; overload;
-    class function New(const S: string): IDataStream; overload;
-    class function New(const S: IAdapter<string>): IDataStream; overload;
-    class function New(Strings: TStrings): IDataStream; overload;
-    class function New: IDataStream; overload;
+    constructor Create(aStream: TStream); reintroduce; overload;
+    constructor Create(const aText: RawByteString); overload;
+    constructor Create(aStrings: TStrings); overload;
+    constructor Create; overload;
     destructor Destroy; override;
+    function Ref: IDataStream;
     function Save(Stream: TStream): IDataStream; overload;
     function AsString: string;
     function Size: Int64;
@@ -103,7 +104,7 @@ type
     function AsWord: LongInt;
   end;
 
-  EDataParams = class(Exception);
+  EDataParams = class(EDataException);
 
   TDataParams = class(TInterfacedObject, IDataParams)
   private
@@ -221,70 +222,65 @@ implementation
 
 { TDataStream }
 
-constructor TDataStream.Create(Stream: TStream);
+constructor TDataStream.Create(aStream: TStream);
 begin
   inherited Create;
-  FStream := TMemoryStream.Create;
-  if Assigned(Stream) then
-    FStream.LoadFromStream(Stream);
+  fStream := TMemoryStream.Create;
+  if Assigned(aStream) then
+    fStream.LoadFromStream(aStream);
 end;
 
-class function TDataStream.New(Stream: TStream): IDataStream;
-begin
-  Result := Create(Stream);
-end;
-
-class function TDataStream.New(const S: string): IDataStream;
+constructor TDataStream.Create(const aText: RawByteString);
 var
-  M: TStringStream;
+  m: TStringStream;
 begin
-  M := TStringStream.Create(S);
+  m := TStringStream.Create(aText);
   try
-    Result := New(M);
+    Create(m);
   finally
-    M.Free;
+    m.Free;
   end;
 end;
 
-class function TDataStream.New(const S: IAdapter<string>): IDataStream;
-begin
-  Result := New(S.Adapted);
-end;
-
-class function TDataStream.New(Strings: TStrings): IDataStream;
+constructor TDataStream.Create(aStrings: TStrings);
 var
-  M: TMemoryStream;
+  m: TMemoryStream;
 begin
-  M := TMemoryStream.Create;
+  m := TMemoryStream.Create;
   try
-    Strings.SaveToStream(M);
-    Result := New(M);
+    aStrings.SaveToStream(m);
+    Create(m);
   finally
-    M.Free;
+    m.Free;
   end;
 end;
 
-class function TDataStream.New: IDataStream;
+constructor TDataStream.Create;
 begin
-  Result := New('');
+  Create('');
 end;
 
 destructor TDataStream.Destroy;
 begin
-  FStream.Free;
+  fStream.Free;
   inherited Destroy;
+end;
+
+function TDataStream.Ref: IDataStream;
+begin
+  result := self;
 end;
 
 function TDataStream.Save(Stream: TStream): IDataStream;
 begin
   Result := Self;
-  FStream.SaveToStream(Stream);
+  fStream.SaveToStream(Stream);
   Stream.Position := 0;
 end;
 
 function TDataStream.AsString: string;
 begin
-  with FStream do
+  with fStream do
   begin
     Result := '';
     SetLength(Result, Size);
@@ -295,7 +291,7 @@ end;
 
 function TDataStream.Size: Int64;
 begin
-  Result := FStream.Size;
+  Result := fStream.Size;
 end;
 
 { TDataStream.TAggregated }
@@ -346,7 +342,7 @@ end;
 
 class function TDataStrings.New(const S: string): IDataStrings;
 begin
-  Result := New(TDataStream.New(S));
+  Result := New(TDataStream.Create(S));
 end;
 
 class function TDataStrings.New: IDataStrings;
@@ -869,7 +865,7 @@ end;
 
 constructor TDataFile.Create(const FileName: string);
 begin
-  Create(FileName, TDataStream.New(''));
+  Create(FileName, TDataStream.Create);
 end;
 
 function TDataFile.Ref: IDataFile;
@@ -905,7 +901,7 @@ begin
     raise EFileNotFoundException.CreateFmt('File "%s" not found', [FFileName]);
   Buf := TFileStream.Create(FFileName, fmOpenRead);
   try
-    Result := TDataStream.New(Buf);
+    Result := TDataStream.Create(Buf);
   finally
     Buf.Free;
   end;

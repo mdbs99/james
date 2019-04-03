@@ -28,12 +28,11 @@ unit JamesBase;
 interface
 
 uses
-  Classes, SysUtils;
+  SysUtils,
+  SynCommons;
 
 type
-  IAdapter<T> = interface
-    function Adapted: T;
-  end;
+  EJamesException = class(ESynException);
 
 implementation
 

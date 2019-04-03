@@ -69,7 +69,7 @@ begin
     p := VarArrayLock(fOrigin);
     try
       s.Write(p^, s.Size);
-      result := TDataStream.New(s);
+      result := TDataStream.Create(s);
     finally
       VarArrayUnlock(fOrigin);
     end;

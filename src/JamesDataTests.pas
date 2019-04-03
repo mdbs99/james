@@ -218,9 +218,9 @@ begin
   try
     Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
     Ss.Text := TXT;
-    CheckEquals(TXT, TDataStream.New(Buf).AsString, 'Test Stream');
-    CheckEquals(TXT, TDataStream.New(TXT).AsString, 'Test String');
-    CheckEquals(TXT+#13#10, TDataStream.New(Ss).AsString, 'Test Strings');
+    CheckEquals(TXT, TDataStream.Create(Buf).Ref.AsString, 'Test Stream');
+    CheckEquals(TXT, TDataStream.Create(TXT).Ref.AsString, 'Test String');
+    CheckEquals(TXT+#13#10, TDataStream.Create(Ss).Ref.AsString, 'Test Strings');
   finally
     Buf.Free;
     Ss.Free;
@@ -236,7 +236,7 @@ var
 begin
   Buf := TMemoryStream.Create;
   try
-    TDataStream.New(TXT).Save(Buf);
+    TDataStream.Create(TXT).Ref.Save(Buf);
     SetLength(S, Buf.Size * SizeOf(Char));
     Buf.Position := 0;
     Buf.ReadBuffer(S[1], Buf.Size);
@@ -256,7 +256,7 @@ begin
   M := TMemoryStream.Create;
   S := TStringList.Create;
   try
-    TDataStream.New(TXT).Save(M);
+    TDataStream.Create(TXT).Ref.Save(M);
     S.LoadFromStream(M);
     CheckEquals(TXT+#13#10, S.Text);
   finally
@@ -452,7 +452,7 @@ var
   a: TDataStreamAdapter;
   b: TOleVariantAdapter;
 begin
-  a.Init(TDataStream.New('foo'));
+  a.Init(TDataStream.Create('foo'));
   v := a.AsOleVariant;
   b.Init(v);
   CheckEquals('foo', b.AsDataStream.AsString);
@@ -464,7 +464,7 @@ var
   p: TParam;
   a: TDataStreamAdapter;
 begin
-  s := TDataStream.New('bar');
+  s := TDataStream.Create('bar');
   p := TParam.Create(nil);
   try
     a.Init(s);
@@ -481,7 +481,7 @@ var
   ss: TStrings;
   a: TDataStreamAdapter;
 begin
-  s := TDataStream.New('strings');
+  s := TDataStream.Create('strings');
   ss := TStringList.Create;
   try
     a.Init(s);

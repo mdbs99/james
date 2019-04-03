@@ -49,13 +49,13 @@ implementation
 procedure TOleVariantAdapterTest.TestDataStream;
 var
   v: OleVariant;
-  a: TDataStreamAdapter;
-  b: TOleVariantAdapter;
+  sa: TDataStreamAdapter;
+  va: TOleVariantAdapter;
 begin
-  a.Init(TDataStream.New('foo'));
-  v := a.AsOleVariant;
-  b.Init(v);
-  CheckEquals('foo', b.AsDataStream.AsString);
+  sa.Init(TDataStream.Create('foo'));
+  v := sa.AsOleVariant;
+  va.Init(v);
+  CheckEquals('foo', va.AsDataStream.AsString);
 end;
 
 initialization
