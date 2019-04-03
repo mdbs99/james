@@ -42,11 +42,9 @@ uses
   JamesTestPlatform;
 
 type
-  TDataStreamTest = class(TTestCase)
+  TDataTests = class(TTestCase)
   published
-    procedure TestAsString;
-    procedure TestSaveStream;
-    procedure TestSaveStrings;
+    procedure DataStream;
   end;
 
   TDataParamTest = class(TTestCase)
@@ -109,6 +107,39 @@ type
   end;
 
 implementation
+
+{ TDataTests }
+
+procedure TDataTests.DataStream;
+const
+  BUFFER = 'foo-bar';
+var
+  a: IDataStream;
+  m1, m2: TMemoryStream;
+  ss1: TStrings;
+begin
+  m1 := TMemoryStream.Create;
+  m2 := TMemoryStream.Create;
+  ss1 := TStringList.Create;
+  try
+    m1.WriteBuffer(BUFFER[1], Length(BUFFER) * SizeOf(Char));
+    ss1.Text := BUFFER;
+    a := TDataStream.Create(m1);
+    check(a.AsString = BUFFER, 'stream');
+    a := TDataStream.Create(ss1);
+    check(a.AsString = ss1.Text, 'strings'); // strings have #13#10 at the end
+    a := TDataStream.Create(BUFFER);
+    check(a.AsString = BUFFER, 'text');
+    a := TDataStream.Create(m1);
+    a.Save(m2);
+    check(m1.Size = m2.Size, 'mem size');
+    check(a.Size = m2.Size, 'a size');
+  finally
+    m1.Free;
+    m2.Free;
+    ss1.Free;
+  end;
+end;
 
 { TDataParamsTest }
 
@@ -202,67 +233,6 @@ begin
       .Add(TDataParam.New('3', 3))
       .AsString(';')
   );
-end;
-
-{ TDataStreamTest }
-
-procedure TDataStreamTest.TestAsString;
-const
-  TXT: string = 'Line1-'#13#10'Line2-'#13#10'Line3';
-var
-  Buf: TMemoryStream;
-  Ss: TStrings;
-begin
-  Buf := TMemoryStream.Create;
-  Ss := TStringList.Create;
-  try
-    Buf.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
-    Ss.Text := TXT;
-    CheckEquals(TXT, TDataStream.Create(Buf).Ref.AsString, 'Test Stream');
-    CheckEquals(TXT, TDataStream.Create(TXT).Ref.AsString, 'Test String');
-    CheckEquals(TXT+#13#10, TDataStream.Create(Ss).Ref.AsString, 'Test Strings');
-  finally
-    Buf.Free;
-    Ss.Free;
-  end;
-end;
-
-procedure TDataStreamTest.TestSaveStream;
-const
-  TXT: string = 'ABCDEFG#13#10IJL';
-var
-  Buf: TMemoryStream;
-  S: string;
-begin
-  Buf := TMemoryStream.Create;
-  try
-    TDataStream.Create(TXT).Ref.Save(Buf);
-    SetLength(S, Buf.Size * SizeOf(Char));
-    Buf.Position := 0;
-    Buf.ReadBuffer(S[1], Buf.Size);
-    CheckEquals(TXT, S);
-  finally
-    Buf.Free;
-  end;
-end;
-
-procedure TDataStreamTest.TestSaveStrings;
-const
-  TXT: string = 'ABCDEFG#13#10IJLMNO-PQRS';
-var
-  S: TStrings;
-  M: TMemoryStream;
-begin
-  M := TMemoryStream.Create;
-  S := TStringList.Create;
-  try
-    TDataStream.Create(TXT).Ref.Save(M);
-    S.LoadFromStream(M);
-    CheckEquals(TXT+#13#10, S.Text);
-  finally
-    M.Free;
-    S.Free;
-  end;
 end;
 
 { TDataParamTest }
@@ -495,7 +465,7 @@ end;
 initialization
   TTestSuite.Create('Data')
     .Ref
-    .Add(TTest.Create(TDataStreamTest))
+    .Add(TTest.Create(TDataTests))
     .Add(TTest.Create(TDataParamTest))
     .Add(TTest.Create(TDataParamsTest))
     .Add(TTest.Create(TDataGuidTest))
