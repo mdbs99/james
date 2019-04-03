@@ -40,7 +40,7 @@ type
   private
     fOrigin: OleVariant;
   public
-    procedure Init(const aOrigin: OleVariant);
+    function Init(const aOrigin: OleVariant): TOleVariantAdapter;
     function AsDataStream: IDataStream;
   end;
 
@@ -48,8 +48,9 @@ implementation
 
 { TOleVariantAdapter }
 
-procedure TOleVariantAdapter.Init(const aOrigin: OleVariant);
+function TOleVariantAdapter.Init(const aOrigin: OleVariant): TOleVariantAdapter;
 begin
+  result := self;
   fOrigin := aOrigin;
 end;
 

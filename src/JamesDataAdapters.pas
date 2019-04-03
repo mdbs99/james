@@ -42,7 +42,7 @@ type
   private
     fOrigin: IDataStream;
   public
-    procedure Init(const aOrigin: IDataStream);
+    function Init(const aOrigin: IDataStream): TDataStreamAdapter;
     function AsOleVariant: OleVariant;
     procedure ForParam(const aDest: TParam); overload;
     procedure ForStrings(const aDest: TStrings); overload;
@@ -52,8 +52,10 @@ implementation
 
 { TDataStreamAdapter }
 
-procedure TDataStreamAdapter.Init(const aOrigin: IDataStream);
+function TDataStreamAdapter.Init(const aOrigin: IDataStream
+  ): TDataStreamAdapter;
 begin
+  result := self;
   fOrigin := aOrigin;
 end;
 
