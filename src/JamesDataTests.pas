@@ -262,7 +262,8 @@ end;
 procedure TDataConstraintsTest.TestReceiveConstraint;
 begin
   CheckTrue(
-    TDataConstraints.New
+    TDataConstraints.Create
+      .Ref
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Evaluate
       .Success
@@ -273,7 +274,8 @@ procedure TDataConstraintsTest.TestGetConstraint;
 begin
   CheckEquals(
     'foo',
-    TDataConstraints.New
+    TDataConstraints.Create
+      .Ref
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Evaluate
       .Data
@@ -284,7 +286,8 @@ end;
 procedure TDataConstraintsTest.TestEvaluateTrue;
 begin
   CheckTrue(
-    TDataConstraints.New
+    TDataConstraints.Create
+      .Ref
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Evaluate
@@ -295,7 +298,8 @@ end;
 procedure TDataConstraintsTest.TestEvaluateFalse;
 begin
   CheckFalse(
-    TDataConstraints.New
+    TDataConstraints.Create
+      .Ref
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
       .Evaluate
@@ -306,7 +310,8 @@ end;
 procedure TDataConstraintsTest.TestEvaluateTrueAndFalse;
 begin
   CheckFalse(
-    TDataConstraints.New
+    TDataConstraints.Create
+      .Ref
       .Add(TFakeConstraint.New(True, 'id', 'foo'))
       .Add(TFakeConstraint.New(False, 'id', 'foo'))
       .Evaluate

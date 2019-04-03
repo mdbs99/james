@@ -112,22 +112,6 @@ type
     function SaveAs(aDest: TParams): IDataParams;
     function AsString(const SeparatorChar: string): string; overload;
     function AsString: string; overload;
-  public type
-    TAggregate = class(TAggregatedObject, IDataParams)
-    private
-      FOrigin: IDataParams;
-    public
-      constructor Create(const AController: IInterface; Origin: IDataParams); reintroduce;
-      function Exists(const ParamName: string): Boolean;
-      function Add(const AParam: IDataParam): IDataParams; overload;
-      function Add(const AParams: IDataParams): IDataParams; overload;
-      function Get(Index: Integer): IDataParam; overload;
-      function Get(const ParamName: string): IDataParam; overload;
-      function Count: Integer;
-      function SaveAs(aDest: TParams): IDataParams;
-      function AsString(const SeparatorChar: string): string; overload;
-      function AsString: string; overload;
-    end;
   end;
 
   TDataGuid = class(TInterfacedObject, IDataGuid)
@@ -167,7 +151,7 @@ type
     FList: IInterfaceList;
   public
     constructor Create;
-    class function New: IDataConstraints;
+    function Ref: IDataConstraints;
     function Add(const AConstraint: IDataConstraint): IDataConstraints;
     function Get(Index: Integer): IDataConstraint;
     function Count: Integer;
@@ -243,7 +227,7 @@ end;
 
 function TDataStream.Save(Stream: TStream): IDataStream;
 begin
-  Result := Self;
+  result := self;
   fStream.SaveToStream(Stream);
   Stream.Position := 0;
 end;
@@ -252,16 +236,16 @@ function TDataStream.AsString: RawByteString;
 begin
   with fStream do
   begin
-    Result := '';
-    SetLength(Result, Size);
+    result := '';
+    SetLength(result, Size);
     Position := 0;
-    ReadBuffer(Pointer(Result)^, Size);
+    ReadBuffer(Pointer(result)^, Size);
   end;
 end;
 
 function TDataStream.Size: Int64;
 begin
-  Result := fStream.Size;
+  result := fStream.Size;
 end;
 
 { TDataStrings }
@@ -291,12 +275,12 @@ end;
 
 function TDataStrings.Count: Integer;
 begin
-  Result := fList.Count;
+  result := fList.Count;
 end;
 
 function TDataStrings.Text: RawUTF8;
 begin
-  Result := fList.Text;
+  result := fList.Text;
 end;
 
 { TDataParam }
@@ -328,97 +312,97 @@ end;
 
 function TDataParam.Name: string;
 begin
-  Result := fParam.Name;
+  result := fParam.Name;
 end;
 
 function TDataParam.DataType: TFieldType;
 begin
-  Result := fParam.DataType;
+  result := fParam.DataType;
 end;
 
 function TDataParam.Value: Variant;
 begin
-  Result := fParam.Value;
+  result := fParam.Value;
 end;
 
 function TDataParam.IsNull: Boolean;
 begin
-  Result := fParam.IsNull;
+  result := fParam.IsNull;
 end;
 
 function TDataParam.AsParam: TParam;
 begin
-  Result := fParam;
+  result := fParam;
 end;
 
 function TDataParam.AsBCD: Currency;
 begin
-  Result := fParam.AsBCD;
+  result := fParam.AsBCD;
 end;
 
 function TDataParam.AsBlob: TBlobData;
 begin
-  Result := fParam.AsBlob;
+  result := fParam.AsBlob;
 end;
 
 function TDataParam.AsBoolean: Boolean;
 begin
-  Result := fParam.AsBoolean;
+  result := fParam.AsBoolean;
 end;
 
 function TDataParam.AsCurrency: Currency;
 begin
-  Result := fParam.AsCurrency;
+  result := fParam.AsCurrency;
 end;
 
 function TDataParam.AsDate: TDateTime;
 begin
-  Result := fParam.AsDate;
+  result := fParam.AsDate;
 end;
 
 function TDataParam.AsDateTime: TDateTime;
 begin
-  Result := fParam.AsDateTime;
+  result := fParam.AsDateTime;
 end;
 
 function TDataParam.AsFloat: Double;
 begin
-  Result := fParam.AsFloat;
+  result := fParam.AsFloat;
 end;
 
 function TDataParam.AsInteger: LongInt;
 begin
-  Result := fParam.AsInteger;
+  result := fParam.AsInteger;
 end;
 
 function TDataParam.AsSmallInt: LongInt;
 begin
-  Result := fParam.AsSmallInt;
+  result := fParam.AsSmallInt;
 end;
 
 function TDataParam.AsMemo: string;
 begin
-  Result := fParam.AsMemo;
+  result := fParam.AsMemo;
 end;
 
 function TDataParam.AsString: string;
 begin
-  Result := fParam.AsString;
+  result := fParam.AsString;
 end;
 
 function TDataParam.AsWideString: WideString;
 begin
-  Result := fParam.AsWideString;
+  result := fParam.AsWideString;
 end;
 
 function TDataParam.AsTime: TDateTime;
 begin
-  Result := fParam.AsTime;
+  result := fParam.AsTime;
 end;
 
 function TDataParam.AsWord: LongInt;
 begin
-  Result := fParam.AsWord;
+  result := fParam.AsWord;
 end;
 
 { TDataParams }
@@ -431,17 +415,17 @@ end;
 
 class function TDataParams.New: IDataParams;
 begin
-  Result := Create;
+  result := Create;
 end;
 
 class function TDataParams.New(Origin: TFields): IDataParams;
 var
   I: Integer;
 begin
-  Result := Self.New;
+  result := self.New;
   for I := 0 to Origin.Count -1 do
     with Origin[I] do
-      Result.Add(TDataParam.Create(FieldName, DataType, Value));
+      result.Add(TDataParam.Create(FieldName, DataType, Value));
 end;
 
 destructor TDataParams.Destroy;
@@ -459,12 +443,12 @@ function TDataParams.Exists(const ParamName: string): Boolean;
 var
   I: Integer;
 begin
-  Result := False;
+  result := False;
   for I := 0 to FList.Count -1 do
   begin
     if Get(I).Name = ParamName then
     begin
-      Result := True;
+      result := True;
       Break;
     end;
   end;
@@ -472,7 +456,7 @@ end;
 
 function TDataParams.Add(const AParam: IDataParam): IDataParams;
 begin
-  Result := Self;
+  result := self;
   FList.Add(AParam);
 end;
 
@@ -480,14 +464,14 @@ function TDataParams.Add(const AParams: IDataParams): IDataParams;
 var
   I: Integer;
 begin
-  Result := Self;
+  result := self;
   for I := 0 to AParams.Count-1 do
     Add(AParams.Get(I));
 end;
 
 function TDataParams.Get(Index: Integer): IDataParam;
 begin
-  Result := FList.Items[Index] as IDataParam;
+  result := FList.Items[Index] as IDataParam;
 end;
 
 function TDataParams.Get(const ParamName: string): IDataParam;
@@ -496,13 +480,13 @@ var
   P: IDataParam;
 begin
   P := nil;
-  Result := nil;
+  result := nil;
   for I := 0 to FList.Count -1 do
   begin
     P := Get(I);
     if CompareText(P.Name, ParamName) = 0 then
     begin
-      Result := P;
+      result := P;
       Exit;
     end;
   end;
@@ -512,7 +496,7 @@ end;
 
 function TDataParams.Count: Integer;
 begin
-  Result := FList.Count;
+  result := FList.Count;
 end;
 
 function TDataParams.SaveAs(aDest: TParams): IDataParams;
@@ -520,7 +504,7 @@ var
   i: Integer;
   p: TParam;
 begin
-  Result := Self;
+  result := self;
   if not assigned(aDest) then
     exit;
   for i := 0 to Count -1 do
@@ -540,72 +524,18 @@ function TDataParams.AsString(const SeparatorChar: string): string;
 var
   I: Integer;
 begin
-  Result := '';
+  result := '';
   for I := 0 to Count-1 do
   begin
     if I > 0 then
-      Result := Result + SeparatorChar;
-     Result := Result + Get(I).AsString;
+      result := result + SeparatorChar;
+     result := result + Get(I).AsString;
   end;
 end;
 
 function TDataParams.AsString: string;
 begin
-  Result := AsString(',');
-end;
-
-{ TDataParams.TAggregate }
-
-constructor TDataParams.TAggregate.Create(const AController: IInterface;
-  Origin: IDataParams);
-begin
-  inherited Create(AController);
-  FOrigin := Origin;
-end;
-
-function TDataParams.TAggregate.Exists(const ParamName: string): Boolean;
-begin
-  Result := FOrigin.Exists(ParamName);
-end;
-
-function TDataParams.TAggregate.Add(const AParam: IDataParam): IDataParams;
-begin
-  Result := FOrigin.Add(AParam);
-end;
-
-function TDataParams.TAggregate.Add(const AParams: IDataParams): IDataParams;
-begin
-  Result := FOrigin.Add(AParams);
-end;
-
-function TDataParams.TAggregate.Get(Index: Integer): IDataParam;
-begin
-  Result := FOrigin.Get(Index);
-end;
-
-function TDataParams.TAggregate.Get(const ParamName: string): IDataParam;
-begin
-  Result := FOrigin.Get(ParamName);
-end;
-
-function TDataParams.TAggregate.Count: Integer;
-begin
-  Result := FOrigin.Count;
-end;
-
-function TDataParams.TAggregate.SaveAs(aDest: TParams): IDataParams;
-begin
-  Result := FOrigin.SaveAs(aDest);
-end;
-
-function TDataParams.TAggregate.AsString(const SeparatorChar: string): string;
-begin
-  Result := FOrigin.AsString(SeparatorChar);
-end;
-
-function TDataParams.TAggregate.AsString: string;
-begin
-  Result := FOrigin.AsString;
+  result := AsString(',');
 end;
 
 { TDataGuid }
@@ -657,17 +587,17 @@ end;
 
 function TDataGuid.Value: TGuid;
 begin
-  Result := fGuid;
+  result := fGuid;
 end;
 
 function TDataGuid.AsString: ShortString;
 begin
-  Result := GuidToString(fGuid);
+  result := GuidToString(fGuid);
 end;
 
 function TDataGuid.AsSmallString: ShortString;
 begin
-  Result := Copy(AsString, 2, 8);
+  result := Copy(AsString, 2, 8);
 end;
 
 { TNullGuid }
@@ -689,28 +619,28 @@ end;
 class function TDataResult.New(Success: Boolean; const Data: IDataParams
   ): IDataResult;
 begin
-  Result := Create(Success, Data);
+  result := Create(Success, Data);
 end;
 
 class function TDataResult.New(Success: Boolean; const Data: IDataParam
   ): IDataResult;
 begin
-  Result := New(Success, TDataParams.New.Add(Data))
+  result := New(Success, TDataParams.New.Add(Data))
 end;
 
 class function TDataResult.New(Success: Boolean): IDataResult;
 begin
-  Result := New(Success, TDataParams.New);
+  result := New(Success, TDataParams.New);
 end;
 
 function TDataResult.Success: Boolean;
 begin
-  Result := FSuccess;
+  result := FSuccess;
 end;
 
 function TDataResult.Data: IDataParams;
 begin
-  Result := FData;
+  result := FData;
 end;
 
 { TDataConstraints }
@@ -721,26 +651,26 @@ begin
   FList := TInterfaceList.Create;
 end;
 
-class function TDataConstraints.New: IDataConstraints;
+function TDataConstraints.Ref: IDataConstraints;
 begin
-  Result := Create;
+  result := self;
 end;
 
 function TDataConstraints.Add(const AConstraint: IDataConstraint
   ): IDataConstraints;
 begin
-  Result := Self;
+  result := self;
   FList.Add(AConstraint);
 end;
 
 function TDataConstraints.Get(Index: Integer): IDataConstraint;
 begin
-  Result := FList.Items[Index] as IDataConstraint;
+  result := FList.Items[Index] as IDataConstraint;
 end;
 
 function TDataConstraints.Count: Integer;
 begin
-  Result := FList.Count;
+  result := FList.Count;
 end;
 
 function TDataConstraints.Evaluate: IDataResult;
@@ -759,7 +689,7 @@ begin
       Ok := False;
     Params.Add(R.Data);
   end;
-  Result := TDataResult.New(Ok, Params);
+  result := TDataResult.New(Ok, Params);
 end;
 
 { TDataFile }
@@ -783,17 +713,17 @@ end;
 
 function TDataFile.Path: string;
 begin
-  Result := SysUtils.ExtractFilePath(FFileName);
+  result := SysUtils.ExtractFilePath(FFileName);
 end;
 
 function TDataFile.Name: string;
 begin
-  Result := SysUtils.ExtractFileName(FFileName);
+  result := SysUtils.ExtractFileName(FFileName);
 end;
 
 function TDataFile.FileName: string;
 begin
-  Result := FFileName;
+  result := FFileName;
 end;
 
 function TDataFile.Stream: IDataStream;
@@ -802,14 +732,14 @@ var
 begin
   if FStream.Size > 0 then
   begin
-    Result := FStream;
+    result := FStream;
     Exit;
   end;
   if not FileExists(FFileName) then
     raise EFileNotFoundException.CreateFmt('File "%s" not found', [FFileName]);
   Buf := TFileStream.Create(FFileName, fmOpenRead);
   try
-    Result := TDataStream.Create(Buf);
+    result := TDataStream.Create(Buf);
   finally
     Buf.Free;
   end;
