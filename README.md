@@ -51,7 +51,7 @@ Considering `<james>` as the path where you have saved the sources, your project
 - Other unit files (-Fu)
   - include `<james>\src;<james>\src\fpc`
 - Include files (-Fi)
-  - include only `<james>\src;<james>\src\fpc`
+  - include `<james>\src;<james>\src\fpc`
 
 ## On Delphi
 
