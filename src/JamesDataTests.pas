@@ -45,7 +45,7 @@ type
   TDataTests = class(TTestCase)
   published
     procedure DataStream;
-    procedure DataSrings;
+    procedure DataStrings;
   end;
 
   TDataParamTest = class(TTestCase)
@@ -142,7 +142,7 @@ begin
   end;
 end;
 
-procedure TDataTests.DataSrings;
+procedure TDataTests.DataStrings;
 var
   a: IDataStrings;
   i: Integer;

@@ -28,7 +28,10 @@ unit JamesRTLTests;
 interface
 
 uses
-  Classes, SysUtils, COMObj, Variants,
+  Classes,
+  SysUtils,
+  COMObj,
+  Variants,
   JamesDataBase,
   JamesDataCore,
   JamesDataAdapters,
@@ -37,16 +40,16 @@ uses
   JamesTestPlatform;
 
 type
-  TOleVariantAdapterTest = class(TTestCase)
+  TRTLAdaptersTest = class(TTestCase)
   published
-    procedure TestDataStream;
+    procedure OleVariantAdapter;
 end;
 
 implementation
 
-{ TOleVariantAdapterTest }
+{ TRTLAdaptersTest }
 
-procedure TOleVariantAdapterTest.TestDataStream;
+procedure TRTLAdaptersTest.OleVariantAdapter;
 var
   v: OleVariant;
   sa: TDataStreamAdapter;
@@ -61,6 +64,6 @@ end;
 initialization
   TTestSuite.Create('RTL')
     .Ref
-    .Add(TTest.Create(TOleVariantAdapterTest))
+    .Add(TTest.Create(TRTLAdaptersTest))
 
 end.
