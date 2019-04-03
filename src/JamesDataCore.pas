@@ -65,12 +65,12 @@ type
 
   TDataParam = class(TInterfacedObject, IDataParam)
   private
-    FParam: TParam;
+    fParam: TParam;
   public
-    constructor Create(const Name: string; DataType: TFieldType; Value: Variant); reintroduce;
-    class function New(const Name: string; DataType: TFieldType; Value: Variant): IDataParam; overload;
-    class function New(const Name: string; Value: Variant): IDataParam; overload;
+    constructor Create(const Name: string; DataType: TFieldType; Value: Variant); reintroduce; overload;
+    constructor Create(const Name: string; Value: Variant); overload;
     destructor Destroy; override;
+    function Ref: IDataParam;
     function Name: string;
     function DataType: TFieldType;
     function Value: Variant;
@@ -102,6 +102,7 @@ type
     class function New: IDataParams; overload;
     class function New(Origin: TFields): IDataParams; overload;
     destructor Destroy; override;
+    function Ref: IDataParams;
     function Exists(const ParamName: string): Boolean;
     function Add(const AParam: IDataParam): IDataParams; overload;
     function Add(const AParams: IDataParams): IDataParams; overload;
@@ -309,121 +310,121 @@ end;
 constructor TDataParam.Create(const Name: string; DataType: TFieldType; Value: Variant);
 begin
   inherited Create;
-  FParam := TParam.Create(nil);
-  FParam.Name := Name;
-  FParam.DataType := DataType;
-  FParam.Value := Value;
+  fParam := TParam.Create(nil);
+  fParam.Name := Name;
+  fParam.DataType := DataType;
+  fParam.Value := Value;
 end;
 
-class function TDataParam.New(const Name: string; DataType: TFieldType; Value: Variant): IDataParam;
+constructor TDataParam.Create(const Name: string; Value: Variant);
 begin
-  Result := Create(Name, DataType, Value);
-end;
-
-class function TDataParam.New(const Name: string; Value: Variant): IDataParam;
-begin
-  Result := New(Name, ftUnknown, Value);
+  Create(Name, ftUnknown, Value);
 end;
 
 destructor TDataParam.Destroy;
 begin
-  FParam.Free;
+  fParam.Free;
   inherited;
+end;
+
+function TDataParam.Ref: IDataParam;
+begin
+  result := self;
 end;
 
 function TDataParam.Name: string;
 begin
-  Result := FParam.Name;
+  Result := fParam.Name;
 end;
 
 function TDataParam.DataType: TFieldType;
 begin
-  Result := FParam.DataType;
+  Result := fParam.DataType;
 end;
 
 function TDataParam.Value: Variant;
 begin
-  Result := FParam.Value;
+  Result := fParam.Value;
 end;
 
 function TDataParam.IsNull: Boolean;
 begin
-  Result := FParam.IsNull;
+  Result := fParam.IsNull;
 end;
 
 function TDataParam.AsParam: TParam;
 begin
-  Result := FParam;
+  Result := fParam;
 end;
 
 function TDataParam.AsBCD: Currency;
 begin
-  Result := FParam.AsBCD;
+  Result := fParam.AsBCD;
 end;
 
 function TDataParam.AsBlob: TBlobData;
 begin
-  Result := FParam.AsBlob;
+  Result := fParam.AsBlob;
 end;
 
 function TDataParam.AsBoolean: Boolean;
 begin
-  Result := FParam.AsBoolean;
+  Result := fParam.AsBoolean;
 end;
 
 function TDataParam.AsCurrency: Currency;
 begin
-  Result := FParam.AsCurrency;
+  Result := fParam.AsCurrency;
 end;
 
 function TDataParam.AsDate: TDateTime;
 begin
-  Result := FParam.AsDate;
+  Result := fParam.AsDate;
 end;
 
 function TDataParam.AsDateTime: TDateTime;
 begin
-  Result := FParam.AsDateTime;
+  Result := fParam.AsDateTime;
 end;
 
 function TDataParam.AsFloat: Double;
 begin
-  Result := FParam.AsFloat;
+  Result := fParam.AsFloat;
 end;
 
 function TDataParam.AsInteger: LongInt;
 begin
-  Result := FParam.AsInteger;
+  Result := fParam.AsInteger;
 end;
 
 function TDataParam.AsSmallInt: LongInt;
 begin
-  Result := FParam.AsSmallInt;
+  Result := fParam.AsSmallInt;
 end;
 
 function TDataParam.AsMemo: string;
 begin
-  Result := FParam.AsMemo;
+  Result := fParam.AsMemo;
 end;
 
 function TDataParam.AsString: string;
 begin
-  Result := FParam.AsString;
+  Result := fParam.AsString;
 end;
 
 function TDataParam.AsWideString: WideString;
 begin
-  Result := FParam.AsWideString;
+  Result := fParam.AsWideString;
 end;
 
 function TDataParam.AsTime: TDateTime;
 begin
-  Result := FParam.AsTime;
+  Result := fParam.AsTime;
 end;
 
 function TDataParam.AsWord: LongInt;
 begin
-  Result := FParam.AsWord;
+  Result := fParam.AsWord;
 end;
 
 { TDataParams }
@@ -446,13 +447,18 @@ begin
   Result := Self.New;
   for I := 0 to Origin.Count -1 do
     with Origin[I] do
-      Result.Add(TDataParam.New(FieldName, DataType, Value));
+      Result.Add(TDataParam.Create(FieldName, DataType, Value));
 end;
 
 destructor TDataParams.Destroy;
 begin
   FList.Free;
   inherited;
+end;
+
+function TDataParams.Ref: IDataParams;
+begin
+  result := self;
 end;
 
 function TDataParams.Exists(const ParamName: string): Boolean;

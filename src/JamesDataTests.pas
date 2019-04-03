@@ -46,22 +46,8 @@ type
   published
     procedure DataStream;
     procedure DataStrings;
-  end;
-
-  TDataParamTest = class(TTestCase)
-  published
-    procedure TestAutoDataType;
-  end;
-
-  TDataParamsTest = class(TTestCase)
-  published
-    procedure TestAdd;
-    procedure TestAddParam;
-    procedure TestAddParams;
-    procedure TestGetByIndex;
-    procedure TestGetByName;
-    procedure TestCount;
-    procedure TestAsStringWithSeparator;
+    procedure DataParam;
+    procedure DataParams;
   end;
 
   TDataGuidTest = class(TTestCase)
@@ -163,123 +149,38 @@ begin
   end;
 end;
 
-{ TDataParamsTest }
-
-procedure TDataParamsTest.TestAdd;
+procedure TDataTests.DataParam;
 begin
-  CheckEquals(
-    10,
-    TDataParams.New
-      .Add(TDataParam.New('foo', ftSmallint, 10))
-      .Get(0)
-      .AsInteger
-  );
+  check(TDataParam.Create('p1', 'str').Ref.DataType = ftString, 'p1');
+  check(TDataParam.Create('p2', 10).Ref.DataType = ftSmallint, 'p2');
+  check(TDataParam.Create('p3', 20.50).Ref.DataType = ftFloat, 'p3');
 end;
 
-procedure TDataParamsTest.TestAddParam;
+procedure TDataTests.DataParams;
 var
-  P: IDataParam;
+  ps: IDataParams;
 begin
-  P := TDataParam.New('foo', 20);
-  CheckEquals(
-    P.AsInteger,
-    TDataParams.New
-      .Add(P)
-      .Get(0)
-      .AsInteger
-  );
-end;
-
-procedure TDataParamsTest.TestAddParams;
-begin
-  CheckEquals(
-    5,
-    TDataParams.New
-      .Add(TDataParam.New('1', 1))
-      .Add(TDataParam.New('2', 2))
-      .Add(
-        TDataParams.New
-          .Add(TDataParam.New('3', 3))
-          .Add(TDataParam.New('4', 4))
-          .Add(TDataParam.New('5', 4))
-      )
-      .Count
-  );
-end;
-
-procedure TDataParamsTest.TestGetByIndex;
-begin
-  CheckEquals(
-    2,
-    TDataParams.New
-      .Add(TDataParam.New('1', 1))
-      .Add(TDataParam.New('2', 2))
-      .Get(1)
-      .AsInteger
-  );
-end;
-
-procedure TDataParamsTest.TestGetByName;
-begin
-  CheckEquals(
-    33,
-    TDataParams.New
-      .Add(TDataParam.New('foo', 22))
-      .Add(TDataParam.New('bar', 33))
-      .Get('bar')
-      .AsInteger
-  );
-end;
-
-procedure TDataParamsTest.TestCount;
-begin
-  CheckEquals(
-    5,
-    TDataParams.New
-      .Add(TDataParam.New('1', 1))
-      .Add(TDataParam.New('2', 2))
-      .Add(TDataParam.New('3', 3))
-      .Add(TDataParam.New('4', 4))
-      .Add(TDataParam.New('5', 4))
-      .Count
-  );
-end;
-
-procedure TDataParamsTest.TestAsStringWithSeparator;
-begin
-  CheckEquals(
-    '1;2;3',
-    TDataParams.New
-      .Add(TDataParam.New('1', 1))
-      .Add(TDataParam.New('2', 2))
-      .Add(TDataParam.New('3', 3))
-      .AsString(';')
-  );
-end;
-
-{ TDataParamTest }
-
-procedure TDataParamTest.TestAutoDataType;
-var
-  Params: IDataParams;
-begin
-  Params := TDataParams.New
-    .Add(TDataParam.New('p1', 'str'))
-    .Add(TDataParam.New('p2', 10))
-    .Add(TDataParam.New('p3', 20.50))
-    ;
-  CheckEquals(
-    GetEnumName(TypeInfo(TFieldType), Integer(ftString)),
-    GetEnumName(TypeInfo(TFieldType), Integer(Params.Get(0).DataType))
-  );
-  CheckEquals(
-    GetEnumName(TypeInfo(TFieldType), Integer(ftSmallint)),
-    GetEnumName(TypeInfo(TFieldType), Integer(Params.Get(1).DataType))
-  );
-  CheckEquals(
-    GetEnumName(TypeInfo(TFieldType), Integer(ftFloat)),
-    GetEnumName(TypeInfo(TFieldType), Integer(Params.Get(2).DataType))
-  );
+  ps := TDataParams.Create;
+  ps.Add(TDataParam.Create('foo', ftSmallint, 10));
+  check(ps.Count = 1, 'count 1');
+  check(ps.Get(0).AsInteger = 10, '=10');
+  ps.Add(TDataParam.Create('1', 1))
+    .Add(TDataParam.Create('2', 2))
+    .Add(
+      TDataParams.New
+        .Add(TDataParam.Create('3', 3))
+        .Add(TDataParam.Create('4', 4))
+        .Add(TDataParam.Create('5', 4))
+    );
+  check(ps.Count = 6, 'count 6');
+  check(assigned(ps.Get('3')), 'assigned 3');
+  check(ps.Get('3').AsInteger = 3, 'get 3');
+  ps := TDataParams.Create // new instance
+    .Ref
+    .Add(TDataParam.Create('1', 1))
+    .Add(TDataParam.Create('2', 2))
+    .Add(TDataParam.Create('3', 3));
+  check(ps.AsString(';') = '1;2;3', 'separator');
 end;
 
 { TDataGuidTest }
@@ -345,7 +246,7 @@ function TFakeConstraint.Evaluate: IDataResult;
 begin
   Result := TDataResult.New(
     FValue,
-    TDataParam.New(FId, ftString, FText)
+    TDataParam.Create(FId, ftString, FText)
   );
 end;
 
@@ -488,8 +389,6 @@ initialization
   TTestSuite.Create('Data')
     .Ref
     .Add(TTest.Create(TDataTests))
-    .Add(TTest.Create(TDataParamTest))
-    .Add(TTest.Create(TDataParamsTest))
     .Add(TTest.Create(TDataGuidTest))
     .Add(TTest.Create(TDataConstraintsTest))
     .Add(TTest.Create(TDataFileTest))
