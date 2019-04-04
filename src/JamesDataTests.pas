@@ -52,15 +52,8 @@ type
     procedure DataParam;
     procedure DataParams;
     procedure DataGuid;
-  end;
-
-  TDataConstraintsTest = class(TTestCase)
-  published
-    procedure TestReceiveConstraint;
-    procedure TestGetConstraint;
-    procedure TestEvaluateTrue;
-    procedure TestEvaluateFalse;
-    procedure TestEvaluateTrueAndFalse;
+    procedure DataConstraints;
+    procedure DataFile;
   end;
 
   TDataFileTest = class(TTestCase)
@@ -251,66 +244,31 @@ begin
   check(g1.AsSmallString = g2.AsSmallString, 'AsSmallString');
 end;
 
-{ TDataConstraintsTest }
-
-procedure TDataConstraintsTest.TestReceiveConstraint;
+procedure TDataTests.DataConstraints;
+var
+  cs: IDataConstraints;
 begin
-  CheckTrue(
-    TDataConstraints.Create
-      .Ref
-      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
-      .Evaluate
-      .Success
-  );
+  cs := TDataConstraints.Create;
+  cs.Add(TFakeConstraint.Create(True, 'a', 'error a'));
+  check(cs.Evaluate.Success, 'true');
+  cs.Add(TFakeConstraint.Create(True, 'b', 'error b'));
+  check(cs.Evaluate.Success, 'true 2');
+  cs.Add(TFakeConstraint.Create(False, 'b', 'error b'));
+  check(not cs.Evaluate.Success, 'true 2, fase 1');
+  cs := TDataConstraints.Create; // new instance
+  cs.Add(TFakeConstraint.Create(False, 'a', 'error a'));
+  cs.Add(TFakeConstraint.Create(False, 'b', 'error b'));
+  check(not cs.Evaluate.Success, 'false 2');
+  cs := TDataConstraints.Create; // new instance
+  cs.Add(TFakeConstraint.Create(False, 'a', 'foo'));
+  check(cs.Evaluate.Data.AsString = 'foo');
+  cs.Add(TFakeConstraint.Create(False, 'b', 'bar'));
+  check(cs.Evaluate.Data.AsString = 'foo,bar', cs.Evaluate.Data.AsString);
 end;
 
-procedure TDataConstraintsTest.TestGetConstraint;
+procedure TDataTests.DataFile;
 begin
-  CheckEquals(
-    'foo',
-    TDataConstraints.Create
-      .Ref
-      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
-      .Evaluate
-      .Data
-      .AsString
-  );
-end;
 
-procedure TDataConstraintsTest.TestEvaluateTrue;
-begin
-  CheckTrue(
-    TDataConstraints.Create
-      .Ref
-      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
-      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
-      .Evaluate
-      .Success
-  );
-end;
-
-procedure TDataConstraintsTest.TestEvaluateFalse;
-begin
-  CheckFalse(
-    TDataConstraints.Create
-      .Ref
-      .Add(TFakeConstraint.Create(False, 'id', 'foo'))
-      .Add(TFakeConstraint.Create(False, 'id', 'foo'))
-      .Evaluate
-      .Success
-  );
-end;
-
-procedure TDataConstraintsTest.TestEvaluateTrueAndFalse;
-begin
-  CheckFalse(
-    TDataConstraints.Create
-      .Ref
-      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
-      .Add(TFakeConstraint.Create(False, 'id', 'foo'))
-      .Evaluate
-      .Success
-  );
 end;
 
 { TDataFileTest }
@@ -347,7 +305,6 @@ initialization
   TTestSuite.Create('Data')
     .Ref
     .Add(TTest.Create(TDataTests))
-    .Add(TTest.Create(TDataConstraintsTest))
     .Add(TTest.Create(TDataFileTest))
     ;
 
