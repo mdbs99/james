@@ -151,6 +151,20 @@ type
     function Stream: IDataStream;
   end;
 
+  IDataTags = interface
+  ['{100F328D-5E1E-46EC-83BD-EA9177396518}']
+    function Add(const aTag: RawUTF8): IDataTags;
+    function Get(aIndex: PtrInt): RawUTF8;
+    function Exists(const aTags: RawUTF8): Boolean;
+    function Count: Integer;
+    function AsString: RawUTF8;
+  end;
+
+  IDataTagsOf = interface
+  ['{83990CC0-27A9-446D-9053-95AB851F7D4A}']
+    function Value: IDataTags;
+  end;
+
 implementation
 
 end.

@@ -55,6 +55,7 @@ type
     procedure DataGuid;
     procedure DataConstraints;
     procedure DataFile;
+    procedure DataTags;
   end;
 
 implementation
@@ -276,6 +277,21 @@ begin
   finally
     check(f.Delete, FormatUTF8('forbidden to delete %', [fn]));
   end;
+end;
+
+procedure TDataTests.DataTags;
+var
+  tags: IDataTags;
+begin
+  tags := TDataTags.Create('#foo');
+  check(tags.AsString = '#foo', 'foo');
+  tags.Add('#bar');
+  check(tags.AsString = '#foo#bar', 'bar');
+  check(tags.Count = 2);
+  check(tags.Get(0) = '#foo', 'Get(0)');
+  check(tags.Get(1) = '#bar', 'Get(1)');
+  check(tags.Exists('#foo'), 'exists foo');
+  check(tags.Exists('#bar'), 'exists bar');
 end;
 
 initialization

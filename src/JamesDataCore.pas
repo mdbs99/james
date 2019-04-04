@@ -174,6 +174,23 @@ type
     function Stream: IDataStream;
   end;
 
+  TDataTags = class(TInterfacedObject, IDataTags)
+  private
+    fTags: RawUTF8;
+    fList: TStringList;
+    procedure Split(const aTags: RawUTF8; aDest: TStringList);
+    function List: TStringList;
+  public
+    constructor Create(const aTags: RawUTF8);
+    destructor Destroy; override;
+    function Ref: IDataTags;
+    function Add(const aTag: RawUTF8): IDataTags;
+    function Get(aIndex: PtrInt): RawUTF8;
+    function Exists(const aTags: RawUTF8): Boolean;
+    function Count: Integer;
+    function AsString: RawUTF8;
+  end;
+
 implementation
 
 { TDataStream }
@@ -767,6 +784,86 @@ begin
   finally
     fs.Free;
   end;
+end;
+
+{ TDataTags }
+
+procedure TDataTags.Split(const aTags: RawUTF8; aDest: TStringList);
+begin
+  if aDest.Count = 0 then
+  begin
+    aDest.Text :=
+      Trim(
+        StringReplace(
+          aTags, '#', #13'#', [rfReplaceAll]
+        )
+      );
+  end;
+end;
+
+function TDataTags.List: TStringList;
+begin
+  result := fList;
+  Split(fTags, fList);
+end;
+
+constructor TDataTags.Create(const aTags: RawUTF8);
+begin
+  inherited Create;
+  fList := TStringList.Create;
+  fTags := aTags;
+end;
+
+destructor TDataTags.Destroy;
+begin
+  fList.Free;
+  inherited;
+end;
+
+function TDataTags.Ref: IDataTags;
+begin
+  result := self;
+end;
+
+function TDataTags.Add(const aTag: RawUTF8): IDataTags;
+begin
+  result := self;
+  fTags := fTags + aTag;
+end;
+
+function TDataTags.Get(aIndex: PtrInt): RawUTF8;
+begin
+  result := List.Strings[aIndex];
+end;
+
+function TDataTags.Exists(const aTags: RawUTF8): Boolean;
+var
+  i: Integer;
+  l: TStringList;
+begin
+  result := False;
+  l := TStringList.Create;
+  try
+    Split(aTags, l);
+    for i := 0 to l.Count-1 do
+    begin
+      if List.IndexOf(l.Strings[i]) = -1 then
+        exit;
+    end;
+    result := True;
+  finally
+    l.Free;
+  end;
+end;
+
+function TDataTags.Count: Integer;
+begin
+  result := List.Count;
+end;
+
+function TDataTags.AsString: RawUTF8;
+begin
+  result := fTags;
 end;
 
 end.
