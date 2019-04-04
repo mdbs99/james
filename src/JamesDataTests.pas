@@ -34,6 +34,7 @@ uses
   DB,
   TypInfo,
   COMObj,
+  SynCommons,
   JamesDataBase,
   JamesDataCore,
   JamesDataAdapters,
@@ -56,29 +57,22 @@ type
     procedure DataFile;
   end;
 
-  TDataFileTest = class(TTestCase)
-  published
-    procedure TestPath;
-    procedure TestName;
-    procedure TestStream;
-  end;
-
 implementation
 
 type
   TFakeConstraint = class(TInterfacedObject, IDataConstraint)
   private
     fValue: Boolean;
-    fId: string;
-    fText: string;
+    fId: RawUTF8;
+    fText: RawUTF8;
   public
-    constructor Create(aValue: Boolean; const aId, aText: string);
+    constructor Create(aValue: Boolean; const aId, aText: RawUTF8);
     function Evaluate: IDataResult;
   end;
 
 { TFakeConstraint }
 
-constructor TFakeConstraint.Create(aValue: Boolean; const aId, aText: string);
+constructor TFakeConstraint.Create(aValue: Boolean; const aId, aText: RawUTF8);
 begin
   inherited Create;
   fValue := aValue;
@@ -249,15 +243,15 @@ var
   cs: IDataConstraints;
 begin
   cs := TDataConstraints.Create;
-  cs.Add(TFakeConstraint.Create(True, 'a', 'error a'));
+  cs.Add(TFakeConstraint.Create(True, 'a', ''));
   check(cs.Evaluate.Success, 'true');
-  cs.Add(TFakeConstraint.Create(True, 'b', 'error b'));
+  cs.Add(TFakeConstraint.Create(True, 'b', ''));
   check(cs.Evaluate.Success, 'true 2');
-  cs.Add(TFakeConstraint.Create(False, 'b', 'error b'));
+  cs.Add(TFakeConstraint.Create(False, 'b', ''));
   check(not cs.Evaluate.Success, 'true 2, fase 1');
   cs := TDataConstraints.Create; // new instance
-  cs.Add(TFakeConstraint.Create(False, 'a', 'error a'));
-  cs.Add(TFakeConstraint.Create(False, 'b', 'error b'));
+  cs.Add(TFakeConstraint.Create(False, 'a', ''));
+  cs.Add(TFakeConstraint.Create(False, 'b', ''));
   check(not cs.Evaluate.Success, 'false 2');
   cs := TDataConstraints.Create; // new instance
   cs.Add(TFakeConstraint.Create(False, 'a', 'foo'));
@@ -267,45 +261,24 @@ begin
 end;
 
 procedure TDataTests.DataFile;
-begin
-
-end;
-
-{ TDataFileTest }
-
-procedure TDataFileTest.TestPath;
-begin
-  CheckEquals('c:\path\', TDataFile.Create('c:\path\filename.txt').Ref.Path);
-end;
-
-procedure TDataFileTest.TestName;
-begin
-  CheckEquals('filename.txt', TDataFile.Create('c:\path\filename.txt').Ref.Name);
-end;
-
-procedure TDataFileTest.TestStream;
-const
-  TXT: string = 'ABCC~#';
-  FILE_NAME: string = 'file.txt';
 var
-  m1: TMemoryStream;
+  f: IDataFile;
+  fn: TFileName;
 begin
-  m1 := TMemoryStream.Create;
+  f := TDataFile.Create('c:\path\filename.txt');
+  check(f.Path = 'c:\path\', 'path'); // including PathDelim at the end
+  check(f.Name = 'filename.txt', 'filename');
+  fn := SynCommons.TemporaryFileName;
+  f := TDataFile.Create(fn, TDataStream.Create('foo'));
   try
-    m1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
-    m1.SaveToFile(FILE_NAME);
-    CheckEquals(TXT, TDataFile.Create(FILE_NAME).Ref.Stream.AsString);
+    check(f.Save, 'saving');
+    check(f.Stream.AsString = 'foo', 'check data');
   finally
-    DeleteFile(FILE_NAME);
-    m1.Free;
+    check(f.Delete, FormatUTF8('forbidden to delete %', [fn]));
   end;
 end;
 
 initialization
-  TTestSuite.Create('Data')
-    .Ref
-    .Add(TTest.Create(TDataTests))
-    .Add(TTest.Create(TDataFileTest))
-    ;
+  TTestSuite.Create('Data').Ref.Add(TTest.Create(TDataTests));
 
 end.

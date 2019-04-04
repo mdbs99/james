@@ -166,9 +166,11 @@ type
     constructor Create(const aFileName: TFileName; const aStream: IDataStream); reintroduce; overload;
     constructor Create(const aFileName: TFileName); overload;
     function Ref: IDataFile;
+    function Save: Boolean;
+    function Delete: Boolean;
     function Path: TFileName;
     function Name: TFileName;
-    function FileName: TFileName;
+    function PathName: TFileName;
     function Stream: IDataStream;
   end;
 
@@ -711,6 +713,32 @@ begin
   result := self;
 end;
 
+function TDataFile.Save: Boolean;
+var
+  m: TMemoryStream;
+begin
+  m := TMemoryStream.Create;
+  try
+    try
+      fStream.Save(m);
+      m.SaveToFile(fFileName);
+      result := True;
+    except
+      result := False;
+    end;
+  finally
+    m.Free;
+  end;
+end;
+
+function TDataFile.Delete: Boolean;
+begin
+  if not FileExists(fFileName) then
+    result := True
+  else
+    result := DeleteFile(fFileName);
+end;
+
 function TDataFile.Path: TFileName;
 begin
   result := SysUtils.ExtractFilePath(fFileName);
@@ -721,27 +749,23 @@ begin
   result := SysUtils.ExtractFileName(fFileName);
 end;
 
-function TDataFile.FileName: TFileName;
+function TDataFile.PathName: TFileName;
 begin
   result := fFileName;
 end;
 
 function TDataFile.Stream: IDataStream;
 var
-  Buf: TFileStream;
+  fs: TFileStream;
 begin
-  if fStream.Size > 0 then
-  begin
-    result := fStream;
-    exit;
-  end;
-  if not FileExists(fFileName) then
-    raise EFileNotFoundException.CreateFmt('File "%s" not found', [fFileName]);
-  Buf := TFileStream.Create(fFileName, fmOpenRead);
+  if not (Save and FileExists(fFileName)) then
+    raise EFCreateError.CreateFmt('Error saving "%s"', [fFileName]);
+  fs := TFileStream.Create(fFileName, fmOpenRead or fmShareDenyNone);
   try
-    result := TDataStream.Create(Buf);
+    fStream := TDataStream.Create(fs);
+    result := fStream;
   finally
-    Buf.Free;
+    fs.Free;
   end;
 end;
 
