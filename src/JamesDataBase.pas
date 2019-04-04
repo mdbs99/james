@@ -120,9 +120,9 @@ type
 
   IDataFile = interface
   ['{E700F3AE-3DD6-4146-A256-E516B692BC0A}']
-    function Path: string;
-    function Name: string;
-    function FileName: string;
+    function Path: TFileName;
+    function Name: TFileName;
+    function FileName: TFileName;
     function Stream: IDataStream;
   end;
 

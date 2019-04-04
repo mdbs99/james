@@ -160,15 +160,15 @@ type
 
   TDataFile = class(TInterfacedObject, IDataFile)
   private
-    FFileName: string;
-    FStream: IDataStream;
+    fFileName: TFileName;
+    fStream: IDataStream;
   public
-    constructor Create(const FileName: string; const Stream: IDataStream); reintroduce; overload;
-    constructor Create(const FileName: string); overload;
+    constructor Create(const aFileName: TFileName; const aStream: IDataStream); reintroduce; overload;
+    constructor Create(const aFileName: TFileName); overload;
     function Ref: IDataFile;
-    function Path: string;
-    function Name: string;
-    function FileName: string;
+    function Path: TFileName;
+    function Name: TFileName;
+    function FileName: TFileName;
     function Stream: IDataStream;
   end;
 
@@ -694,16 +694,16 @@ end;
 
 { TDataFile }
 
-constructor TDataFile.Create(const FileName: string; const Stream: IDataStream);
+constructor TDataFile.Create(const aFileName: TFileName; const aStream: IDataStream);
 begin
   inherited Create;
-  FFileName := FileName;
-  FStream := Stream;
+  fFileName := aFileName;
+  fStream := aStream;
 end;
 
-constructor TDataFile.Create(const FileName: string);
+constructor TDataFile.Create(const aFileName: TFileName);
 begin
-  Create(FileName, TDataStream.Create);
+  Create(aFileName, TDataStream.Create);
 end;
 
 function TDataFile.Ref: IDataFile;
@@ -711,33 +711,33 @@ begin
   result := self;
 end;
 
-function TDataFile.Path: string;
+function TDataFile.Path: TFileName;
 begin
-  result := SysUtils.ExtractFilePath(FFileName);
+  result := SysUtils.ExtractFilePath(fFileName);
 end;
 
-function TDataFile.Name: string;
+function TDataFile.Name: TFileName;
 begin
-  result := SysUtils.ExtractFileName(FFileName);
+  result := SysUtils.ExtractFileName(fFileName);
 end;
 
-function TDataFile.FileName: string;
+function TDataFile.FileName: TFileName;
 begin
-  result := FFileName;
+  result := fFileName;
 end;
 
 function TDataFile.Stream: IDataStream;
 var
   Buf: TFileStream;
 begin
-  if FStream.Size > 0 then
+  if fStream.Size > 0 then
   begin
-    result := FStream;
+    result := fStream;
     exit;
   end;
-  if not FileExists(FFileName) then
-    raise EFileNotFoundException.CreateFmt('File "%s" not found', [FFileName]);
-  Buf := TFileStream.Create(FFileName, fmOpenRead);
+  if not FileExists(fFileName) then
+    raise EFileNotFoundException.CreateFmt('File "%s" not found', [fFileName]);
+  Buf := TFileStream.Create(fFileName, fmOpenRead);
   try
     result := TDataStream.Create(Buf);
   finally
