@@ -57,13 +57,12 @@ type
     function Text: RawUTF8;
   end;
 
-  IDataParam = interface
-  ['{2C6B41D7-CB75-488A-85D4-59CE4D5388E5}']
+  IDataValue = interface
+  ['{4D31F652-B7C1-428D-89D5-292D11301E41}']
     function Name: string;
     function DataType: TFieldType;
     function Value: Variant;
     function IsNull: Boolean;
-    function AsParam: TParam;
     function AsBCD: Currency;
     function AsBlob: TBlobData;
     function AsBoolean: Boolean;
@@ -75,9 +74,23 @@ type
     function AsSmallInt: LongInt;
     function AsMemo: string;
     function AsString: string;
-    function AsWideString: WideString;
     function AsTime: TDateTime;
     function AsWord: LongInt;
+  end;
+
+  IDataValueOf = interface
+  ['{95B46B49-3B55-44BA-ADD9-EAC7C91B68C5}']
+    function Value: IDataValue;
+  end;
+
+  IDataParam = interface(IDataValue)
+  ['{2C6B41D7-CB75-488A-85D4-59CE4D5388E5}']
+    function AsParam: TParam;
+  end;
+
+  IDataParamOf = interface
+  ['{58CDF012-C58C-4AC2-9A95-6E1CC1745237}']
+    function Value: IDataParam;
   end;
 
   IDataParams = interface
@@ -93,6 +106,11 @@ type
     function AsString: string; overload;
   end;
 
+  IDataParamsOf = interface
+  ['{D4471122-05CA-46D1-A3E7-95BCB7245406}']
+    function Values: IDataParams;
+  end;
+
   IDataGuid = interface
   ['{F7269A91-B5E7-4067-BB8E-8712BC99EE08}']
     function Value: TGuid;
@@ -104,6 +122,11 @@ type
   ['{9E1AB274-707A-4770-94B9-659945547A19}']
     function Success: Boolean;
     function Data: IDataParams;
+  end;
+
+  IDataResultOf = interface
+  ['{312900FF-997C-45D2-9FF1-5C1454CEB937}']
+    function Value: IDataResult;
   end;
 
   IDataConstraint = interface
