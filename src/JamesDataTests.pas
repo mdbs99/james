@@ -54,17 +54,6 @@ type
     procedure DataGuid;
   end;
 
-  TFakeConstraint = class(TInterfacedObject, IDataConstraint)
-  private
-    FValue: Boolean;
-    FId: string;
-    FText: string;
-  public
-    constructor Create(Value: Boolean; const Id, Text: string);
-    class function New(Value: Boolean; const Id, Text: string): IDataConstraint;
-    function Evaluate: IDataResult;
-  end;
-
   TDataConstraintsTest = class(TTestCase)
   published
     procedure TestReceiveConstraint;
@@ -83,6 +72,35 @@ type
 
 implementation
 
+type
+  TFakeConstraint = class(TInterfacedObject, IDataConstraint)
+  private
+    fValue: Boolean;
+    fId: string;
+    fText: string;
+  public
+    constructor Create(aValue: Boolean; const aId, aText: string);
+    function Evaluate: IDataResult;
+  end;
+
+{ TFakeConstraint }
+
+constructor TFakeConstraint.Create(aValue: Boolean; const aId, aText: string);
+begin
+  inherited Create;
+  fValue := aValue;
+  fId := aId;
+  fText := aText;
+end;
+
+function TFakeConstraint.Evaluate: IDataResult;
+begin
+  Result := TDataResult.New(
+    fValue,
+    TDataParam.Create(fId, ftString, fText)
+  );
+end;
+
 { TDataTests }
 
 procedure TDataTests.DataStream;
@@ -91,18 +109,18 @@ const
 var
   a: IDataStream;
   m1, m2: TMemoryStream;
-  ss1: TStrings;
+  ss: TStrings;
 begin
   m1 := TMemoryStream.Create;
   m2 := TMemoryStream.Create;
-  ss1 := TStringList.Create;
+  ss := TStringList.Create;
   try
     m1.WriteBuffer(BUFFER[1], Length(BUFFER) * SizeOf(Char));
-    ss1.Text := BUFFER;
+    ss.Text := BUFFER;
     a := TDataStream.Create(m1);
     check(a.AsString = BUFFER, 'stream');
-    a := TDataStream.Create(ss1);
-    check(a.AsString = ss1.Text, 'strings'); // strings have #13#10 at the end
+    a := TDataStream.Create(ss);
+    check(a.AsString = ss.Text, 'strings');
     a := TDataStream.Create(BUFFER);
     check(a.AsString = BUFFER, 'text');
     a := TDataStream.Create(m1);
@@ -112,7 +130,7 @@ begin
   finally
     m1.Free;
     m2.Free;
-    ss1.Free;
+    ss.Free;
   end;
 end;
 
@@ -164,22 +182,22 @@ end;
 
 procedure TDataTests.DataStrings;
 var
-  a: IDataStrings;
+  ds: IDataStrings;
   i: Integer;
-  ss1: TStrings;
+  ss: TStrings;
 begin
-  ss1 := TStringList.Create;
+  ss := TStringList.Create;
   try
-    a := TDataStrings.Create;
+    ds := TDataStrings.Create;
     for i := 0 to 10 do
     begin
-      a.Add(IntToStr(i));
-      ss1.Add(IntToStr(i));
+      ds.Add(IntToStr(i));
+      ss.Add(IntToStr(i));
     end;
-    check(a.Count = ss1.Count, 'count');
-    check(a.Text = Trim(ss1.Text), 'text'); // TStrings needs to call Trim
+    check(ds.Count = ss.Count, 'count');
+    check(ds.Text = Trim(ss.Text), 'text'); // TStrings needs to call Trim
   finally
-    ss1.Free;
+    ss.Free;
   end;
 end;
 
@@ -233,30 +251,6 @@ begin
   check(g1.AsSmallString = g2.AsSmallString, 'AsSmallString');
 end;
 
-{ TFakeConstraint }
-
-constructor TFakeConstraint.Create(Value: Boolean; const Id, Text: string);
-begin
-  inherited Create;
-  FValue := Value;
-  FId := Id;
-  FText := Text;
-end;
-
-class function TFakeConstraint.New(Value: Boolean; const Id, Text: string
-  ): IDataConstraint;
-begin
-  Result := Create(Value, Id, Text);
-end;
-
-function TFakeConstraint.Evaluate: IDataResult;
-begin
-  Result := TDataResult.New(
-    FValue,
-    TDataParam.Create(FId, ftString, FText)
-  );
-end;
-
 { TDataConstraintsTest }
 
 procedure TDataConstraintsTest.TestReceiveConstraint;
@@ -264,7 +258,7 @@ begin
   CheckTrue(
     TDataConstraints.Create
       .Ref
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
+      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
       .Evaluate
       .Success
   );
@@ -276,7 +270,7 @@ begin
     'foo',
     TDataConstraints.Create
       .Ref
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
+      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
       .Evaluate
       .Data
       .AsString
@@ -288,8 +282,8 @@ begin
   CheckTrue(
     TDataConstraints.Create
       .Ref
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
+      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
+      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
       .Evaluate
       .Success
   );
@@ -300,8 +294,8 @@ begin
   CheckFalse(
     TDataConstraints.Create
       .Ref
-      .Add(TFakeConstraint.New(False, 'id', 'foo'))
-      .Add(TFakeConstraint.New(False, 'id', 'foo'))
+      .Add(TFakeConstraint.Create(False, 'id', 'foo'))
+      .Add(TFakeConstraint.Create(False, 'id', 'foo'))
       .Evaluate
       .Success
   );
@@ -312,8 +306,8 @@ begin
   CheckFalse(
     TDataConstraints.Create
       .Ref
-      .Add(TFakeConstraint.New(True, 'id', 'foo'))
-      .Add(TFakeConstraint.New(False, 'id', 'foo'))
+      .Add(TFakeConstraint.Create(True, 'id', 'foo'))
+      .Add(TFakeConstraint.Create(False, 'id', 'foo'))
       .Evaluate
       .Success
   );
@@ -336,16 +330,16 @@ const
   TXT: string = 'ABCC~#';
   FILE_NAME: string = 'file.txt';
 var
-  M: TMemoryStream;
+  m1: TMemoryStream;
 begin
-  M := TMemoryStream.Create;
+  m1 := TMemoryStream.Create;
   try
-    M.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
-    M.SaveToFile(FILE_NAME);
+    m1.WriteBuffer(TXT[1], Length(TXT) * SizeOf(Char));
+    m1.SaveToFile(FILE_NAME);
     CheckEquals(TXT, TDataFile.Create(FILE_NAME).Ref.Stream.AsString);
   finally
     DeleteFile(FILE_NAME);
-    M.Free;
+    m1.Free;
   end;
 end;
 
