@@ -144,7 +144,7 @@ begin
   p := TParam.Create(nil);
   try
     a.Init(s);
-    a.ForParam(p);
+    a.ToParam(p);
     check(VarToStr(p.Value)= s.AsString);
   finally
     p.Free;
@@ -161,7 +161,7 @@ begin
   ss := TStringList.Create;
   try
     sa.Init(s);
-    sa.ForStrings(ss);
+    sa.ToStrings(ss);
     check(Trim(ss.Text) = s.AsString); // TStrings needs to call Trim
   finally
     ss.Free;
