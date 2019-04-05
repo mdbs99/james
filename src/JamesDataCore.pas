@@ -46,7 +46,7 @@ type
     constructor Create; overload;
     destructor Destroy; override;
     function Ref: IDataStream;
-    function Save(Stream: TStream): IDataStream; overload;
+    function Save(aStream: TStream): IDataStream; overload;
     function AsString: RawByteString;
     function Size: Int64;
   end;
@@ -244,11 +244,11 @@ begin
   result := self;
 end;
 
-function TDataStream.Save(Stream: TStream): IDataStream;
+function TDataStream.Save(aStream: TStream): IDataStream;
 begin
   result := self;
-  fStream.SaveToStream(Stream);
-  Stream.Position := 0;
+  fStream.SaveToStream(aStream);
+  aStream.Position := 0;
 end;
 
 function TDataStream.AsString: RawByteString;
