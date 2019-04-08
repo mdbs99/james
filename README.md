@@ -50,11 +50,20 @@ Considering `<james>` as the path where you have saved the sources, your project
 
 - [mORMot](https://github.com/synopse/mORMot) — client-server ORM SOA MVC framework for Delphi 6 up to latest Delphi and FPC
   - You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
-  - As mORMot do not have packages, it works only by paths. 
+  - As mORMot do not have packages, it works only by paths.
 
-To run James TestAll project easily you should save mORMot at the same level of James:
+- [FastMM4](https://github.com/pleriche/FastMM4) — A memory manager for Delphi and C++ Builder with powerful debugging facilities
+  - If you are using an old Delphi version as Delphi 7, you need to download FastMM4 and point your Search Path to it.
+ 
+- [DUnit](http://dunit.sourceforge.net/) — An Xtreme testing framework for Delphi programs
+  - We are using DUnit to run the tests but, in the near future, we will use only `SynTests` by mORMot
+  - You just need to download DUnit, if you want to run the TestAll project.
+ 
+To run James TestAll project easily you should save dependencies at the same level of James:
 
     lib
+      dunit-9.3.0
+      fastmm4
       james
       mormot
       
