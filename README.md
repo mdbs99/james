@@ -67,7 +67,7 @@ To run James TestAll project easily you should save dependencies at the same lev
       james
       mormot
       
-Alternatively, you can change paths of TestAll pointing to your copy of mORMot in another place.
+Alternatively, you can change all paths of TestAll, pointing to these dependencies in other places.
 
 # Getting Started
 
