@@ -193,7 +193,7 @@ procedure TDataTests.DataParam;
 begin
   check(TDataParam.Create('p1', 'str').Ref.DataType = ftString, 'p1');
   check(TDataParam.Create('p2', 10).Ref.DataType = ftSmallint, 'p2');
-  check(TDataParam.Create('p3', 20.50).Ref.DataType = ftFloat, 'p3');
+  check(TDataParam.Create('p3', 20.50).Ref.DataType in [ftFloat, ftCurrency, ftBCD], 'p3');
 end;
 
 procedure TDataTests.DataParams;

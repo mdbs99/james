@@ -87,7 +87,6 @@ type
     function AsSmallInt: LongInt;
     function AsMemo: string;
     function AsString: string;
-    function AsWideString: WideString;
     function AsTime: TDateTime;
     function AsWord: LongInt;
   end;
@@ -133,7 +132,7 @@ type
     constructor Create; reintroduce;
   end;
 
-  TDataResult = class sealed(TInterfacedObject, IDataResult)
+  TDataResult = class(TInterfacedObject, IDataResult)
   private
     FSuccess: Boolean;
     FData: IDataParams;
@@ -407,11 +406,6 @@ end;
 function TDataParam.AsString: string;
 begin
   result := fParam.AsString;
-end;
-
-function TDataParam.AsWideString: WideString;
-begin
-  result := fParam.AsWideString;
 end;
 
 function TDataParam.AsTime: TDateTime;

@@ -27,7 +27,9 @@ program TestAll;
 
 uses
   {$I SynDprUses.inc} // includes FastMM4 (Delphi) or cthreads (FPC-Linux)
-  Interfaces,
+  {$ifdef LCL}
+    Interfaces,
+  {$endif}
   Forms,
   GuiTestRunner,
   JamesTestPlatform,
@@ -36,9 +38,10 @@ uses
 
 {$R *.res}
 
+var
+  runner: TTestRunner;
 begin
   Application.Initialize;
-  Application.CreateForm(TGuiTestRunner, TestRunner);
-  Application.Run;
+  runner.RunRegisteredTests;
 end.
 

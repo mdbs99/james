@@ -28,8 +28,11 @@ unit JamesTestPlatform;
 interface
 
 uses
+  Forms,
+  SynCommons,
   fpcunit,
   testregistry,
+  GuiTestRunner,
   JamesTestBase;
 
 type
@@ -41,6 +44,11 @@ type
   public
     constructor Create(aClass: TTestCaseClass);
     function RegisterOn(const aSuitePath: string): ITest;
+  end;
+
+  TTestRunner = {$ifdef UNICODE}record{$else}object{$endif}
+  public
+    procedure RunRegisteredTests;
   end;
 
 implementation
@@ -57,6 +65,14 @@ function TTest.RegisterOn(const aSuitePath: string): ITest;
 begin
   result := self;
   TestRegistry.RegisterTest(aSuitePath, fClass);
+end;
+
+{ TTestRunner }
+
+procedure TTestRunner.RunRegisteredTests;
+begin
+  Application.CreateForm(TGuiTestRunner, TestRunner);
+  Application.Run;
 end;
 
 end.
