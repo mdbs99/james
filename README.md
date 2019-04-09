@@ -54,7 +54,7 @@ We are using some dependencies the minimum as possible.
   - You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
   - As mORMot do not have packages, it works only by paths.
 
-For Delphi users, at least does who still using older version, you might download these more:
+For Delphi users, at least those who still use an older version, you might need to download:
 
 - [FastMM4](https://github.com/pleriche/FastMM4) — A memory manager for Delphi and C++ Builder with powerful debugging facilities
   - If you are using an old Delphi version as Delphi 7, you need to download FastMM4 and point your Search Path to it.
