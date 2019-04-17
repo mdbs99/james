@@ -44,6 +44,8 @@ type
   public
     procedure Init(const aOrigin: IDataStream);
     function AsOleVariant: OleVariant;
+    function AsBase64Encoded: RawByteString;
+    function AsBase64Decoded: RawByteString;
     procedure ToParam(const aDest: TParam);
     procedure ToStrings(const aDest: TStrings);
   end;
@@ -78,14 +80,40 @@ begin
   end;
 end;
 
+function TDataStreamAdapter.AsBase64Encoded: RawByteString;
+var
+  m: TMemoryStream;
+begin
+  m := TMemoryStream.Create;
+  try
+    fOrigin.Save(m);
+    result := BinToBase64(StreamToRawByteString(m));
+  finally
+    m.Free;
+  end;
+end;
+
+function TDataStreamAdapter.AsBase64Decoded: RawByteString;
+var
+  m: TMemoryStream;
+begin
+  m := TMemoryStream.Create;
+  try
+    fOrigin.Save(m);
+    result := Base64ToBin(StreamToRawByteString(m));
+  finally
+    m.Free;
+  end;
+end;
+
 procedure TDataStreamAdapter.ToParam(const aDest: TParam);
 var
   m: TMemoryStream;
 begin
   m := TMemoryStream.Create;
   try
-   fOrigin.Save(m);
-   aDest.LoadFromStream(m, ftBlob);
+    fOrigin.Save(m);
+    aDest.LoadFromStream(m, ftBlob);
   finally
     m.Free;
   end;
