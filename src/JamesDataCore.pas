@@ -187,7 +187,7 @@ type
     function Get(aIndex: PtrInt): RawUTF8;
     function Exists(const aTags: RawUTF8): Boolean;
     function Count: Integer;
-    function AsString: RawUTF8;
+    function AsRawUTF8: RawUTF8;
   end;
 
 implementation
@@ -855,7 +855,7 @@ begin
   result := List.Count;
 end;
 
-function TDataTags.AsString: RawUTF8;
+function TDataTags.AsRawUTF8: RawUTF8;
 begin
   result := fTags;
 end;

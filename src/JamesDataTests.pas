@@ -243,9 +243,9 @@ var
   tags: IDataTags;
 begin
   tags := TDataTags.Create('#foo');
-  check(tags.AsString = '#foo', 'foo');
+  check(tags.AsRawUTF8 = '#foo', 'foo');
   tags.Add('#bar');
-  check(tags.AsString = '#foo#bar', 'bar');
+  check(tags.AsRawUTF8 = '#foo#bar', 'bar');
   check(tags.Count = 2);
   check(tags.Get(0) = '#foo', 'Get(0)');
   check(tags.Get(1) = '#bar', 'Get(1)');
