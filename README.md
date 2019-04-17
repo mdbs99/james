@@ -20,9 +20,11 @@ James is a collection of object-oriented Pascal primitives.
 
 This API is being written in [Free Pascal](https://freepascal.org/) and [Lazarus](http://www.lazarus-ide.org/). However, it is also compatible with [Delphi](https://www.embarcadero.com/products/delphi).
 
-The main goal is to replace common procedural code in our projects, which has so many conditionals and "controllers", to a declarative and object-oriented code.
+The main goal is to replace common procedural code, which has so many conditionals and "controllers", to a declarative and object-oriented code.
 
 We want to write elegant, clean, organized, interface-based, and maintainable code using OOP.
+
+The code follows a restrict rules about naming and style, as prefixes and sufixes, to help programmers to find the correct class or method to do the job.
 
 # Installing
 
