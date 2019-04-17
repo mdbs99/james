@@ -95,7 +95,7 @@ type
 
   TDataParams = class(TInterfacedObject, IDataParams)
   private
-    FList: TInterfaceList;
+    fList: TInterfaceList;
   public
     constructor Create; virtual;
     class function New: IDataParams; overload;
@@ -108,9 +108,9 @@ type
     function Get(Index: Integer): IDataParam; overload;
     function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
-    function SaveAs(aDest: TParams): IDataParams;
-    function AsString(const SeparatorChar: string): string; overload;
-    function AsString: string; overload;
+    function AsRawUTF8(const aSeparator: RawUTF8): RawUTF8; overload;
+    function AsRawUTF8: RawUTF8; overload;
+    function ToParams(aDest: TParams): IDataParams;
   end;
 
   TDataGuid = class(TInterfacedObject, IDataGuid)
@@ -423,7 +423,7 @@ end;
 constructor TDataParams.Create;
 begin
   inherited Create;
-  FList := TInterfaceList.Create;
+  fList := TInterfaceList.Create;
 end;
 
 class function TDataParams.New: IDataParams;
@@ -443,7 +443,7 @@ end;
 
 destructor TDataParams.Destroy;
 begin
-  FList.Free;
+  fList.Free;
   inherited;
 end;
 
@@ -457,7 +457,7 @@ var
   I: Integer;
 begin
   result := False;
-  for I := 0 to FList.Count -1 do
+  for I := 0 to fList.Count -1 do
   begin
     if Get(I).Name = ParamName then
     begin
@@ -470,7 +470,7 @@ end;
 function TDataParams.Add(const AParam: IDataParam): IDataParams;
 begin
   result := self;
-  FList.Add(AParam);
+  fList.Add(AParam);
 end;
 
 function TDataParams.Add(const AParams: IDataParams): IDataParams;
@@ -484,7 +484,7 @@ end;
 
 function TDataParams.Get(Index: Integer): IDataParam;
 begin
-  result := FList.Items[Index] as IDataParam;
+  result := fList.Items[Index] as IDataParam;
 end;
 
 function TDataParams.Get(const ParamName: string): IDataParam;
@@ -494,7 +494,7 @@ var
 begin
   P := nil;
   result := nil;
-  for I := 0 to FList.Count -1 do
+  for I := 0 to fList.Count -1 do
   begin
     P := Get(I);
     if CompareText(P.Name, ParamName) = 0 then
@@ -509,10 +509,28 @@ end;
 
 function TDataParams.Count: Integer;
 begin
-  result := FList.Count;
+  result := fList.Count;
 end;
 
-function TDataParams.SaveAs(aDest: TParams): IDataParams;
+function TDataParams.AsRawUTF8(const aSeparator: RawUTF8): RawUTF8;
+var
+  I: Integer;
+begin
+  result := '';
+  for I := 0 to Count-1 do
+  begin
+    if I > 0 then
+      result := result + aSeparator;
+     result := result + Get(I).AsString;
+  end;
+end;
+
+function TDataParams.AsRawUTF8: RawUTF8;
+begin
+  result := AsRawUTF8(',');
+end;
+
+function TDataParams.ToParams(aDest: TParams): IDataParams;
 var
   i: Integer;
   p: TParam;
@@ -531,24 +549,6 @@ begin
       p.Value := Value;
     end;
   end;
-end;
-
-function TDataParams.AsString(const SeparatorChar: string): string;
-var
-  I: Integer;
-begin
-  result := '';
-  for I := 0 to Count-1 do
-  begin
-    if I > 0 then
-      result := result + SeparatorChar;
-     result := result + Get(I).AsString;
-  end;
-end;
-
-function TDataParams.AsString: string;
-begin
-  result := AsString(',');
 end;
 
 { TDataGuid }

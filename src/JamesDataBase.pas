@@ -101,9 +101,9 @@ type
     function Get(Index: Integer): IDataParam; overload;
     function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
-    function SaveAs(aDest: TParams): IDataParams;
-    function AsString(const SeparatorChar: string): string; overload;
-    function AsString: string; overload;
+    function AsRawUTF8(const aSeparator: RawUTF8): RawUTF8; overload;
+    function AsRawUTF8: RawUTF8; overload;
+    function ToParams(aDest: TParams): IDataParams;
   end;
 
   IDataParamsOf = interface

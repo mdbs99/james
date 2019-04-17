@@ -179,7 +179,7 @@ begin
     .Add(TDataParam.Create('1', 1))
     .Add(TDataParam.Create('2', 2))
     .Add(TDataParam.Create('3', 3));
-  check(ps.AsString(';') = '1;2;3', 'separator');
+  check(ps.AsRawUTF8(';') = '1;2;3', 'separator');
 end;
 
 procedure TDataTests.TestGuid;
@@ -215,9 +215,9 @@ begin
   check(not cs.Evaluate.Success, 'false 2');
   cs := TDataConstraints.Create; // new instance
   cs.Add(TFakeConstraint.Create(False, 'a', 'foo'));
-  check(cs.Evaluate.Data.AsString = 'foo');
+  check(cs.Evaluate.Data.AsRawUTF8 = 'foo');
   cs.Add(TFakeConstraint.Create(False, 'b', 'bar'));
-  check(cs.Evaluate.Data.AsString = 'foo,bar', cs.Evaluate.Data.AsString);
+  check(cs.Evaluate.Data.AsRawUTF8 = 'foo,bar', cs.Evaluate.Data.AsRawUTF8);
 end;
 
 procedure TDataTests.TestFile;
