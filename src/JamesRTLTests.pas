@@ -40,16 +40,16 @@ uses
   JamesTestPlatform;
 
 type
-  TRTLAdaptersTest = class(TTestCase)
+  TOleVariantAdapterTests = class(TTestCase)
   published
-    procedure OleVariantAdapter;
+    procedure TestDataStream;
 end;
 
 implementation
 
-{ TRTLAdaptersTest }
+{ TOleVariantAdapterTests }
 
-procedure TRTLAdaptersTest.OleVariantAdapter;
+procedure TOleVariantAdapterTests.TestDataStream;
 var
   v: OleVariant;
   sa: TDataStreamAdapter;
@@ -64,6 +64,6 @@ end;
 initialization
   TTestSuite.Create('RTL')
     .Ref
-    .Add(TTest.Create(TRTLAdaptersTest))
+    .Add(TTest.Create(TOleVariantAdapterTests))
 
 end.

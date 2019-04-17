@@ -45,17 +45,21 @@ uses
 type
   TDataTests = class(TTestCase)
   published
-    procedure DataStream;
-    procedure DataStreamAdapterOleVariant;
-    procedure DataStreamAdapterParam;
-    procedure DataStreamAdapterStrings;
-    procedure DataStrings;
-    procedure DataParam;
-    procedure DataParams;
-    procedure DataGuid;
-    procedure DataConstraints;
-    procedure DataFile;
-    procedure DataTags;
+    procedure TestStream;
+    procedure TestStrings;
+    procedure TestParam;
+    procedure TestParams;
+    procedure TestGuid;
+    procedure TestConstraints;
+    procedure TestFile;
+    procedure TestTags;
+  end;
+
+  TDataStreamAdapterTests = class(TTestCase)
+  published
+    procedure TestOleVariant;
+    procedure TestParam;
+    procedure TestStrings;
   end;
 
 implementation
@@ -91,7 +95,7 @@ end;
 
 { TDataTests }
 
-procedure TDataTests.DataStream;
+procedure TDataTests.TestStream;
 const
   BUFFER = 'foo-bar';
 var
@@ -122,53 +126,7 @@ begin
   end;
 end;
 
-procedure TDataTests.DataStreamAdapterOleVariant;
-var
-  v: OleVariant;
-  sa: TDataStreamAdapter;
-  va: TOleVariantAdapter;
-begin
-  sa.Init(TDataStream.Create('foo'));
-  v := sa.AsOleVariant;
-  va.Init(v);
-  check('foo' = va.AsDataStream.AsString, 'va');
-end;
-
-procedure TDataTests.DataStreamAdapterParam;
-var
-  s: IDataStream;
-  p: TParam;
-  a: TDataStreamAdapter;
-begin
-  s := TDataStream.Create('bar');
-  p := TParam.Create(nil);
-  try
-    a.Init(s);
-    a.ToParam(p);
-    check(VarToStr(p.Value)= s.AsString);
-  finally
-    p.Free;
-  end;
-end;
-
-procedure TDataTests.DataStreamAdapterStrings;
-var
-  s: IDataStream;
-  ss: TStrings;
-  sa: TDataStreamAdapter;
-begin
-  s := TDataStream.Create('strings');
-  ss := TStringList.Create;
-  try
-    sa.Init(s);
-    sa.ToStrings(ss);
-    check(Trim(ss.Text) = s.AsString); // TStrings needs to call Trim
-  finally
-    ss.Free;
-  end;
-end;
-
-procedure TDataTests.DataStrings;
+procedure TDataTests.TestStrings;
 var
   ds: IDataStrings;
   i: Integer;
@@ -189,14 +147,14 @@ begin
   end;
 end;
 
-procedure TDataTests.DataParam;
+procedure TDataTests.TestParam;
 begin
   check(TDataParam.Create('p1', 'str').Ref.DataType = ftString, 'p1');
   check(TDataParam.Create('p2', 10).Ref.DataType = ftSmallint, 'p2');
   check(TDataParam.Create('p3', 20.50).Ref.DataType in [ftFloat, ftCurrency, ftBCD], 'p3');
 end;
 
-procedure TDataTests.DataParams;
+procedure TDataTests.TestParams;
 var
   ps: IDataParams;
 begin
@@ -223,7 +181,7 @@ begin
   check(ps.AsString(';') = '1;2;3', 'separator');
 end;
 
-procedure TDataTests.DataGuid;
+procedure TDataTests.TestGuid;
 var
   g1, g2: IDataGuid;
 begin
@@ -239,7 +197,7 @@ begin
   check(g1.AsSmallString = g2.AsSmallString, 'AsSmallString');
 end;
 
-procedure TDataTests.DataConstraints;
+procedure TDataTests.TestConstraints;
 var
   cs: IDataConstraints;
 begin
@@ -261,7 +219,7 @@ begin
   check(cs.Evaluate.Data.AsString = 'foo,bar', cs.Evaluate.Data.AsString);
 end;
 
-procedure TDataTests.DataFile;
+procedure TDataTests.TestFile;
 var
   f: IDataFile;
   fn: TFileName;
@@ -279,7 +237,7 @@ begin
   end;
 end;
 
-procedure TDataTests.DataTags;
+procedure TDataTests.TestTags;
 var
   tags: IDataTags;
 begin
@@ -294,7 +252,57 @@ begin
   check(tags.Exists('#bar'), 'exists bar');
 end;
 
+{ TDataStreamAdapterTests }
+
+procedure TDataStreamAdapterTests.TestOleVariant;
+var
+  v: OleVariant;
+  sa: TDataStreamAdapter;
+  va: TOleVariantAdapter;
+begin
+  sa.Init(TDataStream.Create('foo'));
+  v := sa.AsOleVariant;
+  va.Init(v);
+  check('foo' = va.AsDataStream.AsString, 'va');
+end;
+
+procedure TDataStreamAdapterTests.TestParam;
+var
+  s: IDataStream;
+  p: TParam;
+  a: TDataStreamAdapter;
+begin
+  s := TDataStream.Create('bar');
+  p := TParam.Create(nil);
+  try
+    a.Init(s);
+    a.ToParam(p);
+    check(VarToStr(p.Value)= s.AsString);
+  finally
+    p.Free;
+  end;
+end;
+
+procedure TDataStreamAdapterTests.TestStrings;
+var
+  s: IDataStream;
+  ss: TStrings;
+  sa: TDataStreamAdapter;
+begin
+  s := TDataStream.Create('strings');
+  ss := TStringList.Create;
+  try
+    sa.Init(s);
+    sa.ToStrings(ss);
+    check(Trim(ss.Text) = s.AsString); // TStrings needs to call Trim
+  finally
+    ss.Free;
+  end;
+end;
+
 initialization
-  TTestSuite.Create('Data').Ref.Add(TTest.Create(TDataTests));
+  TTestSuite.Create('Data').Ref
+    .Add(TTest.Create(TDataTests))
+    .Add(TTest.Create(TDataStreamAdapterTests))
 
 end.
