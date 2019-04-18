@@ -64,6 +64,12 @@ type
     procedure TestStrings;
   end;
 
+  /// all tests for TDataParamsAdapter
+  TDataParamsAdapterTests = class(TTestCase)
+  published
+    procedure TestParams;
+  end;
+
 implementation
 
 type
@@ -296,9 +302,34 @@ begin
   try
     sa.Init(s);
     sa.ToStrings(ss);
-    check(Trim(ss.Text) = s.AsString); // TStrings needs to call Trim
+    check(Trim(ss.Text) = s.AsRawByteString); // TStrings needs to call Trim
   finally
     ss.Free;
+  end;
+end;
+
+{ TDataParamsAdapterTests }
+
+procedure TDataParamsAdapterTests.TestParams;
+var
+  dp: IDataParams;
+  a: TDataParamsAdapter;
+  p: TParam;
+  params: TParams;
+begin
+  dp := TDataParams.Create;
+  dp.Add(TDataParam.Create('foo', 1));
+  dp.Add(TDataParam.Create('bar', 1));
+  a.Init(dp);
+  params := TParams.Create;
+  try
+    a.ToParams(params);
+    check(dp.Count = params.Count, 'count');
+    p := params.FindParam('foo');
+    check(assigned(p), 'p assigned');
+    check(dp.Get('foo').AsString = p.AsString, 'string');
+  finally
+    params.Free;
   end;
 end;
 
@@ -306,5 +337,6 @@ initialization
   TTestSuite.Create('Data').Ref
     .Add(TTest.Create(TDataTests))
     .Add(TTest.Create(TDataStreamAdapterTests))
+    .Add(TTest.Create(TDataParamsAdapterTests))
 
 end.

@@ -55,6 +55,17 @@ type
     procedure ToStrings(const aDest: TStrings);
   end;
 
+  TDataParamsAdapter = {$ifdef UNICODE}record{$else}object{$endif}
+  private
+    fOrigin: IDataParams;
+  public
+    /// initialize the instance
+    procedure Init(const aOrigin: IDataParams);
+    /// adapt to TParams
+    // - aDest should exist
+    procedure ToParams(const aDest: TParams);
+  end;
+
 implementation
 
 { TDataStreamAdapter }
@@ -89,6 +100,8 @@ procedure TDataStreamAdapter.ToParam(const aDest: TParam);
 var
   m: TMemoryStream;
 begin
+  if not assigned(aDest) then
+    exit;
   m := TMemoryStream.Create;
   try
     fOrigin.Save(m);
@@ -102,12 +115,41 @@ procedure TDataStreamAdapter.ToStrings(const aDest: TStrings);
 var
   m: TMemoryStream;
 begin
+  if not assigned(aDest) then
+    exit;
   m := TMemoryStream.Create;
   try
    fOrigin.Save(m);
    aDest.LoadFromStream(m);
   finally
     m.Free;
+  end;
+end;
+
+{ TDataParamsAdapter }
+
+procedure TDataParamsAdapter.Init(const aOrigin: IDataParams);
+begin
+  fOrigin := aOrigin;
+end;
+
+procedure TDataParamsAdapter.ToParams(const aDest: TParams);
+var
+  i: Integer;
+  p: TParam;
+begin
+  if not assigned(aDest) then
+    exit;
+  for i := 0 to fOrigin.Count -1 do
+  begin
+    p := TParam.Create(aDest);
+    with fOrigin.Get(i).AsParam do
+    begin
+      p.Name := Name;
+      p.ParamType := ParamType;
+      p.DataType := DataType;
+      p.Value := Value;
+    end;
   end;
 end;
 

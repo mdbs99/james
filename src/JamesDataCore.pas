@@ -108,9 +108,7 @@ type
     function Get(Index: Integer): IDataParam; overload;
     function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
-    function AsRawUTF8(const aSeparator: RawUTF8): RawUTF8; overload;
-    function AsRawUTF8: RawUTF8; overload;
-    function ToParams(aDest: TParams): IDataParams;
+    function AsRawUTF8(const aSeparator: RawUTF8 = ','): RawUTF8; overload;
   end;
 
   TDataGuid = class(TInterfacedObject, IDataGuid)
@@ -517,32 +515,6 @@ begin
     if I > 0 then
       result := result + aSeparator;
      result := result + Get(I).AsString;
-  end;
-end;
-
-function TDataParams.AsRawUTF8: RawUTF8;
-begin
-  result := AsRawUTF8(',');
-end;
-
-function TDataParams.ToParams(aDest: TParams): IDataParams;
-var
-  i: Integer;
-  p: TParam;
-begin
-  result := self;
-  if not assigned(aDest) then
-    exit;
-  for i := 0 to Count -1 do
-  begin
-    p := TParam.Create(aDest);
-    with Get(i).AsParam do
-    begin
-      p.Name := Name;
-      p.ParamType := ParamType;
-      p.DataType := DataType;
-      p.Value := Value;
-    end;
   end;
 end;
 
