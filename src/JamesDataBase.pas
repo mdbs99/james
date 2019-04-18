@@ -41,7 +41,7 @@ type
   IDataStream = interface
   ['{698868A5-9C57-4F1F-9E84-4AA7580CB01A}']
     function Save(Stream: TStream): IDataStream; overload;
-    function AsString: RawByteString;
+    function AsRawByteString: RawByteString;
     function Size: Int64;
   end;
 
@@ -54,7 +54,7 @@ type
     function Add(const aText: RawUTF8): IDataStrings;
     function Get(aIndex: PtrInt): RawUTF8;
     function Count: Integer;
-    function Text: RawUTF8;
+    function AsRawUTF8: RawUTF8;
   end;
 
   IDataValue = interface

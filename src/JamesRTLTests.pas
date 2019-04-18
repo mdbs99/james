@@ -59,7 +59,7 @@ begin
   sa.Init(TDataStream.Create('foo'));
   v := sa.AsOleVariant;
   va.Init(v);
-  CheckEquals('foo', va.AsDataStream.AsString);
+  CheckEquals('foo', va.AsDataStream.AsRawByteString);
 end;
 
 initialization

@@ -70,10 +70,10 @@ var
 begin
   a.Init(baDecode, ENCODED_TEXT);
   s := TDataStream.Create(DECODED_TEXT);
-  check(a.AsDataStream.AsString = s.AsString, 'decoded');
+  check(a.AsDataStream.AsRawByteString = s.AsRawByteString, 'decoded');
   a.Init(baEncode, DECODED_TEXT);
   s := TDataStream.Create(ENCODED_TEXT);
-  check(a.AsDataStream.AsString = s.AsString, 'encoded');
+  check(a.AsDataStream.AsRawByteString = s.AsRawByteString, 'encoded');
 end;
 
 initialization

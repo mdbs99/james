@@ -112,11 +112,11 @@ begin
     m1.WriteBuffer(BUFFER[1], Length(BUFFER) * SizeOf(Char));
     ss.Text := BUFFER;
     a := TDataStream.Create(m1);
-    check(a.AsString = BUFFER, 'stream');
+    check(a.AsRawByteString = BUFFER, 'stream');
     a := TDataStream.Create(ss);
-    check(a.AsString = ss.Text, 'strings');
+    check(a.AsRawByteString = ss.Text, 'strings');
     a := TDataStream.Create(BUFFER);
-    check(a.AsString = BUFFER, 'text');
+    check(a.AsRawByteString = BUFFER, 'text');
     a := TDataStream.Create(m1);
     a.Save(m2);
     check(m1.Size = m2.Size, 'mem size');
@@ -143,7 +143,7 @@ begin
       ss.Add(IntToStr(i));
     end;
     check(ds.Count = ss.Count, 'count');
-    check(ds.Text = Trim(ss.Text), 'text'); // TStrings needs to call Trim
+    check(ds.AsRawUTF8 = Trim(ss.Text), 'text'); // TStrings needs to call Trim
   finally
     ss.Free;
   end;
@@ -233,7 +233,7 @@ begin
   f := TDataFile.Create(fn, TDataStream.Create('foo'));
   try
     check(f.Save, 'saving');
-    check(f.Stream.AsString = 'foo', 'check data');
+    check(f.Stream.AsRawByteString = 'foo', 'check data');
   finally
     check(f.Delete, FormatUTF8('forbidden to delete %', [fn]));
   end;
@@ -265,7 +265,7 @@ begin
   sa.Init(TDataStream.Create('foo'));
   v := sa.AsOleVariant;
   va.Init(v);
-  check('foo' = va.AsDataStream.AsString, 'va');
+  check('foo' = va.AsDataStream.AsRawByteString, 'va');
 end;
 
 procedure TDataStreamAdapterTests.TestParam;
@@ -279,7 +279,7 @@ begin
   try
     a.Init(s);
     a.ToParam(p);
-    check(VarToStr(p.Value)= s.AsString);
+    check(VarToStr(p.Value)= s.AsRawByteString);
   finally
     p.Free;
   end;

@@ -47,7 +47,7 @@ type
     destructor Destroy; override;
     function Ref: IDataStream;
     function Save(aStream: TStream): IDataStream; overload;
-    function AsString: RawByteString;
+    function AsRawByteString: RawByteString;
     function Size: Int64;
   end;
 
@@ -60,7 +60,7 @@ type
     function Add(const aText: RawUTF8): IDataStrings;
     function Get(aIndex: PtrInt): RawUTF8;
     function Count: Integer;
-    function Text: RawUTF8;
+    function AsRawUTF8: RawUTF8;
   end;
 
   TDataParam = class(TInterfacedObject, IDataParam)
@@ -250,15 +250,10 @@ begin
   aStream.Position := 0;
 end;
 
-function TDataStream.AsString: RawByteString;
+function TDataStream.AsRawByteString: RawByteString;
 begin
-  with fStream do
-  begin
-    result := '';
-    SetLength(result, Size);
-    Position := 0;
-    ReadBuffer(Pointer(result)^, Size);
-  end;
+  fStream.Position := 0;
+  result := StreamToRawByteString(fStream);
 end;
 
 function TDataStream.Size: Int64;
@@ -296,7 +291,7 @@ begin
   result := fList.Count;
 end;
 
-function TDataStrings.Text: RawUTF8;
+function TDataStrings.AsRawUTF8: RawUTF8;
 begin
   result := fList.Text;
 end;
