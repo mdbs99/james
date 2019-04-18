@@ -38,13 +38,20 @@ uses
   JamesDataBase;
 
 type
+  /// object to adapt a DataStream into other types
   TDataStreamAdapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
     fOrigin: IDataStream;
   public
+    /// initialize the instance
     procedure Init(const aOrigin: IDataStream);
+    /// return as OleVariant
     function AsOleVariant: OleVariant;
+    /// adapt to TParam
+    // - aDest should exist
     procedure ToParam(const aDest: TParam);
+    /// adapt to TStrings
+    // - aDest should exist
     procedure ToStrings(const aDest: TStrings);
   end;
 

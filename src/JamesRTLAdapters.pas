@@ -32,15 +32,19 @@ uses
   SysUtils,
   COMObj,
   Variants,
+  SynCommons,
   JamesDataBase,
   JamesDataCore;
 
 type
+  /// object to adapt an OleVariant into other types
   TOleVariantAdapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
     fOrigin: OleVariant;
   public
+    /// initialize the instance
     function Init(const aOrigin: OleVariant): TOleVariantAdapter;
+    /// return as DataStream
     function AsDataStream: IDataStream;
   end;
 

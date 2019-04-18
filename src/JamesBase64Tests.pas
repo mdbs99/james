@@ -38,6 +38,7 @@ uses
   JamesTestPlatform;
 
 type
+  /// all tests for TBase64Adapter
   TBase64AdapterTests = class(TTestCase)
   published
     procedure TestText;

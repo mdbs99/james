@@ -40,6 +40,7 @@ uses
   JamesTestPlatform;
 
 type
+  /// all tests for TOleVariantAdapter
   TOleVariantAdapterTests = class(TTestCase)
   published
     procedure TestDataStream;

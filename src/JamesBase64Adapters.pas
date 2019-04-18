@@ -35,16 +35,22 @@ uses
   JamesDataCore;
 
 type
+  /// Base64 coded action
   TBase64Action = (baEncode, baDecode);
 
+  /// object to adapt a Base64 text into other types
   TBase64Adapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
     fAction: TBase64Action;
     fText: RawByteString;
     function AsCoded: RawByteString;
   public
+    /// initialize the instance
+    // - the action will determinate if the origin will be encoded or decoded for in adapter methods
     procedure Init(aAction: TBase64Action; const aText: RawByteString);
+    /// return as text
     function AsText: RawByteString;
+    /// return as DataStream
     function AsDataStream: IDataStream;
   end;
 

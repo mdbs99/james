@@ -43,6 +43,7 @@ uses
   JamesTestPlatform;
 
 type
+  /// all tests for Data classes
   TDataTests = class(TTestCase)
   published
     procedure TestStream;
@@ -55,6 +56,7 @@ type
     procedure TestTags;
   end;
 
+  /// all tests for TDataStreamAdapter
   TDataStreamAdapterTests = class(TTestCase)
   published
     procedure TestOleVariant;

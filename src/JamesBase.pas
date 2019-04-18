@@ -32,6 +32,7 @@ uses
   SynCommons;
 
 type
+  /// generic parent class of all custom Exception types in that library
   EJamesException = class(ESynException);
 
 implementation
