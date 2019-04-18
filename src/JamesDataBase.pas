@@ -95,11 +95,11 @@ type
 
   IDataParams = interface
   ['{650DE166-6452-4F22-80F8-F364B9BF4C50}']
-    function Exists(const ParamName: string): Boolean;
+    function Exists(const ParamName: RawUTF8): Boolean;
     function Add(const aParam: IDataParam): IDataParams; overload;
     function Add(const aParams: IDataParams): IDataParams; overload;
     function Get(Index: Integer): IDataParam; overload;
-    function Get(const ParamName: string): IDataParam; overload;
+    function Get(const ParamName: RawUTF8): IDataParam; overload;
     function Count: Integer;
     function AsRawUTF8(const aSeparator: RawUTF8 = ','): RawUTF8; overload;
   end;

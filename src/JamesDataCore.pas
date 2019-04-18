@@ -102,11 +102,11 @@ type
     class function New(Origin: TFields): IDataParams; overload;
     destructor Destroy; override;
     function Ref: IDataParams;
-    function Exists(const ParamName: string): Boolean;
+    function Exists(const ParamName: RawUTF8): Boolean;
     function Add(const aParam: IDataParam): IDataParams; overload;
     function Add(const aParams: IDataParams): IDataParams; overload;
     function Get(Index: Integer): IDataParam; overload;
-    function Get(const ParamName: string): IDataParam; overload;
+    function Get(const ParamName: RawUTF8): IDataParam; overload;
     function Count: Integer;
     function AsRawUTF8(const aSeparator: RawUTF8 = ','): RawUTF8; overload;
   end;
@@ -445,7 +445,7 @@ begin
   result := self;
 end;
 
-function TDataParams.Exists(const ParamName: string): Boolean;
+function TDataParams.Exists(const ParamName: RawUTF8): Boolean;
 var
   I: Integer;
 begin
@@ -480,7 +480,7 @@ begin
   result := fList.Items[Index] as IDataParam;
 end;
 
-function TDataParams.Get(const ParamName: string): IDataParam;
+function TDataParams.Get(const ParamName: RawUTF8): IDataParam;
 var
   i: Integer;
   p: IDataParam;
