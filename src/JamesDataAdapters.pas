@@ -55,6 +55,7 @@ type
     procedure ToStrings(const aDest: TStrings);
   end;
 
+  /// object to adapt a DataParams into other types
   TDataParamsAdapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
     fOrigin: IDataParams;
