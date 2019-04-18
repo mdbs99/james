@@ -21,28 +21,62 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-program TestAll;
+unit JamesBase64Tests;
 
 {$i James.inc}
 
+interface
+
 uses
-  {$I SynDprUses.inc} // includes FastMM4 (Delphi) or cthreads (FPC-Linux)
-  {$ifdef LCL}
-    Interfaces,
-  {$endif}
-  Forms,
-  GuiTestRunner,
-  JamesTestPlatform,
-  JamesDataTests in '..\src\JamesDataTests.pas',
-  JamesRTLTests in '..\src\JamesRTLTests.pas',
-  JamesBase64Tests in '..\src\JamesBase64Tests.pas';
+  Classes,
+  SysUtils,
+  SynCommons,
+  JamesDataBase,
+  JamesDataCore,
+  JamesBase64Adapters,
+  JamesTestCore,
+  JamesTestPlatform;
 
-{$R *.res}
+type
+  TBase64AdapterTests = class(TTestCase)
+  published
+    procedure TestText;
+    procedure TestDataStream;
+  end;
 
+implementation
+
+{ TBase64AdapterTests }
+
+const
+  ENCODED_TEXT = 'SmFtZXMgTGli';
+  DECODED_TEXT = 'James Lib';
+
+procedure TBase64AdapterTests.TestText;
 var
-  runner: TTestRunner;
+  a: TBase64Adapter;
 begin
-  Application.Initialize;
-  runner.RunRegisteredTests;
-end.
+  a.Init(baDecode, ENCODED_TEXT);
+  check(a.AsText = DECODED_TEXT, 'decoded');
+  a.Init(baEncode, DECODED_TEXT);
+  check(a.AsText = ENCODED_TEXT, 'encoded');
+end;
 
+procedure TBase64AdapterTests.TestDataStream;
+var
+  a: TBase64Adapter;
+  s: IDataStream;
+begin
+  a.Init(baDecode, ENCODED_TEXT);
+  s := TDataStream.Create(DECODED_TEXT);
+  check(a.AsDataStream.AsString = s.AsString, 'decoded');
+  a.Init(baEncode, DECODED_TEXT);
+  s := TDataStream.Create(ENCODED_TEXT);
+  check(a.AsDataStream.AsString = s.AsString, 'encoded');
+end;
+
+initialization
+  TTestSuite.Create('Base64').Ref
+    .Add(TTest.Create(TBase64AdapterTests))
+
+end.

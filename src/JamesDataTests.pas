@@ -60,7 +60,6 @@ type
     procedure TestOleVariant;
     procedure TestParam;
     procedure TestStrings;
-    procedure TestBase64;
   end;
 
 implementation
@@ -299,19 +298,6 @@ begin
   finally
     ss.Free;
   end;
-end;
-
-procedure TDataStreamAdapterTests.TestBase64;
-const
-  ENCODED = 'SmFtZXMgTGli';
-  DECODED = 'James Lib';
-var
-  sa: TDataStreamAdapter;
-begin
-  sa.Init(TDataStream.Create(ENCODED));
-  check(sa.AsBase64Decoded = DECODED, 'decoded');
-  sa.Init(TDataStream.Create(DECODED));
-  check(sa.AsBase64Encoded = ENCODED, 'encoded');
 end;
 
 initialization

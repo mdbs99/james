@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-unit JamesDataAdapters;
+unit JamesBase64Adapters;
 
 {$i James.inc}
 
@@ -30,78 +30,58 @@ interface
 uses
   Classes,
   SysUtils,
-  COMObj,
-  Variants,
-  DB,
-  DateUtils,
   SynCommons,
-  JamesDataBase;
+  JamesDataBase,
+  JamesDataCore;
 
 type
-  TDataStreamAdapter = {$ifdef UNICODE}record{$else}object{$endif}
+  TBase64Action = (baEncode, baDecode);
+
+  TBase64Adapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
-    fOrigin: IDataStream;
+    fAction: TBase64Action;
+    fText: RawByteString;
+    function AsCoded: RawByteString;
   public
-    procedure Init(const aOrigin: IDataStream);
-    function AsOleVariant: OleVariant;
-    procedure ToParam(const aDest: TParam);
-    procedure ToStrings(const aDest: TStrings);
+    procedure Init(aAction: TBase64Action; const aText: RawByteString);
+    function AsText: RawByteString;
+    function AsDataStream: IDataStream;
   end;
 
 implementation
 
-{ TDataStreamAdapter }
+{ TBase64Adapter }
 
-procedure TDataStreamAdapter.Init(const aOrigin: IDataStream);
+function TBase64Adapter.AsCoded: RawByteString;
 begin
-  fOrigin := aOrigin;
-end;
-
-function TDataStreamAdapter.AsOleVariant: OleVariant;
-var
-  data: PByteArray;
-  m: TMemoryStream;
-begin
-  m := TMemoryStream.Create;
-  try
-    fOrigin.Save(m);
-    result := VarArrayCreate([0, m.Size-1], varByte);
-    data := VarArrayLock(Result);
-    try
-      m.Position := 0;
-      m.ReadBuffer(data^, m.Size);
-    finally
-      VarArrayUnlock(Result);
-    end;
-  finally
-    m.Free;
+  case fAction of
+    baEncode: result := BinToBase64(fText);
+    baDecode: result := Base64ToBin(fText);
   end;
 end;
 
-procedure TDataStreamAdapter.ToParam(const aDest: TParam);
-var
-  m: TMemoryStream;
+procedure TBase64Adapter.Init(aAction: TBase64Action; const aText: RawByteString);
 begin
-  m := TMemoryStream.Create;
-  try
-    fOrigin.Save(m);
-    aDest.LoadFromStream(m, ftBlob);
-  finally
-    m.Free;
-  end;
+  fAction := aAction;
+  fText := aText;
 end;
 
-procedure TDataStreamAdapter.ToStrings(const aDest: TStrings);
-var
-  m: TMemoryStream;
+function TBase64Adapter.AsText: RawByteString;
 begin
-  m := TMemoryStream.Create;
+  result := AsCoded;
+end;
+
+function TBase64Adapter.AsDataStream: IDataStream;
+var
+  m: TStream;
+begin
+  m := RawByteStringToStream(AsCoded);
   try
-   fOrigin.Save(m);
-   aDest.LoadFromStream(m);
+    result := TDataStream.Create(m);
   finally
     m.Free;
   end;
 end;
 
 end.
+
