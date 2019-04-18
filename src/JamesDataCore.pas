@@ -103,8 +103,8 @@ type
     destructor Destroy; override;
     function Ref: IDataParams;
     function Exists(const ParamName: string): Boolean;
-    function Add(const AParam: IDataParam): IDataParams; overload;
-    function Add(const AParams: IDataParams): IDataParams; overload;
+    function Add(const aParam: IDataParam): IDataParams; overload;
+    function Add(const aParams: IDataParams): IDataParams; overload;
     function Get(Index: Integer): IDataParam; overload;
     function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
@@ -460,19 +460,19 @@ begin
   end;
 end;
 
-function TDataParams.Add(const AParam: IDataParam): IDataParams;
+function TDataParams.Add(const aParam: IDataParam): IDataParams;
 begin
   result := self;
-  fList.Add(AParam);
+  fList.Add(aParam);
 end;
 
-function TDataParams.Add(const AParams: IDataParams): IDataParams;
+function TDataParams.Add(const aParams: IDataParams): IDataParams;
 var
   I: Integer;
 begin
   result := self;
-  for I := 0 to AParams.Count-1 do
-    Add(AParams.Get(I));
+  for I := 0 to aParams.Count-1 do
+    Add(aParams.Get(I));
 end;
 
 function TDataParams.Get(Index: Integer): IDataParam;
@@ -482,21 +482,21 @@ end;
 
 function TDataParams.Get(const ParamName: string): IDataParam;
 var
-  I: Integer;
-  P: IDataParam;
+  i: Integer;
+  p: IDataParam;
 begin
-  P := nil;
+  p := nil;
   result := nil;
-  for I := 0 to fList.Count -1 do
+  for i := 0 to fList.Count -1 do
   begin
-    P := Get(I);
-    if CompareText(P.Name, ParamName) = 0 then
+    p := Get(i);
+    if CompareText(p.Name, ParamName) = 0 then
     begin
-      result := P;
+      result := p;
       exit;
     end;
   end;
-  if not Assigned(P) then
+  if not Assigned(p) then
     raise EDataParams.CreateFmt('Param "%s" not found.', [ParamName]);
 end;
 
@@ -507,14 +507,14 @@ end;
 
 function TDataParams.AsRawUTF8(const aSeparator: RawUTF8): RawUTF8;
 var
-  I: Integer;
+  i: Integer;
 begin
   result := '';
-  for I := 0 to Count-1 do
+  for i := 0 to Count-1 do
   begin
-    if I > 0 then
+    if i > 0 then
       result := result + aSeparator;
-     result := result + Get(I).AsString;
+     result := result + Get(i).AsString;
   end;
 end;
 

@@ -96,8 +96,8 @@ type
   IDataParams = interface
   ['{650DE166-6452-4F22-80F8-F364B9BF4C50}']
     function Exists(const ParamName: string): Boolean;
-    function Add(const AParam: IDataParam): IDataParams; overload;
-    function Add(const AParams: IDataParams): IDataParams; overload;
+    function Add(const aParam: IDataParam): IDataParams; overload;
+    function Add(const aParams: IDataParams): IDataParams; overload;
     function Get(Index: Integer): IDataParam; overload;
     function Get(const ParamName: string): IDataParam; overload;
     function Count: Integer;
