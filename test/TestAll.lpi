@@ -72,7 +72,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="TestAll.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -97,6 +97,10 @@
         <Filename Value="..\src\fpc\JamesTestPlatform.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="..\src\JamesBase64Tests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
