@@ -48,8 +48,8 @@ type
     /// initialize the instance
     // - the action will determinate if the origin will be encoded or decoded for in adapter methods
     procedure Init(aAction: TBase64Action; const aText: RawByteString);
-    /// return as text
-    function AsText: RawByteString;
+    /// return as RawByteString
+    function AsRawByteString: RawByteString;
     /// return as DataStream
     function AsDataStream: IDataStream;
   end;
@@ -72,7 +72,7 @@ begin
   fText := aText;
 end;
 
-function TBase64Adapter.AsText: RawByteString;
+function TBase64Adapter.AsRawByteString: RawByteString;
 begin
   result := AsCoded;
 end;

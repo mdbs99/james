@@ -41,7 +41,7 @@ type
   /// all tests for TBase64Adapter
   TBase64AdapterTests = class(TTestCase)
   published
-    procedure TestText;
+    procedure TestRawByteString;
     procedure TestDataStream;
   end;
 
@@ -53,14 +53,14 @@ const
   ENCODED_TEXT = 'SmFtZXMgTGli';
   DECODED_TEXT = 'James Lib';
 
-procedure TBase64AdapterTests.TestText;
+procedure TBase64AdapterTests.TestRawByteString;
 var
   a: TBase64Adapter;
 begin
   a.Init(baDecode, ENCODED_TEXT);
-  check(a.AsText = DECODED_TEXT, 'decoded');
+  check(a.AsRawByteString = DECODED_TEXT, 'decoded');
   a.Init(baEncode, DECODED_TEXT);
-  check(a.AsText = ENCODED_TEXT, 'encoded');
+  check(a.AsRawByteString = ENCODED_TEXT, 'encoded');
 end;
 
 procedure TBase64AdapterTests.TestDataStream;
