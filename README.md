@@ -1,6 +1,7 @@
 # James
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/mdbs99/james/blob/master/README.md)
+[![Hits-of-Code](https://hitsofcode.com/github/mdbs99/james)](https://hitsofcode.com/view/github.com/mdbs99/james)
 
 James is a collection of object-oriented Pascal primitives.
 
