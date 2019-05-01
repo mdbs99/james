@@ -25,7 +25,7 @@ The main goal is to replace common procedural code, which has so many conditiona
 
 We want to write elegant, clean, organized, interface-based, and maintainable code using OOP.
 
-The code follows a restrict rules about naming and style, as prefixes and sufixes, to help programmers to find the correct class or method to do the job.
+The code follows a restrict rules about naming and style, as prefixes and suffixes, to help programmers to find the correct class or method to do the job quickly.
 
 # Installing
 
