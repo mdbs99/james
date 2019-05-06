@@ -54,6 +54,8 @@ type
     procedure TestConstraints;
     procedure TestFile;
     procedure TestTags;
+    procedure TestEnum;
+    procedure TestEnumSet;
   end;
 
   /// all tests for TDataStreamAdapter
@@ -258,6 +260,52 @@ begin
   check(tags.Get(1) = '#bar', 'Get(1)');
   check(tags.Exists('#foo'), 'exists foo');
   check(tags.Exists('#bar'), 'exists bar');
+end;
+
+type
+  TFruit = (ftApple, ftOrange, ftBanana);
+
+procedure TDataTests.TestEnum;
+var
+  a: TEnumAdapter;
+begin
+  a.Init(TypeInfo(TFruit), ord(ftApple));
+  check(a.AsShortString = 'ftApple', 'apple');
+  a.TrimLowerCase := True;
+  check(a.AsShortString = 'Apple', 'apple caption');
+  a.Index := ord(ftOrange);
+  a.TrimLowerCase := False;
+  check(a.AsShortString = 'ftOrange', 'orange');
+  a.TrimLowerCase := True;
+  check(a.AsShortString = 'Orange', 'orange caption');
+  a.Index := ord(ftBanana);
+  check(a.AsShortString = 'Banana', 'banana caption');
+end;
+
+procedure TDataTests.TestEnumSet;
+var
+  a: TEnumSetAdapter;
+  arr: array[TFruit] of PShortString;
+  ss: TStrings;
+begin
+  a.Init(TypeInfo(TFruit), @arr, Length(arr));
+  check(arr[ftApple]^ = 'ftApple', 'apple');
+  check(arr[ftOrange]^ = 'ftOrange', 'orange');
+  check(arr[ftBanana]^ = 'ftBanana', 'banana');
+  ss := TStringList.Create;
+  try
+    a.ToStrings(ss);
+    check(ss[0] = 'ftApple', 'apple');
+    check(ss[1] = 'ftOrange', 'orange');
+    check(ss[2] = 'ftBanana', 'banana');
+    a.TrimLowerCase := True;
+    a.ToStrings(ss);
+    check(ss[0] = 'Apple', 'Apple');
+    check(ss[1] = 'Orange', 'Orange');
+    check(ss[2] = 'Banana', 'Banana');
+  finally
+    ss.Free;
+  end;
 end;
 
 { TDataStreamAdapterTests }

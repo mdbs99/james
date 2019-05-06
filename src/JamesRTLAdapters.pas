@@ -48,6 +48,42 @@ type
     function AsDataStream: IDataStream;
   end;
 
+  /// object to adapt an Enum type into other types
+  TEnumAdapter = {$ifdef UNICODE}record{$else}object{$endif}
+  private
+    fTypeInfo: pointer;
+    fIndex: Integer;
+    fTrimLowerCase: Boolean;
+  public
+    /// initialize the instance
+    procedure Init(aTypeInfo: pointer; aIndex: Integer);
+    /// return as Text
+    function AsShortString: ShortString;
+    /// access to original aIndex on Init()
+    property Index: Integer read fIndex write fIndex;
+    // will trim the lowercase 'a'..'z' chars on left side
+    property TrimLowerCase: Boolean read fTrimLowerCase write fTrimLowerCase;
+  end;
+
+  /// object to adapt a Set of Enum type into other types
+  TEnumSetAdapter = {$ifdef UNICODE}record{$else}object{$endif}
+  private
+    fTypeInfo: pointer;
+    fArray: PPShortString;
+    fArrayLen: Integer;
+    fTrimLowerCase: Boolean;
+  public
+    /// initialize the instance
+    // - aArray should be a pointer to `array[EnumType] or RawUTF8`
+    // - aLen should be the length of aArray
+    procedure Init(aTypeInfo: pointer; aArray: PPShortString; aLen: Integer);
+    /// adapt to TStrings
+    // - aDest should exist
+    procedure ToStrings(aDest: TStrings);
+    // will trim the lowercase 'a'..'z' chars on left side
+    property TrimLowerCase: Boolean read fTrimLowerCase write fTrimLowerCase;
+  end;
+
 implementation
 
 { TOleVariantAdapter }
@@ -80,6 +116,51 @@ begin
     end;
   finally
     s.Free;
+  end;
+end;
+
+{ TEnumAdapter }
+
+procedure TEnumAdapter.Init(aTypeInfo: pointer; aIndex: Integer);
+begin
+  fTypeInfo := aTypeInfo;
+  fIndex := aIndex;
+  fTrimLowerCase := False;
+end;
+
+function TEnumAdapter.AsShortString: ShortString;
+begin
+  result := GetEnumName(fTypeInfo, fIndex)^;
+  if TrimLowerCase then
+    result := TrimLeftLowerCaseShort(@result);
+end;
+
+{ TEnumSetAdapter }
+
+procedure TEnumSetAdapter.Init(aTypeInfo: pointer; aArray: PPShortString;
+  aLen: Integer);
+begin
+  fTypeInfo := aTypeInfo;
+  fArray := aArray;
+  fArrayLen := aLen;
+  fTrimLowerCase := False;
+  GetEnumNames(fTypeInfo, aArray);
+end;
+
+procedure TEnumSetAdapter.ToStrings(aDest: TStrings);
+var
+  i: Integer;
+  a: TEnumAdapter;
+begin
+  aDest.Clear;
+  i := 0;
+  while i < fArrayLen do
+  begin
+    a.Init(fTypeInfo, i);
+    a.TrimLowerCase := TrimLowerCase;
+    aDest.Append(a.AsShortString);
+    inc(i);
+    inc(fArray);
   end;
 end;
 
