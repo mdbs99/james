@@ -46,7 +46,7 @@ type
     constructor Create; overload;
     destructor Destroy; override;
     function Ref: IDataStream;
-    function Save(aStream: TStream): IDataStream; overload;
+    function ToStream(aStream: TStream): IDataStream;
     function AsRawByteString: RawByteString;
     function Size: Int64;
   end;
@@ -241,7 +241,7 @@ begin
   result := self;
 end;
 
-function TDataStream.Save(aStream: TStream): IDataStream;
+function TDataStream.ToStream(aStream: TStream): IDataStream;
 begin
   result := self;
   fStream.SaveToStream(aStream);
@@ -698,7 +698,7 @@ begin
   m := TMemoryStream.Create;
   try
     try
-      fStream.Save(m);
+      fStream.ToStream(m);
       m.SaveToFile(fFileName);
       result := True;
     except

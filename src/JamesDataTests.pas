@@ -124,7 +124,7 @@ begin
     a := TDataStream.Create(BUFFER);
     check(a.AsRawByteString = BUFFER, 'text');
     a := TDataStream.Create(m1);
-    a.Save(m2);
+    a.ToStream(m2);
     check(m1.Size = m2.Size, 'mem size');
     check(a.Size = m2.Size, 'a size');
   finally

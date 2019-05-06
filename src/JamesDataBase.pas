@@ -40,7 +40,7 @@ type
 
   IDataStream = interface
   ['{698868A5-9C57-4F1F-9E84-4AA7580CB01A}']
-    function Save(Stream: TStream): IDataStream; overload;
+    function ToStream(aStream: TStream): IDataStream;
     function AsRawByteString: RawByteString;
     function Size: Int64;
   end;

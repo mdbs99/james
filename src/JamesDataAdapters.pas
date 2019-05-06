@@ -83,7 +83,7 @@ var
 begin
   m := TMemoryStream.Create;
   try
-    fOrigin.Save(m);
+    fOrigin.ToStream(m);
     result := VarArrayCreate([0, m.Size-1], varByte);
     data := VarArrayLock(Result);
     try
@@ -105,7 +105,7 @@ begin
     exit;
   m := TMemoryStream.Create;
   try
-    fOrigin.Save(m);
+    fOrigin.ToStream(m);
     aDest.LoadFromStream(m, ftBlob);
   finally
     m.Free;
@@ -120,7 +120,7 @@ begin
     exit;
   m := TMemoryStream.Create;
   try
-   fOrigin.Save(m);
+   fOrigin.ToStream(m);
    aDest.LoadFromStream(m);
   finally
     m.Free;
