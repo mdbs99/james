@@ -74,7 +74,7 @@ type
     fTrimLowerCase: Boolean;
   public
     /// initialize the instance
-    // - aArray should be a pointer to `array[EnumType] or RawUTF8`
+    // - aArray should be a pointer to `array[EnumType] of PPShortString`
     // - aLen should be the length of aArray
     procedure Init(aTypeInfo: pointer; aArray: PPShortString; aLen: Integer);
     /// adapt to TStrings
