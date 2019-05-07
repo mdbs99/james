@@ -44,7 +44,13 @@ type
   TOleVariantAdapterTests = class(TTestCase)
   published
     procedure TestDataStream;
-end;
+  end;
+
+  TEnumAdapterTests = class(TTestCase)
+  published
+    procedure TestEnum;
+    procedure TestEnumSet;
+  end;
 
 implementation
 
@@ -62,9 +68,58 @@ begin
   CheckEquals('foo', va.AsDataStream.AsRawByteString);
 end;
 
+{ TEnumAdapterTests }
+
+type
+  TFruit = (ftApple, ftOrange, ftBanana);
+
+procedure TEnumAdapterTests.TestEnum;
+var
+  a: TEnumAdapter;
+begin
+  a.Init(TypeInfo(TFruit), ord(ftApple));
+  check(a.AsShortString = 'ftApple', 'apple');
+  a.TrimLowerCase := True;
+  check(a.AsShortString = 'Apple', 'apple caption');
+  a.Index := ord(ftOrange);
+  a.TrimLowerCase := False;
+  check(a.AsShortString = 'ftOrange', 'orange');
+  a.TrimLowerCase := True;
+  check(a.AsShortString = 'Orange', 'orange caption');
+  a.Index := ord(ftBanana);
+  check(a.AsShortString = 'Banana', 'banana caption');
+end;
+
+procedure TEnumAdapterTests.TestEnumSet;
+var
+  a: TEnumSetAdapter;
+  arr: array[TFruit] of PShortString;
+  ss: TStrings;
+begin
+  a.Init(TypeInfo(TFruit), @arr, Length(arr));
+  check(arr[ftApple]^ = 'ftApple', 'apple');
+  check(arr[ftOrange]^ = 'ftOrange', 'orange');
+  check(arr[ftBanana]^ = 'ftBanana', 'banana');
+  ss := TStringList.Create;
+  try
+    a.ToStrings(ss);
+    check(ss[0] = 'ftApple', 'apple');
+    check(ss[1] = 'ftOrange', 'orange');
+    check(ss[2] = 'ftBanana', 'banana');
+    a.TrimLowerCase := True;
+    a.ToStrings(ss);
+    check(ss[0] = 'Apple', 'Apple');
+    check(ss[1] = 'Orange', 'Orange');
+    check(ss[2] = 'Banana', 'Banana');
+  finally
+    ss.Free;
+  end;
+end;
+
 initialization
   TTestSuite.Create('RTL')
     .Ref
     .Add(TTest.Create(TOleVariantAdapterTests))
+    .Add(TTest.Create(TEnumAdapterTests))
 
 end.
