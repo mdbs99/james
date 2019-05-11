@@ -67,7 +67,33 @@ type
     procedure ToParams(const aDest: TParams);
   end;
 
+  TDataTagsAdapter = {$ifdef UNICODE}record{$else}object{$endif}
+  private
+    fOrigin: IDataTags;
+  public
+    /// initialize the instance
+    procedure Init(const aOrigin: IDataTags);
+    /// return tags as TRawUTF8DynArray
+    function AsRawUTF8Array: TRawUTF8DynArray;
+  end;
+
 implementation
+
+{ TDataTagsAdapter }
+
+procedure TDataTagsAdapter.Init(const aOrigin: IDataTags);
+begin
+  fOrigin := aOrigin;
+end;
+
+function TDataTagsAdapter.AsRawUTF8Array: TRawUTF8DynArray;
+var
+  i: Integer;
+begin
+  SetLength(result, fOrigin.Count);
+  for i := 0 to fOrigin.Count -1 do
+    result[i] := fOrigin.Get(i);
+end;
 
 { TDataStreamAdapter }
 

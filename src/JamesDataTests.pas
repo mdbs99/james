@@ -70,6 +70,11 @@ type
     procedure TestParams;
   end;
 
+  TDataTagsAdapterTests = class(TTestCase)
+  published
+    procedure TestRawUTF8Array;
+  end;
+
 implementation
 
 type
@@ -250,10 +255,10 @@ var
   tags: IDataTags;
 begin
   tags := TDataTags.Create('#foo');
-  check(tags.AsRawUTF8 = '#foo', 'foo');
+  check(tags.Tags = '#foo', 'foo');
   tags.Add('#bar');
-  check(tags.AsRawUTF8 = '#foo#bar', 'bar');
-  check(tags.Count = 2);
+  check(tags.Tags = '#foo#bar', 'bar');
+  check(tags.Count = 2, 'count');
   check(tags.Get(0) = '#foo', 'Get(0)');
   check(tags.Get(1) = '#bar', 'Get(1)');
   check(tags.Exists('#foo'), 'exists foo');
@@ -333,10 +338,25 @@ begin
   end;
 end;
 
+{ TDataTagsAdapterTests }
+
+procedure TDataTagsAdapterTests.TestRawUTF8Array;
+var
+  a: TDataTagsAdapter;
+  arr: TRawUTF8DynArray;
+begin
+  a.Init(TDataTags.Create('#foo#bar'));
+  arr := a.AsRawUTF8Array;
+  check(Length(arr) = 2, 'length');
+  check(arr[0] = '#foo', 'pos 0');
+  check(arr[1] = '#bar', 'pos 1');
+end;
+
 initialization
   TTestSuite.Create('Data').Ref
     .Add(TTest.Create(TDataTests))
     .Add(TTest.Create(TDataStreamAdapterTests))
     .Add(TTest.Create(TDataParamsAdapterTests))
+    .Add(TTest.Create(TDataTagsAdapterTests))
 
 end.

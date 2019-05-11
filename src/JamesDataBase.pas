@@ -155,7 +155,7 @@ type
     function Get(aIndex: PtrInt): RawUTF8;
     function Exists(const aTags: RawUTF8): Boolean;
     function Count: Integer;
-    function AsRawUTF8: RawUTF8;
+    function Tags: RawUTF8;
   end;
 
   IDataTagsOf = interface

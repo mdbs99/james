@@ -181,11 +181,16 @@ type
     constructor Create(const aTags: RawUTF8);
     destructor Destroy; override;
     function Ref: IDataTags;
+    /// add the tag on the internal list
     function Add(const aTag: RawUTF8): IDataTags;
+    /// return the value from the aIndex
     function Get(aIndex: PtrInt): RawUTF8;
-    function Exists(const aTags: RawUTF8): Boolean;
+    /// will check if the tag exists on the internal list
+    function Exists(const aTag: RawUTF8): Boolean;
+    /// return total tags on the internal list
     function Count: Integer;
-    function AsRawUTF8: RawUTF8;
+    /// return tags passed on constructor, without modifications
+    function Tags: RawUTF8;
   end;
 
 implementation
@@ -790,7 +795,7 @@ begin
   result := SplittedList.Strings[aIndex];
 end;
 
-function TDataTags.Exists(const aTags: RawUTF8): Boolean;
+function TDataTags.Exists(const aTag: RawUTF8): Boolean;
 var
   i: Integer;
   l: TStringList;
@@ -798,7 +803,7 @@ begin
   result := False;
   l := TStringList.Create;
   try
-    Split(aTags, l);
+    Split(aTag, l);
     for i := 0 to l.Count-1 do
     begin
       if SplittedList.IndexOf(l.Strings[i]) = -1 then
@@ -815,7 +820,7 @@ begin
   result := SplittedList.Count;
 end;
 
-function TDataTags.AsRawUTF8: RawUTF8;
+function TDataTags.Tags: RawUTF8;
 begin
   result := fTags;
 end;
