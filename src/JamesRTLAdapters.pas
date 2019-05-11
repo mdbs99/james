@@ -152,15 +152,18 @@ var
   i: Integer;
   a: TEnumAdapter;
 begin
+  if aDest = nil then
+    exit;
   aDest.Clear;
   i := 0;
+  a.Init(fTypeInfo, i);
   while i < fArrayLen do
   begin
-    a.Init(fTypeInfo, i);
     a.TrimLowerCase := TrimLowerCase;
     aDest.Append(a.AsShortString);
     inc(i);
     inc(fArray);
+    a.Index := i;
   end;
 end;
 

@@ -176,7 +176,7 @@ type
     fTags: RawUTF8;
     fList: TStringList;
     procedure Split(const aTags: RawUTF8; aDest: TStringList);
-    function List: TStringList;
+    function SplittedList: TStringList;
   public
     constructor Create(const aTags: RawUTF8);
     destructor Destroy; override;
@@ -752,17 +752,10 @@ end;
 procedure TDataTags.Split(const aTags: RawUTF8; aDest: TStringList);
 begin
   if aDest.Count = 0 then
-  begin
-    aDest.Text :=
-      Trim(
-        StringReplace(
-          aTags, '#', #13'#', [rfReplaceAll]
-        )
-      );
-  end;
+    aDest.Text := Trim(StringReplaceAll(aTags, '#', #13'#'));
 end;
 
-function TDataTags.List: TStringList;
+function TDataTags.SplittedList: TStringList;
 begin
   result := fList;
   Split(fTags, fList);
@@ -794,7 +787,7 @@ end;
 
 function TDataTags.Get(aIndex: PtrInt): RawUTF8;
 begin
-  result := List.Strings[aIndex];
+  result := SplittedList.Strings[aIndex];
 end;
 
 function TDataTags.Exists(const aTags: RawUTF8): Boolean;
@@ -808,7 +801,7 @@ begin
     Split(aTags, l);
     for i := 0 to l.Count-1 do
     begin
-      if List.IndexOf(l.Strings[i]) = -1 then
+      if SplittedList.IndexOf(l.Strings[i]) = -1 then
         exit;
     end;
     result := True;
@@ -819,7 +812,7 @@ end;
 
 function TDataTags.Count: Integer;
 begin
-  result := List.Count;
+  result := SplittedList.Count;
 end;
 
 function TDataTags.AsRawUTF8: RawUTF8;
