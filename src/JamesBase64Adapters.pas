@@ -63,6 +63,8 @@ begin
   case fAction of
     baEncode: result := BinToBase64(fText);
     baDecode: result := Base64ToBin(fText);
+  else
+    result := '';
   end;
 end;
 
