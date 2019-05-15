@@ -109,7 +109,7 @@ type
     function Values: IDataParams;
   end;
 
-  IDataGuid = interface
+  IDataUUID = interface
   ['{F7269A91-B5E7-4067-BB8E-8712BC99EE08}']
     function Value: TGuid;
     function AsString: ShortString;

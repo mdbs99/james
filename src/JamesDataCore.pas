@@ -111,21 +111,25 @@ type
     function AsRawUTF8(const aSeparator: RawUTF8 = ','): RawUTF8; overload;
   end;
 
-  TDataGuid = class(TInterfacedObject, IDataGuid)
   private
-    fGuid: TGuid;
   public
-    constructor Create(const aGuid: TGuid); reintroduce; overload;
-    constructor Create(const aGuid: RawUTF8); overload;
-    constructor Create(aGuid: Variant); overload;
+  TDataUUID = class(TInterfacedObject, IDataUUID)
+  private
+    fUUID: TGuid;
+  public
+    constructor Create(const aUUID: TGuid); reintroduce; overload;
+    /// aUUID should be a valid UUID, otherwise it will be initialize all zeroed
+    constructor Create(const aUUID: RawUTF8); overload;
+    /// aUUID should be a valid UUID, otherwise it will be initialize all zeroed
+    constructor Create(aUUID: Variant); overload;
     constructor Create; overload;
-    function Ref: IDataGuid;
+    function Ref: IDataUUID;
     function Value: TGuid;
     function AsString: ShortString;
     function AsSmallString: ShortString;
   end;
 
-  TNullGuid = class(TDataGuid, IDataGuid)
+  TNullUUID = class(TDataUUID, IDataUUID)
   public
     constructor Create; reintroduce;
   end;
@@ -523,39 +527,39 @@ begin
   end;
 end;
 
-{ TDataGuid }
+{ TDataUUID }
 
-constructor TDataGuid.Create(const aGuid: TGuid);
+constructor TDataUUID.Create(const aUUID: TGuid);
 begin
   inherited Create;
-  fGuid := aGuid;
+  fUUID := aUUID;
 end;
 
-constructor TDataGuid.Create(const aGuid: RawUTF8);
+constructor TDataUUID.Create(const aUUID: RawUTF8);
 var
   s: string;
   g: TGuid;
 begin
-  s := aGuid;
+  s := aUUID;
   if Copy(s, 1, 1) <> '{' then
     s := '{' + s + '}';
   try
     g := StringToGuid(s);
   except
-    g := TNullGuid.Create.Ref.Value;
+    g := TNullUUID.Create.Ref.Value;
   end;
   Create(g);
 end;
 
-constructor TDataGuid.Create(aGuid: Variant);
+constructor TDataUUID.Create(aUUID: Variant);
 begin
-  if VarIsStr(aGuid) then
-    Create(VarToStr(aGuid))
+  if VarIsStr(aUUID) then
+    Create(VarToStr(aUUID))
   else
-    Create(TNullGuid.Create.Ref.Value);
+    Create(TNullUUID.Create.Ref.Value);
 end;
 
-constructor TDataGuid.Create;
+constructor TDataUUID.Create;
 var
   g: TGUID;
   s: string;
@@ -565,29 +569,29 @@ begin
   Create(Copy(s, 2, Length(s)-2));
 end;
 
-function TDataGuid.Ref: IDataGuid;
+function TDataUUID.Ref: IDataUUID;
 begin
   result := self;
 end;
 
-function TDataGuid.Value: TGuid;
+function TDataUUID.Value: TGuid;
 begin
-  result := fGuid;
+  result := fUUID;
 end;
 
-function TDataGuid.AsString: ShortString;
+function TDataUUID.AsString: ShortString;
 begin
-  result := GuidToString(fGuid);
+  result := GuidToString(fUUID);
 end;
 
-function TDataGuid.AsSmallString: ShortString;
+function TDataUUID.AsSmallString: ShortString;
 begin
   result := Copy(AsString, 2, 8);
 end;
 
-{ TNullGuid }
+{ TNullUUID }
 
-constructor TNullGuid.Create;
+constructor TNullUUID.Create;
 begin
   inherited Create('{00000000-0000-0000-0000-000000000000}');
 end;

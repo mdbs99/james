@@ -50,7 +50,7 @@ type
     procedure TestStrings;
     procedure TestParam;
     procedure TestParams;
-    procedure TestGuid;
+    procedure TestUUID;
     procedure TestConstraints;
     procedure TestFile;
     procedure TestTags;
@@ -194,18 +194,18 @@ begin
   check(ps.AsRawUTF8(';') = '1;2;3', 'separator');
 end;
 
-procedure TDataTests.TestGuid;
+procedure TDataTests.TestUUID;
 var
-  g1, g2: IDataGuid;
+  g1, g2: IDataUUID;
 begin
-  g1 := TDataGuid.Create('NONE');
-  g2 := TNullGuid.Create;
-  check(g1.AsString = g2.AsString, 'none');
-  g1 := TDataGuid.Create(NULL);
-  g2 := TNullGuid.Create;
+  g1 := TDataUUID.Create('INVALID');
+  g2 := TNullUUID.Create;
+  check(g1.AsString = g2.AsString, 'zeroed');
+  g1 := TDataUUID.Create(NULL);
+  g2 := TNullUUID.Create;
   check(g1.AsString = g2.AsString, 'NULL');
-  g1 := TDataGuid.Create('FCCE420A-8C4F-4E54-84D1-39001AE344BA');
-  g2 := TDataGuid.Create(g1.AsString);
+  g1 := TDataUUID.Create('FCCE420A-8C4F-4E54-84D1-39001AE344BA');
+  g2 := TDataUUID.Create(g1.AsString);
   check(g1.AsString = g2.AsString, 'guid');
   check(g1.AsSmallString = g2.AsSmallString, 'AsSmallString');
 end;
