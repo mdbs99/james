@@ -35,6 +35,10 @@ type
   /// generic parent class of all custom Exception types in that library
   EJamesException = class(ESynException);
 
+  IProcedure = interface
+    procedure Exec;
+  end;
+
 implementation
 
 end.
