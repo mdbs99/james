@@ -107,7 +107,8 @@ type
     function Add(const aParam: IDataParam): IDataParams; overload;
     function Add(const aParams: IDataParams): IDataParams; overload;
     function Get(Index: Integer): IDataParam; overload;
-    function Get(const ParamName: RawUTF8): IDataParam; overload;
+    /// will return a parameter if found or a new instance with value NULL
+    function Get(const aParamName: RawUTF8): IDataParam; overload;
     function Count: Integer;
     function AsRawUTF8(const aSeparator: RawUTF8 = ','): RawUTF8; overload;
   end;
@@ -527,24 +528,26 @@ begin
   result := fList.Items[Index] as IDataParam;
 end;
 
-function TDataParams.Get(const ParamName: RawUTF8): IDataParam;
+function TDataParams.Get(const aParamName: RawUTF8): IDataParam;
 var
   i: Integer;
   p: IDataParam;
 begin
-  p := nil;
   result := nil;
   for i := 0 to fList.Count -1 do
   begin
     p := Get(i);
-    if CompareText(p.Name, ParamName) = 0 then
+    if CompareText(p.Name, aParamName) = 0 then
     begin
       result := p;
       exit;
     end;
   end;
-  if not Assigned(p) then
-    raise EDataParams.CreateFmt('Param "%s" not found.', [ParamName]);
+  if result = nil then
+  begin
+    result := TDataParam.Create(aParamName, NULL);
+    Add(result);
+  end;
 end;
 
 function TDataParams.Count: Integer;
