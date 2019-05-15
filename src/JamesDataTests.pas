@@ -35,6 +35,7 @@ uses
   TypInfo,
   COMObj,
   SynCommons,
+  JamesBase,
   JamesDataBase,
   JamesDataCore,
   JamesDataAdapters,
@@ -54,6 +55,7 @@ type
     procedure TestConstraints;
     procedure TestFile;
     procedure TestTags;
+    procedure TestParamsCopier;
   end;
 
   /// all tests for TDataStreamAdapter
@@ -263,6 +265,28 @@ begin
   check(tags.Get(1) = '#bar', 'Get(1)');
   check(tags.Exists('#foo'), 'exists foo');
   check(tags.Exists('#bar'), 'exists bar');
+end;
+
+procedure TDataTests.TestParamsCopier;
+var
+  cp: IProcedure;
+  src, dest: IDataParams;
+  i: Integer;
+begin
+  src := TDataParams.Create
+    .Ref
+    .Add(TDataParam.Create('foo', 1))
+    .Add(TDataParam.Create('bar', 'bar'));
+  dest := TDataParams.Create;
+  cp := TDataParamsCopier.Create(src, dest);
+  cp.Exec;
+  check(src.Count = dest.Count, 'count');
+  for i := 0 to src.Count -1 do
+  begin
+    check(src.Get(i).Name = dest.Get(i).Name, 'name');
+    check(src.Get(i).Value = dest.Get(i).Value, 'value');
+    check(src.Get(i).DataType = dest.Get(i).DataType, 'datatype');
+  end;
 end;
 
 { TDataStreamAdapterTests }

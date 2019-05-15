@@ -33,6 +33,7 @@ uses
   DB,
   Variants,
   SynCommons,
+  JamesBase,
   JamesDataBase;
 
 type
@@ -111,8 +112,19 @@ type
     function AsRawUTF8(const aSeparator: RawUTF8 = ','): RawUTF8; overload;
   end;
 
+  /// DataParams copier
+  // - copy all parameters from one to another instance
+  TDataParamsCopier = class(TInterfacedObject, IProcedure)
   private
+    fSrc: IDataParams;
+    fDest: IDataParams;
   public
+    constructor Create(const aSrc, aDest: IDataParams); reintroduce;
+    function Ref: IProcedure;
+    /// will copy all params from Src to Dest
+    procedure Exec;
+  end;
+
   TDataUUID = class(TInterfacedObject, IDataUUID)
   private
     fUUID: TGuid;
@@ -198,6 +210,32 @@ type
   end;
 
 implementation
+
+{ TDataParamsCopier }
+
+constructor TDataParamsCopier.Create(const aSrc, aDest: IDataParams);
+begin
+  inherited Create;
+  fSrc := aSrc;
+  fDest := aDest;
+end;
+
+function TDataParamsCopier.Ref: IProcedure;
+begin
+  result := self;
+end;
+
+procedure TDataParamsCopier.Exec;
+var
+  i: Integer;
+  p: IDataParam;
+begin
+  for i := 0 to fSrc.Count -1 do
+  begin
+    p := fSrc.Get(i);
+    fDest.Get(p.Name).AsParam.Value := p.Value;
+  end;
+end;
 
 { TDataStream }
 
