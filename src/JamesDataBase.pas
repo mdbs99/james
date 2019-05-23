@@ -49,6 +49,10 @@ type
     function Value: IDataStream;
   end;
 
+  IDataStringOf = interface
+    function Value: string;
+  end;
+
   IDataStrings = interface
   ['{CC6CBD96-D204-4D32-81B5-DBEDF90D73F9}']
     function Add(const aText: RawUTF8): IDataStrings;
