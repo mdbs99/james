@@ -21,9 +21,8 @@
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)\TestAll"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="..\..\mormot;..\..\mormot\SQLite3;..\src;$(ProjOutDir)"/>
-            <Libraries Value="..\..\mormot\static\$(TargetCPU)-$(TargetOS)"/>
-            <OtherUnitFiles Value="..\..\mormot;..\..\mormot\SQLite3;..\..\mormot\SQLite3\DDD\infra;..\src;..\src\fpc"/>
+            <IncludeFiles Value="$(ProjOutDir);..\src"/>
+            <OtherUnitFiles Value="..\src;..\src\fpc"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -61,16 +60,19 @@
         <Mode0 Name="default"/>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="fpcunittestrunner"/>
+        <PackageName Value="mormot_base"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="fpcunittestrunner"/>
       </Item2>
       <Item3>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
     </RequiredPackages>
     <Units Count="7">
       <Unit0>
@@ -110,9 +112,8 @@
       <Filename Value="bin\$(TargetCPU)-$(TargetOS)\TestAll"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="..\..\mormot;..\..\mormot\SQLite3;..\src"/>
-      <Libraries Value="..\..\mormot\static\$(TargetCPU)-$(TargetOS)"/>
-      <OtherUnitFiles Value="..\..\mormot;..\..\mormot\SQLite3;..\..\mormot\SQLite3\DDD\infra;..\src;..\src\fpc"/>
+      <IncludeFiles Value="$(ProjOutDir);..\src"/>
+      <OtherUnitFiles Value="..\src;..\src\fpc"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
