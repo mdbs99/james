@@ -32,14 +32,14 @@ Clone the repository in some directory in your computer.
 
 ## Dependencies
 
-This project needs:
+This library needs:
 
 - [mORMot](https://github.com/synopse/mORMot) — client-server ORM SOA MVC framework for Delphi 6 up to latest Delphi and FPC
   - See [the corresponding documentation](https://github.com/synopse/mORMot/blob/master/Packages/README.md) to install.
 
 ## On Lazarus
 
-This lib was tested using these versions: 
+This library was tested using these versions: 
 - FPC 3.1.1 revision 40491
 - Lazarus 2.1.0 revision 59757
 
