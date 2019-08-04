@@ -31,65 +31,65 @@ uses
   Classes,
   SysUtils,
   SynCommons,
-  JamesDataBase,
-  JamesDataCore;
+  JamesBase;
 
 type
-  /// Base64 coded action
-  TBase64Action = (baEncode, baDecode);
-
-  /// object to adapt a Base64 text into other types
-  TBase64Adapter = {$ifdef UNICODE}record{$else}object{$endif}
+  /// BASE64 adapter for a decoded RawByteString
+  TBase64AsRawByteString = class(TInterfacedObject, IRawByteStringOf)
   private
-    fAction: TBase64Action;
-    fText: RawByteString;
-    function AsCoded: RawByteString;
+    fOrigin: RawByteString;
   public
-    /// initialize the instance
-    // - the action will determinate if the origin will be encoded or decoded for in adapter methods
-    procedure Init(aAction: TBase64Action; const aText: RawByteString);
-    /// return as RawByteString
-    function AsRawByteString: RawByteString;
-    /// return as DataStream
-    function AsDataStream: IDataStream;
+    constructor Create(const aOrigin: RawByteString); reintroduce;
+    function Ref: IRawByteStringOf;
+    function Value: RawByteString;
+  end;
+
+  /// BASE64 adapter for a encoded RawByteString
+  TBase64OfRawByteString = class(TInterfacedObject, IRawByteStringOf)
+  private
+    fOrigin: RawByteString;
+  public
+    constructor Create(const aOrigin: RawByteString); reintroduce;
+    function Ref: IRawByteStringOf;
+    function Value: RawByteString;
   end;
 
 implementation
 
-{ TBase64Adapter }
+{ TBase64AsRawByteString }
 
-function TBase64Adapter.AsCoded: RawByteString;
+constructor TBase64AsRawByteString.Create(const aOrigin: RawByteString);
 begin
-  case fAction of
-    baEncode: result := BinToBase64(fText);
-    baDecode: result := Base64ToBin(fText);
-  else
-    result := '';
-  end;
+  inherited Create;
+  fOrigin := aOrigin;
 end;
 
-procedure TBase64Adapter.Init(aAction: TBase64Action; const aText: RawByteString);
+function TBase64AsRawByteString.Ref: IRawByteStringOf;
 begin
-  fAction := aAction;
-  fText := aText;
+  result := self;
 end;
 
-function TBase64Adapter.AsRawByteString: RawByteString;
+function TBase64AsRawByteString.Value: RawByteString;
 begin
-  result := AsCoded;
+  result := Base64ToBin(fOrigin);
 end;
 
-function TBase64Adapter.AsDataStream: IDataStream;
-var
-  m: TStream;
+{ TBase64OfRawByteString }
+
+constructor TBase64OfRawByteString.Create(const aOrigin: RawByteString);
 begin
-  m := RawByteStringToStream(AsCoded);
-  try
-    result := TDataStream.Create(m);
-  finally
-    m.Free;
-  end;
+  inherited Create;
+  fOrigin := aOrigin;
+end;
+
+function TBase64OfRawByteString.Ref: IRawByteStringOf;
+begin
+  result := self;
+end;
+
+function TBase64OfRawByteString.Value: RawByteString;
+begin
+  result := BinToBase64(fOrigin);
 end;
 
 end.
-

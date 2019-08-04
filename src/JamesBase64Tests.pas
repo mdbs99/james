@@ -31,8 +31,7 @@ uses
   Classes,
   SysUtils,
   SynCommons,
-  JamesDataBase,
-  JamesDataCore,
+  JamesBase,
   JamesBase64Adapters,
   JamesTestCore,
   JamesTestPlatform;
@@ -41,8 +40,7 @@ type
   /// all tests for TBase64Adapter
   TBase64AdapterTests = class(TTestCase)
   published
-    procedure TestRawByteString;
-    procedure TestDataStream;
+    procedure TestAllRawByteString;
   end;
 
 implementation
@@ -53,27 +51,14 @@ const
   ENCODED_TEXT = 'SmFtZXMgTGli';
   DECODED_TEXT = 'James Lib';
 
-procedure TBase64AdapterTests.TestRawByteString;
+procedure TBase64AdapterTests.TestAllRawByteString;
 var
-  a: TBase64Adapter;
+  adp: IRawByteStringOf;
 begin
-  a.Init(baDecode, ENCODED_TEXT);
-  check(a.AsRawByteString = DECODED_TEXT, 'decoded');
-  a.Init(baEncode, DECODED_TEXT);
-  check(a.AsRawByteString = ENCODED_TEXT, 'encoded');
-end;
-
-procedure TBase64AdapterTests.TestDataStream;
-var
-  a: TBase64Adapter;
-  s: IDataStream;
-begin
-  a.Init(baDecode, ENCODED_TEXT);
-  s := TDataStream.Create(DECODED_TEXT);
-  check(a.AsDataStream.AsRawByteString = s.AsRawByteString, 'decoded');
-  a.Init(baEncode, DECODED_TEXT);
-  s := TDataStream.Create(ENCODED_TEXT);
-  check(a.AsDataStream.AsRawByteString = s.AsRawByteString, 'encoded');
+  adp := TBase64AsRawByteString.Create(ENCODED_TEXT);
+  check(adp.Value = DECODED_TEXT, 'decoded');
+  adp := TBase64OfRawByteString.Create(DECODED_TEXT);
+  check(adp.Value = ENCODED_TEXT, 'encoded');
 end;
 
 initialization
