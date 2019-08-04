@@ -64,10 +64,9 @@ If you are using an old *Delphi* version as *Delphi 7*, you might need to downlo
 
 Make sure that everything is working in your environment opening the `/test/TestAll` project, compiling and running.
 
-*Lazarus* has all requirements to compile this library.
+*Lazarus* has all requirements to compile it.
 
-If you are using *Delphi*, you might need to include *DUnit*, *FastMM4* and *mORMot* paths into the search path of `TestAll`. Besides that, you should include Test sources:
-- Search Path `<james>\test\src;<james>\test\src\delphi`
+If you are using *Delphi*, you might need to include *DUnit*, *FastMM4* and *mORMot* paths into the search path of `TestAll`.
 
 # License
 
