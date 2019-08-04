@@ -38,10 +38,10 @@ This library needs:
 ## On Lazarus
 
 This library was tested using these versions: 
-- FPC 3.1.1 revision 40491
-- Lazarus 2.1.0 revision 59757
+- *FPC* 3.1.1 revision 40491
+- *Lazarus* 2.1.0 revision 59757
 
-To install on Lazarus:
+To install on *Lazarus*:
 - Make sure that you have `mormot_base.lpk` installed
 - Open the package in `/pkg/JamesLib.lpk`
 - Compile it
@@ -50,13 +50,13 @@ The IDE will be aware about *JamesLib* Package to use on any project.
 
 ## On Delphi
 
-There is no package for Delphi users yet.
+There is no package for *Delphi* users yet.
 
 Considering `<james>` as the path where you have saved the sources, you must include these paths in your project:
 - Search Path `<james>\src;<james>\src\delphi`
 
 If you are using an old Delphi version as Delphi 7, you might need to download:
-- [FastMM4](https://github.com/pleriche/FastMM4) — A memory manager for Delphi and C++ Builder with powerful debugging facilities
+- [FastMM4](https://github.com/pleriche/FastMM4) — A memory manager for *Delphi* and *C++ Builder* with powerful debugging facilities
   - you should set *FastMM4* in Delphi Library Path
 
 # Testing
@@ -65,8 +65,8 @@ Make sure that everything is working in your environment opening the `/test/Test
 
 *Lazarus* has all requirements to compile this library.
 
-If you are using an old Delphi version as Delphi 7, you might need to download:
-- [DUnit](http://dunit.sourceforge.net/) — An Xtreme testing framework for Delphi programs
+If you are using an old *Delphi* version as *Delphi 7*, you might need to download:
+- [DUnit](http://dunit.sourceforge.net/) — An Xtreme testing framework for *Delphi* programs
 
 You might need to include *DUnit*, *FastMM4* and *mORMot* paths into the search path of `TestAll`.
 Besides that, you should include Test sources:
