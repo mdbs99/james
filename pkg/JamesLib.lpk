@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="JamesLib"/>
+    <Type Value="RunAndDesignTime"/>
+    <Author Value="Marcos Douglas B. Santos"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <IncludeFiles Value="..\src;..\src\fpc"/>
+        <OtherUnitFiles Value="..\src;..\src\fpc"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <IgnoredMessages idx5093="True"/>
+        </CompilerMessages>
+      </Other>
+    </CompilerOptions>
+    <Description Value="James is a collection of object-oriented Pascal primitives."/>
+    <License Value="  MIT License
+
+  Copyright (c) 2017-2019 Marcos Douglas B. Santos
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the &quot;Software&quot;), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE. "/>
+    <Files Count="6">
+      <Item1>
+        <Filename Value="..\src\JamesAdapters.pas"/>
+        <UnitName Value="JamesAdapters"/>
+      </Item1>
+      <Item2>
+        <Filename Value="..\src\JamesBase.pas"/>
+        <UnitName Value="JamesBase"/>
+      </Item2>
+      <Item3>
+        <Filename Value="..\src\JamesBase64Adapters.pas"/>
+        <UnitName Value="JamesBase64Adapters"/>
+      </Item3>
+      <Item4>
+        <Filename Value="..\src\JamesDataAdapters.pas"/>
+        <UnitName Value="JamesDataAdapters"/>
+      </Item4>
+      <Item5>
+        <Filename Value="..\src\JamesDataBase.pas"/>
+        <UnitName Value="JamesDataBase"/>
+      </Item5>
+      <Item6>
+        <Filename Value="..\src\JamesDataCore.pas"/>
+        <UnitName Value="JamesDataCore"/>
+      </Item6>
+    </Files>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="mormot_base"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <IncludePath Value="$(PkgIncPath)"/>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

@@ -21,8 +21,8 @@
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)\TestAll"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\src"/>
-            <OtherUnitFiles Value="..\src;..\src\fpc"/>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="src;src\fpc"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -62,7 +62,7 @@
     </RunParams>
     <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="mormot_base"/>
+        <PackageName Value="JamesLib"/>
       </Item1>
       <Item2>
         <PackageName Value="fpcunittestrunner"/>
