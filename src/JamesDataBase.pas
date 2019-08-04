@@ -163,6 +163,11 @@ type
     function Value: IDataTags;
   end;
 
+  IDataAdapterFor = interface
+  ['{2635FFD1-47BE-47E6-87D4-40C233013DF5}']
+    procedure Adapt;
+  end;
+
 implementation
 
 end.
