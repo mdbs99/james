@@ -61,7 +61,7 @@ type
   /// all tests for Data Adapters classes
   TDataAdaptersTests = class(TTestCase)
   published
-    procedure TestStreamAdaptOleVariant;
+    procedure TestStreamAllOleVariant;
     procedure TestStreamForStrings;
     procedure TestStreamForParam;
     procedure TestParamsForParams;
@@ -282,7 +282,7 @@ end;
 
 { TDataAdaptersTests }
 
-procedure TDataAdaptersTests.TestStreamAdaptOleVariant;
+procedure TDataAdaptersTests.TestStreamAllOleVariant;
 var
   src: IDataStream;
   dest: OleVariant;

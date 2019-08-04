@@ -39,6 +39,10 @@ type
     procedure Exec;
   end;
 
+  IRawByteStringOf = interface
+    function Value: RawByteString;
+  end;
+
   IRawUTF8ArrayOf = interface
     function Value: TRawUTF8DynArray;
   end;
