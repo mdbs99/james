@@ -14,6 +14,7 @@ James is a collection of object-oriented Pascal primitives.
 - [Installing](#installing)
   - [On Lazarus](#on-lazarus)
   - [On Delphi](#on-delphi)
+- [Testing](#testing)
 - [License](#license)
 
 # Overview
@@ -30,12 +31,9 @@ The code follows a restrict rules about naming and style, as prefixes and suffix
 
 Clone the repository in some directory in your computer.
 
-## Dependencies
-
 This library needs:
-
 - [mORMot](https://github.com/synopse/mORMot) — client-server ORM SOA MVC framework for Delphi 6 up to latest Delphi and FPC
-  - See [the corresponding documentation](https://github.com/synopse/mORMot/blob/master/Packages/README.md) to install.
+  - see [the corresponding documentation](https://github.com/synopse/mORMot/blob/master/Packages/README.md) to install.
 
 ## On Lazarus
 
@@ -55,21 +53,23 @@ The IDE will be aware about *JamesLib* Package to use on any project.
 There is no package for Delphi users yet.
 
 Considering `<james>` as the path where you have saved the sources, you must include these paths in your project:
-
 - Search Path `<james>\src;<james>\src\delphi`
 
-If you are using an older version, you might need to download:
-
+If you are using an old Delphi version as Delphi 7, you might need to download:
 - [FastMM4](https://github.com/pleriche/FastMM4) — A memory manager for Delphi and C++ Builder with powerful debugging facilities
-  - If you are using an old Delphi version as Delphi 7, you need to download FastMM4 and point your Search Path to it.
- 
+  - you should set *FastMM4* in Delphi Library Path
+
+# Testing
+
+Make sure that everything is working in your environment opening the `/test/TestAll` project, compiling and running.
+
+*Lazarus* has all requirements to compile this library.
+
+If you are using an old Delphi version as Delphi 7, you might need to download:
 - [DUnit](http://dunit.sourceforge.net/) — An Xtreme testing framework for Delphi programs
-  - We are using DUnit to run the tests but, in the near future, we will use only `SynTests` by mORMot
-  - You just need to download DUnit, if you want to run the TestAll project.
 
-If you want too run `TestAll` project, you should include the paths of *DUnit*, *FastMM4* and *mORMot* into the search path.
-
-Futhermore, you should include test sources:
+You might need to include *DUnit*, *FastMM4* and *mORMot* paths into the search path of `TestAll`.
+Besides that, you should include Test sources:
 - Search Path `<james>\test\src;<james>\test\src\delphi`
 
 # License
