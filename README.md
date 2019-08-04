@@ -10,11 +10,10 @@ James is a collection of object-oriented Pascal primitives.
 # Table of Contents
 
 - [Overview](#overview)
+- [Dependencies](#dependencies)
 - [Installing](#installing)
   - [On Lazarus](#on-lazarus)
   - [On Delphi](#on-delphi)
-- [Dependencies](#dependencies)
-- [Getting Started](#getting-started)
 - [License](#license)
 
 # Overview
@@ -29,35 +28,37 @@ The code follows a restrict rules about naming and style, as prefixes and suffix
 
 # Installing
 
-- Clone the repository in some directory in your computer.
-- For each project you just need to setup the paths, which depends on your platform are you using.
-- See [Dependencies](#dependencies) below too
+Clone the repository in some directory in your computer.
+
+## Dependencies
+
+This project needs:
+
+- [mORMot](https://github.com/synopse/mORMot) — client-server ORM SOA MVC framework for Delphi 6 up to latest Delphi and FPC
+  - See [the corresponding documentation](https://github.com/synopse/mORMot/blob/master/Packages/README.md) to install.
 
 ## On Lazarus
 
-Considering `<james>` as the path where you have saved the sources, your project must include these paths:
+This lib was tested using these versions: 
+- FPC 3.1.1 revision 40491
+- Lazarus 2.1.0 revision 59757
 
-- Other unit files (-Fu)
-  - include `<james>\src;<james>\src\fpc`
-- Include files (-Fi)
-  - include `<james>\src;<james>\src\fpc`
+To install on Lazarus:
+- Make sure that you have `mormot_base.lpk` installed
+- Open the package in `/pkg/JamesLib.lpk`
+- Compile it
+
+The IDE will be aware about *JamesLib* Package to use on any project.
 
 ## On Delphi
 
-Considering `<james>` as the path where you have saved the sources, your project must include these paths:
+There is no package for Delphi users yet.
 
-- Search Path
-  - include `<james>\src;<james>\src\delphi`
-  
-# Dependencies
+Considering `<james>` as the path where you have saved the sources, you must include these paths in your project:
 
-We are using some dependencies the minimum as possible.
+- Search Path `<james>\src;<james>\src\delphi`
 
-- [mORMot](https://github.com/synopse/mORMot) — client-server ORM SOA MVC framework for Delphi 6 up to latest Delphi and FPC
-  - You need to [install](https://synopse.info/files/html/Synopse%20mORMot%20Framework%20SAD%201.18.html#TITL_113) it first. Basically, it means clone the repository in some directory in your computer. That's all.
-  - As mORMot do not have packages, it works only by paths.
-
-For Delphi users, at least those who still use an older version, you might need to download:
+If you are using an older version, you might need to download:
 
 - [FastMM4](https://github.com/pleriche/FastMM4) — A memory manager for Delphi and C++ Builder with powerful debugging facilities
   - If you are using an old Delphi version as Delphi 7, you need to download FastMM4 and point your Search Path to it.
@@ -66,19 +67,10 @@ For Delphi users, at least those who still use an older version, you might need 
   - We are using DUnit to run the tests but, in the near future, we will use only `SynTests` by mORMot
   - You just need to download DUnit, if you want to run the TestAll project.
 
-To run James TestAll project easily you should save dependencies at the same level of James:
+If you want too run `TestAll` project, you should include the paths of *DUnit*, *FastMM4* and *mORMot* into the search path.
 
-    lib
-      dunit-9.3.0 (Delphi only)
-      fastmm4     (Delphi only)
-      james
-      mormot
-      
-Alternatively, you can change all paths of TestAll, pointing to these dependencies in other places.
-
-# Getting Started
-
-Under construction...
+Futhermore, you should include test sources:
+- Search Path `<james>\test\src;<james>\test\src\delphi`
 
 # License
 
