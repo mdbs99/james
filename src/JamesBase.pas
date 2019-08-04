@@ -39,6 +39,14 @@ type
     procedure Exec;
   end;
 
+  IRawUTF8ArrayOf = interface
+    function Value: TRawUTF8DynArray;
+  end;
+
+  IVariantOf = interface
+    function Value: Variant;
+  end;
+
 implementation
 
 end.
