@@ -66,9 +66,7 @@ Make sure that everything is working in your environment opening the `/test/Test
 
 *Lazarus* has all requirements to compile this library.
 
-You might need to include *DUnit*, *FastMM4* and *mORMot* paths into the search path of `TestAll`.
-
-Besides that, you should include Test sources:
+If you are using *Delphi*, you might need to include *DUnit*, *FastMM4* and *mORMot* paths into the search path of `TestAll`. Besides that, you should include Test sources:
 - Search Path `<james>\test\src;<james>\test\src\delphi`
 
 # License
