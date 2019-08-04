@@ -55,9 +55,10 @@ There is no package for *Delphi* users yet.
 Considering `<james>` as the path where you have saved the sources, you must include these paths in your project:
 - Search Path `<james>\src;<james>\src\delphi`
 
-If you are using an old Delphi version as Delphi 7, you might need to download:
+If you are using an old *Delphi* version as *Delphi 7*, you might need to download:
 - [FastMM4](https://github.com/pleriche/FastMM4) — A memory manager for *Delphi* and *C++ Builder* with powerful debugging facilities
   - you should set *FastMM4* in Delphi Library Path
+- [DUnit](http://dunit.sourceforge.net/) — An Xtreme testing framework for *Delphi* programs
 
 # Testing
 
@@ -65,10 +66,8 @@ Make sure that everything is working in your environment opening the `/test/Test
 
 *Lazarus* has all requirements to compile this library.
 
-If you are using an old *Delphi* version as *Delphi 7*, you might need to download:
-- [DUnit](http://dunit.sourceforge.net/) — An Xtreme testing framework for *Delphi* programs
-
 You might need to include *DUnit*, *FastMM4* and *mORMot* paths into the search path of `TestAll`.
+
 Besides that, you should include Test sources:
 - Search Path `<james>\test\src;<james>\test\src\delphi`
 
