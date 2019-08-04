@@ -80,27 +80,27 @@
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="..\src\JamesDataTests.pas"/>
+        <Filename Value="src\JamesBase64Tests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="..\src\JamesTests.pas"/>
+        <Filename Value="src\JamesDataTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\src\JamesTestBase.pas"/>
+        <Filename Value="src\JamesTestBase.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
       <Unit4>
-        <Filename Value="..\src\JamesTestCore.pas"/>
+        <Filename Value="src\JamesTestCore.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="..\src\fpc\JamesTestPlatform.pas"/>
+        <Filename Value="src\JamesTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
       <Unit6>
-        <Filename Value="..\src\JamesBase64Tests.pas"/>
+        <Filename Value="src\fpc\JamesTestPlatform.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit6>
     </Units>
@@ -112,8 +112,8 @@
       <Filename Value="bin\$(TargetCPU)-$(TargetOS)\TestAll"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);..\src"/>
-      <OtherUnitFiles Value="..\src;..\src\fpc"/>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="src;src\fpc"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

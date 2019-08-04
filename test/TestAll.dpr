@@ -32,10 +32,16 @@ uses
   {$endif}
   Forms,
   GuiTestRunner,
-  JamesTestPlatform,
-  JamesTests in '..\src\JamesTests.pas',
-  JamesDataTests in '..\src\JamesDataTests.pas',
-  JamesBase64Tests in '..\src\JamesBase64Tests.pas';
+  {$ifdef fpc}
+    JamesTestPlatform in 'src\fpc\JamesTests.pas',
+  {$else}
+    JamesTestPlatform in 'src\delphi\JamesTests.pas',
+  {$endif}
+  JamesTestBase in 'src\JamesTestBase.pas',
+  JamesTestCore in 'src\JamesTestCore.pas',
+  JamesTests in 'src\JamesTests.pas',
+  JamesDataTests in 'src\JamesDataTests.pas',
+  JamesBase64Tests in 'src\JamesBase64Tests.pas';
 
 {$R *.res}
 
