@@ -92,7 +92,7 @@ type
     function AsWord: LongInt;
   end;
 
-  EDataParams = class(EDataException);
+  EDataParams = class(EData);
 
   TDataParams = class(TInterfacedObject, IDataParams)
   private
