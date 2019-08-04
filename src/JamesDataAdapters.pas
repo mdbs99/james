@@ -40,7 +40,7 @@ uses
   JamesDataCore;
 
 type
-  /// DataStream adapter for OleVariant
+  /// DataStream adapter for Strings
   TDataStreamForStrings = class(TInterfacedObject, IDataAdapterFor)
   private
     fOrigin: IDataStream;
@@ -52,7 +52,7 @@ type
     procedure Adapt;
   end;
 
-  /// DataStream adapter for OleVariant
+  /// DataStream adapter as an OleVariant
   TDataStreamAsOleVariant = class(TInterfacedObject, IVariantOf)
   private
     fOrigin: IDataStream;
@@ -63,7 +63,7 @@ type
     function Value: Variant;
   end;
 
-  /// DataStream dapter of an OleVariant
+  /// DataStream adapter from an OleVariant
   TDataStreamOfOleVariant = class(TInterfacedObject, IDataStreamOf)
   private
     fOrigin: OleVariant;
