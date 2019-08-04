@@ -39,42 +39,33 @@ uses
   JamesDataBase,
   JamesDataCore,
   JamesDataAdapters,
-  JamesRTLAdapters,
   JamesTestCore,
   JamesTestPlatform;
 
 type
   /// all tests for Data classes
-  TDataTests = class(TTestCase)
+  TDataCoreTests = class(TTestCase)
   published
+    /// core
     procedure TestStream;
     procedure TestStrings;
     procedure TestParam;
     procedure TestParams;
+    procedure TestParamsCopier;
     procedure TestUUID;
     procedure TestConstraints;
     procedure TestFile;
     procedure TestTags;
-    procedure TestParamsCopier;
   end;
 
-  /// all tests for TDataStreamAdapter
-  TDataStreamAdapterTests = class(TTestCase)
+  /// all tests for Data Adapters classes
+  TDataAdaptersTests = class(TTestCase)
   published
-    procedure TestOleVariant;
-    procedure TestParam;
-    procedure TestStrings;
-  end;
-
-  /// all tests for TDataParamsAdapter
-  TDataParamsAdapterTests = class(TTestCase)
-  published
-    procedure TestParams;
-  end;
-
-  TDataTagsAdapterTests = class(TTestCase)
-  published
-    procedure TestRawUTF8Array;
+    procedure TestStreamAdaptOleVariant;
+    procedure TestStreamForStrings;
+    procedure TestStreamForParam;
+    procedure TestParamsForParams;
+    procedure TestTagsAsRawUTF8Array;
   end;
 
 implementation
@@ -108,9 +99,9 @@ begin
   );
 end;
 
-{ TDataTests }
+{ TDataCoreTests }
 
-procedure TDataTests.TestStream;
+procedure TDataCoreTests.TestStream;
 const
   BUFFER = 'foo-bar';
 var
@@ -141,7 +132,7 @@ begin
   end;
 end;
 
-procedure TDataTests.TestStrings;
+procedure TDataCoreTests.TestStrings;
 var
   ds: IDataStrings;
   i: Integer;
@@ -162,14 +153,14 @@ begin
   end;
 end;
 
-procedure TDataTests.TestParam;
+procedure TDataCoreTests.TestParam;
 begin
   check(TDataParam.Create('p1', 'str').Ref.DataType = ftString, 'p1');
   check(TDataParam.Create('p2', 10).Ref.DataType = ftSmallint, 'p2');
   check(TDataParam.Create('p3', 20.50).Ref.DataType in [ftFloat, ftCurrency, ftBCD], 'p3');
 end;
 
-procedure TDataTests.TestParams;
+procedure TDataCoreTests.TestParams;
 var
   ps: IDataParams;
 begin
@@ -196,7 +187,7 @@ begin
   check(ps.AsRawUTF8(';') = '1;2;3', 'separator');
 end;
 
-procedure TDataTests.TestUUID;
+procedure TDataCoreTests.TestUUID;
 var
   g1, g2: IDataUUID;
 begin
@@ -212,7 +203,7 @@ begin
   check(g1.AsSmallString = g2.AsSmallString, 'AsSmallString');
 end;
 
-procedure TDataTests.TestConstraints;
+procedure TDataCoreTests.TestConstraints;
 var
   cs: IDataConstraints;
 begin
@@ -234,7 +225,7 @@ begin
   check(cs.Evaluate.Data.AsRawUTF8 = 'foo,bar', cs.Evaluate.Data.AsRawUTF8);
 end;
 
-procedure TDataTests.TestFile;
+procedure TDataCoreTests.TestFile;
 var
   f: IDataFile;
   fn: TFileName;
@@ -252,7 +243,7 @@ begin
   end;
 end;
 
-procedure TDataTests.TestTags;
+procedure TDataCoreTests.TestTags;
 var
   tags: IDataTags;
 begin
@@ -267,7 +258,7 @@ begin
   check(tags.Exists('#bar'), 'exists bar');
 end;
 
-procedure TDataTests.TestParamsCopier;
+procedure TDataCoreTests.TestParamsCopier;
 var
   cp: IProcedure;
   src, dest: IDataParams;
@@ -289,98 +280,88 @@ begin
   end;
 end;
 
-{ TDataStreamAdapterTests }
+{ TDataAdaptersTests }
 
-procedure TDataStreamAdapterTests.TestOleVariant;
+procedure TDataAdaptersTests.TestStreamAdaptOleVariant;
 var
-  v: OleVariant;
-  sa: TDataStreamAdapter;
-  va: TOleVariantAdapter;
+  src: IDataStream;
+  dest: OleVariant;
+  s1, s2: RawByteString;
 begin
-  sa.Init(TDataStream.Create('foo'));
-  v := sa.AsOleVariant;
-  va.Init(v);
-  check('foo' = va.AsDataStream.AsRawByteString, 'va');
+  src := TDataStream.Create('foo');
+  dest := TDataStreamAsOleVariant.Create(src).Ref.Value;
+  s1 := TDataStreamOfOleVariant.Create(dest).Ref.Value.AsRawByteString;
+  s2 := src.AsRawByteString;
+  check(s1 = s2);
 end;
 
-procedure TDataStreamAdapterTests.TestParam;
+procedure TDataAdaptersTests.TestStreamForStrings;
 var
-  s: IDataStream;
-  p: TParam;
-  a: TDataStreamAdapter;
+  src: IDataStream;
+  dest: TStrings;
 begin
-  s := TDataStream.Create('bar');
-  p := TParam.Create(nil);
+  src := TDataStream.Create('strings');
+  dest := TStringList.Create;
   try
-    a.Init(s);
-    a.ToParam(p);
-    check(VarToStr(p.Value)= s.AsRawByteString);
+    TDataStreamForStrings.Create(src, dest).Ref.Adapt;
+    check(src.AsRawByteString = Trim(dest.Text)); // TStrings needs to call Trim
   finally
-    p.Free;
+    dest.Free;
   end;
 end;
 
-procedure TDataStreamAdapterTests.TestStrings;
+procedure TDataAdaptersTests.TestStreamForParam;
 var
-  s: IDataStream;
-  ss: TStrings;
-  sa: TDataStreamAdapter;
+  src: IDataStream;
+  dest: TParam;
+  adp: IDataAdapterFor;
 begin
-  s := TDataStream.Create('strings');
-  ss := TStringList.Create;
+  src := TDataStream.Create('bar');
+  dest := TParam.Create(nil);
   try
-    sa.Init(s);
-    sa.ToStrings(ss);
-    check(Trim(ss.Text) = s.AsRawByteString); // TStrings needs to call Trim
+    adp := TDataStreamForParam.Create(src, dest);
+    adp.Adapt;
+    check(src.AsRawByteString = dest.AsString);
   finally
-    ss.Free;
+    dest.Free;
   end;
 end;
 
-{ TDataParamsAdapterTests }
-
-procedure TDataParamsAdapterTests.TestParams;
+procedure TDataAdaptersTests.TestParamsForParams;
 var
-  dp: IDataParams;
-  a: TDataParamsAdapter;
+  src: IDataParams;
+  dest: TParams;
   p: TParam;
-  params: TParams;
 begin
-  dp := TDataParams.Create;
-  dp.Add(TDataParam.Create('foo', 1));
-  dp.Add(TDataParam.Create('bar', 1));
-  a.Init(dp);
-  params := TParams.Create;
+  src := TDataParams.Create;
+  src.Add(TDataParam.Create('foo', 1));
+  src.Add(TDataParam.Create('bar', 1));
+  dest := TParams.Create;
   try
-    a.ToParams(params);
-    check(dp.Count = params.Count, 'count');
-    p := params.FindParam('foo');
+    TDataParamsForParams.Create(src, dest).Ref.Adapt;
+    check(src.Count = dest.Count, 'count');
+    p := dest.FindParam('foo');
     check(assigned(p), 'p assigned');
-    check(dp.Get('foo').AsString = p.AsString, 'string');
+    check(src.Get('foo').AsString = p.AsString, 'string');
   finally
-    params.Free;
+    dest.Free;
   end;
 end;
 
-{ TDataTagsAdapterTests }
-
-procedure TDataTagsAdapterTests.TestRawUTF8Array;
+procedure TDataAdaptersTests.TestTagsAsRawUTF8Array;
 var
-  a: TDataTagsAdapter;
-  arr: TRawUTF8DynArray;
+  a: TRawUTF8DynArray;
 begin
-  a.Init(TDataTags.Create('#foo#bar'));
-  arr := a.AsRawUTF8Array;
-  check(Length(arr) = 2, 'length');
-  check(arr[0] = '#foo', 'pos 0');
-  check(arr[1] = '#bar', 'pos 1');
+  a := TDataTagsAsRawUTF8Array.Create(
+    TDataTags.Create('#foo#bar')).Ref.Value;
+  check(Length(a) = 2, 'length');
+  check(a[0] = '#foo', 'pos 0');
+  check(a[1] = '#bar', 'pos 1');
 end;
 
 initialization
   TTestSuite.Create('Data').Ref
-    .Add(TTest.Create(TDataTests))
-    .Add(TTest.Create(TDataStreamAdapterTests))
-    .Add(TTest.Create(TDataParamsAdapterTests))
-    .Add(TTest.Create(TDataTagsAdapterTests))
+    .Add(TTest.Create(TDataCoreTests))
+    .Add(TTest.Create(TDataAdaptersTests))
 
 end.

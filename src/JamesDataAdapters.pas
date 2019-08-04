@@ -35,74 +35,128 @@ uses
   DB,
   DateUtils,
   SynCommons,
-  JamesDataBase;
+  JamesBase,
+  JamesDataBase,
+  JamesDataCore;
 
 type
-  /// object to adapt a DataStream into other types
-  TDataStreamAdapter = {$ifdef UNICODE}record{$else}object{$endif}
+  /// DataStream adapter for OleVariant
+  TDataStreamForStrings = class(TInterfacedObject, IDataAdapterFor)
+  private
+    fOrigin: IDataStream;
+    fDest: TStrings;
+  public
+    constructor Create(const aOrigin: IDataStream; aDest: TStrings); reintroduce;
+    function Ref: IDataAdapterFor;
+    /// adapt for fDest reference
+    procedure Adapt;
+  end;
+
+  /// DataStream adapter for OleVariant
+  TDataStreamAsOleVariant = class(TInterfacedObject, IVariantOf)
   private
     fOrigin: IDataStream;
   public
-    /// initialize the instance
-    procedure Init(const aOrigin: IDataStream);
+    constructor Create(const aOrigin: IDataStream); reintroduce;
+    function Ref: IVariantOf;
     /// return as OleVariant
-    function AsOleVariant: OleVariant;
-    /// adapt to TParam
-    // - aDest should exist
-    procedure ToParam(const aDest: TParam);
-    /// adapt to TStrings
-    // - aDest should exist
-    procedure ToStrings(const aDest: TStrings);
+    function Value: Variant;
   end;
 
-  /// object to adapt a DataParams into other types
-  TDataParamsAdapter = {$ifdef UNICODE}record{$else}object{$endif}
+  /// DataStream dapter of an OleVariant
+  TDataStreamOfOleVariant = class(TInterfacedObject, IDataStreamOf)
   private
-    fOrigin: IDataParams;
+    fOrigin: OleVariant;
+  public
+    constructor Create(const aOrigin: OleVariant); reintroduce;
+    function Ref: IDataStreamOf;
+    /// return as OleVariant
+    function Value: IDataStream;
+  end;
+
+  /// DataParams adapter for a TParam
+  TDataStreamForParam = class(TInterfacedObject, IDataAdapterFor)
+  private
+    fOrigin: IDataStream;
+    fDest: TParam;
   public
     /// initialize the instance
-    procedure Init(const aOrigin: IDataParams);
-    /// adapt to TParams
-    // - aDest should exist
-    procedure ToParams(const aDest: TParams);
+    constructor Create(const aOrigin: IDataStream; const aDest: TParam); reintroduce;
+    function Ref: IDataAdapterFor;
+    /// adapt for fDest reference
+    procedure Adapt;
   end;
 
-  TDataTagsAdapter = {$ifdef UNICODE}record{$else}object{$endif}
+  /// DataParams adapter for a TParams
+  TDataParamsForParams = class(TInterfacedObject, IDataAdapterFor)
+  private
+    fOrigin: IDataParams;
+    fDest: TParams;
+  public
+    /// initialize the instance
+    constructor Create(const aOrigin: IDataParams; const aDest: TParams); reintroduce;
+    function Ref: IDataAdapterFor;
+    /// adapt for fDest reference
+    procedure Adapt;
+  end;
+
+  /// DataTags adapter for an IRawUTF8ArrayOf
+  TDataTagsAsRawUTF8Array = class(TInterfacedObject, IRawUTF8ArrayOf)
   private
     fOrigin: IDataTags;
   public
-    /// initialize the instance
-    procedure Init(const aOrigin: IDataTags);
-    /// return tags as TRawUTF8DynArray
-    function AsRawUTF8Array: TRawUTF8DynArray;
+    constructor Create(const aOrigin: IDataTags); reintroduce;
+    function Ref: IRawUTF8ArrayOf;
+    /// return as TRawUTF8DynArray
+    function Value: TRawUTF8DynArray;
   end;
 
 implementation
 
-{ TDataTagsAdapter }
+{ TDataStreamForStrings }
 
-procedure TDataTagsAdapter.Init(const aOrigin: IDataTags);
+constructor TDataStreamForStrings.Create(const aOrigin: IDataStream;
+  aDest: TStrings);
 begin
+  inherited Create;
   fOrigin := aOrigin;
+  fDest := aDest;
 end;
 
-function TDataTagsAdapter.AsRawUTF8Array: TRawUTF8DynArray;
+function TDataStreamForStrings.Ref: IDataAdapterFor;
+begin
+  result := self;
+end;
+
+procedure TDataStreamForStrings.Adapt;
 var
-  i: Integer;
+  m: TMemoryStream;
 begin
-  SetLength(result, fOrigin.Count);
-  for i := 0 to fOrigin.Count -1 do
-    result[i] := fOrigin.Get(i);
+  if not assigned(fDest) then
+    exit;
+  m := TMemoryStream.Create;
+  try
+   fOrigin.ToStream(m);
+   fDest.LoadFromStream(m);
+  finally
+    m.Free;
+  end;
 end;
 
-{ TDataStreamAdapter }
+{ TDataStreamAsOleVariant }
 
-procedure TDataStreamAdapter.Init(const aOrigin: IDataStream);
+constructor TDataStreamAsOleVariant.Create(const aOrigin: IDataStream);
 begin
+  inherited Create;
   fOrigin := aOrigin;
 end;
 
-function TDataStreamAdapter.AsOleVariant: OleVariant;
+function TDataStreamAsOleVariant.Ref: IVariantOf;
+begin
+  result := self;
+end;
+
+function TDataStreamAsOleVariant.Value: Variant;
 var
   data: PByteArray;
   m: TMemoryStream;
@@ -111,65 +165,111 @@ begin
   try
     fOrigin.ToStream(m);
     result := VarArrayCreate([0, m.Size-1], varByte);
-    data := VarArrayLock(Result);
+    data := VarArrayLock(result);
     try
       m.Position := 0;
       m.ReadBuffer(data^, m.Size);
     finally
-      VarArrayUnlock(Result);
+      VarArrayUnlock(result);
     end;
   finally
     m.Free;
   end;
 end;
 
-procedure TDataStreamAdapter.ToParam(const aDest: TParam);
+{ TDataStreamOfOleVariant }
+
+constructor TDataStreamOfOleVariant.Create(const aOrigin: OleVariant);
+begin
+  inherited Create;
+  fOrigin := aOrigin;
+end;
+
+function TDataStreamOfOleVariant.Ref: IDataStreamOf;
+begin
+  result := self;
+end;
+
+function TDataStreamOfOleVariant.Value: IDataStream;
+var
+  i: Integer;
+  p: Pointer;
+  s: TStream;
+begin
+  Assert(VarType(fOrigin) = varByte or varArray);
+  Assert(VarArrayDimCount(fOrigin) = 1);
+  s := TMemoryStream.Create;
+  try
+    i := VarArrayHighBound(fOrigin, 1) - VarArrayLowBound(fOrigin, 1) + 1;
+    s.Size := i;
+    s.Position := 0;
+    p := VarArrayLock(fOrigin);
+    try
+      s.Write(p^, s.Size);
+      result := TDataStream.Create(s);
+    finally
+      VarArrayUnlock(fOrigin);
+    end;
+  finally
+    s.Free;
+  end;
+end;
+
+{ TDataStreamForParam }
+
+constructor TDataStreamForParam.Create(const aOrigin: IDataStream;
+  const aDest: TParam);
+begin
+  inherited Create;
+  fOrigin := aOrigin;
+  fDest := aDest;
+end;
+
+function TDataStreamForParam.Ref: IDataAdapterFor;
+begin
+  result := self;
+end;
+
+procedure TDataStreamForParam.Adapt;
 var
   m: TMemoryStream;
 begin
-  if not assigned(aDest) then
+  if not assigned(fDest) then
     exit;
   m := TMemoryStream.Create;
   try
     fOrigin.ToStream(m);
-    aDest.LoadFromStream(m, ftBlob);
+    fDest.LoadFromStream(m, ftBlob);
   finally
     m.Free;
   end;
 end;
 
-procedure TDataStreamAdapter.ToStrings(const aDest: TStrings);
-var
-  m: TMemoryStream;
-begin
-  if not assigned(aDest) then
-    exit;
-  m := TMemoryStream.Create;
-  try
-   fOrigin.ToStream(m);
-   aDest.LoadFromStream(m);
-  finally
-    m.Free;
-  end;
-end;
+{ TDataParamsForParams }
 
-{ TDataParamsAdapter }
-
-procedure TDataParamsAdapter.Init(const aOrigin: IDataParams);
+constructor TDataParamsForParams.Create(const aOrigin: IDataParams;
+  const aDest: TParams);
 begin
+  inherited Create;
   fOrigin := aOrigin;
+  fDest := aDest;
 end;
 
-procedure TDataParamsAdapter.ToParams(const aDest: TParams);
+function TDataParamsForParams.Ref: IDataAdapterFor;
+begin
+  result := self;
+end;
+
+procedure TDataParamsForParams.Adapt;
 var
   i: Integer;
   p: TParam;
 begin
-  if not assigned(aDest) then
+  if not assigned(fDest) then
     exit;
   for i := 0 to fOrigin.Count -1 do
   begin
-    p := TParam.Create(aDest);
+    p := TParam.Create(fDest);
     with fOrigin.Get(i).AsParam do
     begin
       p.Name := Name;
@@ -178,6 +278,28 @@ begin
       p.Value := Value;
     end;
   end;
+end;
+
+{ TDataTagsAsRawUTF8Array }
+
+constructor TDataTagsAsRawUTF8Array.Create(const aOrigin: IDataTags);
+begin
+  inherited Create;
+  fOrigin := aOrigin;
+end;
+
+function TDataTagsAsRawUTF8Array.Ref: IRawUTF8ArrayOf;
+begin
+  result := self;
+end;
+
+function TDataTagsAsRawUTF8Array.Value: TRawUTF8DynArray;
+var
+  i: Integer;
+begin
+  SetLength(result, fOrigin.Count);
+  for i := 0 to fOrigin.Count -1 do
+    result[i] := fOrigin.Get(i);
 end;
 
 end.
