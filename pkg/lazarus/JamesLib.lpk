@@ -9,8 +9,8 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="..\src;..\src\fpc"/>
-        <OtherUnitFiles Value="..\src;..\src\fpc"/>
+        <IncludeFiles Value="..\..\src;..\..\src\fpc"/>
+        <OtherUnitFiles Value="..\..\src;..\..\src\fpc"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
@@ -43,27 +43,27 @@
   SOFTWARE. "/>
     <Files Count="6">
       <Item1>
-        <Filename Value="..\src\JamesAdapters.pas"/>
+        <Filename Value="..\..\src\JamesAdapters.pas"/>
         <UnitName Value="JamesAdapters"/>
       </Item1>
       <Item2>
-        <Filename Value="..\src\JamesBase.pas"/>
+        <Filename Value="..\..\src\JamesBase.pas"/>
         <UnitName Value="JamesBase"/>
       </Item2>
       <Item3>
-        <Filename Value="..\src\JamesBase64Adapters.pas"/>
+        <Filename Value="..\..\src\JamesBase64Adapters.pas"/>
         <UnitName Value="JamesBase64Adapters"/>
       </Item3>
       <Item4>
-        <Filename Value="..\src\JamesDataAdapters.pas"/>
+        <Filename Value="..\..\src\JamesDataAdapters.pas"/>
         <UnitName Value="JamesDataAdapters"/>
       </Item4>
       <Item5>
-        <Filename Value="..\src\JamesDataBase.pas"/>
+        <Filename Value="..\..\src\JamesDataBase.pas"/>
         <UnitName Value="JamesDataBase"/>
       </Item5>
       <Item6>
-        <Filename Value="..\src\JamesDataCore.pas"/>
+        <Filename Value="..\..\src\JamesDataCore.pas"/>
         <UnitName Value="JamesDataCore"/>
       </Item6>
     </Files>
