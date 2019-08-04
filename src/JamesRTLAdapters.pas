@@ -32,22 +32,9 @@ uses
   SysUtils,
   COMObj,
   Variants,
-  SynCommons,
-  JamesDataBase,
-  JamesDataCore;
+  SynCommons;
 
 type
-  /// object to adapt an OleVariant into other types
-  TOleVariantAdapter = {$ifdef UNICODE}record{$else}object{$endif}
-  private
-    fOrigin: OleVariant;
-  public
-    /// initialize the instance
-    function Init(const aOrigin: OleVariant): TOleVariantAdapter;
-    /// return as DataStream
-    function AsDataStream: IDataStream;
-  end;
-
   /// object to adapt an Enum type into other types
   TEnumAdapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
@@ -85,39 +72,6 @@ type
   end;
 
 implementation
-
-{ TOleVariantAdapter }
-
-function TOleVariantAdapter.Init(const aOrigin: OleVariant): TOleVariantAdapter;
-begin
-  result := self;
-  fOrigin := aOrigin;
-end;
-
-function TOleVariantAdapter.AsDataStream: IDataStream;
-var
-  i: Integer;
-  p: Pointer;
-  s: TStream;
-begin
-  Assert(VarType(fOrigin) = varByte or varArray);
-  Assert(VarArrayDimCount(fOrigin) = 1);
-  s := TMemoryStream.Create;
-  try
-    i := VarArrayHighBound(fOrigin, 1) - VarArrayLowBound(fOrigin, 1) + 1;
-    s.Size := i;
-    s.Position := 0;
-    p := VarArrayLock(fOrigin);
-    try
-      s.Write(p^, s.Size);
-      result := TDataStream.Create(s);
-    finally
-      VarArrayUnlock(fOrigin);
-    end;
-  finally
-    s.Free;
-  end;
-end;
 
 { TEnumAdapter }
 

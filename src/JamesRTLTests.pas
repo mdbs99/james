@@ -32,20 +32,11 @@ uses
   SysUtils,
   COMObj,
   Variants,
-  JamesDataBase,
-  JamesDataCore,
-  JamesDataAdapters,
   JamesRTLAdapters,
   JamesTestCore,
   JamesTestPlatform;
 
 type
-  /// all tests for TOleVariantAdapter
-  TOleVariantAdapterTests = class(TTestCase)
-  published
-    procedure TestDataStream;
-  end;
-
   TEnumAdapterTests = class(TTestCase)
   published
     procedure TestEnum;
@@ -53,20 +44,6 @@ type
   end;
 
 implementation
-
-{ TOleVariantAdapterTests }
-
-procedure TOleVariantAdapterTests.TestDataStream;
-var
-  v: OleVariant;
-  sa: TDataStreamAdapter;
-  va: TOleVariantAdapter;
-begin
-  sa.Init(TDataStream.Create('foo'));
-  v := sa.AsOleVariant;
-  va.Init(v);
-  CheckEquals('foo', va.AsDataStream.AsRawByteString);
-end;
 
 { TEnumAdapterTests }
 
@@ -119,7 +96,6 @@ end;
 initialization
   TTestSuite.Create('RTL')
     .Ref
-    .Add(TTest.Create(TOleVariantAdapterTests))
     .Add(TTest.Create(TEnumAdapterTests))
 
 end.
