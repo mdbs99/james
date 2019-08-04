@@ -84,7 +84,7 @@
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="..\src\JamesRTLTests.pas"/>
+        <Filename Value="..\src\JamesTests.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>

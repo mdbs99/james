@@ -33,8 +33,8 @@ uses
   Forms,
   GuiTestRunner,
   JamesTestPlatform,
+  JamesTests in '..\src\JamesTests.pas',
   JamesDataTests in '..\src\JamesDataTests.pas',
-  JamesRTLTests in '..\src\JamesRTLTests.pas',
   JamesBase64Tests in '..\src\JamesBase64Tests.pas';
 
 {$R *.res}

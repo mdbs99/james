@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 } 
-unit JamesRTLTests;
+unit JamesTests;
 
 {$i James.inc}
 
@@ -32,9 +32,9 @@ uses
   SysUtils,
   COMObj,
   Variants,
-  JamesRTLAdapters,
   JamesTestCore,
-  JamesTestPlatform;
+  JamesTestPlatform,
+  JamesAdapters;
 
 type
   TEnumAdapterTests = class(TTestCase)
@@ -94,7 +94,7 @@ begin
 end;
 
 initialization
-  TTestSuite.Create('RTL')
+  TTestSuite.Create('Base')
     .Ref
     .Add(TTest.Create(TEnumAdapterTests))
 
