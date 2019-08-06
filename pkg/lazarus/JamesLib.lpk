@@ -19,7 +19,7 @@
         </CompilerMessages>
       </Other>
     </CompilerOptions>
-    <Description Value="James is a collection of object-oriented Pascal primitives."/>
+    <Description Value="James is a collection of object-oriented Pascal primitives for Lazarus and Delphi."/>
     <License Value="  MIT License
 
   Copyright (c) 2017-2019 Marcos Douglas B. Santos
@@ -41,6 +41,7 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE. "/>
+    <Version Major="1"/>
     <Files Count="6">
       <Item1>
         <Filename Value="..\..\src\JamesAdapters.pas"/>
