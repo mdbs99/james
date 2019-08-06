@@ -43,10 +43,9 @@ uses
   JamesTestPlatform;
 
 type
-  /// all tests for Data classes
+  /// all tests for core
   TDataCoreTests = class(TTestCase)
   published
-    /// core
     procedure TestStream;
     procedure TestStrings;
     procedure TestParam;
@@ -58,10 +57,10 @@ type
     procedure TestTags;
   end;
 
-  /// all tests for Data Adapters classes
+  /// all tests for adapters
   TDataAdaptersTests = class(TTestCase)
   published
-    procedure TestStreamAllOleVariant;
+    procedure TestStreamAboutOleVariant;
     procedure TestStreamForStrings;
     procedure TestStreamForParam;
     procedure TestParamsForParams;
@@ -282,7 +281,7 @@ end;
 
 { TDataAdaptersTests }
 
-procedure TDataAdaptersTests.TestStreamAllOleVariant;
+procedure TDataAdaptersTests.TestStreamAboutOleVariant;
 var
   src: IDataStream;
   dest: OleVariant;

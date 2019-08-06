@@ -37,7 +37,7 @@ uses
   JamesTestPlatform;
 
 type
-  /// all tests for TBase64Adapter
+  /// all tests for adapters
   TBase64AdapterTests = class(TTestCase)
   published
     procedure TestAllRawByteString;
