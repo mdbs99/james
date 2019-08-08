@@ -21,28 +21,44 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-program TestAll;
+unit JamesTestCore;
 
 {$i James.inc}
 
+interface
+
 uses
-  {$I SynDprUses.inc} // includes FastMM4 (Delphi) or cthreads (FPC-Linux)
-  {$ifdef LCL}
-    Interfaces,
-  {$endif}
-  Forms,
-  GuiTestRunner,
-  JamesTestPlatform,
-  JamesTests in 'JamesTests.pas',
-  JamesDataTests in 'JamesDataTests.pas',
-  JamesBase64Tests in 'JamesBase64Tests.pas';
+  SysUtils,
+  JamesTestBase;
 
-{$R *.res}
+type
+  TTestSuite = class(TInterfacedObject, ITestSuite)
+  private
+    fPath: string;
+  public
+    constructor Create(const aPath: string);
+    function Ref: ITestSuite;
+    function Add(const aTest: ITest): ITestSuite;
+  end;
 
-var
-  runner: TTestRunner;
+implementation
+
+{ TTestSuite }
+
+constructor TTestSuite.Create(const aPath: string);
 begin
-  Application.Initialize;
-  runner.RunRegisteredTests;
-end.
+  fPath := aPath;
+end;
 
+function TTestSuite.Ref: ITestSuite;
+begin
+  result := self;
+end;
+
+function TTestSuite.Add(const aTest: ITest): ITestSuite;
+begin
+  result := Self;
+  aTest.RegisterOn(fPath);
+end;
+
+end.

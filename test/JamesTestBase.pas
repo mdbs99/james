@@ -21,28 +21,23 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 }
-program TestAll;
+unit JamesTestBase;
 
 {$i James.inc}
 
-uses
-  {$I SynDprUses.inc} // includes FastMM4 (Delphi) or cthreads (FPC-Linux)
-  {$ifdef LCL}
-    Interfaces,
-  {$endif}
-  Forms,
-  GuiTestRunner,
-  JamesTestPlatform,
-  JamesTests in 'JamesTests.pas',
-  JamesDataTests in 'JamesDataTests.pas',
-  JamesBase64Tests in 'JamesBase64Tests.pas';
+interface
 
-{$R *.res}
+type
+  ITest = interface
+  ['{CF6EE529-CC09-461F-B6FB-526982D37C3B}']
+    function RegisterOn(const SuitePath: string): ITest;
+  end;
 
-var
-  runner: TTestRunner;
-begin
-  Application.Initialize;
-  runner.RunRegisteredTests;
+  ITestSuite = interface
+  ['{08E6BA19-7082-4BC0-AA14-8E7A92633D5B}']
+    function Add(const Test: ITest): ITestSuite;
+  end;
+
+implementation
+
 end.
-
