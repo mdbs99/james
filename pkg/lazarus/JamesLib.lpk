@@ -78,7 +78,7 @@
     </RequiredPkgs>
     <UsageOptions>
       <IncludePath Value="$(PkgIncPath)"/>
-      <UnitPath Value="$(PkgOutDir)"/>
+      <UnitPath Value="$(PkgOutDir);$(PkgDir)\..\..\src\etc;$(PkgDir)\..\..\src\etc\fpc"/>
     </UsageOptions>
     <PublishOptions>
       <Version Value="2"/>

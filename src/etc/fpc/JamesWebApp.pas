@@ -28,7 +28,7 @@ unit JamesWebApp;
 interface
 
 uses
-  SysUtils,
+  SysUtils, fphttpapp,
   {$ifdef WEB_STANDALONE}
     fphttpapp,
   {$endif}
@@ -41,7 +41,7 @@ uses
   HTTPDefs, HTTPRoute;
 
 type
-  TWebApplication =
+  TWebApplication = THTTPApplication
     {$ifdef WEB_STANDALONE}
       THTTPApplication
     {$endif}
