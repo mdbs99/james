@@ -31,14 +31,7 @@ uses
     Interfaces,
   {$endif}
   Forms,
-  GuiTestRunner,
-  {$ifdef fpc}
-    JamesTestPlatform in 'fpc\JamesTests.pas',
-  {$else}
-    JamesTestPlatform in 'delphi\JamesTests.pas',
-  {$endif}
-  JamesTestBase in 'JamesTestBase.pas',
-  JamesTestCore in 'JamesTestCore.pas',
+  JamesTestPlatform,
   JamesTests in 'JamesTests.pas',
   JamesDataTests in 'JamesDataTests.pas',
   JamesBase64Tests in 'JamesBase64Tests.pas';

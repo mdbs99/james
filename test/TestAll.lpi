@@ -22,7 +22,6 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="src;fpc"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -74,7 +73,7 @@
         <PackageName Value="FCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="7">
+    <Units Count="4">
       <Unit0>
         <Filename Value="TestAll.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -88,21 +87,9 @@
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="JamesTestBase.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="JamesTestCore.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="JamesTests.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="fpc\JamesTestPlatform.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit6>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -113,7 +100,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="src;fpc"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
