@@ -18,7 +18,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)\TestAll"/>
+            <Filename Value="..\bin\$(TargetCPU)-$(TargetOS)\TestAll"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -96,7 +96,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="bin\$(TargetCPU)-$(TargetOS)\TestAll"/>
+      <Filename Value="..\bin\$(TargetCPU)-$(TargetOS)\TestAll"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
