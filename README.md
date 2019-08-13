@@ -12,6 +12,7 @@ James is a collection of object-oriented Pascal primitives.
 - [Overview](#overview)
 - [Dependencies](#dependencies)
 - [Installing](#installing)
+  - [Dependencies](#dependencies)
   - [On Lazarus](#on-lazarus)
   - [On Delphi](#on-delphi)
 - [Testing](#testing)
@@ -31,22 +32,25 @@ The code follows a restrict rules about naming and style, as prefixes and suffix
 
 Clone the repository in some directory in your computer.
 
-This library needs:
+## Dependencies
+
+First of all, you should have these libraries installed in your environment:
 - [mORMot](https://github.com/synopse/mORMot) — client-server ORM SOA MVC framework for Delphi 6 up to latest Delphi and FPC
-  - see [the corresponding documentation](https://github.com/synopse/mORMot/blob/master/Packages/README.md) to install.
+  - see [the corresponding documentation](https://github.com/synopse/mORMot/blob/master/Packages/README.md) to install it.
 
 ## On Lazarus
 
-This library was tested using these versions: 
+It has been tested using these versions:
 - *FPC* 3.1.1 revision 40491
 - *Lazarus* 2.1.0 revision 59757
 
 To install on *Lazarus*:
-- Make sure that you have `mormot_base.lpk` installed
+- Make sure that you have `mormot_base.lpk` available - see dependencies
 - Open the package in `/pkg/JamesLib.lpk`
 - Compile it
+- That's all.
 
-The IDE will be aware about *JamesLib* Package to use on any project.
+The IDE will be aware about *JamesLib* Package to use in any project.
 
 ## On Delphi
 
@@ -55,18 +59,15 @@ There is no package for *Delphi* users yet.
 Considering `<james>` as the path where you have saved the sources, you must include these paths in your project:
 - Search Path `<james>\src;<james>\src\delphi`
 
-If you are using an old *Delphi* version as *Delphi 7*, you might need to download:
+If you are using an old *Delphi* version as *Delphi 7*, you also might need to download these:
 - [FastMM4](https://github.com/pleriche/FastMM4) — A memory manager for *Delphi* and *C++ Builder* with powerful debugging facilities
-  - you should set *FastMM4* in Delphi Library Path
 - [DUnit](http://dunit.sourceforge.net/) — An Xtreme testing framework for *Delphi* programs
+
+And make sure that these libraries are in your Delphi search path.
 
 # Testing
 
 Make sure that everything is working in your environment opening the `/test/TestAll` project, compiling and running.
-
-*Lazarus* has all requirements to compile it.
-
-If you are using *Delphi*, you might need to include *DUnit*, *FastMM4* and *mORMot* paths into the search path of `TestAll`.
 
 # License
 
