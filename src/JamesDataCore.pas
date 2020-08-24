@@ -329,7 +329,7 @@ end;
 
 function TDataStrings.Get(aIndex: PtrInt): RawUTF8;
 begin
-  result := fList.Get(aIndex);
+  result := fList.Strings[aIndex];
 end;
 
 function TDataStrings.Count: Integer;
