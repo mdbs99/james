@@ -35,7 +35,7 @@ uses
   SynCommons;
 
 type
-  /// object to adapt an Enum type into other types
+ 
   TEnumAdapter = {$ifdef UNICODE}record{$else}object{$endif}
   private
     fTypeInfo: pointer;
